@@ -31,32 +31,7 @@ void Camera::Init(void)
 
 void Camera::Update(void)
 { 
-
-	// キー入力によるカメラの回転
-	auto& ins = InputManager::GetInstance();
-	if (angles_.x < Robot::MAX_ROBOT_ANGLES)
-	{
-		if (ins.IsNew(KEY_INPUT_UP)) {
-			angles_.x += 0.05f;
-		}
-	}
-	if (angles_.x > -Robot::MAX_ROBOT_ANGLES)
-	{
-		if (ins.IsNew(KEY_INPUT_DOWN)) {
-			angles_.x -= 0.05f;
-		}
-	}
-	if (ins.IsNew(KEY_INPUT_LEFT)) {
-		angles_.y += 0.05f;
-	}
-	if (ins.IsNew(KEY_INPUT_RIGHT)) {
-		angles_.y -= 0.05f;
-	}
-
-	// カメラ位置：ロボットクラスのカメラ半径で回転させる
-	pos_.x = targetPos_.x + cosf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
-	pos_.y = targetPos_.y + sinf(angles_.x) * Robot::ROBOT_CAMERA_RAG;
-	pos_.z = targetPos_.z + sinf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
+	ProcessRot();
 }
 
 void Camera::SetBeforeDraw(void)
@@ -160,8 +135,8 @@ void Camera::SetDefault(void)
 	// カメラの上方向
 	cameraUp_ = AsoUtility::DIR_U;
 
-	angles_.x = AsoUtility::Deg2RadF(30.0f);
-	angles_.y = 0.0f;
+	angles_.x = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.x);
+	angles_.y = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.y);
 	angles_.z = 0.0f;
 
 	rot_ = Quaternion();
@@ -203,58 +178,31 @@ void Camera::SyncFollow(void)
 
 void Camera::ProcessRot(void)
 {
-	//演習① カメラの要件に沿って、カメラ操作を実装してください
-	//	・ Y軸に、360度回転すること
-	//	・ X軸に、上は40度、下は15度回転すること
-	//	・ カメラ操作は矢印キーを用いること
-
+	// キー入力によるカメラの回転
 	auto& ins = InputManager::GetInstance();
-
-
-	//回転軸と量決め
-	//const float ROT_POW = 1.0f;
-	const float ROT_POW = AsoUtility::Deg2RadF(1.0f);
-	VECTOR axisDeg = AsoUtility::VECTOR_ZERO;
-
-
-	if (angles_.x <= LIMIT_X_UP_RAD)
+	if (angles_.x > -Robot::MAX_ROBOT_ANGLES)
 	{
-		if (ins.IsNew(KEY_INPUT_DOWN)) { axisDeg.x = ROT_POW; }
+		if (ins.IsNew(KEY_INPUT_UP)) {
+			angles_.x -= CAMERA_ANGLE_SPEED;
+		}
+	}
+	if (angles_.x < Robot::MAX_ROBOT_ANGLES)
+	{
+		if (ins.IsNew(KEY_INPUT_DOWN)) {
+			angles_.x += CAMERA_ANGLE_SPEED;
+		}
+	}
+	if (ins.IsNew(KEY_INPUT_LEFT)) {
+		angles_.y += CAMERA_ANGLE_SPEED;
+	}
+	if (ins.IsNew(KEY_INPUT_RIGHT)) {
+		angles_.y -= CAMERA_ANGLE_SPEED;
 	}
 
-	if (angles_.x >= LIMIT_X_DW_RAD)
-	{
-		if (ins.IsNew(KEY_INPUT_UP)) { axisDeg.x = -ROT_POW; }
-	}
-
-
-	if (ins.IsNew(KEY_INPUT_RIGHT)) { axisDeg.y = ROT_POW; }
-	if (ins.IsNew(KEY_INPUT_LEFT)) { axisDeg.y = -ROT_POW; }
-
-
-	if (!AsoUtility::EqualsVZero(axisDeg))
-	{
-		//今回回転させたい回転量をクォータニオンで作る
-		Quaternion rotPow = Quaternion();
-
-		/*rotPow = rotPow.Mult(
-			Quaternion::AngleAxis(
-				AsoUtility::Deg2RadF(axisDeg.z), AsoUtility::AXIS_Z
-			));*/
-		rotPow = rotPow.Mult(
-			Quaternion::AngleAxis(
-				AsoUtility::Deg2RadF(axisDeg.x), AsoUtility::AXIS_X
-			));
-		rotPow = rotPow.Mult(
-			Quaternion::AngleAxis(
-				AsoUtility::Deg2RadF(axisDeg.y), AsoUtility::AXIS_Y
-			));
-
-		// 回転諒を加える(合成)
-		angles_ = VAdd(angles_, axisDeg);
-
-	}
-
+	// カメラ位置：ロボットクラスのカメラ半径で回転させる
+	pos_.x = targetPos_.x + cosf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
+	pos_.y = targetPos_.y + sinf(angles_.x) * Robot::ROBOT_CAMERA_RAG;
+	pos_.z = targetPos_.z + sinf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
 }
 
 void Camera::SetBeforeDrawFixedPoint(void)
