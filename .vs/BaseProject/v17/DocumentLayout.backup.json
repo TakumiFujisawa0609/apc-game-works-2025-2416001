@@ -43,12 +43,11 @@
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h",
               "RelativeDocumentMoniker": "Src\\Manager\\Camera.h",
-              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h*",
-              "RelativeToolTip": "Src\\Manager\\Camera.h*",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h",
+              "RelativeToolTip": "Src\\Manager\\Camera.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-16T04:42:47.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-16T04:42:47.746Z"
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "Src\\Object\\Robot.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-16T04:42:12.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-16T04:42:12.485Z"
             }
           ]
         }
