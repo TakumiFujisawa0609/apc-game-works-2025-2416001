@@ -3,7 +3,8 @@
 #include<functional>
 #include "SceneBase.h"
 
-class Robot;
+class RobotBase;
+class Grid;
 
 class GameScene :
     public SceneBase
@@ -24,7 +25,11 @@ public:
 
 private:
 
-	std::unique_ptr<Robot> robot_;
+	//ロボット
+	std::unique_ptr<RobotBase> robot_;
+
+	//グリッド
+	std::unique_ptr<Grid> grid_;
 
 };
 

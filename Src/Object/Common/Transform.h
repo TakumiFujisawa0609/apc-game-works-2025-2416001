@@ -22,6 +22,9 @@ public:
 	// デストラクタ
 	~Transform(void);
 
+	//モデル周囲半径
+	float Radius_;
+
 	// モデルのハンドルID
 	int modelId;
 

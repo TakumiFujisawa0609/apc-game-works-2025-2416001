@@ -1,4 +1,5 @@
-C:\AGS_2025_fuyu\Src\Object\Robot.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Robot.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Grid.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Grid.obj
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\RobotBase.obj
 C:\AGS_2025_fuyu\Src\FpsControl\FpsControl.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\FpsControl.obj
 C:\AGS_2025_fuyu\Src\Manager\Camera.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Camera.obj
 C:\AGS_2025_fuyu\Src\Manager\DataBank.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\DataBank.obj
@@ -24,3 +25,5 @@ C:\AGS_2025_fuyu\Src\Application.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Appl
 C:\AGS_2025_fuyu\Src\main.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\main.obj
 C:\AGS_2025_fuyu\Src\Scene\TitleScene.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\TitleScene.obj
 C:\AGS_2025_fuyu\Src\Utility\AsoUtility.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\AsoUtility.obj
+C:\AGS_2025_fuyu\Src\Object\Wepon\WeponBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponBase.obj
+C:\AGS_2025_fuyu\Src\Object\Wepon\WeponBeam.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponBeam.obj

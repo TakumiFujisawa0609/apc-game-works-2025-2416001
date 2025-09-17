@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "../Common/Quaternion.h"
 
-class Robot;
+class RobotBase;
 
 class Camera
 {
@@ -13,7 +13,7 @@ public:
 	static constexpr VECTOR DEFAULT_CAMERA_POS = { 0.0f, 100.0f, -500.0f };
 
 	//カメラの初期角度
-	static constexpr VECTOR DEFAULT_CAMERA_ANGLE = { 30.0f, 270.0f, 0.0f };
+	static constexpr VECTOR DEFAULT_CAMERA_ANGLE = { 30.0f, 0.0f, 0.0f };
 
 	// 追従位置からカメラ位置までの相対座標
 	static constexpr VECTOR LOCAL_F2C_POS = { 0.0f, 50.0f, -400.0f };
@@ -27,7 +27,7 @@ public:
 	static constexpr float LIMIT_X_DW_RAD = 15.0f * (DX_PI_F / 180.0f);
 
 	//カメラアングル加速度
-	static constexpr float CAMERA_ANGLE_SPEED = 0.05f;
+	static constexpr float CAMERA_ANGLE_SPEED = 5.0f * (DX_PI_F / 180.0f);
 
 	// カメラクリップ：NEAR
 	static constexpr float CAMERA_NEAR = 10.0f;
@@ -68,12 +68,12 @@ public:
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
 
-	void SetRobot(Robot* robot);
+	void SetRobot(RobotBase* robot);
 
 private:
 
 	// 追従対象
-	Robot* robot_;
+	RobotBase* robot_;
 
 	// カメラモード
 	MODE mode_;
