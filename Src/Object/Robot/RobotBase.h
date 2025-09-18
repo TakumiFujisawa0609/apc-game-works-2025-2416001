@@ -60,6 +60,8 @@ public:
 	// ó‘Ô‘JˆÚ
 	void ChangeState(STATE state);
 
+	void SetTransform(Transform transform);
+
 private:
 
 	// •Ší

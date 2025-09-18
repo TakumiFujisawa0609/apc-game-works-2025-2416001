@@ -205,6 +205,20 @@ void Camera::SetBeforeDrawFixedPoint(void)
 {
 	if (robot_) {
 		targetPos_ = robot_->GetTransform().pos;
+
+		// カメラの前方ベクトルを取得
+		VECTOR forward = GetForward();
+
+		// Y軸回転角度を算出（atan2でXZ平面の向きから角度を求める）
+		float angleY = atan2f(forward.x, forward.z);
+
+		// ラジアン→度変換（Transformが度管理の場合）
+		float angleYDeg = angleY * 180.0f / DX_PI_F;
+
+		// ロボットのTransformを取得・更新
+		auto transform = robot_->GetTransform();
+		transform.rot.y = angleYDeg;
+		robot_->SetTransform(transform);
 	}
 	targetPos_.y = 100.0f;
 }

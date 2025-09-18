@@ -10,7 +10,7 @@ Transform::Transform(void)
 	rot = AsoUtility::VECTOR_ZERO;
 	pos = AsoUtility::VECTOR_ZERO;
 	localPos = AsoUtility::VECTOR_ZERO;
-	localrot = AsoUtility::VECTOR_ZERO;
+	localRot = AsoUtility::VECTOR_ZERO;
 
 	matScl = MGetIdent();
 	matRot = MGetIdent();
@@ -29,7 +29,7 @@ Transform::Transform(int model)
 	rot = AsoUtility::VECTOR_ZERO;
 	pos = AsoUtility::VECTOR_ZERO;
 	localPos = AsoUtility::VECTOR_ZERO;
-	localrot = AsoUtility::VECTOR_ZERO;
+	localRot = AsoUtility::VECTOR_ZERO;
 
 	matScl = MGetIdent();
 	matRot = MGetIdent();

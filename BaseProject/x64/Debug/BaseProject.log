@@ -1,5 +1,2 @@
-﻿  RobotBase.cpp
-Effekseer_vs2019_x64_d.lib(CurlNoise.obj) : warning LNK4099: PDB '' が 'Effekseer_vs2019_x64_d.lib(CurlNoise.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(ForceFields.obj) : warning LNK4099: PDB '' が 'Effekseer_vs2019_x64_d.lib(ForceFields.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj) : warning LNK4099: PDB '' が 'Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+﻿  Camera.cpp
+  BaseProject.vcxproj -> C:\2025AGSwinter\x64\Debug\BaseProject.exe

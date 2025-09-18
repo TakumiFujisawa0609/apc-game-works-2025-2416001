@@ -18,13 +18,13 @@ RobotBase::~RobotBase(void)
 void RobotBase::Init(void)
 {
 	trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ROBOT);
-	trans_.rot = AsoUtility::VECTOR_ZERO;
-    trans_.localrot = LOCAL_DEF_ROT;
+	trans_.rot = LOCAL_DEF_ROT;
+    trans_.localRot = AsoUtility::VECTOR_ZERO;
 	trans_.pos = AsoUtility::VECTOR_ZERO;
 	trans_.scl = ROBOT_DEF_SCL;
 
     MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localrot, trans_.rot));
+        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
     MV1SetPosition(trans_.modelId, trans_.pos);
 	MV1SetScale(trans_.modelId, trans_.scl);
@@ -151,6 +151,11 @@ void RobotBase::ChangeState(STATE state)
     default:
         break;
     }
+}
+
+void RobotBase::SetTransform(Transform transform)
+{
+    trans_ = transform;
 }
 
 void RobotBase::ProcessMove(void)
