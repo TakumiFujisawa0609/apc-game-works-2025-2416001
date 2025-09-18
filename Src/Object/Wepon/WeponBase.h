@@ -25,7 +25,7 @@ public:
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
 	// •Ší‚ğg—p‚·‚é
-	virtual void Use(VECTOR pos) = 0;
+	virtual void Use(VECTOR pos, VECTOR dir) = 0;
 	// ¶‘¶”»’è
 	bool IsAlive(void);
 	// •Šíí•Ê‚Ìæ“¾

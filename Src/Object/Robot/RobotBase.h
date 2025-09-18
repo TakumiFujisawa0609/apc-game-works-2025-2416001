@@ -27,8 +27,8 @@ public:
 	static constexpr VECTOR ROBOT_DEF_POS = { 0.0f,0.0f,0.0f };
 	//初期サイズ
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.1f,0.1f,0.1f };
-	//初期角度
-	static constexpr VECTOR ROBOT_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
+	//初期相対角度
+	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
 
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
@@ -78,6 +78,8 @@ private:
 	void ProcessMove(void);
 	//ジャンプ処理
 	void ProcessJump(void);
+	//攻撃処理
+	void ProcessAttack(void);
 
 	// 状態遷移
 	void ChangeStandby(void);

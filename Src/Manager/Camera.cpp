@@ -180,46 +180,25 @@ void Camera::ProcessRot(void)
 {
 	// キー入力によるカメラの回転
 	auto& ins = InputManager::GetInstance();
-	if (angles_.x > -RobotBase::MAX_ROBOT_ANGLES)
-	{
-		if (ins.IsNew(KEY_INPUT_UP)) {
-			angles_.x -= CAMERA_ANGLE_SPEED;
-		}
+	if (angles_.x > -RobotBase::MAX_ROBOT_ANGLES){
+		if (ins.IsNew(KEY_INPUT_UP)) { angles_.x -= CAMERA_ANGLE_SPEED; }
 	}
-	if (angles_.x < RobotBase::MAX_ROBOT_ANGLES)
-	{
-		if (ins.IsNew(KEY_INPUT_DOWN)) {
-			angles_.x += CAMERA_ANGLE_SPEED;
-		}
+	if (angles_.x < RobotBase::MAX_ROBOT_ANGLES){
+		if (ins.IsNew(KEY_INPUT_DOWN)) { angles_.x += CAMERA_ANGLE_SPEED; }
 	}
-	if (ins.IsNew(KEY_INPUT_LEFT)) {
-		angles_.y -= CAMERA_ANGLE_SPEED;
-	}
-	if (ins.IsNew(KEY_INPUT_RIGHT)) {
-		angles_.y += CAMERA_ANGLE_SPEED;
-	}
+	if (ins.IsNew(KEY_INPUT_LEFT)) { angles_.y -= CAMERA_ANGLE_SPEED; }
+	if (ins.IsNew(KEY_INPUT_RIGHT)) { angles_.y += CAMERA_ANGLE_SPEED;; }
 
-	//// カメラ位置をロボットクラスのカメラ半径で回転させる
-	//pos_.x = targetPos_.x + cosf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
-	//pos_.y = targetPos_.y + sinf(angles_.x) * Robot::ROBOT_CAMERA_RAG;
-	//pos_.z = targetPos_.z + sinf(angles_.y) * Robot::ROBOT_CAMERA_RAG;
-
-	// マトリックスを使ったカメラ位置計算
-	// ローカル座標（カメラ半径分だけZ軸方向）
+	//回転行列を使ったカメラ操作処理
 	VECTOR localPos = { 0.0f, 0.0f, -RobotBase::ROBOT_CAMERA_RAG };
-
 	// 回転マトリックス生成（Y軸→X軸の順で回転）
 	MATRIX mat = MGetIdent();
 	mat = MMult(mat, MGetRotX(angles_.x));
 	mat = MMult(mat, MGetRotY(angles_.y));
-
 	// 回転を適用
 	VECTOR rotatedPos = VTransform(localPos, mat);
-
 	// ワールド座標に変換
-	pos_.x = targetPos_.x + rotatedPos.x;
-	pos_.y = targetPos_.y + rotatedPos.y;
-	pos_.z = targetPos_.z + rotatedPos.z;
+	pos_ = VAdd(targetPos_, rotatedPos);
 }
 
 void Camera::SetBeforeDrawFixedPoint(void)

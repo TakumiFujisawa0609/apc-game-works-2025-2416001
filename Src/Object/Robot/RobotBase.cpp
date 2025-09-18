@@ -1,6 +1,8 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/InputManager.h"
+#include "../../Utility/AsoUtility.h"
+#include "../../Utility/MatrixUtility.h"
 #include "./../Common/Transform.h"
 #include "../Wepon/WeponBeam.h"
 #include "RobotBase.h"
@@ -16,13 +18,16 @@ RobotBase::~RobotBase(void)
 void RobotBase::Init(void)
 {
 	trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ROBOT);
-	trans_.rot = ROBOT_DEF_ROT;
-	trans_.pos = ROBOT_DEF_POS;
+	trans_.rot = AsoUtility::VECTOR_ZERO;
+    trans_.localrot = LOCAL_DEF_ROT;
+	trans_.pos = AsoUtility::VECTOR_ZERO;
 	trans_.scl = ROBOT_DEF_SCL;
+
+    MV1SetRotationMatrix(trans_.modelId,
+        MatrixUtility::Multiplication(trans_.localrot, trans_.rot));
 
     MV1SetPosition(trans_.modelId, trans_.pos);
 	MV1SetScale(trans_.modelId, trans_.scl);
-	MV1SetRotationXYZ(trans_.modelId, trans_.rot);
 
     //ïêäÌÇÃèâä˙âª
     weponbeam_ = std::make_unique<WeponBeam>();
@@ -39,10 +44,10 @@ void RobotBase::Init(void)
 
 void RobotBase::Update(void)
 {
+
     ProcessMove();
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
-	MV1SetRotationXYZ(trans_.modelId, trans_.rot);
+    ProcessAttack();
 
     switch (state_)
     {
@@ -71,9 +76,10 @@ void RobotBase::Update(void)
         break;
     }
 
-    /*weponbeam_->Update();*/
+    MV1SetPosition(trans_.modelId, trans_.pos);
+    MV1SetRotationXYZ(trans_.modelId, trans_.rot);
 
-    weponbeam_->Use(trans_.pos);
+    weponbeam_->Update();
 }
 
 void RobotBase::Draw(void)
@@ -209,6 +215,8 @@ void RobotBase::ProcessMove(void)
         }
     }
 
+
+
     // ç¿ïWÇÃê›íË
     MV1SetPosition(trans_.modelId, trans_.pos);
     // äpìxÇÃê›íË
@@ -217,6 +225,15 @@ void RobotBase::ProcessMove(void)
 
 void RobotBase::ProcessJump(void)
 {
+}
+
+void RobotBase::ProcessAttack(void)
+{
+    if (inpMng_.IsTrgDown(KEY_INPUT_R)
+        && !weponbeam_->IsAlive())
+    {
+        ChangeState(STATE::ATTACK);
+    }
 }
 
 void RobotBase::ChangeStandby(void)
@@ -229,6 +246,7 @@ void RobotBase::ChangeKnockback(void)
 
 void RobotBase::ChangeAttack(void)
 {
+    weponbeam_->Use(trans_.pos, {0.0f, 0.0f, 180.0f * DX_PI_F / 180.0f });
 }
 
 void RobotBase::ChangeDead(void)

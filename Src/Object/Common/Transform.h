@@ -32,6 +32,7 @@ public:
 	VECTOR scl;
 	// ‰ñ“]
 	VECTOR rot;
+	VECTOR localrot;
 	// ˆÊ’u
 	VECTOR pos;
 	VECTOR localPos;

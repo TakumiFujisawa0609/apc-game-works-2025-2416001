@@ -28,6 +28,7 @@ void WeponBase::Update(void)
 	{
 		return;
 	}
+
 	// ˆÚ“®ˆ—
 	Move();
 }

@@ -7,18 +7,19 @@ class WeponBeam
 public:
 
 	//ビームの長さ
-	static constexpr float BEAM_LENGTH = 100.0f;
+	static constexpr float MAX_BEAM_LENGTH = 1000.0f;
 
 	// コンストラクタ
 	WeponBeam(void);
 	// デストラクタ
 	~WeponBeam(void);
 
+	void Update(void)override;
 	void Draw(void) override;
 	void Release(void) override;
 
 	// 武器を使用する
-	void Use(VECTOR pos) override;
+	void Use(VECTOR pos, VECTOR dir) override;
 
 protected:
 
@@ -26,12 +27,10 @@ protected:
 	void Load(void) override;
 	// パラメータ設定
 	void SetParam(void) override;
+	void Move(void) override;
 
 private:
-	// ジャンプ力
-	float jumpPow_;
 
-	// 移動処理
-	void Move(void) override;
+	float bemelong_;
 };
 
