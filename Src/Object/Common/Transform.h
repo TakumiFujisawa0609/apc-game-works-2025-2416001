@@ -28,6 +28,11 @@ public:
 	// ƒ‚ƒfƒ‹‚Ìƒnƒ“ƒhƒ‹ID
 	int modelId;
 
+	//•ûŒü
+	VECTOR moveDir;
+
+
+
 	// ‘å‚«‚³
 	VECTOR scl;
 	// ‰ñ“]

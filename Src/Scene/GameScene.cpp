@@ -25,19 +25,19 @@ GameScene::~GameScene(void)
 {
 }
 
-void GameScene::Init(void)  
-{  
+void GameScene::Init(void)
+{
+	//ロボット初期化処理
+	//カメラ追尾対象初期設定
+	Camera* camera = SceneManager::GetInstance().GetCamera();
+	robot_ = std::make_unique<RobotBase>();
+	camera->SetRobot(robot_.get());
+	robot_->Init();
+	robot_->SetCamera(SceneManager::GetInstance().GetCamera());
 
-  //ロボット初期化処理
-  robot_ = std::make_unique<RobotBase>();  
-  robot_->Init();  
+	//グリッド初期化処理
+	grid_ = std::make_unique<Grid>();
 
-  //グリッド初期化処理
-  grid_ = std::make_unique<Grid>();
-
-  //カメラ追尾対象初期設定
-  Camera* camera = SceneManager::GetInstance().GetCamera();
-  camera->SetRobot(robot_.get());
 }
 
 void GameScene::Update(void)

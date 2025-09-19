@@ -46,5 +46,5 @@ WeponBase::WAPON_TYPE WeponBase::GetType(void)
 void WeponBase::Move(void)
 {
 	// ˆÚ“®ˆ—(ˆê•û•ûŒü)
-	trans_.pos = VAdd(trans_.pos, VScale(moveDir_, speed_));
+	trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 }

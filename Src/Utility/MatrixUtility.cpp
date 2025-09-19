@@ -17,7 +17,7 @@ MATRIX MatrixUtility::Multiplication(const MATRIX& child, const MATRIX& parent)
 
 MATRIX MatrixUtility::Multiplication(const VECTOR& childEuler, const VECTOR& parentEuler)
 {
-	return Multiplication(
-		GetMatrixRotateXYZ(childEuler),
-		GetMatrixRotateXYZ(parentEuler));
+	MATRIX child = MatrixUtility::GetMatrixRotateXYZ(childEuler);
+	MATRIX parent = MatrixUtility::GetMatrixRotateXYZ(parentEuler);
+	return MMult(child, parent);
 }

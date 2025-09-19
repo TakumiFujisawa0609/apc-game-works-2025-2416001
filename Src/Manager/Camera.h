@@ -16,7 +16,7 @@ public:
 	static constexpr VECTOR DEFAULT_CAMERA_ANGLE = { 30.0f, 0.0f, 0.0f };
 
 	// 追従位置からカメラ位置までの相対座標
-	static constexpr VECTOR LOCAL_F2C_POS = { 0.0f, 50.0f, -400.0f };
+	static constexpr VECTOR LOCAL_F2C_POS = { 0.0f, 0.0f, -600.0f };
 
 	// 追従位置から注視点までの相対座標
 	static constexpr VECTOR LOCAL_F2T_POS = { 0.0f, 0.0f, 500.0f };
@@ -95,6 +95,9 @@ private:
 
 	// カメラの上方向
 	VECTOR cameraUp_;
+
+	//追尾対象方向設定
+	VECTOR targetDir_;
 
 	// カメラを初期位置に戻す
 	void SetDefault(void);

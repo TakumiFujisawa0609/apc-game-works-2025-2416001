@@ -5,6 +5,7 @@
 
 class WeponBase;
 class WeponBeam;
+class Camera;
 
 class RobotBase
 	:public ObjectBase
@@ -30,16 +31,18 @@ public:
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
 
+	static constexpr VECTOR  LOCAL_DEF_POS = { 0.0f,0.0f,500.0f };
+
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
 
 	//移動量
 	static constexpr float POS_POW = 10.0f;
+
 	//回転量
 	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
 
 	//ロボットのカメラ半径
-	static constexpr float ROBOT_CAMERA_RAG = 300.0f;
 	static constexpr float MAX_ROBOT_ANGLES = 40.0f * DX_PI_F / 180.0f;
 
 	// コンストラクタ
@@ -60,7 +63,7 @@ public:
 	// 状態遷移
 	void ChangeState(STATE state);
 
-	void SetTransform(Transform transform);
+	void SetCamera(Camera* camera);
 
 private:
 
@@ -70,11 +73,13 @@ private:
 	//状態
 	STATE state_;
 
+	//カメラの角度
+	Camera* camera_;
+
 	//移動量
 	float posPow_;
 	//回転量
 	float rotPow_;
-
 
 	//移動処理
 	void ProcessMove(void);

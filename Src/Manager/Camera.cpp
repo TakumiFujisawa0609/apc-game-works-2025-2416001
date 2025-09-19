@@ -181,16 +181,30 @@ void Camera::ProcessRot(void)
 	// キー入力によるカメラの回転
 	auto& ins = InputManager::GetInstance();
 	if (angles_.x > -RobotBase::MAX_ROBOT_ANGLES){
-		if (ins.IsNew(KEY_INPUT_UP)) { angles_.x -= CAMERA_ANGLE_SPEED; }
+		if (ins.IsNew(KEY_INPUT_UP)) 
+		{
+			angles_.x -= CAMERA_ANGLE_SPEED; 
+		}
 	}
 	if (angles_.x < RobotBase::MAX_ROBOT_ANGLES){
-		if (ins.IsNew(KEY_INPUT_DOWN)) { angles_.x += CAMERA_ANGLE_SPEED; }
+		if (ins.IsNew(KEY_INPUT_DOWN))
+		{ 
+			angles_.x += CAMERA_ANGLE_SPEED;
+		}
 	}
-	if (ins.IsNew(KEY_INPUT_LEFT)) { angles_.y -= CAMERA_ANGLE_SPEED; }
-	if (ins.IsNew(KEY_INPUT_RIGHT)) { angles_.y += CAMERA_ANGLE_SPEED;; }
+
+	if (ins.IsNew(KEY_INPUT_LEFT))
+	{ 
+		angles_.y -= CAMERA_ANGLE_SPEED;
+	}
+
+	if (ins.IsNew(KEY_INPUT_RIGHT)) 
+	{ 
+		angles_.y += CAMERA_ANGLE_SPEED;
+	}
 
 	//回転行列を使ったカメラ操作処理
-	VECTOR localPos = { 0.0f, 0.0f, -RobotBase::ROBOT_CAMERA_RAG };
+	VECTOR localPos = { RobotBase::LOCAL_DEF_POS.x, RobotBase::LOCAL_DEF_POS.y, -RobotBase::LOCAL_DEF_POS.z };
 	// 回転マトリックス生成（Y軸→X軸の順で回転）
 	MATRIX mat = MGetIdent();
 	mat = MMult(mat, MGetRotX(angles_.x));
@@ -203,23 +217,11 @@ void Camera::ProcessRot(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
-	if (robot_) {
+	if (robot_) 
+	{
 		targetPos_ = robot_->GetTransform().pos;
-
-		// カメラの前方ベクトルを取得
-		VECTOR forward = GetForward();
-
-		// Y軸回転角度を算出（atan2でXZ平面の向きから角度を求める）
-		float angleY = atan2f(forward.x, forward.z);
-
-		// ラジアン→度変換（Transformが度管理の場合）
-		float angleYDeg = angleY * 180.0f / DX_PI_F;
-
-		// ロボットのTransformを取得・更新
-		auto transform = robot_->GetTransform();
-		transform.rot.y = angleYDeg;
-		robot_->SetTransform(transform);
 	}
+
 	targetPos_.y = 100.0f;
 }
 

@@ -31,6 +31,8 @@ protected:
 
 private:
 
+	VECTOR playerDir_;
+	VECTOR playerRot_;
 	float bemelong_;
 };
 

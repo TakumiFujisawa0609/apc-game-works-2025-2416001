@@ -25,7 +25,7 @@ public:
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
 	// 武器を使用する
-	virtual void Use(VECTOR pos, VECTOR dir) = 0;
+	virtual void Use(VECTOR pos,VECTOR dir) = 0;
 	// 生存判定
 	bool IsAlive(void);
 	// 武器種別の取得
@@ -35,8 +35,6 @@ protected:
 	WAPON_TYPE type_;
 	// 移動スピード
 	float speed_;
-	// 移動方向
-	VECTOR moveDir_;
 	// 生存判定
 	bool isAlive_;
 	// 使用時の位置調整(Y)

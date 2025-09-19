@@ -44,7 +44,7 @@ void WeponBeam::Use(VECTOR pos, VECTOR dir)
 {
 	trans_.pos = pos;
 	trans_.pos.y += 150.0f;
-	moveDir_ = dir;
+	trans_.moveDir = dir;
 	isAlive_ = true;
 	bemelong_ = 0.0f;
 }
@@ -64,7 +64,7 @@ void WeponBeam::Move(void)
 	{
 		bemelong_ = MAX_BEAM_LENGTH;
 		// ˆÚ“®ˆ—(ˆê•û•ûŒü)
-		trans_.pos = VAdd(trans_.pos, VScale(moveDir_, speed_));
+		trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 	}
 	else
 	{
