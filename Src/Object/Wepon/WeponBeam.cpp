@@ -1,3 +1,5 @@
+#include "../../Utility/MatrixUtility.h"
+#include "../../Utility/AsoUtility.h"
 #include "WeponBeam.h"
 
 WeponBeam::WeponBeam(void)
@@ -8,17 +10,6 @@ WeponBeam::~WeponBeam(void)
 {
 }
 
-void WeponBeam::Update(void)
-{
-	if (!isAlive_)
-	{
-		return;
-	}
-
-	// 移動処理
-	Move();
-}
-
 void WeponBeam::Draw(void)
 {
 	if (!isAlive_)
@@ -26,9 +17,12 @@ void WeponBeam::Draw(void)
 		return;
 	}
 
+	// ビームの終点を方向ベクトルを使って計算
+	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
+
 	DrawCapsule3D(
-		trans_.pos,
-		VGet(trans_.pos.x, trans_.pos.y, trans_.pos.z + bemelong_),
+		trans_.pos,      // 開始点
+		endPos,          // 終点（方向を考慮）
 		2.5f,
 		8,
 		GetColor(0, 255, 0),
@@ -40,11 +34,12 @@ void WeponBeam::Release(void)
 {
 }
 
-void WeponBeam::Use(VECTOR pos, VECTOR dir)
+void WeponBeam::Use(VECTOR pos,VECTOR rot, VECTOR dir)
 {
+	trans_.localPos = pos;
 	trans_.pos = pos;
 	trans_.pos.y += 150.0f;
-	trans_.moveDir = dir;
+	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
 	bemelong_ = 0.0f;
 }
@@ -63,7 +58,8 @@ void WeponBeam::Move(void)
 	if (bemelong_ > MAX_BEAM_LENGTH)
 	{
 		bemelong_ = MAX_BEAM_LENGTH;
-		// 移動処理(一方方向)
+
+		
 		trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 	}
 	else

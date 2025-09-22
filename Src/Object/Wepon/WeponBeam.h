@@ -14,12 +14,11 @@ public:
 	// デストラクタ
 	~WeponBeam(void);
 
-	void Update(void)override;
 	void Draw(void) override;
 	void Release(void) override;
 
 	// 武器を使用する
-	void Use(VECTOR pos, VECTOR dir) override;
+	void Use(VECTOR pos, VECTOR rot, VECTOR dir) override;
 
 protected:
 
@@ -31,7 +30,6 @@ protected:
 
 private:
 
-	VECTOR playerDir_;
 	VECTOR playerRot_;
 	float bemelong_;
 };

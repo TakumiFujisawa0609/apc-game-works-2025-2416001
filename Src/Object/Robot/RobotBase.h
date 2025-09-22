@@ -83,6 +83,8 @@ private:
 
 	//移動処理
 	void ProcessMove(void);
+	// プレイヤーの遅延回転処理
+	void DelayRotate(void);
 	//ジャンプ処理
 	void ProcessJump(void);
 	//攻撃処理

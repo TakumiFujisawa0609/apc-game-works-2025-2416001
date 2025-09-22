@@ -25,7 +25,7 @@ public:
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
 	// 武器を使用する
-	virtual void Use(VECTOR pos,VECTOR dir) = 0;
+	virtual void Use(VECTOR pos, VECTOR rot, VECTOR dir) = 0;
 	// 生存判定
 	bool IsAlive(void);
 	// 武器種別の取得
@@ -37,8 +37,6 @@ protected:
 	float speed_;
 	// 生存判定
 	bool isAlive_;
-	// 使用時の位置調整(Y)
-	VECTOR localPos_;
 	// 画像やモデルなどのロード(純粋仮想関数)
 	virtual void Load(void) = 0;
 	// パラメータ設定(純粋仮想関数)

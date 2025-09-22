@@ -41,6 +41,7 @@ public:
 	{
 		NONE,
 		FIXED_POINT,
+		TARGET_ROAL,
 	};
 
 	Camera(void);

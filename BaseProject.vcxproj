@@ -49,6 +49,7 @@
     <ClCompile Include="Src\Object\Wepon\WeponBase.cpp" />
     <ClCompile Include="Src\Object\Wepon\WeponBeam.cpp" />
     <ClCompile Include="Src\Utility\MatrixUtility.cpp" />
+    <ClCompile Include="Src\Object\Wepon\WeponMissile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Common\Grid.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Src\Object\Wepon\WeponBase.h" />
     <ClInclude Include="Src\Object\Wepon\WeponBeam.h" />
     <ClInclude Include="Src\Utility\MatrixUtility.h" />
+    <ClInclude Include="Src\Object\Wepon\WeponMissile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

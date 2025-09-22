@@ -23,6 +23,8 @@ void RobotBase::Init(void)
     trans_.localRot = LOCAL_DEF_ROT;
 	trans_.pos = AsoUtility::VECTOR_ZERO;
 	trans_.scl = ROBOT_DEF_SCL;
+    // 角度から方向に変換する
+    trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
 
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
@@ -50,9 +52,10 @@ void RobotBase::Update(void)
     if (camera_ != nullptr) {
         VECTOR camAngles = camera_->GetAngles();
         // カメラのY軸回転のみコピー
-        trans_.rot.y = camAngles.y;
+        /*trans_.rot.y = camAngles.y;*/
     }
 
+    DelayRotate();
     ProcessMove();
 
     ProcessAttack();
@@ -160,195 +163,92 @@ void RobotBase::SetCamera(Camera* camera)
 
 void RobotBase::ProcessMove(void)
 {
-    //// 入力状態をチェック
-    //bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
-    //bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
-    //bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
-    //bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
-
-    //trans_.dir = { 0.0f,0.0f,0.0f };
-
-    //// 上下移動とX軸回転の処理
-    //if (isDownPressed) {
-    //    trans_.dir = { 0.0f, 0.0f, -1.0f };
-    //    if (trans_.rot.x > -MAX_MOVE_ROT) {
-    //        trans_.rot.x -= rotPow_;
-    //    }
-    //}
-    //if (isUpPressed) {
-    //    trans_.dir = { 0.0f, 0.0f, 1.0f };
-    //    if (trans_.rot.x < MAX_MOVE_ROT) {
-    //        trans_.rot.x += rotPow_;
-    //    }
-    //}
-
-    //// 上下キーが押されていない時、X軸回転を0に戻す
-    //if (!isDownPressed && !isUpPressed) {
-    //    if (trans_.rot.x > rotPow_) {
-    //        trans_.rot.x -= rotPow_;
-    //    }
-    //    if (trans_.rot.x < -rotPow_) {
-    //        trans_.rot.x += rotPow_;
-    //    }
-    //    if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
-    //        trans_.rot.x = 0.0f;
-    //    }
-    //}
-
-    //// 左右移動とZ軸回転の処理
-    //if (isRightPressed) {
-    //    trans_.dir = { 1.0f, 0.0f, 0.0f };
-    //    if (trans_.rot.z > -MAX_MOVE_ROT) {
-    //        trans_.rot.z -= rotPow_;
-    //    }
-    //}
-    //if (isLeftPressed) {
-    //    trans_.dir = { -1.0f, 0.0f, 0.0f };
-    //    if (trans_.rot.z < MAX_MOVE_ROT) {
-    //        trans_.rot.z += rotPow_;
-    //    }
-    //}
-
-    //// 左右キーが押されていない時、Z軸回転を0に戻す
-    //if (!isRightPressed && !isLeftPressed) {
-    //    if (trans_.rot.z > rotPow_) {
-    //        trans_.rot.z -= rotPow_;
-    //    }
-    //    if (trans_.rot.z < -rotPow_) {
-    //        trans_.rot.z += rotPow_;
-    //    }
-    //    if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
-    //        trans_.rot.z = 0.0f;
-    //    }
-    //}
-
-    //if (!AsoUtility::EqualsVZero(trans_.dir))
-    //{
-    //    // XYZの回転行列
-    //    // XZ平面移動にする場合は、XZの回転を考慮しないようにする
-    //    MATRIX mat = MGetIdent();
-    //    mat = MMult(mat, MGetRotY(trans_.rot.y));
-
-    //    // 回転行列を使用して、ベクトルを回転させ
-    //    VECTOR moveDir = VTransform(trans_.dir, mat);
-    //    // 方向×スピードで移動量を作って、座標に足して移動
-    //    trans_.pos = VAdd(trans_.pos, VScale(moveDir, posPow_));
-    //}
-
+    VECTOR dir = { 0.0f,0.0f,0.0f };
     // 入力状態をチェック
-    VECTOR dir = AsoUtility::VECTOR_ZERO;
     bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
     bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
     bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
     bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
 
-    // 移動方向と目標傾き角を初期化
-    dir = { 0.0f, 0.0f, 0.0f };
-    float targetPitch = 0.0f;  // X軸回転（前後の傾き）
-    float targetRoll = 0.0f;   // Z軸回転（左右の傾き）
-
-    // 上下移動とピッチ（前後傾き）の処理
+    // 上下移動とX軸回転の処理
     if (isDownPressed) {
         dir = { 0.0f, 0.0f, -1.0f };
-        targetPitch = -MAX_MOVE_ROT; // 後退時は機体を少し上向きに
+        if (trans_.rot.x > -MAX_MOVE_ROT) {
+            trans_.rot.x -= rotPow_;
+        }
     }
     if (isUpPressed) {
         dir = { 0.0f, 0.0f, 1.0f };
-        targetPitch = MAX_MOVE_ROT; // 前進時は機体を少し下向きに
-    }
-
-    // 左右移動とロール（バンキング）の処理
-    if (isRightPressed) {
-        // 右移動時の処理
-        if (dir.z == 0.0f) {
-            // 純粋な横移動
-            dir = { 1.0f, 0.0f, 0.0f };
-            targetRoll = -MAX_MOVE_ROT; // 右移動時は左にバンク
-        }
-        else {
-            // 斜め移動（前後＋右）
-            dir.x = 1.0f;
-            dir = VNorm(dir); // 正規化して速度を一定に
-            targetRoll = -MAX_MOVE_ROT; // 斜め移動時は傾きを少し抑える
-        }
-    }
-    if (isLeftPressed) {
-        // 左移動時の処理
-        if (dir.z == 0.0f) {
-            // 純粋な横移動
-            dir = { -1.0f, 0.0f, 0.0f };
-            targetRoll = MAX_MOVE_ROT; // 左移動時は右にバンク
-        }
-        else {
-            // 斜め移動（前後＋左）
-            dir.x = -1.0f;
-            dir = VNorm(dir); // 正規化
-            targetRoll = MAX_MOVE_ROT;
-        }
-    }
-
-    // ピッチ（X軸回転）のスムーズな適用
-    if (isDownPressed || isUpPressed) {
-        // 目標角度に向かって徐々に回転
-        if (trans_.rot.x < targetPitch) {
+        if (trans_.rot.x < MAX_MOVE_ROT) {
             trans_.rot.x += rotPow_;
-            trans_.rot.x = min(trans_.rot.x, targetPitch);
-        }
-        else if (trans_.rot.x > targetPitch) {
-            trans_.rot.x -= rotPow_;
-            trans_.rot.x = max(trans_.rot.x, targetPitch);
         }
     }
-    else {
-        // 上下キーが押されていない時、X軸回転を0に戻す
+
+    // 上下キーが押されていない時、X軸回転を0に戻す
+    if (!isDownPressed && !isUpPressed) {
         if (trans_.rot.x > rotPow_) {
             trans_.rot.x -= rotPow_;
         }
-        else if (trans_.rot.x < -rotPow_) {
+        if (trans_.rot.x < -rotPow_) {
             trans_.rot.x += rotPow_;
         }
-        else {
+        if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
             trans_.rot.x = 0.0f;
         }
     }
 
-    // ロール（Z軸回転）のスムーズな適用
-    if (isRightPressed || isLeftPressed) {
-        // 目標角度に向かって徐々に回転
-        if (trans_.rot.z < targetRoll) {
-            trans_.rot.z += rotPow_;
-            trans_.rot.z = min(trans_.rot.z, targetRoll);
-        }
-        else if (trans_.rot.z > targetRoll) {
+    // 左右移動とZ軸回転の処理
+    if (isRightPressed) {
+        dir = { 1.0f, 0.0f, 0.0f };
+        if (trans_.rot.z > -MAX_MOVE_ROT) {
             trans_.rot.z -= rotPow_;
-            trans_.rot.z = max(trans_.rot.z, targetRoll);
         }
     }
-    else {
-        // 左右キーが押されていない時、Z軸回転を0に戻す
+    if (isLeftPressed) {
+        dir = { -1.0f, 0.0f, 0.0f };
+        if (trans_.rot.z < MAX_MOVE_ROT) {
+            trans_.rot.z += rotPow_;
+        }
+    }
+
+    // 左右キーが押されていない時、Z軸回転を0に戻す
+    if (!isRightPressed && !isLeftPressed) {
         if (trans_.rot.z > rotPow_) {
             trans_.rot.z -= rotPow_;
         }
-        else if (trans_.rot.z < -rotPow_) {
+        if (trans_.rot.z < -rotPow_) {
             trans_.rot.z += rotPow_;
         }
-        else {
+        if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
             trans_.rot.z = 0.0f;
         }
     }
 
-    // 移動実行
-    if (!AsoUtility::EqualsVZero(dir)) {
-        // Y軸回転のみを移動方向に適用（機体の向きに関係なく移動）
+    if (!AsoUtility::EqualsVZero(dir))
+    {
+        // XYZの回転行列
+        // XZ平面移動にする場合は、XZの回転を考慮しないようにする
         MATRIX mat = MGetIdent();
-        mat = MMult(mat, MGetRotY(trans_.rot.y));
+        /*mat = MMult(mat, MGetRotX(rot_.x));*/
+        mat = MMult(mat, MGetRotY(camera_->GetAngles().y));
+        /*mat = MMult(mat, MGetRotZ(angles_.z));*/
 
-        // 回転行列を使用して、ベクトルを回転させ
+        // 回転行列を使用して、ベクトルを回転させる
         trans_.moveDir = VTransform(dir, mat);
-
+        // 移動方向から角度に変換する
+        //angles_.y = atan2f(moveDir_.x, moveDir_.z);
         // 方向×スピードで移動量を作って、座標に足して移動
         trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, posPow_));
+
     }
+}
+
+void RobotBase::DelayRotate(void)
+{
+    // 移動方向から角度に変換する
+    float goal = atan2f(trans_.moveDir.x, trans_.moveDir.z);
+    // 常に最短経路で補間
+    trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, goal, 0.2f);
 }
 
 void RobotBase::ProcessJump(void)
@@ -361,7 +261,7 @@ void RobotBase::ProcessAttack(void)
         && !weponbeam_->IsAlive())
     {
 
-        weponbeam_->Use(trans_.pos, trans_.moveDir);
+        weponbeam_->Use(trans_.pos,trans_.rot, trans_.moveDir);
     }
 }
 
