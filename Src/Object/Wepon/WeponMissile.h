@@ -44,5 +44,4 @@ private:
 	// ˆÚ“®ˆ—
 	void Move(void) override;
 };
-};
 
