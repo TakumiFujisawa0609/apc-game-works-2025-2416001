@@ -5,6 +5,7 @@
 
 class WeponBase;
 class WeponBeam;
+class WeponMissile;
 class Camera;
 
 class RobotBase
@@ -69,6 +70,8 @@ private:
 
 	// •Ší
 	std::unique_ptr<WeponBeam> weponbeam_;
+
+	std::unique_ptr<WeponMissile> weponMissile_;
 
 	//ó‘Ô
 	STATE state_;

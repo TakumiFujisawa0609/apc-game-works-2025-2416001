@@ -6,6 +6,8 @@ class WeponMissile :
 {
 public:
 
+	//ビームの長さ
+	static constexpr float MAX_BEAM_LENGTH = 1000.0f;
 	//移動スピード
 	static constexpr float DEFAULT_SPEED = 15.0f;
 	//衝突判定用半径
@@ -28,7 +30,7 @@ public:
 	void Release(void) override;
 
 	// 武器を使用する
-	void Use(VECTOR pos, VECTOR rot, VECTOR dir) override;
+	void Use(VECTOR pos, VECTOR dir) override;
 
 protected:
 
@@ -43,5 +45,8 @@ private:
 
 	// 移動処理
 	void Move(void) override;
+
+	VECTOR playerRot_;
+	float bemelong_;
 };
 

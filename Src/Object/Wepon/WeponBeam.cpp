@@ -34,9 +34,8 @@ void WeponBeam::Release(void)
 {
 }
 
-void WeponBeam::Use(VECTOR pos,VECTOR rot, VECTOR dir)
+void WeponBeam::Use(VECTOR pos, VECTOR dir)
 {
-	trans_.localPos = pos;
 	trans_.pos = pos;
 	trans_.pos.y += 150.0f;
 	trans_.moveDir = VNorm(dir);

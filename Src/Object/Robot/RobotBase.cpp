@@ -6,6 +6,7 @@
 #include "../../Utility/MatrixUtility.h"
 #include "./../Common/Transform.h"
 #include "../Wepon/WeponBeam.h"
+#include "../Wepon/WeponMissile.h"
 #include "RobotBase.h"
 
 RobotBase::RobotBase(void)
@@ -35,6 +36,9 @@ void RobotBase::Init(void)
     //•Ší‚Ì‰Šú‰»
     weponbeam_ = std::make_unique<WeponBeam>();
     weponbeam_->Init();
+
+    weponMissile_ = std::make_unique<WeponMissile>();
+    weponMissile_->Init();
 
     //ˆÚ“®—Ê
     posPow_ = POS_POW;
@@ -89,6 +93,7 @@ void RobotBase::Update(void)
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
     weponbeam_->Update();
+    weponMissile_->Update();
 }
 
 void RobotBase::Draw(void)
@@ -119,12 +124,14 @@ void RobotBase::Draw(void)
         break;
     }
     weponbeam_->Draw();
+    weponMissile_->Draw();
 }
 
 void RobotBase::Release(void)
 {
 	MV1DeleteModel(trans_.modelId);
     weponbeam_->Release();
+    weponMissile_->Release();
 }
 
 void RobotBase::ChangeState(STATE state)
@@ -261,7 +268,14 @@ void RobotBase::ProcessAttack(void)
         && !weponbeam_->IsAlive())
     {
 
-        weponbeam_->Use(trans_.pos,trans_.rot, trans_.moveDir);
+        weponbeam_->Use(trans_.pos, trans_.moveDir);
+    }
+
+    if (inpMng_.IsTrgDown(KEY_INPUT_F)
+        && !weponbeam_->IsAlive())
+    {
+
+        weponbeam_->Use(trans_.pos, trans_.moveDir);
     }
 }
 

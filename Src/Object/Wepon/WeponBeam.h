@@ -18,7 +18,7 @@ public:
 	void Release(void) override;
 
 	// •Ší‚ğg—p‚·‚é
-	void Use(VECTOR pos, VECTOR rot, VECTOR dir) override;
+	void Use(VECTOR pos, VECTOR dir) override;
 
 protected:
 
@@ -30,7 +30,6 @@ protected:
 
 private:
 
-	VECTOR playerRot_;
 	float bemelong_;
 };
 
