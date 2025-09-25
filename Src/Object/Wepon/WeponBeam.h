@@ -22,7 +22,6 @@ public:
 
 	void Draw(void) override;
 	void Release(void) override;
-
 	// •Ší‚ğg—p‚·‚é
 	void Use(VECTOR pos, VECTOR dir) override;
 

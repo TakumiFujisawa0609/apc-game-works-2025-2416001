@@ -18,6 +18,8 @@ void WeponMissile::Draw(void)
 	// ビームの終点を方向ベクトルを使って計算
 	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
 
+
+
 	DrawCapsule3D(
 		trans_.pos,      // 開始点
 		endPos,          // 終点（方向を考慮）
@@ -38,6 +40,7 @@ void WeponMissile::Use(VECTOR pos, VECTOR dir)
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
 	bemelong_ = 0.0f;
+	jumpPow_ = JUMP_POW;
 }
 
 void WeponMissile::Load(void)
@@ -63,4 +66,14 @@ void WeponMissile::Move(void)
 	{
 		bemelong_ += speed_;
 	}
+
+	// 重力(加速度を速度に加算していく)
+	jumpPow_ -= GRAVITY;
+	trans_.pos.y += jumpPow_;
+
+	if (trans_.pos.y < 0)
+	{
+		isAlive_ = false;
+	}
+
 }

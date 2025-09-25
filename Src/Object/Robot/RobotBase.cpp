@@ -283,10 +283,10 @@ void RobotBase::ProcessAttack(void)
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F)
-        && !weponbeam_->IsAlive())
+        && !weponMissile_->IsAlive())
     {
 
-        weponbeam_->Use(trans_.pos, trans_.moveDir);
+        weponMissile_->Use(trans_.pos, trans_.moveDir);
     }
 }
 

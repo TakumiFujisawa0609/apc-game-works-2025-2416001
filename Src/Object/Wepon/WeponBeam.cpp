@@ -23,7 +23,7 @@ void WeponBeam::Draw(void)
 	DrawCapsule3D(
 		trans_.pos,      // 開始点
 		endPos,          // 終点（方向を考慮）
-		2.5f,
+		5.0f,
 		8,
 		GetColor(0, 255, 0),
 		GetColor(255, 255, 255),
