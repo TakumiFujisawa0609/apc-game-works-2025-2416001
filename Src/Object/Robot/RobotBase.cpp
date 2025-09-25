@@ -1,9 +1,11 @@
+#include "../../Application.h"
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/Camera.h"
 #include "../../Manager/InputManager.h"
 #include "../../Utility/AsoUtility.h"
 #include "../../Utility/MatrixUtility.h"
+#include "../Common/AnimationController.h"
 #include "./../Common/Transform.h"
 #include "../Wepon/WeponBeam.h"
 #include "../Wepon/WeponMissile.h"
@@ -45,8 +47,17 @@ void RobotBase::Init(void)
     //‰ñ“]—Ê
     rotPow_ = ROT_POW;
 
+    anim_ = new AnimationController(trans_.modelId);
+
+    anim_->Add(
+        static_cast<int>(ANIM_TYPE::WIKE),
+        Application::PATH_MODEL + "Walk.mv1",
+        30.0f
+    );
+
     //ó‘Ô‘JˆÚ‰Šúİ’è
     ChangeState(STATE::STANDBY);
+
 }
 
 void RobotBase::Update(void)

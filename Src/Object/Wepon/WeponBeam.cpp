@@ -36,8 +36,7 @@ void WeponBeam::Release(void)
 
 void WeponBeam::Use(VECTOR pos, VECTOR dir)
 {
-	trans_.pos = pos;
-	trans_.pos.y += 150.0f;
+	trans_.pos = VAdd(pos, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
 	bemelong_ = 0.0f;
@@ -49,7 +48,8 @@ void WeponBeam::Load(void)
 
 void WeponBeam::SetParam(void)
 {
-	speed_ = 200.0f;
+	trans_.localPos = LOCAL_POS;
+	speed_ = DEFAULT_SPEED;
 }
 
 void WeponBeam::Move(void)

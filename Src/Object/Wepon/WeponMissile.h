@@ -5,7 +5,8 @@ class WeponMissile :
     public WeponBase
 {
 public:
-
+	//相対座標
+	static constexpr VECTOR LOCAL_POS = { 0.0f,180.0f,0.0f };
 	//ビームの長さ
 	static constexpr float MAX_BEAM_LENGTH = 1000.0f;
 	//移動スピード
@@ -43,10 +44,10 @@ private:
 	// ジャンプ力
 	float jumpPow_;
 
+	//ビームの長さ
+	float bemelong_;
+
 	// 移動処理
 	void Move(void) override;
-
-	VECTOR playerRot_;
-	float bemelong_;
 };
 

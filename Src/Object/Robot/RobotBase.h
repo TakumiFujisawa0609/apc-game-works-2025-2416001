@@ -6,12 +6,19 @@
 class WeponBase;
 class WeponBeam;
 class WeponMissile;
+class AnimationController;
 class Camera;
 
 class RobotBase
 	:public ObjectBase
 {
 public:
+
+	enum class ANIM_TYPE
+	{
+		WIKE
+	};
+
 
 	// ó‘Ô
 	enum class STATE
@@ -72,6 +79,9 @@ private:
 	std::unique_ptr<WeponBeam> weponbeam_;
 
 	std::unique_ptr<WeponMissile> weponMissile_;
+
+	//ƒAƒjƒƒVƒ‡ƒ“
+	AnimationController* anim_;
 
 	//ó‘Ô
 	STATE state_;

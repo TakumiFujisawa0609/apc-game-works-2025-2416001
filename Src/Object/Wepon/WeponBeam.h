@@ -6,8 +6,14 @@ class WeponBeam
 {
 public:
 
-	//ビームの長さ
+	//相対座標
+	static constexpr VECTOR LOCAL_POS = { 0.0f,150.0f,0.0f };
+
+	//ビーム最大長さ
 	static constexpr float MAX_BEAM_LENGTH = 1000.0f;
+
+	//ビームの速度
+	static constexpr float DEFAULT_SPEED = 200.0f;
 
 	// コンストラクタ
 	WeponBeam(void);
@@ -30,6 +36,7 @@ protected:
 
 private:
 
+	//ビームの長さ
 	float bemelong_;
 };
 

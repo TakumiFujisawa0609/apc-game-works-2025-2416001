@@ -24,28 +24,28 @@ AnimationController::~AnimationController(void)
 	}
 }
 
-//void AnimationController::Add(int type, const std::string& path, float speed)
-//{
-//	Animation anim;
-//	anim.model = MV1LoadModel(path.c_str());
-//	anim.animIndex = type;
-//	anim.speed = speed;
-//
-//	if (animations_.count(type) == 0)
-//	{
-//		// “ü‚ê‘Ö‚¦
-//		animations_.emplace(type, anim);
-//	}
-//	else
-//	{
-//		// ’Ç‰Á
-//		animations_[type].model = anim.model;
-//		animations_[type].animIndex = anim.animIndex;
-//		animations_[type].attachNo = anim.attachNo;
-//		animations_[type].totalTime = anim.totalTime;
-//	}
-//
-//}
+void AnimationController::Add(int type, const std::string& path, float speed)
+{
+	Animation anim;
+	anim.model = MV1LoadModel(path.c_str());
+	anim.animIndex = type;
+	anim.speed = speed;
+
+	if (animations_.count(type) == 0)
+	{
+		// “ü‚ê‘Ö‚¦
+		animations_.emplace(type, anim);
+	}
+	else
+	{
+		// ’Ç‰Á
+		animations_[type].model = anim.model;
+		animations_[type].animIndex = anim.animIndex;
+		animations_[type].attachNo = anim.attachNo;
+		animations_[type].totalTime = anim.totalTime;
+	}
+
+}
 
 void AnimationController::Add(int type, const float speed, int modelId)
 {
