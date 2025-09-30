@@ -35,9 +35,6 @@
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\RobotBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\PROGRAM FILES\\MICROSOFT VISUAL STUDIO\\2022\\COMMUNITY\\VC\\TOOLS\\MSVC\\14.43.34808\\INCLUDE\\MEMORY||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -116,6 +113,9 @@
     {
       "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -129,7 +129,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h",
               "RelativeDocumentMoniker": "Src\\Manager\\Camera.h",
@@ -150,8 +150,7 @@
               "RelativeToolTip": "Src\\FpsControl\\FpsControl.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-25T06:15:25.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-25T06:15:25.024Z"
             },
             {
               "$type": "Document",
@@ -163,12 +162,11 @@
               "RelativeToolTip": "Src\\FpsControl\\FpsControl.cpp",
               "ViewState": "AgIAAB4AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-25T06:15:12.131Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-25T06:15:12.131Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 28,
               "Title": "memory",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
               "RelativeDocumentMoniker": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
@@ -176,12 +174,11 @@
               "RelativeToolTip": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
               "ViewState": "AgIAAPENAAAAAAAAAAAewAkOAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-09-25T05:59:44.813Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-25T05:59:44.813Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "AnimationController.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\AnimationController.cpp",
@@ -214,12 +211,11 @@
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponMissile.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-22T05:57:59.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-22T05:57:59.975Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "AsoUtility.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.h",
               "RelativeDocumentMoniker": "Src\\Utility\\AsoUtility.h",
@@ -231,7 +227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "AsoUtility.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.cpp",
               "RelativeDocumentMoniker": "Src\\Utility\\AsoUtility.cpp",
@@ -251,12 +247,11 @@
               "RelativeToolTip": "Src\\Object\\Robot\\RobotBase.cpp",
               "ViewState": "AgIAAGMAAAAAAAAAAAAAAIgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-16T04:42:12.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-16T04:42:12.485Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 20,
               "Title": "MatrixUtility.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.cpp",
               "RelativeDocumentMoniker": "Src\\Utility\\MatrixUtility.cpp",
@@ -268,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 21,
               "Title": "MatrixUtility.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.h",
               "RelativeDocumentMoniker": "Src\\Utility\\MatrixUtility.h",
@@ -280,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 27,
               "Title": "ResultScene.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\ResultScene.cpp",
@@ -292,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 23,
               "Title": "main.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\main.h",
               "RelativeDocumentMoniker": "Src\\main.h",
@@ -312,8 +307,7 @@
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBeam.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-17T07:23:14.445Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T07:23:14.445Z"
             },
             {
               "$type": "Document",
@@ -325,12 +319,11 @@
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBeam.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-17T07:23:07.042Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T07:23:07.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "WeponBase.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponBase.cpp",
@@ -338,8 +331,7 @@
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBase.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-17T07:07:13.141Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T07:07:13.141Z"
             },
             {
               "$type": "Document",
@@ -351,12 +343,11 @@
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBase.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-17T06:57:44.77Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T06:57:44.77Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 25,
               "Title": "ObjectBase.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\ObjectBase.h",
@@ -368,7 +359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 26,
               "Title": "InputManager.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\InputManager.cpp",
@@ -380,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 24,
               "Title": "ObjectBase.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\ObjectBase.cpp",
@@ -392,7 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "Transform.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Transform.h",
@@ -404,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "Transform.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Transform.cpp",
@@ -416,7 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "GameScene.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.h",
               "RelativeDocumentMoniker": "Src\\Scene\\GameScene.h",
@@ -428,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "GameScene.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\GameScene.cpp",
@@ -440,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "Grid.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Grid.cpp",
@@ -452,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 22,
               "Title": "Grid.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Grid.h",
@@ -464,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "RobotBase.h",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\RobotBase.h",
@@ -476,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\Camera.cpp",
