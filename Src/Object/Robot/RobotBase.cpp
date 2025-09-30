@@ -43,7 +43,9 @@ void RobotBase::Init(void)
     weponMissile_->Init();
 
     //移動量
-    posPow_ = POS_POW;
+    movePow_ = 0;
+    //上昇量
+    rise_ = RISE_SPEED;
     //回転量
     rotPow_ = ROT_POW;
 
@@ -58,6 +60,12 @@ void RobotBase::Init(void)
     //状態遷移初期設定
     ChangeState(STATE::STANDBY);
 
+#ifdef _DEBUG
+    debugSpherePos_ = DEBUG_SPHERE_POS;
+
+    deBugLeft = false;
+    deBugRight = true;
+#endif
 }
 
 void RobotBase::Update(void)
@@ -72,7 +80,7 @@ void RobotBase::Update(void)
 
     DelayRotate();
     ProcessMove();
-
+    ProcessRise();
     ProcessAttack();
 
     switch (state_)
@@ -105,6 +113,31 @@ void RobotBase::Update(void)
 
     weponbeam_->Update();
     weponMissile_->Update();
+
+
+#ifdef _DEBUG
+
+    //デバッグ用円の移動処理
+    float moveSpeed = 15.0f;
+    float maxMove = 1000.0f;
+
+    if (debugSpherePos_.x > maxMove) {
+        deBugLeft = true;
+        deBugRight = false;
+    }
+    if (debugSpherePos_.x < -maxMove) {
+        deBugLeft = false;
+        deBugRight = true;
+    }
+
+    if (deBugLeft) {
+        debugSpherePos_.x -= moveSpeed;
+    }
+    if (deBugRight) {
+        debugSpherePos_.x += moveSpeed;
+    }
+
+#endif
 }
 
 void RobotBase::Draw(void)
@@ -136,6 +169,21 @@ void RobotBase::Draw(void)
     }
     weponbeam_->Draw();
     weponMissile_->Draw();
+#ifdef _DEBUG
+
+    DrawFormatString(0, 20, GetColor(255, 255, 255), "加速度：%.1f",movePow_);
+
+    DrawSphere3D(debugSpherePos_, 100.0f, 16, 0xFFFF00, 0xAAAA00, false);
+
+    DrawFormatString(
+        0,40,GetColor(255, 255, 255),
+        "座標：(%.1f,%.1f,%.1f)", 
+        debugSpherePos_.x,
+        debugSpherePos_.y,
+        debugSpherePos_.z
+    );
+
+#endif
 }
 
 void RobotBase::Release(void)
@@ -181,9 +229,14 @@ void RobotBase::SetCamera(Camera* camera)
 
 void RobotBase::ProcessMove(void)
 {
+    //移動方向
     VECTOR dir = { 0.0f,0.0f,0.0f };
+    //移動量を常に減少
+    movePow_ *= FRICTION;
+
     // 入力状態をチェック
-    bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
+    bool isBustPressed = inpMng_.IsTrgDown(KEY_INPUT_B);
+    bool isDownPressed =inpMng_.IsNew(KEY_INPUT_S);
     bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
     bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
     bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
@@ -195,6 +248,7 @@ void RobotBase::ProcessMove(void)
             trans_.rot.x -= rotPow_;
         }
     }
+
     if (isUpPressed) {
         dir = { 0.0f, 0.0f, 1.0f };
         if (trans_.rot.x < MAX_MOVE_ROT) {
@@ -242,6 +296,17 @@ void RobotBase::ProcessMove(void)
         }
     }
 
+    //ブースト時の移動量と最大値を設定
+    float maxMoveSpeed = MAX_MOVE_SPEED;
+    if (isBustPressed)
+    {
+        movePow_ += BUST_SPEED;
+        maxMoveSpeed = MAX_BUST_SPEED;
+        if (trans_.rot.x < MAX_BOOST_ROT) {
+            trans_.rot.x += rotPow_;
+        }
+    }
+
     if (!AsoUtility::EqualsVZero(dir))
     {
         // XYZの回転行列
@@ -253,12 +318,35 @@ void RobotBase::ProcessMove(void)
 
         // 回転行列を使用して、ベクトルを回転させる
         trans_.moveDir = VTransform(dir, mat);
-        // 移動方向から角度に変換する
-        //angles_.y = atan2f(moveDir_.x, moveDir_.z);
-        // 方向×スピードで移動量を作って、座標に足して移動
-        trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, posPow_));
 
+
+        //入力中のブースト時の移動量と最大値を設定
+        if (isBustPressed)
+        {
+            movePow_ += BUST_SPEED;
+            maxMoveSpeed = MAX_BUST_SPEED;
+            if (trans_.rot.x < MAX_BOOST_ROT) {
+                trans_.rot.x += rotPow_;
+            }
+        }
+        else
+        {
+            //加速度処理
+            movePow_ += MOVE_SPEED;
+            maxMoveSpeed = MAX_MOVE_SPEED;
+        }
+
+        // 最高速度制限
+        if (movePow_ > maxMoveSpeed) {
+            movePow_ -= (movePow_ - maxMoveSpeed) * 0.1f;
+        }
     }
+ 
+    // 停止閾値以下なら完全停止
+    if (movePow_ < STOP_THRESHOLD) { movePow_ = 0.0f; }
+
+    // 方向×スピードで移動量を作って、座標に足して移動
+    trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, movePow_));
 }
 
 void RobotBase::DelayRotate(void)
@@ -269,8 +357,20 @@ void RobotBase::DelayRotate(void)
     trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, goal, 0.2f);
 }
 
-void RobotBase::ProcessJump(void)
+void RobotBase::ProcessRise(void)
 {
+    bool isRisePressed = inpMng_.IsNew(KEY_INPUT_G);
+
+    if (isRisePressed)
+    {
+        trans_.pos.y += rise_;
+    }
+
+    if(trans_.pos.y > 0)
+    {
+        trans_.pos.y -= GRAVITY;
+    }
+    MV1SetPosition(trans_.modelId, trans_.pos);
 }
 
 void RobotBase::ProcessAttack(void)

@@ -3,6 +3,7 @@
 #include "../Common/Quaternion.h"
 
 class RobotBase;
+class Transform;
 
 class Camera
 {
@@ -41,7 +42,7 @@ public:
 	{
 		NONE,
 		FIXED_POINT,
-		TARGET_ROAL,
+		TARGET_ROCKE,
 	};
 
 	Camera(void);
@@ -68,12 +69,17 @@ public:
 
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
-
+	//ロボット機能取得関数
 	void SetRobot(RobotBase* robot);
+	//ターゲット座標取得関数
+    void SetTargetTransForom(const Transform& transform);
 
 private:
 
-	// 追従対象
+	//ターゲットTransform
+	const Transform& transform_;
+
+	// ロボット
 	RobotBase* robot_;
 
 	// カメラモード
@@ -111,6 +117,9 @@ private:
 
 	// モード別更新ステップ
 	void SetBeforeDrawFixedPoint(void);
+
+	//ロックオン機能
+	void TargetLockeOn(void);
 
 };
 

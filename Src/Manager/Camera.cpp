@@ -45,7 +45,11 @@ void Camera::SetBeforeDraw(void)
 	case Camera::MODE::FIXED_POINT:
 		SetBeforeDrawFixedPoint();
 		break;
+	case Camera::MODE::TARGET_ROCKE:
+		TargetLockeOn();
+		break;
 	}
+
 	// カメラの設定(位置と注視点による制御)
 	SetCameraPositionAndTargetAndUpVec(
 		pos_, 
@@ -112,7 +116,9 @@ void Camera::ChangeMode(MODE mode)
 		// 上方向（Y軸）
 		cameraUp_ = AsoUtility::DIR_U;
 
-		SetMouseDispFlag(true);
+		break;
+	case Camera::MODE::TARGET_ROCKE:
+
 		break;
 	}
 
@@ -121,6 +127,11 @@ void Camera::ChangeMode(MODE mode)
 void Camera::SetRobot(RobotBase* robot)
 {
 	robot_ = robot;
+}
+
+void Camera::SetTargetTransForom(const Transform& transform)
+{
+	transform_ = &transform;
 }
 
 void Camera::SetDefault(void)
@@ -222,7 +233,12 @@ void Camera::SetBeforeDrawFixedPoint(void)
 		targetPos_ = robot_->GetTransform().pos;
 	}
 
-	targetPos_.y = 100.0f;
+	targetPos_.y += 100.0f;
+}
+
+void Camera::TargetLockeOn(void)
+{
+
 }
 
 

@@ -38,17 +38,36 @@ public:
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.1f,0.1f,0.1f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
-
+	//初期相対座標
 	static constexpr VECTOR  LOCAL_DEF_POS = { 0.0f,0.0f,500.0f };
+
+	//デバック用敵円座標
+	static constexpr VECTOR DEBUG_SPHERE_POS = { 0.0f,50.0f,1000.0f };
 
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
-
-	//移動量
-	static constexpr float POS_POW = 10.0f;
-
+	//ブースト時最大回転量
+	static constexpr float MAX_BOOST_ROT = 40.0f * DX_PI_F / 180.0f;
 	//回転量
 	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
+
+	//加速量
+	static constexpr float MOVE_SPEED = 0.95f;
+	//上昇量
+	static constexpr float RISE_SPEED = 10.5f;
+	//ブースト量
+	static constexpr float BUST_SPEED = 10.0f;
+	//最大加速量
+	static constexpr float MAX_MOVE_SPEED = 20.0f;
+	//最大ブースト量
+	static constexpr float MAX_BUST_SPEED = 30.0f;
+	//摩擦係数
+	static constexpr float FRICTION = 0.98f;
+	//停止判定の値
+	static constexpr float STOP_THRESHOLD = 0.1f;
+	// 重力
+	static constexpr float GRAVITY = 5.5f;
+
 
 	//ロボットのカメラ半径
 	static constexpr float MAX_ROBOT_ANGLES = 40.0f * DX_PI_F / 180.0f;
@@ -73,6 +92,8 @@ public:
 
 	void SetCamera(Camera* camera);
 
+	/*void GetDebugSphere*/
+
 private:
 
 	// 武器
@@ -89,17 +110,27 @@ private:
 	//カメラの角度
 	Camera* camera_;
 
+	//デバッグ用円座標
+	VECTOR debugSpherePos_;
+
+	//上昇量
+	float rise_;
 	//移動量
-	float posPow_;
+	float movePow_;
 	//回転量
 	float rotPow_;
+	
+	//デバッグ用フラグ
+	bool deBugLeft = false;
+	bool deBugRight = true;
+
 
 	//移動処理
 	void ProcessMove(void);
 	// プレイヤーの遅延回転処理
 	void DelayRotate(void);
 	//ジャンプ処理
-	void ProcessJump(void);
+	void ProcessRise(void);
 	//攻撃処理
 	void ProcessAttack(void);
 
