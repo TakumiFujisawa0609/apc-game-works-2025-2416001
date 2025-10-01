@@ -63,7 +63,7 @@ public:
 	//最大ブースト量
 	static constexpr float MAX_BUST_SPEED = 30.0f;
 	//摩擦係数
-	static constexpr float FRICTION = 0.98f;
+	static constexpr float FRICTION = 0.96f;
 	//停止判定の値
 	static constexpr float STOP_THRESHOLD = 0.1f;
 	// 重力
@@ -125,6 +125,8 @@ private:
 	bool deBugLeft = false;
 	bool deBugRight = true;
 
+	int lockcnt;
+
 
 	//移動処理
 	void ProcessMove(void);
@@ -158,5 +160,7 @@ private:
 	void DrawDead(void);
 	void DrawVictory(void);
 	void DrawEnd(void);
+
+	bool IsTargetLockFlage(void);
 };
 

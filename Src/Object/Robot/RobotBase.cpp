@@ -49,6 +49,8 @@ void RobotBase::Init(void)
     //回転量
     rotPow_ = ROT_POW;
 
+    lockcnt = 0;
+
     anim_ = new AnimationController(trans_.modelId);
 
     anim_->Add(
@@ -86,14 +88,10 @@ void RobotBase::Update(void)
     //上昇処理
     ProcessRise();
 
+    ProcessTargetLock();
+
     //攻撃処理
     ProcessAttack();
-
-    //対象ロック処理
-    if(inpMng_.IsNew(KEY_INPUT_L))
-    {
-        ProcessTargetLock();
-    }
 
     switch (state_)
     {
@@ -389,25 +387,35 @@ void RobotBase::ProcessRise(void)
 
 void RobotBase::ProcessAttack(void)
 {
+
     if (inpMng_.IsTrgDown(KEY_INPUT_R)
         && !weponbeam_->IsAlive())
     {
-
-        /*weponbeam_->Use(trans_.pos, trans_.moveDir);*/
-        weponbeam_->Use(trans_.pos, trans_.targetDir);
+        if (IsTargetLockFlage())
+        {
+            weponbeam_->Use(trans_.pos, trans_.targetDir);
+        }
+        weponbeam_->Use(trans_.pos, trans_.moveDir);
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F)
         && !weponMissile_->IsAlive())
     {
-
-        /*weponMissile_->Use(trans_.pos, trans_.moveDir);*/
-        weponbeam_->Use(trans_.pos, trans_.targetDir);
+        if (IsTargetLockFlage())
+        {
+            weponbeam_->Use(trans_.pos, trans_.targetDir);
+        }
+        weponMissile_->Use(trans_.pos, trans_.moveDir);
     }
 }
 
 void RobotBase::ProcessTargetLock(void)
 {
+    if (!IsTargetLockFlage())
+    {
+        return;
+    }
+
     // デバッグ球体へのベクトルを計算
     VECTOR toTarget = VSub(debugSpherePos_, trans_.pos);
 
@@ -513,5 +521,23 @@ void RobotBase::DrawVictory(void)
 
 void RobotBase::DrawEnd(void)
 {
+}
+
+bool RobotBase::IsTargetLockFlage(void)
+{
+    bool  isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
+
+    //対象ロック処理
+    if (isLock)
+    {
+        lockcnt++;
+    }
+
+    if (lockcnt % 2 == 0)
+    {
+        return false;
+    }
+
+    return true;
 }
 
