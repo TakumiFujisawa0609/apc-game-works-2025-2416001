@@ -30,7 +30,7 @@ public:
 
 	//•ûŒü
 	VECTOR moveDir;
-
+	VECTOR targetDir;
 
 
 	// ‘å‚«‚³

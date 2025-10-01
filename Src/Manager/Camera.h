@@ -72,12 +72,12 @@ public:
 	//ロボット機能取得関数
 	void SetRobot(RobotBase* robot);
 	//ターゲット座標取得関数
-    void SetTargetTransForom(const Transform& transform);
+    void SetTargetTransForom(const Transform* transform);
 
 private:
 
 	//ターゲットTransform
-	const Transform& transform_;
+	const Transform* transform_;
 
 	// ロボット
 	RobotBase* robot_;

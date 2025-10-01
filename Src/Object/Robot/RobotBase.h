@@ -14,6 +14,7 @@ class RobotBase
 {
 public:
 
+	//アニメーション
 	enum class ANIM_TYPE
 	{
 		WIKE
@@ -129,10 +130,12 @@ private:
 	void ProcessMove(void);
 	// プレイヤーの遅延回転処理
 	void DelayRotate(void);
-	//ジャンプ処理
+	//上昇処理
 	void ProcessRise(void);
 	//攻撃処理
 	void ProcessAttack(void);
+	//対象ロック処理
+	void ProcessTargetLock(void);
 
 	// 状態遷移
 	void ChangeStandby(void);

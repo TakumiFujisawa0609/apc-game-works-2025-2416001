@@ -30,6 +30,7 @@ Transform::Transform(int model)
 	rot = AsoUtility::VECTOR_ZERO;
 	pos = AsoUtility::VECTOR_ZERO;
 	moveDir = AsoUtility::VECTOR_ZERO;
+	targetDir = AsoUtility::VECTOR_ZERO;
 	localPos = AsoUtility::VECTOR_ZERO;
 	localRot = AsoUtility::VECTOR_ZERO;
 

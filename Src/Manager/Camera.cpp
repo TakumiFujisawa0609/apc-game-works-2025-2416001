@@ -52,8 +52,8 @@ void Camera::SetBeforeDraw(void)
 
 	// ƒJƒƒ‰‚Ìİ’è(ˆÊ’u‚Æ’‹“_‚É‚æ‚é§Œä)
 	SetCameraPositionAndTargetAndUpVec(
-		pos_, 
-		targetPos_, 
+		pos_,
+		targetPos_,
 		cameraUp_
 	);
 
@@ -129,9 +129,9 @@ void Camera::SetRobot(RobotBase* robot)
 	robot_ = robot;
 }
 
-void Camera::SetTargetTransForom(const Transform& transform)
+void Camera::SetTargetTransForom(const Transform* transform)
 {
-	transform_ = &transform;
+	transform_ = transform;
 }
 
 void Camera::SetDefault(void)

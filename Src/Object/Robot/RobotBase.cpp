@@ -70,7 +70,6 @@ void RobotBase::Init(void)
 
 void RobotBase::Update(void)
 {
-
     // カメラの向き（Y軸回転）をロボットに反映
     if (camera_ != nullptr) {
         VECTOR camAngles = camera_->GetAngles();
@@ -78,10 +77,23 @@ void RobotBase::Update(void)
         /*trans_.rot.y = camAngles.y;*/
     }
 
+    //遅延回転処理
     DelayRotate();
+
+    //移動処理
     ProcessMove();
+
+    //上昇処理
     ProcessRise();
+
+    //攻撃処理
     ProcessAttack();
+
+    //対象ロック処理
+    if(inpMng_.IsNew(KEY_INPUT_L))
+    {
+        ProcessTargetLock();
+    }
 
     switch (state_)
     {
@@ -167,8 +179,10 @@ void RobotBase::Draw(void)
     default:
         break;
     }
+
     weponbeam_->Draw();
     weponMissile_->Draw();
+
 #ifdef _DEBUG
 
     DrawFormatString(0, 20, GetColor(255, 255, 255), "加速度：%.1f",movePow_);
@@ -379,15 +393,54 @@ void RobotBase::ProcessAttack(void)
         && !weponbeam_->IsAlive())
     {
 
-        weponbeam_->Use(trans_.pos, trans_.moveDir);
+        /*weponbeam_->Use(trans_.pos, trans_.moveDir);*/
+        weponbeam_->Use(trans_.pos, trans_.targetDir);
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F)
         && !weponMissile_->IsAlive())
     {
 
-        weponMissile_->Use(trans_.pos, trans_.moveDir);
+        /*weponMissile_->Use(trans_.pos, trans_.moveDir);*/
+        weponbeam_->Use(trans_.pos, trans_.targetDir);
     }
+}
+
+void RobotBase::ProcessTargetLock(void)
+{
+    // デバッグ球体へのベクトルを計算
+    VECTOR toTarget = VSub(debugSpherePos_, trans_.pos);
+
+    // ターゲットまでの距離をチェック（ゼロ除算回避）
+    float distance = VSize(toTarget);
+    if (distance < 0.01f) {
+        return;
+    }
+
+    // ターゲット方向の正規化
+    VECTOR targetDir = VNorm(toTarget);
+
+    // ターゲット方向からY軸回転角度を計算（水平方向）
+    float targetAngleY = atan2f(targetDir.x, targetDir.z);
+
+    // ターゲット方向のX軸回転角度を計算（上下の角度）
+    float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
+    float targetAngleX = atan2f(-targetDir.y, horizontalDist);
+
+    //// 即座にターゲット方向を向く（補間なし）
+    //trans_.rot.y = targetAngleY;
+    //trans_.rot.x = targetAngleX;
+
+    // 滑らかに回転させる（補間）
+    trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, targetAngleY, 0.5f);
+    trans_.rot.x = AsoUtility::LerpAngle(trans_.rot.x, targetAngleX, 0.5f);
+
+    // 移動方向もターゲット方向に更新
+    trans_.targetDir = targetDir;
+
+    // ローカル回転とグローバル回転を合成してモデルに適用
+    MV1SetRotationMatrix(trans_.modelId,
+        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
 void RobotBase::ChangeStandby(void)
