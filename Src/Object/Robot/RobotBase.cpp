@@ -387,30 +387,36 @@ void RobotBase::ProcessRise(void)
 
 void RobotBase::ProcessAttack(void)
 {
+    VECTOR targetDir = trans_.moveDir;
+    if (IsTargetLockFlage())
+    {
+        targetDir = trans_.targetDir;
+    }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_R)
         && !weponbeam_->IsAlive())
     {
-        if (IsTargetLockFlage())
-        {
-            weponbeam_->Use(trans_.pos, trans_.targetDir);
-        }
-        weponbeam_->Use(trans_.pos, trans_.moveDir);
+        weponbeam_->Use(trans_.pos, targetDir);
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F)
         && !weponMissile_->IsAlive())
     {
-        if (IsTargetLockFlage())
-        {
-            weponbeam_->Use(trans_.pos, trans_.targetDir);
-        }
-        weponMissile_->Use(trans_.pos, trans_.moveDir);
+        weponMissile_->Use(trans_.pos, targetDir);
     }
 }
 
 void RobotBase::ProcessTargetLock(void)
 {
+    bool  isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
+
+    //対象ロック処理
+    if (isLock)
+    {
+        lockcnt++;
+    }
+
+
     if (!IsTargetLockFlage())
     {
         return;
@@ -525,19 +531,15 @@ void RobotBase::DrawEnd(void)
 
 bool RobotBase::IsTargetLockFlage(void)
 {
-    bool  isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
-
-    //対象ロック処理
-    if (isLock)
-    {
-        lockcnt++;
-    }
-
     if (lockcnt % 2 == 0)
     {
         return false;
     }
-
     return true;
+}
+
+const VECTOR RobotBase::GetDebugSpherePos(void)
+{
+    return debugSpherePos_;
 }
 

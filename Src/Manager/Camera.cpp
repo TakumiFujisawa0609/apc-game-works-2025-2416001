@@ -129,11 +129,6 @@ void Camera::SetRobot(RobotBase* robot)
 	robot_ = robot;
 }
 
-void Camera::SetTargetTransForom(const Transform* transform)
-{
-	transform_ = transform;
-}
-
 void Camera::SetDefault(void)
 {
 
@@ -228,17 +223,14 @@ void Camera::ProcessRot(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
-	if (robot_) 
-	{
-		targetPos_ = robot_->GetTransform().pos;
-	}
+	targetPos_ = robot_->GetTransform().pos;
 
 	targetPos_.y += 100.0f;
 }
 
 void Camera::TargetLockeOn(void)
 {
-
+	targetPos_ = robot_->GetDebugSpherePos();
 }
 
 

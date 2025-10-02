@@ -71,13 +71,8 @@ public:
 	void ChangeMode(MODE mode);
 	//ロボット機能取得関数
 	void SetRobot(RobotBase* robot);
-	//ターゲット座標取得関数
-    void SetTargetTransForom(const Transform* transform);
 
 private:
-
-	//ターゲットTransform
-	const Transform* transform_;
 
 	// ロボット
 	RobotBase* robot_;
@@ -105,6 +100,8 @@ private:
 
 	//追尾対象方向設定
 	VECTOR targetDir_;
+
+	VECTOR playerPos_;
 
 	// カメラを初期位置に戻す
 	void SetDefault(void);

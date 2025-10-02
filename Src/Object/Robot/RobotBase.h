@@ -93,7 +93,11 @@ public:
 
 	void SetCamera(Camera* camera);
 
-	/*void GetDebugSphere*/
+	//ロック機能入力フラグ
+	bool IsTargetLockFlage(void);
+
+	//デバッグ円座標取得関数
+	const VECTOR GetDebugSpherePos(void);
 
 private:
 
@@ -125,8 +129,8 @@ private:
 	bool deBugLeft = false;
 	bool deBugRight = true;
 
+	//ロック機能入力カウント
 	int lockcnt;
-
 
 	//移動処理
 	void ProcessMove(void);
@@ -160,7 +164,5 @@ private:
 	void DrawDead(void);
 	void DrawVictory(void);
 	void DrawEnd(void);
-
-	bool IsTargetLockFlage(void);
 };
 

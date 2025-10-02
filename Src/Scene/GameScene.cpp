@@ -29,9 +29,7 @@ void GameScene::Init(void)
 {
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
-	Camera* camera = SceneManager::GetInstance().GetCamera();
 	robot_ = std::make_unique<RobotBase>();
-	camera->SetRobot(robot_.get());
 	robot_->Init();
 	robot_->SetCamera(SceneManager::GetInstance().GetCamera());
 
@@ -50,6 +48,18 @@ void GameScene::Update(void)
 
 	//ロボット更新処理
 	robot_->Update();
+
+	Camera* camera = SceneManager::GetInstance().GetCamera();
+	camera->SetRobot(robot_.get());
+
+	/*if (robot_->IsTargetLockFlage())
+	{
+		camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
+	}
+	else if (!robot_->IsTargetLockFlage())
+	{
+		camera->ChangeMode(Camera::MODE::FIXED_POINT);
+	}*/
 }
 
 void GameScene::Draw(void)
