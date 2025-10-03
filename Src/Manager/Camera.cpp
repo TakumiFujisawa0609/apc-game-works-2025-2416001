@@ -3,6 +3,7 @@
 #include <EffekseerForDXLib.h>
 
 #include "../Utility/AsoUtility.h"
+#include "../Utility/MatrixUtility.h"
 #include "../Object/Common/Transform.h"
 #include "../Object/Robot/RobotBase.h"
 #include "InputManager.h"
@@ -26,24 +27,27 @@ Camera::~Camera(void)
 
 void Camera::Init(void)
 {
-	ChangeMode(MODE::FIXED_POINT);
+	angles_.x = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.x);
+	angles_.y = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.y);
+	angles_.z = 0.0f;
 }
 
 void Camera::Update(void)
-{ 
-	ProcessRot();
+{
 }
 
 void Camera::SetBeforeDraw(void)
 {
-
 	// クリップ距離を設定する(SetDrawScreenでリセットされる)
 	SetCameraNearFar(CAMERA_NEAR, CAMERA_FAR);
 
 	switch (mode_)
 	{
-	case Camera::MODE::FIXED_POINT:
+	case Camera::MODE::FREE:
 		SetBeforeDrawFixedPoint();
+		break;
+	case Camera::MODE::FIXED_POINT:
+		SetBeforePlayerDraw();
 		break;
 	case Camera::MODE::TARGET_ROCKE:
 		TargetLockeOn();
@@ -108,17 +112,11 @@ void Camera::ChangeMode(MODE mode)
 	// 変更時の初期化処理
 	switch (mode_)
 	{
+	case Camera::MODE::FREE:
+		break;
 	case Camera::MODE::FIXED_POINT:
-		// カメラ位置：原点から少し離れたところに置く（例：斜め上から）
-		pos_ = VGet(targetPos_.x, targetPos_.y + 300.0f, targetPos_.z - 400.0f);
-
-		targetPos_ = AsoUtility::VECTOR_ZERO;
-		// 上方向（Y軸）
-		cameraUp_ = AsoUtility::DIR_U;
-
 		break;
 	case Camera::MODE::TARGET_ROCKE:
-
 		break;
 	}
 
@@ -131,19 +129,12 @@ void Camera::SetRobot(RobotBase* robot)
 
 void Camera::SetDefault(void)
 {
-
 	// カメラの初期設定
 	pos_ = DEFAULT_CAMERA_POS;
-
 	// 注視点
 	targetPos_ = AsoUtility::VECTOR_ZERO;
-
 	// カメラの上方向
 	cameraUp_ = AsoUtility::DIR_U;
-
-	angles_.x = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.x);
-	angles_.y = AsoUtility::Deg2RadF(DEFAULT_CAMERA_ANGLE.y);
-	angles_.z = 0.0f;
 
 	rot_ = Quaternion();
 
@@ -223,13 +214,68 @@ void Camera::ProcessRot(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
-	targetPos_ = robot_->GetTransform().pos;
+	// カメラの設定(位置と角度による制御)
+	SetCameraPositionAndAngle(
+		pos_,
+		angles_.x,
+		angles_.y,
+		angles_.z
+	);
+}
 
-	targetPos_.y += 100.0f;
+void Camera::SetBeforePlayerDraw(void)
+{
+	targetPos_ = robot_->GetTransform().pos;
+	targetPos_.y += 200.0f;
+
+	ProcessRot();
 }
 
 void Camera::TargetLockeOn(void)
 {
+	// デバッグ球体へのベクトルを計算
+	VECTOR toTarget = VSub(robot_->GetDebugSpherePos(), robot_->GetTransform().pos);
+
+	// ターゲットまでの距離をチェック（ゼロ除算回避）
+	float distance = VSize(toTarget);
+	if (distance < 0.01f) {
+		return;
+	}
+	// ターゲット方向の正規化
+	VECTOR targetDir = VNorm(toTarget);
+
+	// ターゲット方向からY軸回転角度を計算（水平方向）
+	float targetAngleY = atan2f(targetDir.x, targetDir.z);
+
+	// ターゲット方向のX軸回転角度を計算（上下の角度）
+	float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
+	float targetAngleX = atan2f(-targetDir.y, horizontalDist);
+
+	// 滑らかに回転させる（補間）
+	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 0.5f);
+	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 0.5f);
+
+	// ロボットが向いている方向を取得
+	VECTOR robotForward = robot_->GetTransform().targetDir;
+
+	// ロボットの向き（Y軸回転角度）を前方ベクトルから計算
+	float robotAngleY = atan2f(robotForward.x, robotForward.z);
+
+	// ターゲット方向のX軸回転角度を計算（上下の角度）
+	float robotAngleX = atan2f(robotForward.z, robotForward.y);
+
+	// カメラのローカルオフセット（ロボットから見た相対位置）
+	VECTOR localOffset = VGet(100.0f, 250.0f, -300.0f);
+
+	// ロボットの向きに応じてオフセットを回転
+	MATRIX rotMat;
+	rotMat = MGetRotX(robotAngleX);
+	rotMat = MGetRotY(robotAngleY);
+	VECTOR worldOffset = VTransform(localOffset, rotMat);
+
+
+	// カメラの位置を計算
+	pos_ = VAdd(robot_->GetTransform().pos, worldOffset);
 	targetPos_ = robot_->GetDebugSpherePos();
 }
 

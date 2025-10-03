@@ -41,6 +41,7 @@ public:
 	enum class MODE
 	{
 		NONE,
+		FREE,
 		FIXED_POINT,
 		TARGET_ROCKE,
 	};
@@ -101,8 +102,6 @@ private:
 	//追尾対象方向設定
 	VECTOR targetDir_;
 
-	VECTOR playerPos_;
-
 	// カメラを初期位置に戻す
 	void SetDefault(void);
 
@@ -114,6 +113,9 @@ private:
 
 	// モード別更新ステップ
 	void SetBeforeDrawFixedPoint(void);
+
+	//プレイヤー追従カメラ
+	void SetBeforePlayerDraw(void);
 
 	//ロックオン機能
 	void TargetLockeOn(void);
