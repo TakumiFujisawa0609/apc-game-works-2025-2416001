@@ -1,6 +1,7 @@
 #pragma once
-#include <DxLib.h>
+#include <vector>
 #include <memory>
+#include <DxLib.h>
 #include "../ObjectBase.h"
 
 class WeponBase;
@@ -104,7 +105,7 @@ private:
 	// •Ší
 	std::unique_ptr<WeponBeam> weponbeam_;
 
-	std::unique_ptr<WeponMissile> weponMissile_;
+	std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
 
 	//ƒAƒjƒƒVƒ‡ƒ“
 	AnimationController* anim_;

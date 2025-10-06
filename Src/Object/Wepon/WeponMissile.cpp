@@ -19,14 +19,14 @@ void WeponMissile::Draw(void)
 	// ビームの終点を方向ベクトルを使って計算
 	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
 
-	DrawCapsule3D(
-		trans_.pos,      // 開始点
-		endPos,          // 終点（方向を考慮）
-		2.5f,
-		8,
-		GetColor(0, 255, 0),
-		GetColor(255, 255, 255),
-		FALSE);
+		DrawCapsule3D(
+			trans_.pos,      // 開始点
+			endPos,          // 終点（方向を考慮）
+			5.0f,
+			8,
+			GetColor(0, 255, 0),
+			GetColor(255, 255, 255),
+			FALSE);
 
 #ifdef _DEBUG
 
@@ -97,7 +97,7 @@ void WeponMissile::Move(void)
 	float distance = VSize(toTarget);
 
 	// ターゲットが存在する場合のみ追尾
-	if (distance > 0.01f)
+	if (distance >= 0.01f)
 	{
 		VECTOR targetDir = VNorm(toTarget);
 

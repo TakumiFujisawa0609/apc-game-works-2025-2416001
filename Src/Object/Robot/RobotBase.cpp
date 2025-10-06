@@ -39,8 +39,15 @@ void RobotBase::Init(void)
     weponbeam_ = std::make_unique<WeponBeam>();
     weponbeam_->Init();
 
-    weponMissile_ = std::make_unique<WeponMissile>();
-    weponMissile_->Init();
+    for (int i = 0; i < 10; i++)
+    {
+        weponMissile_.push_back(std::make_unique<WeponMissile>());
+    }
+
+    for(const auto& missile_ : weponMissile_)
+    {
+        missile_->Init();
+    }
 
     //ˆÚ“®—Ê
     movePow_ = 0;
