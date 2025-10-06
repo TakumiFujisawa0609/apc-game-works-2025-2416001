@@ -121,10 +121,6 @@ void RobotBase::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    weponbeam_->Update();
-    weponMissile_->Update();
-
-
 #ifdef _DEBUG
 
     //デバッグ用円の移動処理
@@ -148,6 +144,11 @@ void RobotBase::Update(void)
     }
 
 #endif
+
+    weponbeam_->Update();
+    weponMissile_->UpdateTarget(debugSpherePos_);
+    weponMissile_->Update();
+
 }
 
 void RobotBase::Draw(void)
@@ -538,8 +539,8 @@ bool RobotBase::IsTargetLockFlage(void)
     return true;
 }
 
-const VECTOR RobotBase::GetDebugSpherePos(void)
+const VECTOR* RobotBase::GetDebugSpherePos(void)
 {
-    return debugSpherePos_;
+    return &debugSpherePos_;
 }
 

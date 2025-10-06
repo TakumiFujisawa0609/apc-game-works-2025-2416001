@@ -40,6 +40,7 @@ void WeponBeam::Use(VECTOR pos, VECTOR dir)
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
 	bemelong_ = 0.0f;
+	
 }
 
 void WeponBeam::Load(void)

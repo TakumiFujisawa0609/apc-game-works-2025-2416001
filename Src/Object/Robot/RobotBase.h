@@ -97,7 +97,7 @@ public:
 	bool IsTargetLockFlage(void);
 
 	//デバッグ円座標取得関数
-	const VECTOR GetDebugSpherePos(void);
+	const VECTOR* GetDebugSpherePos(void);
 
 private:
 

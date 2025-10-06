@@ -26,6 +26,7 @@ public:
 	virtual void Release(void) = 0;
 	// •Ší‚ğg—p‚·‚é
 	virtual void Use(VECTOR pos,VECTOR dir) = 0;
+
 	// ¶‘¶”»’è
 	bool IsAlive(void);
 	// •Šíí•Ê‚Ìæ“¾

@@ -234,7 +234,7 @@ void Camera::SetBeforePlayerDraw(void)
 void Camera::TargetLockeOn(void)
 {
 	// デバッグ球体へのベクトルを計算
-	VECTOR toTarget = VSub(robot_->GetDebugSpherePos(), robot_->GetTransform().pos);
+	VECTOR toTarget = VSub(*robot_->GetDebugSpherePos(), robot_->GetTransform().pos);
 
 	// ターゲットまでの距離をチェック（ゼロ除算回避）
 	float distance = VSize(toTarget);
@@ -276,7 +276,7 @@ void Camera::TargetLockeOn(void)
 
 	// カメラの位置を計算
 	pos_ = VAdd(robot_->GetTransform().pos, worldOffset);
-	targetPos_ = robot_->GetDebugSpherePos();
+	targetPos_ = *robot_->GetDebugSpherePos();
 }
 
 
