@@ -11,24 +11,6 @@ class Player
 {
 public:
 
-	//アニメーション
-	enum class ANIM_TYPE
-	{
-		WIKE
-	};
-
-	// 状態
-	enum class STATE
-	{
-		NONE,
-		STANDBY,
-		KNOCKBACK,
-		ATTACK,
-		DEAD,
-		END,
-		VICTORY,
-	};
-
 	//初期位置
 	static constexpr VECTOR ROBOT_DEF_POS = { 0.0f,0.0f,0.0f };
 	//初期サイズ
@@ -74,9 +56,6 @@ public:
 
 	void SetCamera(Camera* camera);
 
-	// 状態遷移
-	void ChangeState(STATE state);
-
 protected:
 
 	// リソースロード
@@ -96,38 +75,32 @@ protected:
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
 
+	// 状態遷移
+	void ChangeStandby(void)override;
+	void ChangeKnockback(void)override;
+	void ChangeAttack(void)override;
+	void ChangeDead(void)override;
+	void ChangeVictory(void)override;
+	void ChangeEnd(void)override;
+	// 状態別更新
+	void UpdateStandby(void)override;
+	void UpdateKnockback(void)override;
+	void UpdateAttack(void)override;
+	void UpdateDead(void)override;
+	void UpdateVictory(void)override;
+	void UpdateEnd(void)override;
+	// 状態別描画
+	void DrawStandby(void)override;
+	void DrawKnockback(void)override;
+	void DrawAttack(void)override;
+	void DrawDead(void)override;
+	void DrawVictory(void)override;
+	void DrawEnd(void)override;
+
 private:
-
-	//アニメション
-	AnimationController* anim_;
-
-	//状態
-	STATE state_;
 
 	//カメラの角度
 	Camera* camera_;
-
-	// 状態遷移
-	void ChangeStandby(void);
-	void ChangeKnockback(void);
-	void ChangeAttack(void);
-	void ChangeDead(void);
-	void ChangeVictory(void);
-	void ChangeEnd(void);
-	// 状態別更新
-	void UpdateStandby(void);
-	void UpdateKnockback(void);
-	void UpdateAttack(void);
-	void UpdateDead(void);
-	void UpdateVictory(void);
-	void UpdateEnd(void);
-	// 状態別描画
-	void DrawStandby(void);
-	void DrawKnockback(void);
-	void DrawAttack(void);
-	void DrawDead(void);
-	void DrawVictory(void);
-	void DrawEnd(void);
 
 };
 

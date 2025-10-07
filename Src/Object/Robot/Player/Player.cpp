@@ -47,39 +47,12 @@ void Player::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    switch (state_)
-    {
-    case Player::STATE::STANDBY:
-        UpdateStandby();
-        break;
-    case Player::STATE::KNOCKBACK:
-        UpdateKnockback();
-        break;
-    case Player::STATE::ATTACK:
-        UpdateAttack();
-        break;
-    case Player::STATE::DEAD:
-        UpdateDead();
-        break;
-    case Player::STATE::END:
-        UpdateEnd();
-        break;
-    case Player::STATE::VICTORY:
-        UpdateVictory();
-        break;
-    default:
-        break;
-    }
-
     weponbeam_->Update();
     for (int i = 0; i < weponMissile_.size(); i++)
     {
         weponMissile_[i]->UpdateTarget(debugSpherePos_);
         weponMissile_[i]->Update();
     }
-
-    //ó‘Ô‘JˆÚ‰ŠúÝ’è
-    ChangeState(STATE::STANDBY);
 
 #ifdef _DEBUG
 
@@ -116,30 +89,6 @@ void Player::Draw(void)
         weponMissile_[i]->Draw();
     }
 
-    switch (state_)
-    {
-    case Player::STATE::STANDBY:
-        DrawStandby();
-        break;
-    case Player::STATE::KNOCKBACK:
-        DrawKnockback();
-        break;
-    case Player::STATE::ATTACK:
-        DrawAttack();
-        break;
-    case Player::STATE::DEAD:
-        DrawDead();
-        break;
-    case Player::STATE::END:
-        DrawEnd();
-        break;
-    case Player::STATE::VICTORY:
-        DrawVictory();
-        break;
-    default:
-        break;
-    }
-
 #ifdef _DEBUG
     DrawFormatString(0, 20, GetColor(255, 255, 255), "‰Á‘¬“xF%.1f", movePow_);
 
@@ -162,7 +111,7 @@ void Player::Release(void)
     weponbeam_->Release();
     for (int i = 0; i < weponMissile_.size(); i++)
     {
-        weponMissile_[i]->Release();
+        weponMissile_[i]->Release       ();
     }
 }
 
@@ -214,35 +163,6 @@ void Player::InitPost(void)
     rotPow_ = ROT_POW;
 
     lockcnt = 0;
-}
-
-void Player::ChangeState(STATE state)
-{
-    state_ = state;
-
-    switch (state_)
-    {
-    case Player::STATE::STANDBY:
-        ChangeStandby();
-        break;
-    case Player::STATE::KNOCKBACK:
-        ChangeKnockback();
-        break;
-    case Player::STATE::ATTACK:
-        ChangeAttack();
-        break;
-    case Player::STATE::DEAD:
-        ChangeDead();
-        break;
-    case Player::STATE::END:
-        ChangeEnd();
-        break;
-    case Player::STATE::VICTORY:
-        ChangeVictory();
-        break;
-    default:
-        break;
-    }
 }
 
 void Player::ProcessMove(void)

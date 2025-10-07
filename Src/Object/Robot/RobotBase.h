@@ -14,6 +14,24 @@ class RobotBase
 {
 public:
 
+	//アニメーション
+	enum class ANIM_TYPE
+	{
+		WIKE
+	};
+
+	// 状態
+	enum class STATE
+	{
+		NONE,
+		STANDBY,
+		KNOCKBACK,
+		ATTACK,
+		DEAD,
+		END,
+		VICTORY,
+	};
+
 	//デバック用敵円座標
 	static constexpr VECTOR DEBUG_SPHERE_POS = { 0.0f,50.0f,1000.0f };
 
@@ -41,6 +59,12 @@ protected:
 	std::unique_ptr<WeponBeam> weponbeam_;
 	std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
 
+	//アニメション
+	AnimationController* anim_;
+
+	//状態
+	STATE state_;
+
 	//デバッグ用円座標
 	VECTOR debugSpherePos_;
 
@@ -57,6 +81,9 @@ protected:
 
 	//ロック機能入力カウント
 	int lockcnt;
+
+	// 状態遷移
+	virtual void ChangeState(STATE state);
 
 	// リソースロード
 	virtual void InitLoad(void) = 0;
@@ -79,5 +106,27 @@ protected:
 	virtual void ProcessAttack(void) = 0;
 	//対象ロック処理
 	virtual void ProcessTargetLock(void) = 0;
+
+	// 状態遷移
+	virtual void ChangeStandby(void) = 0;
+	virtual void ChangeKnockback(void) = 0;
+	virtual void ChangeAttack(void) = 0;
+	virtual void ChangeDead(void) = 0;
+	virtual void ChangeVictory(void) = 0;
+	virtual void ChangeEnd(void) = 0;
+	// 状態別更新
+	virtual void UpdateStandby(void) = 0;
+	virtual void UpdateKnockback(void) = 0;
+	virtual void UpdateAttack(void) = 0;
+	virtual void UpdateDead(void) = 0;
+	virtual void UpdateVictory(void) = 0;
+	virtual void UpdateEnd(void) = 0;
+	// 状態別描画
+	virtual void DrawStandby(void) = 0;
+	virtual void DrawKnockback(void) = 0;
+	virtual void DrawAttack(void) = 0;
+	virtual void DrawDead(void) = 0;
+	virtual void DrawVictory(void) = 0;
+	virtual void DrawEnd(void) = 0;
 };
 

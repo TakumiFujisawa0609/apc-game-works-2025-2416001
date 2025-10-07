@@ -32,6 +32,30 @@ void RobotBase::Init(void)
     // èâä˙âªå„ÇÃå¬ï èàóù
     InitPost();
 
+    switch (state_)
+    {
+    case RobotBase::STATE::STANDBY:
+        UpdateStandby();
+        break;
+    case RobotBase::STATE::KNOCKBACK:
+        UpdateKnockback();
+        break;
+    case RobotBase::STATE::ATTACK:
+        UpdateAttack();
+        break;
+    case RobotBase::STATE::DEAD:
+        UpdateDead();
+        break;
+    case RobotBase::STATE::END:
+        UpdateEnd();
+        break;
+    case RobotBase::STATE::VICTORY:
+        UpdateVictory();
+        break;
+    default:
+        break;
+    }
+
     //ïêäÌÇÃèâä˙âª
     weponbeam_ = std::make_unique<WeponBeam>();
     weponbeam_->Init();
@@ -45,6 +69,9 @@ void RobotBase::Init(void)
     {
         weponMissile_[i]->Init();
     }
+
+    //èÛë‘ëJà⁄èâä˙ê›íË
+    ChangeState(STATE::STANDBY);
 
 #ifdef _DEBUG
     debugSpherePos_ = DEBUG_SPHERE_POS;
@@ -117,6 +144,30 @@ void RobotBase::Draw(void)
         weponMissile_[i]->Draw();
     }
 
+    switch (state_)
+    {
+    case RobotBase::STATE::STANDBY:
+        DrawStandby();
+        break;
+    case RobotBase::STATE::KNOCKBACK:
+        DrawKnockback();
+        break;
+    case RobotBase::STATE::ATTACK:
+        DrawAttack();
+        break;
+    case RobotBase::STATE::DEAD:
+        DrawDead();
+        break;
+    case RobotBase::STATE::END:
+        DrawEnd();
+        break;
+    case RobotBase::STATE::VICTORY:
+        DrawVictory();
+        break;
+    default:
+        break;
+    }
+
 #ifdef _DEBUG
 
     DrawSphere3D(debugSpherePos_, 100.0f, 16, 0xFFFF00, 0xAAAA00, false);
@@ -139,6 +190,35 @@ void RobotBase::Release(void)
     for (int i = 0; i < weponMissile_.size(); i++)
     {
         weponMissile_[i]->Release();
+    }
+}
+
+void RobotBase::ChangeState(STATE state)
+{
+    state_ = state;
+
+    switch (state_)
+    {
+    case RobotBase::STATE::STANDBY:
+        ChangeStandby();
+        break;
+    case RobotBase::STATE::KNOCKBACK:
+        ChangeKnockback();
+        break;
+    case RobotBase::STATE::ATTACK:
+        ChangeAttack();
+        break;
+    case RobotBase::STATE::DEAD:
+        ChangeDead();
+        break;
+    case RobotBase::STATE::END:
+        ChangeEnd();
+        break;
+    case RobotBase::STATE::VICTORY:
+        ChangeVictory();
+        break;
+    default:
+        break;
     }
 }
 
