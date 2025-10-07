@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include"../Application.h"
 #include"../Utility/AsoUtility.h"
+#include "../Manager/Camera.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
@@ -17,6 +18,8 @@ ResultScene::~ResultScene(void)
 
 void ResultScene::Init(void)
 {
+	Camera* camera = SceneManager::GetInstance().GetCamera();
+	camera->ChangeMode(Camera::MODE::FREE);
 }
 
 void ResultScene::Update(void)

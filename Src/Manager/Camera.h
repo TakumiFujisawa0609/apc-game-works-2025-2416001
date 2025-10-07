@@ -2,7 +2,7 @@
 #include <DxLib.h>
 #include "../Common/Quaternion.h"
 
-class RobotBase;
+class Player;
 class Transform;
 
 class Camera
@@ -71,12 +71,12 @@ public:
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
 	//ロボット機能取得関数
-	void SetRobot(RobotBase* robot);
+	void SetPlayer(Player* player);
 
 private:
 
 	// ロボット
-	RobotBase* robot_;
+	Player* player_;
 
 	// カメラモード
 	MODE mode_;

@@ -5,7 +5,7 @@
 #include "../Utility/AsoUtility.h"
 #include "../Utility/MatrixUtility.h"
 #include "../Object/Common/Transform.h"
-#include "../Object/Robot/RobotBase.h"
+#include "../Object/Robot/Player/Player.h"
 #include "InputManager.h"
 
 #include "../Application.h"
@@ -122,9 +122,9 @@ void Camera::ChangeMode(MODE mode)
 
 }
 
-void Camera::SetRobot(RobotBase* robot)
+void Camera::SetPlayer(Player* player)
 {
-	robot_ = robot;
+	player_ = player;
 }
 
 void Camera::SetDefault(void)
@@ -177,13 +177,13 @@ void Camera::ProcessRot(void)
 {
 	// キー入力によるカメラの回転
 	auto& ins = InputManager::GetInstance();
-	if (angles_.x > -RobotBase::MAX_ROBOT_ANGLES){
+	if (angles_.x > -Player::MAX_ROBOT_ANGLES){
 		if (ins.IsNew(KEY_INPUT_UP)) 
 		{
 			angles_.x -= CAMERA_ANGLE_SPEED; 
 		}
 	}
-	if (angles_.x < RobotBase::MAX_ROBOT_ANGLES){
+	if (angles_.x < Player::MAX_ROBOT_ANGLES){
 		if (ins.IsNew(KEY_INPUT_DOWN))
 		{ 
 			angles_.x += CAMERA_ANGLE_SPEED;
@@ -201,7 +201,7 @@ void Camera::ProcessRot(void)
 	}
 
 	//回転行列を使ったカメラ操作処理
-	VECTOR localPos = { RobotBase::LOCAL_DEF_POS.x, RobotBase::LOCAL_DEF_POS.y, -RobotBase::LOCAL_DEF_POS.z };
+	VECTOR localPos = { Player::LOCAL_DEF_POS.x, Player::LOCAL_DEF_POS.y, -Player::LOCAL_DEF_POS.z };
 	// 回転マトリックス生成（Y軸→X軸の順で回転）
 	MATRIX mat = MGetIdent();
 	mat = MMult(mat, MGetRotX(angles_.x));
@@ -225,7 +225,7 @@ void Camera::SetBeforeDrawFixedPoint(void)
 
 void Camera::SetBeforePlayerDraw(void)
 {
-	targetPos_ = robot_->GetTransform().pos;
+	targetPos_ = player_->GetTransform().pos;
 	targetPos_.y += 200.0f;
 
 	ProcessRot();
@@ -234,7 +234,7 @@ void Camera::SetBeforePlayerDraw(void)
 void Camera::TargetLockeOn(void)
 {
 	// デバッグ球体へのベクトルを計算
-	VECTOR toTarget = VSub(*robot_->GetDebugSpherePos(), robot_->GetTransform().pos);
+	VECTOR toTarget = VSub(*player_->GetDebugSpherePos(), player_->GetTransform().pos);
 
 	// ターゲットまでの距離をチェック（ゼロ除算回避）
 	float distance = VSize(toTarget);
@@ -256,7 +256,7 @@ void Camera::TargetLockeOn(void)
 	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 0.5f);
 
 	// ロボットが向いている方向を取得
-	VECTOR robotForward = robot_->GetTransform().targetDir;
+	VECTOR robotForward = player_->GetTransform().targetDir;
 
 	// ロボットの向き（Y軸回転角度）を前方ベクトルから計算
 	float robotAngleY = atan2f(robotForward.x, robotForward.z);
@@ -275,8 +275,8 @@ void Camera::TargetLockeOn(void)
 
 
 	// カメラの位置を計算
-	pos_ = VAdd(robot_->GetTransform().pos, worldOffset);
-	targetPos_ = *robot_->GetDebugSpherePos();
+	pos_ = VAdd(player_->GetTransform().pos, worldOffset);
+	targetPos_ = *player_->GetDebugSpherePos();
 }
 
 

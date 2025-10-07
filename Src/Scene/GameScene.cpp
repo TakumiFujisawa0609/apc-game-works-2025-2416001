@@ -11,7 +11,7 @@
 #include "../Object/Common/EffectController.h"
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
-#include "../Object/Robot/RobotBase.h"
+#include "../Object/Robot/Player/Player.h"
 
 #include "../Application.h"
 
@@ -30,16 +30,16 @@ void GameScene::Init(void)
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
-	camera->ChangeMode(Camera::MODE::FREE);
+	camera->ChangeMode(Camera::MODE::FIXED_POINT);
 
-	robot_ = std::make_unique<RobotBase>();
-	robot_->Init();
-	robot_->SetCamera(SceneManager::GetInstance().GetCamera());
+	player_ = std::make_unique<Player>();
+	player_->Init();
+	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
-	camera->SetRobot(robot_.get());
+	camera->SetPlayer(player_.get());
 }
 
 void GameScene::Update(void)
@@ -51,10 +51,10 @@ void GameScene::Update(void)
 	}
 
 	//ロボット更新処理
-	robot_->Update();
+	player_->Update();
 
 	Camera* camera = SceneManager::GetInstance().GetCamera();
-	if (robot_->IsTargetLockFlage())
+	if (player_->IsTargetLockFlage())
 	{
 		camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
 	}
@@ -67,7 +67,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	//ロボット描画処理
-	robot_->Draw();
+	player_->Draw();
 	//グリッド描画処理
 	grid_->Draw();
 }
@@ -75,5 +75,5 @@ void GameScene::Draw(void)
 void GameScene::Release(void)
 {
 	//ロボット解放処理
-	robot_->Release();
+	player_->Release();
 }

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Robot\Enemy\EnemyBase.cpp" />
+    <ClCompile Include="Src\Object\Robot\Player\Player.cpp" />
     <ClCompile Include="Src\Object\Common\Grid.cpp" />
     <ClCompile Include="Src\Object\Robot\RobotBase.cpp" />
     <ClCompile Include="Src\FpsControl\FpsControl.cpp" />
@@ -52,6 +54,8 @@
     <ClCompile Include="Src\Object\Wepon\WeponMissile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Robot\Enemy\EnemyBase.h" />
+    <ClInclude Include="Src\Object\Robot\Player\Player.h" />
     <ClInclude Include="Src\Object\Common\Grid.h" />
     <ClInclude Include="Src\Object\Robot\RobotBase.h" />
     <ClInclude Include="Src\FpsControl\FpsControl.h" />
@@ -210,6 +214,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

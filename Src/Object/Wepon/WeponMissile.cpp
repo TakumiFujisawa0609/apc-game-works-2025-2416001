@@ -1,4 +1,3 @@
-#include "../Robot/RobotBase.h"
 #include "WeponMissile.h"
 
 WeponMissile::WeponMissile(void)
@@ -86,12 +85,11 @@ void WeponMissile::Move(void)
 		isAlive_ = false;
 	}
 
-	if (trans_.pos.y <= 500.0f)
+	if (trans_.pos.y <= 700.0f)
 	{
 		return;
 	}
 
-	RobotBase robot_;
 	// ターゲットへの方向ベクトルを計算
 	VECTOR toTarget = VSub(targetPos_, trans_.pos);
 	float distance = VSize(toTarget);
