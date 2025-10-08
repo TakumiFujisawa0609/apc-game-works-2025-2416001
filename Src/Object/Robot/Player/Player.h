@@ -11,14 +11,27 @@ class Player
 {
 public:
 
-	//初期位置
-	static constexpr VECTOR ROBOT_DEF_POS = { 0.0f,0.0f,0.0f };
+	//アニメーション
+	enum class ANIM_TYPE
+	{
+		ATTACK,
+		DEATH,
+		HIT_REACT,
+		IDLE,
+		JUMP,
+		RUN,
+		WALK,
+		MAX,
+	};
+
 	//初期サイズ
-	static constexpr VECTOR ROBOT_DEF_SCL = { 0.1f,0.1f,0.1f };
+	static constexpr VECTOR DEFALUT_SCL = { 0.1f,0.1f,0.1f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
-	//初期相対座標
-	static constexpr VECTOR  LOCAL_DEF_POS = { 0.0f,0.0f,500.0f };
+	//初期座標
+	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,0.0f };
+	//衝突座標
+	static constexpr VECTOR  COLLIDER_POS = { 0.0f,100.0f,0.0f };
 
 
 	//最大回転量
@@ -45,8 +58,13 @@ public:
 	// 重力
 	static constexpr float GRAVITY = 5.5f;
 
-	//ロボットのカメラ半径
+	//アニメーションの再生速度
+	static constexpr float DEFAULT_ANIMATION = 30.0f;
+
+	//プレイヤーのカメラ半径
 	static constexpr float MAX_ROBOT_ANGLES = 40.0f * DX_PI_F / 180.0f;
+	//プレイヤーの衝突半径
+	static constexpr float DEFALUT_RADIUS = 60.0f;
 
 	Player(void);
 	~Player(void)override;

@@ -4,6 +4,7 @@
 #include "SceneBase.h"
 
 class Player;
+class EnemyBase;
 class Grid;
 
 class GameScene :
@@ -27,6 +28,9 @@ private:
 
 	//ロボット
 	std::unique_ptr<Player> player_;
+
+	//エネミー
+	std::unique_ptr<EnemyBase> enemys_;
 
 	//グリッド
 	std::unique_ptr<Grid> grid_;

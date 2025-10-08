@@ -6,6 +6,7 @@
 #include "../Utility/MatrixUtility.h"
 #include "../Object/Common/Transform.h"
 #include "../Object/Robot/Player/Player.h"
+#include "../Object/Robot/Enemy/EnemyBase.h"
 #include "InputManager.h"
 
 #include "../Application.h"
@@ -127,6 +128,11 @@ void Camera::SetPlayer(Player* player)
 	player_ = player;
 }
 
+void Camera::SetEnemy(EnemyBase* enemys)
+{
+	enemys_ = enemys;
+}
+
 void Camera::SetDefault(void)
 {
 	// カメラの初期設定
@@ -201,7 +207,8 @@ void Camera::ProcessRot(void)
 	}
 
 	//回転行列を使ったカメラ操作処理
-	VECTOR localPos = { Player::LOCAL_DEF_POS.x, Player::LOCAL_DEF_POS.y, -Player::LOCAL_DEF_POS.z };
+	VECTOR PlayerlocalPos = { 0.0f,0.0f,500.0f };
+	VECTOR localPos = { PlayerlocalPos.x, PlayerlocalPos.y, -PlayerlocalPos.z };
 	// 回転マトリックス生成（Y軸→X軸の順で回転）
 	MATRIX mat = MGetIdent();
 	mat = MMult(mat, MGetRotX(angles_.x));
@@ -234,7 +241,7 @@ void Camera::SetBeforePlayerDraw(void)
 void Camera::TargetLockeOn(void)
 {
 	// デバッグ球体へのベクトルを計算
-	VECTOR toTarget = VSub(*player_->GetDebugSpherePos(), player_->GetTransform().pos);
+	VECTOR toTarget = VSub(enemys_->GetTransform().pos, player_->GetTransform().pos);
 
 	// ターゲットまでの距離をチェック（ゼロ除算回避）
 	float distance = VSize(toTarget);
@@ -276,7 +283,7 @@ void Camera::TargetLockeOn(void)
 
 	// カメラの位置を計算
 	pos_ = VAdd(player_->GetTransform().pos, worldOffset);
-	targetPos_ = *player_->GetDebugSpherePos();
+	targetPos_ = enemys_->GetTransform().pos;
 }
 
 

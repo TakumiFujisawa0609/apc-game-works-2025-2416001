@@ -7,6 +7,7 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
+#include "../../Wepon/WeponBase.h"
 #include "../../Wepon/WeponBeam.h"
 #include "../../Wepon/WeponMissile.h"
 
@@ -22,13 +23,6 @@ Player::~Player(void)
 
 void Player::Update(void)
 {
-    // カメラの向き（Y軸回転）をロボットに反映
-    if (camera_ != nullptr) {
-        VECTOR camAngles = camera_->GetAngles();
-        // カメラのY軸回転のみコピー
-        /*trans_.rot.y = camAngles.y;*/
-    }
-
     //遅延回転処理
     DelayRotate();
 
@@ -50,33 +44,11 @@ void Player::Update(void)
     weponbeam_->Update();
     for (int i = 0; i < weponMissile_.size(); i++)
     {
-        weponMissile_[i]->UpdateTarget(debugSpherePos_);
+        weponMissile_[i]->UpdateTarget(lockOnPos_);
         weponMissile_[i]->Update();
     }
 
-#ifdef _DEBUG
-
-    //デバッグ用円の移動処理
-    float moveSpeed = 15.0f;
-    float maxMove = 1000.0f;
-
-    if (debugSpherePos_.x > maxMove) {
-        deBugLeft = true;
-        deBugRight = false;
-    }
-    if (debugSpherePos_.x < -maxMove) {
-        deBugLeft = false;
-        deBugRight = true;
-    }
-
-    if (deBugLeft) {
-        debugSpherePos_.x -= moveSpeed;
-    }
-    if (deBugRight) {
-        debugSpherePos_.x += moveSpeed;
-    }
-
-#endif
+    anim_->Update();
 }
 
 void Player::Draw(void)
@@ -88,20 +60,6 @@ void Player::Draw(void)
     {
         weponMissile_[i]->Draw();
     }
-
-#ifdef _DEBUG
-    DrawFormatString(0, 20, GetColor(255, 255, 255), "加速度：%.1f", movePow_);
-
-    DrawSphere3D(debugSpherePos_, 100.0f, 16, 0xFFFF00, 0xAAAA00, false);
-
-    DrawFormatString(
-        0, 40, GetColor(255, 255, 255),
-        "座標：(%.1f,%.1f,%.1f)",
-        debugSpherePos_.x,
-        debugSpherePos_.y,
-        debugSpherePos_.z
-    );
-#endif
 }
 
 void Player::Release(void)
@@ -111,7 +69,7 @@ void Player::Release(void)
     weponbeam_->Release();
     for (int i = 0; i < weponMissile_.size(); i++)
     {
-        weponMissile_[i]->Release       ();
+        weponMissile_[i]->Release();
     }
 }
 
@@ -122,32 +80,23 @@ void Player::SetCamera(Camera* camera)
 
 void Player::InitLoad(void)
 {
-    trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ROBOT);
+    trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::PLAYR);
 }
 
 void Player::InitTransform(void)
 {
-    trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ROBOT);
     trans_.rot = AsoUtility::VECTOR_ZERO;
+    trans_.pos = DEFALUT_POS;
+    trans_.scl = DEFALUT_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
-    trans_.pos = AsoUtility::VECTOR_ZERO;
-    trans_.scl = ROBOT_DEF_SCL;
-    // 角度から方向に変換する
-    trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
-
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetScale(trans_.modelId, trans_.scl);
 }
 
 void Player::InitAnimation(void)
 {
-    anim_ = new AnimationController(trans_.modelId);
+    anim_ = std::make_unique<AnimationController>(trans_.modelId);
 
     anim_->Add(
-        static_cast<int>(ANIM_TYPE::WIKE),
+        static_cast<int>(ANIM_TYPE::IDLE),
         Application::PATH_MODEL + "Walk.mv1",
         30.0f
     );
@@ -355,7 +304,7 @@ void Player::ProcessTargetLock(void)
     }
 
     // デバッグ球体へのベクトルを計算
-    VECTOR toTarget = VSub(debugSpherePos_, trans_.pos);
+    VECTOR toTarget = VSub(lockOnPos_, trans_.pos);
 
     // ターゲットまでの距離をチェック（ゼロ除算回避）
     float distance = VSize(toTarget);
@@ -373,11 +322,7 @@ void Player::ProcessTargetLock(void)
     float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
     float targetAngleX = atan2f(-targetDir.y, horizontalDist);
 
-    //// 即座にターゲット方向を向く（補間なし）
-    //trans_.rot.y = targetAngleY;
-    //trans_.rot.x = targetAngleX;
-
-    // 滑らかに回転させる（補間）
+    // 滑らかに回転させる
     trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, targetAngleY, 0.5f);
     trans_.rot.x = AsoUtility::LerpAngle(trans_.rot.x, targetAngleX, 0.5f);
 

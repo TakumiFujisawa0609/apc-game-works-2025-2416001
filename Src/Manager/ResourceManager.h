@@ -20,7 +20,8 @@ public:
 	/// </summary>
 	enum class SRC
 	{
-		ROBOT
+		PLAYR,
+		ENEMY_GEORGE,
 	};
 
 	/// <summary>

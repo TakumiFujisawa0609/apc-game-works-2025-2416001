@@ -1,8 +1,11 @@
 #pragma once
+#include <vector>
+#include <memory>
 #include <DxLib.h>
 #include "../Common/Quaternion.h"
 
 class Player;
+class EnemyBase;
 class Transform;
 
 class Camera
@@ -72,11 +75,16 @@ public:
 	void ChangeMode(MODE mode);
 	//ロボット機能取得関数
 	void SetPlayer(Player* player);
+	//エネミー機能取得関数
+	void SetEnemy(EnemyBase* enemys);
 
 private:
 
-	// ロボット
+	//プレイヤー情報
 	Player* player_;
+
+	//エネミー情報
+	EnemyBase* enemys_;
 
 	// カメラモード
 	MODE mode_;

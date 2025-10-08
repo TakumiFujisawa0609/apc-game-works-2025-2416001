@@ -29,9 +29,13 @@ void ResourceManager::Init(void)
 
 	std::unique_ptr<Resource> res;
 
-	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "AGSRobot.mv1");
-	resourcesMap_.emplace(SRC::ROBOT, std::move(res));
+	//プレイヤーモデル
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Player/AGSRobot.mv1");
+	resourcesMap_.emplace(SRC::PLAYR, std::move(res));
 
+	//エネミーモデル
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemtyGeorge.mv1");
+	resourcesMap_.emplace(SRC::ENEMY_GEORGE, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

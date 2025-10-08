@@ -14,12 +14,6 @@ class RobotBase
 {
 public:
 
-	//アニメーション
-	enum class ANIM_TYPE
-	{
-		WIKE
-	};
-
 	// 状態
 	enum class STATE
 	{
@@ -31,9 +25,6 @@ public:
 		END,
 		VICTORY,
 	};
-
-	//デバック用敵円座標
-	static constexpr VECTOR DEBUG_SPHERE_POS = { 0.0f,50.0f,1000.0f };
 
 	// コンストラクタ
 	RobotBase(void);
@@ -50,23 +41,25 @@ public:
 
 	//ロック機能入力フラグ
 	bool IsTargetLockFlage(void);
-	//デバッグ円座標取得関数
-	const VECTOR* GetDebugSpherePos(void);
+
+	//ロックオン座標の設定
+	void SetLockOnPos(VECTOR lockOnPos);
 
 protected:
 
 	// 武器
+	std::unique_ptr<WeponBase> useWepon_;
 	std::unique_ptr<WeponBeam> weponbeam_;
 	std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
 
 	//アニメション
-	AnimationController* anim_;
+	std::unique_ptr<AnimationController> anim_;
 
 	//状態
 	STATE state_;
 
-	//デバッグ用円座標
-	VECTOR debugSpherePos_;
+	//ロックオン座標
+	VECTOR lockOnPos_;
 
 	//上昇量
 	float rise_;
@@ -74,10 +67,6 @@ protected:
 	float movePow_;
 	//回転量
 	float rotPow_;
-
-	//デバッグ用フラグ
-	bool deBugLeft = false;
-	bool deBugRight = true;
 
 	//ロック機能入力カウント
 	int lockcnt;

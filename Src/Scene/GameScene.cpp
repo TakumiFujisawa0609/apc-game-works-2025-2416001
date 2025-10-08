@@ -1,10 +1,8 @@
 #include <DxLib.h>
-
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/SoundManager.h"
-
 #include "../Manager/Camera.h"
 #include "../Manager/DataBank.h"
 
@@ -12,7 +10,7 @@
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
 #include "../Object/Robot/Player/Player.h"
-
+#include "../Object/Robot/Enemy/EnemyBase.h"
 #include "../Application.h"
 
 #include "GameScene.h"
@@ -32,14 +30,20 @@ void GameScene::Init(void)
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	camera->ChangeMode(Camera::MODE::FIXED_POINT);
 
+	//プレイヤー初期化処理
 	player_ = std::make_unique<Player>();
 	player_->Init();
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
+
+	//エネミー初期化処理
+	enemys_ = std::make_unique<EnemyBase>();
+	enemys_->Init();
 
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
+	camera->SetEnemy(enemys_.get());
 }
 
 void GameScene::Update(void)
@@ -52,6 +56,10 @@ void GameScene::Update(void)
 
 	//ロボット更新処理
 	player_->Update();
+	player_->SetLockOnPos(enemys_->GetTransform().pos);
+
+	//エネミー更新処理
+	enemys_->Update();
 
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	if (player_->IsTargetLockFlage())
@@ -68,12 +76,34 @@ void GameScene::Draw(void)
 {
 	//ロボット描画処理
 	player_->Draw();
+	//エネミー描画処理
+	enemys_->Draw();
 	//グリッド描画処理
 	grid_->Draw();
+
+#ifdef _DEBUG
+	DrawSphere3D(
+		{ player_->GetTransform().pos.x, player_->GetTransform().pos.y + Player::COLLIDER_POS.y, player_->GetTransform().pos.z },
+		Player::DEFALUT_RADIUS,
+		16,
+		GetColor(200, 200, 200),
+		GetColor(200, 200, 200),
+		false);
+
+	DrawSphere3D(
+		{ enemys_->GetTransform().pos.x, enemys_->GetTransform().pos.y + EnemyBase::COLLIDER_POS.y, enemys_->GetTransform().pos.z },
+		EnemyBase::DEFALUT_RADIUS,
+		16,
+		GetColor(200, 200, 200),
+		GetColor(200, 200, 200),
+		false);
+#endif
 }
 
 void GameScene::Release(void)
 {
 	//ロボット解放処理
 	player_->Release();
+	//エネミー解放処理
+	enemys_->Release();
 }
