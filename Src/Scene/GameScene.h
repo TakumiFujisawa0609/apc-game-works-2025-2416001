@@ -35,5 +35,9 @@ private:
 	//ƒOƒŠƒbƒh
 	std::unique_ptr<Grid> grid_;
 
+
+	//Õ“Ë”»’èŠÖ”
+	void UpdateCollider(void);
+
 };
 

@@ -1,25 +1,25 @@
 #pragma once
+#include <DxLib.h>
+
+class Transform;
+
 class Collider
 {
 
 public :
 
-	// 衝突種別
-	enum class TYPE
-	{
-		STAGE,
-	};
-
 	// コンストラクタ
-	Collider(TYPE type, int modelId);
-
+	Collider(void);
 	// デストラクタ
 	~Collider(void);
 
-	// 衝突種別
-	TYPE type_;
+	void Init(void);
+	void Update(void);
+	void Draw(void);
+	void Release(void);
 
-	// モデルのハンドルID
-	int modelId_;
+private:
+
+	void SetWeponIsCollision(const Transform& trans1, const Transform& trans2);
 
 };

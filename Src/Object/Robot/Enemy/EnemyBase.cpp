@@ -65,7 +65,7 @@ void EnemyBase::InitAnimation(void)
 	}
 
 	// 初期アニメーション再生
-	anim_->Play(static_cast<int>(ANIM_TYPE::GESUTYE));
+    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
 }
 
 void EnemyBase::InitPost(void)

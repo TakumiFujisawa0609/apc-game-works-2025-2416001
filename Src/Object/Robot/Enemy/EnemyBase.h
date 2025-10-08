@@ -12,14 +12,14 @@ public:
 	//アニメーション
 	enum class ANIM_TYPE
 	{
-		ATTACK = 14,
+		GESUTYE = 0,
 		DEATH = 1,
 		HIT_REACT = 3,
 		IDLE = 5,
 		JUMP = 6,
 		RUN = 11,
+		ATTACK = 14,
 		WALK = 16,
-		GESUTYE = 0,
 		MAX,
 	};
 

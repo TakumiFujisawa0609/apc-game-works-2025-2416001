@@ -84,7 +84,7 @@ void GameScene::Draw(void)
 #ifdef _DEBUG
 	DrawSphere3D(
 		{ player_->GetTransform().pos.x, player_->GetTransform().pos.y + Player::COLLIDER_POS.y, player_->GetTransform().pos.z },
-		Player::DEFALUT_RADIUS,
+		Player::DEFALUT_RADIUS,	
 		16,
 		GetColor(200, 200, 200),
 		GetColor(200, 200, 200),

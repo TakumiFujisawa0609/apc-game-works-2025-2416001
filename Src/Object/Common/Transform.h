@@ -62,7 +62,7 @@ public:
 	void Update(void);
 
 	void SetModel(int modelHId);
-	void MakeCollider(Collider::TYPE type);
+	/*void MakeCollider(Collider::TYPE type);*/
 
 	// ‘O•û•ûŒü‚ðŽæ“¾
 	VECTOR GetForward(void) const;
