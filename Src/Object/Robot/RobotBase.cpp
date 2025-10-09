@@ -33,26 +33,12 @@ void RobotBase::Init(void)
     // 初期化後の個別処理
     InitPost();
 
-    weponbeam_ = std::make_unique<WeponBeam>();
-    weponbeam_->Init();
-
-    for (int i = 0; i < 10; i++)
-    {
-        weponMissile_.push_back(std::make_unique<WeponMissile>());
-    }
-
-    for(int i = 0; i < weponMissile_.size(); i++)
-    {
-        weponMissile_[i]->Init();
-    }
-
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
     //状態遷移初期設定
     ChangeState(STATE::STANDBY);
-
 }
 
 void RobotBase::Update(void)
@@ -99,22 +85,21 @@ void RobotBase::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-   /* weponbeam_->Update();
-    for (int i = 0; i < weponMissile_.size(); i++)
+    size_t size = useWepon_.size();
+    for (int i = 0; i < size; i++)
     {
-        weponMissile_[i]->UpdateTarget(debugSpherePos_);
-        weponMissile_[i]->Update();
-    }*/
+        useWepon_[i]->Update();
+    }
 }
 
 void RobotBase::Draw(void)
 {
 	MV1DrawModel(trans_.modelId);
 
-    weponbeam_->Draw();
-    for (int i = 0; i < weponMissile_.size(); i++)
+    size_t size = useWepon_.size();
+    for (int i = 0; i < size; i++)
     {
-        weponMissile_[i]->Draw();
+        useWepon_[i]->Draw();
     }
 
     switch (state_)
@@ -146,11 +131,12 @@ void RobotBase::Release(void)
 {
 	MV1DeleteModel(trans_.modelId);
 
-    weponbeam_->Release();
-    for (int i = 0; i < weponMissile_.size(); i++)
+    size_t size = useWepon_.size();
+    for (int i = 0; i < size; i++)
     {
-        weponMissile_[i]->Release();
+        useWepon_[i]->Release();
     }
+    useWepon_.clear();
 }
 
 void RobotBase::ChangeState(STATE state)
@@ -180,6 +166,47 @@ void RobotBase::ChangeState(STATE state)
     default:
         break;
     }
+}
+
+WeponBase* RobotBase::GetValidWepon(WeponBase::WEPON_TYPE type)
+{
+    size_t size = useWepon_.size();
+
+    for (int i = 0; i < size; i++)
+    {
+        // 未使用で、かつ、武器の種別が同じ
+        if (!useWepon_[i]->IsAlive() && useWepon_[i]->GetType() == type)
+        {
+            return useWepon_[i].get();
+        }
+    }
+
+    //新しい武器のインスタンスを生成する
+    std::shared_ptr<WeponBase> wepon;
+    switch (type)
+    {
+    case WeponBase::WEPON_TYPE::NONE:
+        break;
+    case WeponBase::WEPON_TYPE::BEAM:
+        wepon = std::make_unique<WeponBeam>(type);
+        break;
+    case WeponBase::WEPON_TYPE::MISSILE:
+        wepon = std::make_unique<WeponMissile>(type);
+        break;
+    case WeponBase::WEPON_TYPE::SWORD:
+        break;
+    default:
+        break;
+    }
+
+    if (!wepon) {
+        return nullptr;
+    }
+
+    // 可変長配列に追加
+    useWepon_.push_back(wepon);
+
+    return wepon.get();
 }
 
 void RobotBase::InitTransformPost(void)

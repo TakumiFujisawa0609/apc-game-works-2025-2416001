@@ -280,7 +280,6 @@ void Camera::TargetLockeOn(void)
 	rotMat = MGetRotY(robotAngleY);
 	VECTOR worldOffset = VTransform(localOffset, rotMat);
 
-
 	// ƒJƒƒ‰‚ÌˆÊ’u‚ðŒvŽZ
 	pos_ = VAdd(player_->GetTransform().pos, worldOffset);
 	targetPos_ = enemys_->GetTransform().pos;

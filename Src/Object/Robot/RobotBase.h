@@ -3,6 +3,7 @@
 #include <memory>
 #include <DxLib.h>
 #include "../ObjectBase.h"
+#include "../Wepon/WeponBase.h"
 
 class WeponBase;
 class WeponBeam;
@@ -33,11 +34,11 @@ public:
 	//初期化処理
 	void Init(void)override;
 	//更新処理
-	virtual void Update(void)override;
+	void Update(void)override;
 	//描画処理
-	virtual void Draw(void)override;
+	void Draw(void)override;
 	//解放処理
-	virtual void Release(void)override;
+	void Release(void)override;
 
 	//ロック機能入力フラグ
 	bool IsTargetLockFlage(void);
@@ -45,12 +46,16 @@ public:
 	//ロックオン座標の設定
 	void SetLockOnPos(VECTOR lockOnPos);
 
+	// 弾の取得
+	std::vector<std::shared_ptr<WeponBase>>& GetUseWepon(void) { return useWepon_; }
+
 protected:
 
-	// 武器
-	std::unique_ptr<WeponBase> useWepon_;
-	std::unique_ptr<WeponBeam> weponbeam_;
-	std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
+	//// 武器
+	//std::unique_ptr<WeponBase> useWepon_;
+	//std::unique_ptr<WeponBeam> weponbeam_;
+	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
+	std::vector<std::shared_ptr<WeponBase>> useWepon_;
 
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
@@ -73,6 +78,9 @@ protected:
 
 	// 状態遷移
 	virtual void ChangeState(STATE state);
+
+	//有効な武器を取得する
+	WeponBase* GetValidWepon(WeponBase::WEPON_TYPE type);
 
 	// リソースロード
 	virtual void InitLoad(void) = 0;

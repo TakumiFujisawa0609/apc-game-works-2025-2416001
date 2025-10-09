@@ -66,8 +66,6 @@ public:
 	EnemyBase(void);
 	~EnemyBase(void)override;
 	void Update(void)override;
-	void Draw(void)override;
-	void Release(void)override;
 
 protected:
 

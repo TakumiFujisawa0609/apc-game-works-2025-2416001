@@ -97,6 +97,7 @@ void GameScene::Draw(void)
 		GetColor(200, 200, 200),
 		GetColor(200, 200, 200),
 		false);
+
 #endif
 }
 

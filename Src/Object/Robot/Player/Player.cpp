@@ -21,58 +21,6 @@ Player::~Player(void)
 {
 }
 
-void Player::Update(void)
-{
-    //’x‰„‰ñ“]ˆ—
-    DelayRotate();
-
-    //ˆÚ“®ˆ—
-    ProcessMove();
-
-    //ã¸ˆ—
-    ProcessRise();
-
-    ProcessTargetLock();
-
-    //UŒ‚ˆ—
-    ProcessAttack();
-
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-
-    weponbeam_->Update();
-    for (int i = 0; i < weponMissile_.size(); i++)
-    {
-        weponMissile_[i]->UpdateTarget(lockOnPos_);
-        weponMissile_[i]->Update();
-    }
-
-    anim_->Update();
-}
-
-void Player::Draw(void)
-{
-    MV1DrawModel(trans_.modelId);
-
-    weponbeam_->Draw();
-    for (int i = 0; i < weponMissile_.size(); i++)
-    {
-        weponMissile_[i]->Draw();
-    }
-}
-
-void Player::Release(void)
-{
-    MV1DeleteModel(trans_.modelId);
-
-    weponbeam_->Release();
-    for (int i = 0; i < weponMissile_.size(); i++)
-    {
-        weponMissile_[i]->Release();
-    }
-}
-
 void Player::SetCamera(Camera* camera)
 {
     camera_ = camera;
@@ -255,35 +203,36 @@ void Player::ProcessRise(void)
 void Player::ProcessAttack(void)
 {
     VECTOR targetDir = trans_.moveDir;
+
     if (IsTargetLockFlage())
     {
         targetDir = trans_.targetDir;
     }
 
-    if (inpMng_.IsTrgDown(KEY_INPUT_R)
-        && !weponbeam_->IsAlive())
+    WeponBase* wepon;
+
+    if (inpMng_.IsTrgDown(KEY_INPUT_R))
     {
-        weponbeam_->Use(trans_.pos, targetDir);
+
+        wepon = GetValidWepon(WeponBase::WEPON_TYPE::BEAM);
+
+        wepon->Init(trans_.pos, targetDir);
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F))
     {
-        for (int i = 0; i < weponMissile_.size(); i++)
-        {
-            if (!weponMissile_[i]->IsAlive())
-            {
-                // ƒ‰ƒ“ƒ_ƒ€‚ÈŠp“x‚Å‚Î‚ç‚¯‚³‚¹‚é
-                int randAnglePow = 10000;
-                int randAnglehraf = randAnglePow / 2;
-                float randomAngleY = targetDir.y + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-                float randomAngleX = targetDir.x + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-                float randomAngleZ = targetDir.z + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+        // ƒ‰ƒ“ƒ_ƒ€‚ÈŠp“x‚Å‚Î‚ç‚¯‚³‚¹‚é
+        int randAnglePow = 10000;
+        int randAnglehraf = randAnglePow / 2;
+        float randomAngleY = targetDir.y + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+        float randomAngleX = targetDir.x + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+        float randomAngleZ = targetDir.z + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
 
-                VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
+        VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
 
-                weponMissile_[i]->Use(trans_.pos, spreadDir);
-            }
-        }
+        wepon = GetValidWepon(WeponBase::WEPON_TYPE::MISSILE);
+
+        wepon->Init(trans_.pos, spreadDir, lockOnPos_);
     }
 }
 
@@ -296,7 +245,6 @@ void Player::ProcessTargetLock(void)
     {
         lockcnt++;
     }
-
 
     if (!IsTargetLockFlage())
     {

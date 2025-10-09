@@ -32,16 +32,6 @@ void EnemyBase::Update(void)
     anim_->Update();
 }
 
-void EnemyBase::Draw(void)
-{
-    MV1DrawModel(trans_.modelId);
-}
-
-void EnemyBase::Release(void)
-{
-    MV1DeleteModel(trans_.modelId);
-}
-
 void EnemyBase::InitLoad(void)
 {
 	trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);

@@ -1,6 +1,7 @@
 #include "WeponMissile.h"
 
-WeponMissile::WeponMissile(void)
+WeponMissile::WeponMissile(WEPON_TYPE type):
+	WeponBase(type)
 {
 }
 
@@ -19,8 +20,8 @@ void WeponMissile::Draw(void)
 	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
 
 		DrawCapsule3D(
-			trans_.pos,      // 開始点
-			endPos,          // 終点（方向を考慮）
+			trans_.pos,
+			endPos,
 			5.0f,
 			8,
 			GetColor(0, 255, 0),
@@ -44,15 +45,6 @@ void WeponMissile::Release(void)
 {
 }
 
-void WeponMissile::Use(VECTOR pos, VECTOR dir)
-{
-	trans_.pos = VAdd(pos, trans_.localPos);
-	trans_.moveDir = VNorm(dir);
-	isAlive_ = true;
-	bemelong_ = 0.0f;
-	jumpPow_ = JUMP_POW;
-}
-
 void WeponMissile::Load(void)
 {
 }
@@ -62,6 +54,8 @@ void WeponMissile::SetParam(void)
 	trans_.localPos = LOCAL_POS;
 	speed_ = DEFAULT_SPEED;
 	bemeSpeed_ = MAX_BEAM_SPEED;
+	bemelong_ = 0.0f;
+	jumpPow_ = JUMP_POW;
 }
 
 void WeponMissile::Move(void)
@@ -90,25 +84,16 @@ void WeponMissile::Move(void)
 		return;
 	}
 
-	// ターゲットへの方向ベクトルを計算
 	VECTOR toTarget = VSub(targetPos_, trans_.pos);
 	float distance = VSize(toTarget);
 
-	// ターゲットが存在する場合のみ追尾
 	if (distance >= 0.01f)
 	{
 		VECTOR targetDir = VNorm(toTarget);
-
-		// 現在の移動方向とターゲット方向を補間（追尾力に応じて）
 		trans_.moveDir = VNorm(
 			VAdd(
 			VScale(trans_.moveDir, 2.0f),
 			VScale(targetDir, 2.0f)
 		));
 	}
-}
-
-void WeponMissile::UpdateTarget(VECTOR targetPos)
-{
-	targetPos_ = targetPos;
 }

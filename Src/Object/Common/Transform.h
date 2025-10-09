@@ -32,7 +32,6 @@ public:
 	VECTOR moveDir;
 	VECTOR targetDir;
 
-
 	// ‘å‚«‚³
 	VECTOR scl;
 	// ‰ñ“]

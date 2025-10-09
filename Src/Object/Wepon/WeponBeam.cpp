@@ -2,7 +2,8 @@
 #include "../../Utility/AsoUtility.h"
 #include "WeponBeam.h"
 
-WeponBeam::WeponBeam(void)
+WeponBeam::WeponBeam(WEPON_TYPE type):
+	WeponBase(type)
 {
 }
 
@@ -34,15 +35,6 @@ void WeponBeam::Release(void)
 {
 }
 
-void WeponBeam::Use(VECTOR pos, VECTOR dir)
-{
-	trans_.pos = VAdd(pos, trans_.localPos);
-	trans_.moveDir = VNorm(dir);
-	isAlive_ = true;
-	bemelong_ = 0.0f;
-	
-}
-
 void WeponBeam::Load(void)
 {
 }
@@ -51,6 +43,7 @@ void WeponBeam::SetParam(void)
 {
 	trans_.localPos = LOCAL_POS;
 	speed_ = DEFAULT_SPEED;
+	bemelong_ = 0.0f;
 }
 
 void WeponBeam::Move(void)
@@ -59,7 +52,6 @@ void WeponBeam::Move(void)
 	{
 		bemelong_ = MAX_BEAM_LENGTH;
 
-		
 		trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 	}
 	else

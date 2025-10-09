@@ -26,18 +26,12 @@ public:
 	static constexpr float GRAVITY = 0.1f;
 
 	// コンストラクタ
-	WeponMissile(void);
+	WeponMissile(WEPON_TYPE type);
 	// デストラクタ
 	~WeponMissile(void);
 
 	void Draw(void) override;
 	void Release(void) override;
-
-	// 武器を使用する
-	void Use(VECTOR pos, VECTOR dir) override;
-
-	//標的の座標を設定
-	void UpdateTarget(VECTOR targetPos);
 
 protected:
 
@@ -47,9 +41,6 @@ protected:
 	void SetParam(void) override;
 
 private:
-
-	//標敵の座標
-	VECTOR targetPos_;
 
 	// ジャンプ力
 	float jumpPow_;

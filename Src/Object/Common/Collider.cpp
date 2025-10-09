@@ -30,6 +30,8 @@ void Collider::Release(void)
 void Collider::SetWeponIsCollision(const Transform& trans1, const Transform& trans2)
 {
 
-	//標的対象とビームの当たり判定
-	if(AsoUtility::IsHitSphereCapsule())
+	////標的対象とビームの当たり判定
+	//if (AsoUtility::IsHitSphereCapsule()) {
+
+	//}
 }

@@ -17,14 +17,12 @@ public:
 	static constexpr float DEFAULT_SPEED = 500.0f;
 
 	// コンストラクタ
-	WeponBeam(void);
+	WeponBeam(WEPON_TYPE type);
 	// デストラクタ
 	~WeponBeam(void);
 
 	void Draw(void) override;
 	void Release(void) override;
-	// 武器を使用する
-	void Use(VECTOR pos, VECTOR dir) override;
 
 protected:
 

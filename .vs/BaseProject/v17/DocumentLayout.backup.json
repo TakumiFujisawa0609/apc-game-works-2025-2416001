@@ -1,229 +1,237 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\AGS2025fuyu\\",
+  "WorkspaceRootPath": "C:\\AGS_2025_fuyu\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\AnimationController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Enemy\\EnemyBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\EffectController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\GameScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\GameScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\RobotBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Enemy\\EnemyBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\RobotBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\ObjectBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\ObjectBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponMissile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBeam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponMissile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\ObjectBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\AnimationController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\ObjectBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\InputManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\InputManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\ResourceManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\ResourceManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\Resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\WeponManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\AsoUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\WeponManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponMissile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Common\\Vector2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Vector2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Common\\Fader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Fader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\FpsControl\\FpsControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\DataBank.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\DataBank.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Manager\\SoundManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SoundManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\EffectController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBeam.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\MatrixUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponBeam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\FpsControl\\FpsControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Enemy\\EnemyBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Wepon\\WeponMissile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\AsoUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Robot\\Enemy\\EnemyBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\AnimationController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\Grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\EffectController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\GameScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\AnimationController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\InputManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\ResourceManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\Resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\AsoUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Scene\\ResultScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Common\\Vector2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Vector2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Common\\Fader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Common\\Fader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\FpsControl\\FpsControl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\DataBank.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\DataBank.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Manager\\SoundManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Manager\\SoundManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Object\\Common\\EffectController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\MatrixUtility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\FpsControl\\FpsControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\Utility\\MatrixUtility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS2025fuyu\\Src\\main.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|C:\\AGS_2025_fuyu\\Src\\main.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EAE8EE94-FD52-4CCB-AF50-ECC1E6485C92}|BaseProject.vcxproj|solutionrelative:Src\\main.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -233,15 +241,55 @@
       "DocumentGroups": [
         {
           "DockedHeight": 295,
-          "SelectedChildIndex": 49,
+          "SelectedChildIndex": 42,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 13,
+              "Title": "WeponManager.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.cpp",
+              "RelativeDocumentMoniker": "Src\\Manager\\WeponManager.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.cpp",
+              "RelativeToolTip": "Src\\Manager\\WeponManager.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-09T06:14:26.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WeponManager.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.h",
+              "RelativeDocumentMoniker": "Src\\Manager\\WeponManager.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\WeponManager.h",
+              "RelativeToolTip": "Src\\Manager\\WeponManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-09T06:11:41.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "xmemory",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeDocumentMoniker": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "RelativeToolTip": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\xmemory",
+              "ViewState": "AgIAAMUCAAAAAAAAAAAIwNsCAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-09T03:18:31.789Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
               "Title": "Application.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Application.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Application.h",
               "RelativeDocumentMoniker": "Src\\Application.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Application.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Application.h",
               "RelativeToolTip": "Src\\Application.h",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACMAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -249,36 +297,35 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 27,
               "Title": "AnimationController.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\AnimationController.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.h",
               "RelativeToolTip": "Src\\Object\\Common\\AnimationController.h",
               "ViewState": "AgIAAA8AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-08T03:07:40.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-08T03:07:40.595Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
               "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\Player\\Player.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.cpp",
               "RelativeToolTip": "Src\\Object\\Robot\\Player\\Player.cpp",
-              "ViewState": "AgIAAPYAAAAAAAAAAAAAAC4AAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAAAEEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-08T01:19:49.883Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "Resource.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\Resource.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Resource.h",
               "RelativeDocumentMoniker": "Src\\Manager\\Resource.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\Resource.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Resource.h",
               "RelativeToolTip": "Src\\Manager\\Resource.h",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -286,11 +333,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "ResourceManager.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.h",
               "RelativeDocumentMoniker": "Src\\Manager\\ResourceManager.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.h",
               "RelativeToolTip": "Src\\Manager\\ResourceManager.h",
               "ViewState": "AgIAAA8AAAAAAAAAAADwvxcAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -298,48 +345,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 23,
               "Title": "EnemyBase.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
               "RelativeToolTip": "Src\\Object\\Robot\\Enemy\\EnemyBase.cpp",
-              "ViewState": "AgIAADIAAAAAAAAAAAAkwCgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAACAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-07T05:20:57.392Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-07T05:20:57.392Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "EnemyBase.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\Enemy\\EnemyBase.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Enemy\\EnemyBase.h",
               "RelativeToolTip": "Src\\Object\\Robot\\Enemy\\EnemyBase.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-10-07T05:14:41.79Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
               "Title": "Player.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.h",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\Player\\Player.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\Player\\Player.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\Player\\Player.h",
               "RelativeToolTip": "Src\\Object\\Robot\\Player\\Player.h",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-10-07T05:11:33.551Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 42,
               "Title": "TitleScene.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\TitleScene.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.cpp",
               "RelativeToolTip": "Src\\Scene\\TitleScene.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvx4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -347,11 +393,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 43,
               "Title": "TitleScene.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.h",
               "RelativeDocumentMoniker": "Src\\Scene\\TitleScene.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\TitleScene.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\TitleScene.h",
               "RelativeToolTip": "Src\\Scene\\TitleScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -359,23 +405,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "memory",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
-              "RelativeDocumentMoniker": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
-              "RelativeToolTip": "..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\include\\memory",
-              "ViewState": "AgIAAPANAAAAAAAAAAAWwAkOAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-10-07T05:03:42.878Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "Vector2.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Common\\Vector2.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Common\\Vector2.cpp",
               "RelativeDocumentMoniker": "Src\\Common\\Vector2.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Common\\Vector2.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Common\\Vector2.cpp",
               "RelativeToolTip": "Src\\Common\\Vector2.cpp",
               "ViewState": "AgIAAAkAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -383,11 +417,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 46,
               "Title": "Quaternion.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Common\\Quaternion.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Common\\Quaternion.cpp",
               "RelativeDocumentMoniker": "Src\\Common\\Quaternion.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Common\\Quaternion.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Common\\Quaternion.cpp",
               "RelativeToolTip": "Src\\Common\\Quaternion.cpp",
               "ViewState": "AgIAAP8AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -395,11 +429,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 47,
               "Title": "Fader.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Common\\Fader.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Common\\Fader.cpp",
               "RelativeDocumentMoniker": "Src\\Common\\Fader.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Common\\Fader.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Common\\Fader.cpp",
               "RelativeToolTip": "Src\\Common\\Fader.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -407,11 +441,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "DataBank.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\DataBank.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\DataBank.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\DataBank.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\DataBank.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\DataBank.cpp",
               "RelativeToolTip": "Src\\Manager\\DataBank.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -419,23 +453,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 10,
               "Title": "ResourceManager.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\ResourceManager.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\ResourceManager.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\ResourceManager.cpp",
               "RelativeToolTip": "Src\\Manager\\ResourceManager.cpp",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACUAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAACUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-07T05:01:10.178Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 50,
               "Title": "Sound.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\Sound.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Sound.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\Sound.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\Sound.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Sound.cpp",
               "RelativeToolTip": "Src\\Manager\\Sound.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -443,11 +477,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 51,
               "Title": "SoundManager.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\SoundManager.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\SoundManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\SoundManager.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\SoundManager.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\SoundManager.cpp",
               "RelativeToolTip": "Src\\Manager\\SoundManager.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -455,11 +489,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 30,
               "Title": "EffectController.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\EffectController.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.h",
               "RelativeToolTip": "Src\\Object\\Common\\EffectController.h",
               "ViewState": "AgIAAA8AAAAAAAAAAADwvxQAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -467,11 +501,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 52,
               "Title": "EffectController.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\EffectController.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\EffectController.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\EffectController.cpp",
               "RelativeToolTip": "Src\\Object\\Common\\EffectController.cpp",
               "ViewState": "AgIAAGwAAAAAAAAAAADwvxQAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -479,49 +513,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 24,
               "Title": "Collider.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Collider.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.h",
               "RelativeToolTip": "Src\\Object\\Common\\Collider.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwsAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-07T04:59:15.238Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-07T04:59:15.238Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 21,
               "Title": "Collider.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Collider.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Collider.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Collider.cpp",
               "RelativeToolTip": "Src\\Object\\Common\\Collider.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAApwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-07T04:59:03.439Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-07T04:59:03.439Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "Application.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Application.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Application.cpp",
               "RelativeDocumentMoniker": "Src\\Application.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Application.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Application.cpp",
               "RelativeToolTip": "Src\\Application.cpp",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAApwCEAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-10-06T00:46:17.507Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 33,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\main.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\main.cpp",
               "RelativeDocumentMoniker": "Src\\main.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\main.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\main.cpp",
               "RelativeToolTip": "Src\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -529,11 +561,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "ResultScene.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.h",
               "RelativeDocumentMoniker": "Src\\Scene\\ResultScene.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.h",
               "RelativeToolTip": "Src\\Scene\\ResultScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -541,37 +573,35 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "SceneManager.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\SceneManager.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.cpp",
               "RelativeToolTip": "Src\\Manager\\SceneManager.cpp",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAAAF8AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAAHIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-02T01:51:19.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-02T01:51:19.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 26,
               "Title": "SceneManager.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.h",
               "RelativeDocumentMoniker": "Src\\Manager\\SceneManager.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\SceneManager.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\SceneManager.h",
               "RelativeToolTip": "Src\\Manager\\SceneManager.h",
               "ViewState": "AgIAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-02T01:51:18.427Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-02T01:51:18.427Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 35,
               "Title": "Camera.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\Camera.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h",
               "RelativeDocumentMoniker": "Src\\Manager\\Camera.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\Camera.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.h",
               "RelativeToolTip": "Src\\Manager\\Camera.h",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAE4AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -579,11 +609,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 37,
               "Title": "InputManager.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\InputManager.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.h",
               "RelativeDocumentMoniker": "Src\\Manager\\InputManager.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\InputManager.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.h",
               "RelativeToolTip": "Src\\Manager\\InputManager.h",
               "ViewState": "AgIAAGYAAAAAAAAAAAAqwIMAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -591,11 +621,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 54,
               "Title": "FpsControl.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.h",
               "RelativeDocumentMoniker": "Src\\FpsControl\\FpsControl.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.h",
               "RelativeToolTip": "Src\\FpsControl\\FpsControl.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -603,11 +633,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "FpsControl.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.cpp",
               "RelativeDocumentMoniker": "Src\\FpsControl\\FpsControl.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\FpsControl\\FpsControl.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\FpsControl\\FpsControl.cpp",
               "RelativeToolTip": "Src\\FpsControl\\FpsControl.cpp",
               "ViewState": "AgIAAB4AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -615,11 +645,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 36,
               "Title": "AnimationController.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\AnimationController.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\AnimationController.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\AnimationController.cpp",
               "RelativeToolTip": "Src\\Object\\Common\\AnimationController.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -627,47 +657,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 14,
               "Title": "WeponMissile.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponMissile.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.cpp",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponMissile.cpp",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAGgAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-22T06:02:04.329Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 18,
               "Title": "WeponMissile.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.h",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponMissile.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponMissile.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponMissile.h",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponMissile.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-22T05:57:59.975Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 22,
               "Title": "AsoUtility.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.h",
               "RelativeDocumentMoniker": "Src\\Utility\\AsoUtility.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.h",
               "RelativeToolTip": "Src\\Utility\\AsoUtility.h",
-              "ViewState": "AgIAAGAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAApwGQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-22T05:07:59.302Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 41,
               "Title": "AsoUtility.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.cpp",
               "RelativeDocumentMoniker": "Src\\Utility\\AsoUtility.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Utility\\AsoUtility.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Utility\\AsoUtility.cpp",
               "RelativeToolTip": "Src\\Utility\\AsoUtility.cpp",
               "ViewState": "AgIAAGQBAAAAAAAAAAApwGkBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -675,23 +705,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "RobotBase.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.cpp",
-              "RelativeDocumentMoniker": "Src\\Object\\Robot\\RobotBase.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.cpp",
-              "RelativeToolTip": "Src\\Object\\Robot\\RobotBase.cpp",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAANkAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-07T00:54:17.693Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "MatrixUtility.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.cpp",
               "RelativeDocumentMoniker": "Src\\Utility\\MatrixUtility.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.cpp",
               "RelativeToolTip": "Src\\Utility\\MatrixUtility.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -699,11 +717,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 53,
               "Title": "MatrixUtility.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.h",
               "RelativeDocumentMoniker": "Src\\Utility\\MatrixUtility.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Utility\\MatrixUtility.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Utility\\MatrixUtility.h",
               "RelativeToolTip": "Src\\Utility\\MatrixUtility.h",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvw4AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -711,11 +729,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 32,
               "Title": "ResultScene.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\ResultScene.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\ResultScene.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\ResultScene.cpp",
               "RelativeToolTip": "Src\\Scene\\ResultScene.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -723,11 +741,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 0,
+              "Title": "RobotBase.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.cpp",
+              "RelativeDocumentMoniker": "Src\\Object\\Robot\\RobotBase.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.cpp",
+              "RelativeToolTip": "Src\\Object\\Robot\\RobotBase.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-09T02:50:58.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
               "Title": "main.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\main.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\main.h",
               "RelativeDocumentMoniker": "Src\\main.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\main.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\main.h",
               "RelativeToolTip": "Src\\main.h",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -735,59 +766,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 15,
               "Title": "WeponBeam.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponBeam.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.cpp",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBeam.cpp",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAYwCoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAC0AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T07:23:14.445Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 16,
               "Title": "WeponBeam.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.h",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponBeam.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBeam.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBeam.h",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBeam.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-17T07:23:07.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 4,
               "Title": "WeponBase.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponBase.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.cpp",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBase.cpp",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAABoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T07:07:13.141Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 5,
               "Title": "WeponBase.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\Wepon\\WeponBase.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Wepon\\WeponBase.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Wepon\\WeponBase.h",
               "RelativeToolTip": "Src\\Object\\Wepon\\WeponBase.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-17T06:57:44.77Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 8,
               "Title": "ObjectBase.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\ObjectBase.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.h",
               "RelativeToolTip": "Src\\Object\\ObjectBase.h",
               "ViewState": "AgIAAAEAAAAAAAAAAAD4vxkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -795,11 +826,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 38,
               "Title": "InputManager.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\InputManager.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\InputManager.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\InputManager.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\InputManager.cpp",
               "RelativeToolTip": "Src\\Manager\\InputManager.cpp",
               "ViewState": "AgIAAFsAAAAAAAAAAAAqwHMAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -807,49 +838,47 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 6,
               "Title": "ObjectBase.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\ObjectBase.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\ObjectBase.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\ObjectBase.cpp",
               "RelativeToolTip": "Src\\Object\\ObjectBase.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T05:39:05.334Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Transform.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Transform.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.h*",
-              "RelativeToolTip": "Src\\Object\\Common\\Transform.h*",
-              "ViewState": "AgIAACUAAAAAAAAAAAAWwEAAAAAsAAAAAAAAAA==",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.h",
+              "RelativeToolTip": "Src\\Object\\Common\\Transform.h",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-09-17T05:35:36.683Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T05:35:36.683Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 9,
               "Title": "Transform.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Transform.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Transform.cpp*",
-              "RelativeToolTip": "Src\\Object\\Common\\Transform.cpp*",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAWwGsAAAAiAAAAAAAAAA==",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Transform.cpp",
+              "RelativeToolTip": "Src\\Object\\Common\\Transform.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGsAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-17T05:35:31.356Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T05:35:31.356Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 31,
               "Title": "GameScene.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\GameScene.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.h",
               "RelativeDocumentMoniker": "Src\\Scene\\GameScene.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\GameScene.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.h",
               "RelativeToolTip": "Src\\Scene\\GameScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -857,23 +886,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "GameScene.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Scene\\GameScene.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\GameScene.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Scene\\GameScene.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Scene\\GameScene.cpp",
               "RelativeToolTip": "Src\\Scene\\GameScene.cpp",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAowGwAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-17T05:06:35.092Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 28,
               "Title": "Grid.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Grid.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.cpp",
               "RelativeToolTip": "Src\\Object\\Common\\Grid.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -881,11 +910,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 29,
               "Title": "Grid.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.h",
               "RelativeDocumentMoniker": "Src\\Object\\Common\\Grid.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Common\\Grid.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Common\\Grid.h",
               "RelativeToolTip": "Src\\Object\\Common\\Grid.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
@@ -893,25 +922,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 1,
               "Title": "RobotBase.h",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.h",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.h",
               "RelativeDocumentMoniker": "Src\\Object\\Robot\\RobotBase.h",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Object\\Robot\\RobotBase.h",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Object\\Robot\\RobotBase.h",
               "RelativeToolTip": "Src\\Object\\Robot\\RobotBase.h",
-              "ViewState": "AgIAADcAAAAAAAAAAAAAAEcAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADEAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-09-17T04:27:34.263Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 20,
               "Title": "Camera.cpp",
-              "DocumentMoniker": "C:\\AGS2025fuyu\\Src\\Manager\\Camera.cpp",
+              "DocumentMoniker": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\Camera.cpp",
-              "ToolTip": "C:\\AGS2025fuyu\\Src\\Manager\\Camera.cpp",
+              "ToolTip": "C:\\AGS_2025_fuyu\\Src\\Manager\\Camera.cpp",
               "RelativeToolTip": "Src\\Manager\\Camera.cpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAAAB0BAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAPkAAAAAAAAAAAAAABkBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-16T04:42:48.58Z"
             }

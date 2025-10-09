@@ -68,9 +68,6 @@ public:
 
 	Player(void);
 	~Player(void)override;
-	void Update(void)override;
-	void Draw(void)override;
-	void Release(void)override;
 
 	void SetCamera(Camera* camera);
 
@@ -100,6 +97,7 @@ protected:
 	void ChangeDead(void)override;
 	void ChangeVictory(void)override;
 	void ChangeEnd(void)override;
+
 	// èÛë‘ï çXêV
 	void UpdateStandby(void)override;
 	void UpdateKnockback(void)override;
@@ -107,6 +105,7 @@ protected:
 	void UpdateDead(void)override;
 	void UpdateVictory(void)override;
 	void UpdateEnd(void)override;
+
 	// èÛë‘ï ï`âÊ
 	void DrawStandby(void)override;
 	void DrawKnockback(void)override;
