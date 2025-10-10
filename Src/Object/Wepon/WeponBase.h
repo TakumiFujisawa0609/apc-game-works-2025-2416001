@@ -21,7 +21,7 @@ public:
 	~WeponBase(void);
 	void Init(void)override;
 	void Init(VECTOR pos, VECTOR dir);
-	void Init(VECTOR pos, VECTOR dir, VECTOR trgPos);
+	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos);
 	void Update(void)override;
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
@@ -30,7 +30,6 @@ public:
 	bool IsAlive(void);
 	// •Šíí•Ê‚Ìæ“¾
 	WEPON_TYPE GetType(void);
-
 	//ƒ_ƒ[ƒW‚Ìæ“¾
 	float GetDamage(void) { return damage_; }
 

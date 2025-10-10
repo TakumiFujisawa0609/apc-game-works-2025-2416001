@@ -35,6 +35,7 @@ void WeponBeam::Release(void)
 {
 }
 
+
 void WeponBeam::Load(void)
 {
 }

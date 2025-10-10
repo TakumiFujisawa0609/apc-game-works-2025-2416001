@@ -12,7 +12,14 @@ WeponBase::~WeponBase(void)
 {
 }
 
-void WeponBase::Init(void){}
+void WeponBase::Init(void)
+{
+	// 画像やモデルなどのロード
+	Load();
+
+	// パラメータ設定
+	SetParam();
+}
 
 void WeponBase::Init(VECTOR pos, VECTOR dir)
 {
@@ -25,16 +32,9 @@ void WeponBase::Init(VECTOR pos, VECTOR dir)
 	trans_.pos = VAdd(pos, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
-
-	//// 大きさの設定
-	//MV1SetScale(modelId_, scl_);
-	//// 回転の設定
-	//MV1SetRotationXYZ(modelId_, rot_);
-	//// 位置の設定
-	//MV1SetPosition(modelId_, pos_);
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR trgPos)
+void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
 {
 	// 画像やモデルなどのロード
 	Load();
@@ -44,15 +44,9 @@ void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR trgPos)
 
 	trans_.pos = VAdd(pos, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
-	targetPos_ = trgPos;
+	targetPos_ = targetPos;
 	isAlive_ = true;
 
-	//// 大きさの設定
-	//MV1SetScale(modelId_, scl_);
-	//// 回転の設定
-	//MV1SetRotationXYZ(modelId_, rot_);
-	//// 位置の設定
-	//MV1SetPosition(modelId_, pos_);
 }
 
 void WeponBase::Update(void)
@@ -68,7 +62,7 @@ void WeponBase::Update(void)
 
 bool WeponBase::IsAlive(void)
 {
-	return false;
+	return isAlive_;
 }
 
 WeponBase::WEPON_TYPE WeponBase::GetType(void)

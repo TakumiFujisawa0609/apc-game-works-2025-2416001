@@ -31,4 +31,4 @@ C:\AGS_2025_fuyu\Src\Object\Wepon\WeponBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64
 C:\AGS_2025_fuyu\Src\Object\Wepon\WeponBeam.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponBeam.obj
 C:\AGS_2025_fuyu\Src\Utility\MatrixUtility.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\MatrixUtility.obj
 C:\AGS_2025_fuyu\Src\Object\Wepon\WeponMissile.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponMissile.obj
-C:\AGS_2025_fuyu\Src\Manager\WeponManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponManager.obj
+C:\AGS_2025_fuyu\Src\Object\Manager\WeponManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\WeponManager.obj

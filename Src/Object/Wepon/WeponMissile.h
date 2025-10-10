@@ -32,7 +32,6 @@ public:
 
 	void Draw(void) override;
 	void Release(void) override;
-
 protected:
 
 	// ‰æ‘œ‚âƒ‚ƒfƒ‹‚È‚Ç‚Ìƒ[ƒh

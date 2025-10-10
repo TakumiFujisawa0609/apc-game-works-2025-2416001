@@ -6,8 +6,7 @@
 #include "../Wepon/WeponBase.h"
 
 class WeponBase;
-class WeponBeam;
-class WeponMissile;
+class WeponManager;
 class AnimationController;
 
 class RobotBase
@@ -46,16 +45,13 @@ public:
 	//ロックオン座標の設定
 	void SetLockOnPos(VECTOR lockOnPos);
 
-	// 弾の取得
-	std::vector<std::shared_ptr<WeponBase>>& GetUseWepon(void) { return useWepon_; }
-
 protected:
 
 	//// 武器
 	//std::unique_ptr<WeponBase> useWepon_;
 	//std::unique_ptr<WeponBeam> weponbeam_;
 	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
-	std::vector<std::shared_ptr<WeponBase>> useWepon_;
+	std::shared_ptr<WeponManager> useWepon_;
 
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
@@ -78,9 +74,6 @@ protected:
 
 	// 状態遷移
 	virtual void ChangeState(STATE state);
-
-	//有効な武器を取得する
-	WeponBase* GetValidWepon(WeponBase::WEPON_TYPE type);
 
 	// リソースロード
 	virtual void InitLoad(void) = 0;

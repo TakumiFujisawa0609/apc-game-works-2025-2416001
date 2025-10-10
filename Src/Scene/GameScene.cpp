@@ -55,8 +55,8 @@ void GameScene::Update(void)
 	}
 
 	//ロボット更新処理
-	player_->Update();
 	player_->SetLockOnPos(enemys_->GetTransform().pos);
+	player_->Update();
 
 	//エネミー更新処理
 	enemys_->Update();
@@ -82,8 +82,12 @@ void GameScene::Draw(void)
 	grid_->Draw();
 
 #ifdef _DEBUG
+
+	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
+	VECTOR enemyClliderPos = VAdd(EnemyBase::COLLIDER_POS, enemys_->GetTransform().pos);
+
 	DrawSphere3D(
-		{ player_->GetTransform().pos.x, player_->GetTransform().pos.y + Player::COLLIDER_POS.y, player_->GetTransform().pos.z },
+		playerClliderPos,
 		Player::DEFALUT_RADIUS,	
 		16,
 		GetColor(200, 200, 200),
@@ -91,7 +95,7 @@ void GameScene::Draw(void)
 		false);
 
 	DrawSphere3D(
-		{ enemys_->GetTransform().pos.x, enemys_->GetTransform().pos.y + EnemyBase::COLLIDER_POS.y, enemys_->GetTransform().pos.z },
+		enemyClliderPos,
 		EnemyBase::DEFALUT_RADIUS,
 		16,
 		GetColor(200, 200, 200),

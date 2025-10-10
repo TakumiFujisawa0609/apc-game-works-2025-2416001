@@ -8,8 +8,7 @@
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
 #include "../../Wepon/WeponBase.h"
-#include "../../Wepon/WeponBeam.h"
-#include "../../Wepon/WeponMissile.h"
+#include "../../Manager/WeponManager.h"
 
 #include "Player.h"
 
@@ -58,7 +57,7 @@ void Player::InitPost(void)
     rise_ = RISE_SPEED;
     //回転量
     rotPow_ = ROT_POW;
-
+    //ロック処理判定カウント
     lockcnt = 0;
 }
 
@@ -209,30 +208,34 @@ void Player::ProcessAttack(void)
         targetDir = trans_.targetDir;
     }
 
-    WeponBase* wepon;
-
     if (inpMng_.IsTrgDown(KEY_INPUT_R))
     {
-
-        wepon = GetValidWepon(WeponBase::WEPON_TYPE::BEAM);
-
-        wepon->Init(trans_.pos, targetDir);
+        useWepon_->ChangeWepon(
+            WeponBase::WEPON_TYPE::BEAM,
+            trans_.pos,
+            targetDir);
     }
 
     if (inpMng_.IsTrgDown(KEY_INPUT_F))
     {
-        // ランダムな角度でばらけさせる
-        int randAnglePow = 10000;
-        int randAnglehraf = randAnglePow / 2;
-        float randomAngleY = targetDir.y + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-        float randomAngleX = targetDir.x + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-        float randomAngleZ = targetDir.z + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+        for(int i = 0; i < 10; i++)
+        {
+            // ランダムな角度でばらけさせる
+            int randAnglePow = 10000;
+            int randAnglehraf = randAnglePow / 2;
+            float randomAngleY = targetDir.y + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+            float randomAngleX = targetDir.x + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+            float randomAngleZ = targetDir.z + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
 
-        VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
+            VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
 
-        wepon = GetValidWepon(WeponBase::WEPON_TYPE::MISSILE);
-
-        wepon->Init(trans_.pos, spreadDir, lockOnPos_);
+            useWepon_->ChangeWepon(
+                WeponBase::WEPON_TYPE::MISSILE,
+                trans_.pos,
+                spreadDir,
+                lockOnPos_
+            );
+        }
     }
 }
 
