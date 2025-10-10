@@ -16,7 +16,6 @@ void WeponBase::Init(void)
 {
 	// 画像やモデルなどのロード
 	Load();
-
 	// パラメータ設定
 	SetParam();
 }
@@ -25,7 +24,6 @@ void WeponBase::Init(VECTOR pos, VECTOR dir)
 {
 	// 画像やモデルなどのロード
 	Load();
-
 	// パラメータ設定
 	SetParam();
 
@@ -38,7 +36,6 @@ void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
 {
 	// 画像やモデルなどのロード
 	Load();
-
 	// パラメータ設定
 	SetParam();
 
