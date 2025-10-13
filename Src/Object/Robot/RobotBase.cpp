@@ -88,6 +88,8 @@ void RobotBase::Update(void)
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
     useWepon_->Update();
+
+    anim_->Update();
 }
 
 void RobotBase::Draw(void)

@@ -22,7 +22,7 @@ public:
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
 
-	inline const Transform GetTransform(void) const { return trans_; }
+	inline const Transform& GetTransform(void) const { return trans_; }
 
 protected:
 

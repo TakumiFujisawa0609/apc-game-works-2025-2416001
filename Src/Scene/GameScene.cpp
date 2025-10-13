@@ -9,8 +9,12 @@
 #include "../Object/Common/EffectController.h"
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
+#include "../Object/Manager/EnemyManager.h"
 #include "../Object/Robot/Player/Player.h"
 #include "../Object/Robot/Enemy/EnemyBase.h"
+#include "../Object/Robot/Enemy/EnemyBeam.h"
+#include "../Object/Robot/Enemy/EnemyMissile.h"
+#include "../Utility/AsoUtility.h"
 #include "../Application.h"
 
 #include "GameScene.h"
@@ -36,14 +40,18 @@ void GameScene::Init(void)
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
 	//エネミー初期化処理
-	enemys_ = std::make_unique<EnemyBase>();
+	enemys_ = std::make_shared<EnemyManager>();
 	enemys_->Init();
 
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
-	camera->SetEnemy(enemys_.get());
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		camera->SetEnemy(enemy.get());
+	}
 }
 
 void GameScene::Update(void)
@@ -55,7 +63,11 @@ void GameScene::Update(void)
 	}
 
 	//ロボット更新処理
-	player_->SetLockOnPos(enemys_->GetTransform().pos);
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		player_->SetLockOnPos(enemy->GetTransform().pos);
+	}
 	player_->Update();
 
 	//エネミー更新処理
@@ -70,6 +82,8 @@ void GameScene::Update(void)
 	{
 		camera->ChangeMode(Camera::MODE::FIXED_POINT);
 	}
+
+	UpdateCollider();
 }
 
 void GameScene::Draw(void)
@@ -84,8 +98,7 @@ void GameScene::Draw(void)
 #ifdef _DEBUG
 
 	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
-	VECTOR enemyClliderPos = VAdd(EnemyBase::COLLIDER_POS, enemys_->GetTransform().pos);
-
+	
 	DrawSphere3D(
 		playerClliderPos,
 		Player::DEFALUT_RADIUS,	
@@ -94,13 +107,21 @@ void GameScene::Draw(void)
 		GetColor(200, 200, 200),
 		false);
 
-	DrawSphere3D(
-		enemyClliderPos,
-		EnemyBase::DEFALUT_RADIUS,
-		16,
-		GetColor(200, 200, 200),
-		GetColor(200, 200, 200),
-		false);
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+    for (std::shared_ptr<EnemyBase> enemy : enemy_)
+    {
+        if (enemy != nullptr)  // nullチェック追加
+        {
+            VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
+            DrawSphere3D(
+                enemyClliderPos,
+                EnemyBeam::DEFALUT_RADIUS,
+                16,
+				GetColor(200, 200, 200),
+				GetColor(200, 200, 200),
+                false);
+        }
+    }
 
 #endif
 }
@@ -111,4 +132,16 @@ void GameScene::Release(void)
 	player_->Release();
 	//エネミー解放処理
 	enemys_->Release();
+}
+
+void GameScene::UpdateCollider(void)
+{
+	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
+	}
+
+	//if(AsoUtility::IsHitSpheres())
 }

@@ -34,8 +34,17 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::PLAYR, std::move(res));
 
 	//エネミーモデル
-	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemtyGeorge.mv1");
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemyGeorge.mv1");
 	resourcesMap_.emplace(SRC::ENEMY_GEORGE, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemyLeela.mv1");
+	resourcesMap_.emplace(SRC::ENEMY_LEELA, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemyMike.mv1");
+	resourcesMap_.emplace(SRC::ENEMY_MIKE, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemyStan.mv1");
+	resourcesMap_.emplace(SRC::ENEMY_STAN, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

@@ -1,3 +1,2 @@
-﻿  Player.cpp
-  RobotBase.cpp
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+﻿  GameScene.cpp
+  BaseProject.vcxproj -> C:\2025AGSwinter\x64\Debug\BaseProject.exe

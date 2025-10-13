@@ -4,6 +4,7 @@
 #include "SceneBase.h"
 
 class Player;
+class EnemyManager;
 class EnemyBase;
 class Grid;
 
@@ -30,7 +31,7 @@ private:
 	std::unique_ptr<Player> player_;
 
 	//エネミー
-	std::unique_ptr<EnemyBase> enemys_;
+	std::shared_ptr<EnemyManager> enemys_;
 
 	//グリッド
 	std::unique_ptr<Grid> grid_;

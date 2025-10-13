@@ -27,7 +27,7 @@ void Player::SetCamera(Camera* camera)
 
 void Player::InitLoad(void)
 {
-    trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::PLAYR);
+    trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
 }
 
 void Player::InitTransform(void)
@@ -42,11 +42,13 @@ void Player::InitAnimation(void)
 {
     anim_ = std::make_unique<AnimationController>(trans_.modelId);
 
-    anim_->Add(
-        static_cast<int>(ANIM_TYPE::IDLE),
-        Application::PATH_MODEL + "Walk.mv1",
-        30.0f
-    );
+    for (int i = 0; i < static_cast<int>(ANIM_TYPE::MAX); i++)
+    {
+        anim_->Add(i, DEFAULT_ANIMATION, trans_.modelId);
+    }
+
+    // 初期アニメーション再生
+    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
 }
 
 void Player::InitPost(void)

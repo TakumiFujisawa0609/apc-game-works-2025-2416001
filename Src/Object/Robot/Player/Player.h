@@ -14,18 +14,19 @@ public:
 	//アニメーション
 	enum class ANIM_TYPE
 	{
-		ATTACK,
-		DEATH,
-		HIT_REACT,
-		IDLE,
-		JUMP,
-		RUN,
-		WALK,
+		GESUTYE = 0,
+		DEATH = 1,
+		HIT_REACT = 3,
+		IDLE = 5,
+		JUMP = 6,
+		RUN = 11,
+		ATTACK = 14,
+		WALK = 16,
 		MAX,
 	};
 
 	//初期サイズ
-	static constexpr VECTOR DEFALUT_SCL = { 0.1f,0.1f,0.1f };
+	static constexpr VECTOR DEFALUT_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
 	//初期座標

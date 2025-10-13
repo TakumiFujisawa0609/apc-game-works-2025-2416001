@@ -22,6 +22,9 @@ public:
 	{
 		PLAYR,
 		ENEMY_GEORGE,
+		ENEMY_LEELA,
+		ENEMY_MIKE,
+		ENEMY_STAN,
 	};
 
 	/// <summary>
