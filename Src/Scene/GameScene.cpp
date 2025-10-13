@@ -40,18 +40,21 @@ void GameScene::Init(void)
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
 	//エネミー初期化処理
-	enemys_ = std::make_shared<EnemyManager>();
-	enemys_->Init();
+	/*enemys_ = std::make_shared<EnemyManager>();
+	enemys_->Init();*/
+	enemy_ = std::make_shared<EnemyBeam>();
+	enemy_->Init();
+
 
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	/*std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		camera->SetEnemy(enemy.get());
-	}
+	}*/
 }
 
 void GameScene::Update(void)

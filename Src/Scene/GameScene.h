@@ -32,6 +32,7 @@ private:
 
 	//エネミー
 	std::shared_ptr<EnemyManager> enemys_;
+	std::shared_ptr<EnemyBeam> enemy_;
 
 	//グリッド
 	std::unique_ptr<Grid> grid_;
