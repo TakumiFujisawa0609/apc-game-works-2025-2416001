@@ -12,7 +12,7 @@ public:
 	// 敵の出現間隔
 	static constexpr int SPAWN_INTERVAL_1 = 250;
 	static constexpr int SPAWN_INTERVAL_2 = 300;
-	static constexpr int SPAWN_ENEMY = 1;
+	static constexpr int SPAWN_ENEMY = 20;
 
 	// コンストラクタ
 	EnemyManager(void);

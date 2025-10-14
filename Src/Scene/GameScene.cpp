@@ -43,43 +43,38 @@ void GameScene::Init(void)
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
 	//エネミー初期化処理
-	/*enemys_ = std::make_shared<EnemyManager>();
-	enemys_->Init();*/
-	enemy_ = std::make_shared<EnemyBeam>();
-	enemy_->Init();
+	enemys_ = std::make_shared<EnemyManager>();
+	enemys_->Init();
 
 
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
-	camera->SetEnemy(enemy_.get());
-	/*std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		camera->SetEnemy(enemy.get());
-	}*/
+	}
 }
 
 void GameScene::Update(void)
 {
-	 if(enemy_->GetState() == EnemyBase::STATE::END)
-	 {
-		 SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
-	 }
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+	}
 
 	//ロボット更新処理
-	/*std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		player_->SetLockOnPos(enemy->GetTransform().pos);
-	}*/
+	}
 
-	//エネミー更新処理
-	enemy_->Update();
-
-	player_->SetLockOnPos(enemy_->GetTransform().pos);
 	player_->Update();
+	enemys_->Update();
 
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	if (player_->IsTargetLockFlage())
@@ -98,8 +93,7 @@ void GameScene::Draw(void)
 {
 	//ロボット描画処理
 	player_->Draw();
-	//エネミー描画処理
-	enemy_->Draw();
+	enemys_->Draw();
 	//グリッド描画処理
 	grid_->Draw();
 
@@ -132,25 +126,33 @@ void GameScene::Draw(void)
 		}
 	}
 
-	VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy_->GetTransform().pos);
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
 
-	DrawSphere3D(
-		enemyClliderPos,
-		EnemyBeam::DEFALUT_RADIUS,
-		16,
-		GetColor(200, 200, 200),
-		GetColor(200, 200, 200),
-		false);
+		DrawSphere3D(
+			enemyClliderPos,
+			EnemyBeam::DEFALUT_RADIUS,
+			16,
+			GetColor(200, 200, 200),
+			GetColor(200, 200, 200),
+			false);
+	}
 #endif
 
 	DrawFormatString(
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
 
-	DrawFormatString(
-		0, 40, GetColor(255, 255, 255),
-		"HP：(%.1f)",
-		enemy_->GetHp());
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		DrawFormatString(
+			0, 40, GetColor(255, 255, 255),
+			"HP：(%.1f)",
+			enemy-++->GetHp());
+	}
 }
 
 void GameScene::Release(void)
@@ -158,7 +160,7 @@ void GameScene::Release(void)
 	//ロボット解放処理
 	player_->Release();
 	//エネミー解放処理
-	enemy_->Release();
+	enemys_->Release();
 }
 
 void GameScene::UpdateCollider(void)
