@@ -57,11 +57,6 @@ void WeponBase::Update(void)
 	Move();
 }
 
-bool WeponBase::IsAlive(void)
-{
-	return isAlive_;
-}
-
 WeponBase::WEPON_TYPE WeponBase::GetType(void)
 {
 	return type_;

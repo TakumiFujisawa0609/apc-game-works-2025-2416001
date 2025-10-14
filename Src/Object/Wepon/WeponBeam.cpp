@@ -19,16 +19,28 @@ void WeponBeam::Draw(void)
 	}
 
 	// ビームの終点を方向ベクトルを使って計算
-	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
+	statePos_ = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
 
 	DrawCapsule3D(
 		trans_.pos,      // 開始点
-		endPos,          // 終点（方向を考慮）
+		statePos_,          // 終点（方向を考慮）
 		5.0f,
 		8,
 		GetColor(0, 255, 0),
 		GetColor(255, 255, 255),
 		FALSE);
+
+#ifdef _DEBUG
+
+	DrawFormatString(
+		0, 40, GetColor(255, 255, 255),
+		"座標：(%.1f,%.1f,%.1f)",
+		trans_.pos.x,
+		trans_.pos.y,
+		trans_.pos.z
+	);
+
+#endif
 }
 
 void WeponBeam::Release(void)
@@ -45,6 +57,8 @@ void WeponBeam::SetParam(void)
 	trans_.localPos = LOCAL_POS;
 	speed_ = DEFAULT_SPEED;
 	bemelong_ = 0.0f;
+	trans_.Radius_ = DEFALUT_RADIUS;
+	damage_ = DAMAGE;
 }
 
 void WeponBeam::Move(void)

@@ -17,11 +17,11 @@ void WeponMissile::Draw(void)
 	}
 
 	// ビームの終点を方向ベクトルを使って計算
-	VECTOR endPos = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
+	statePos_ = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
 
 		DrawCapsule3D(
 			trans_.pos,
-			endPos,
+			statePos_,
 			5.0f,
 			8,
 			GetColor(0, 255, 0),
@@ -56,6 +56,8 @@ void WeponMissile::SetParam(void)
 	bemeSpeed_ = MAX_BEAM_SPEED;
 	bemelong_ = 0.0f;
 	jumpPow_ = JUMP_POW;
+	trans_.Radius_ = DEFALUT_RADIUS;
+	damage_ = DAMAGE;
 }
 
 void WeponMissile::Move(void)

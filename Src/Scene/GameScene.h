@@ -6,6 +6,7 @@
 class Player;
 class EnemyManager;
 class EnemyBase;
+class EnemyBeam;
 class Grid;
 
 class GameScene :

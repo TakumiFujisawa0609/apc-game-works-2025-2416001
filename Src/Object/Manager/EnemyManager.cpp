@@ -26,6 +26,16 @@ void EnemyManager::Update(void)
 	//敵の数をカウント
 	if (cntEnemy_ < SPAWN_ENEMY)
 	{
+		for (std::shared_ptr<EnemyBase> enemy : enemys_)
+		{
+			IsClear = true;
+			if (enemy->IsAlive())
+			{
+				IsClear = false;
+				break;
+			}
+		}
+
 		// 一定間隔でエネミーを出現させる
 		if (cntSpawn_ % SPAWN_INTERVAL_1 == 0)
 		{

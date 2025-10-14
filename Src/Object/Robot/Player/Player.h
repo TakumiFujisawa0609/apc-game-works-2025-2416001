@@ -67,6 +67,9 @@ public:
 	//ƒvƒŒƒCƒ„[‚ÌÕ“Ë”¼Œa
 	static constexpr float DEFALUT_RADIUS = 60.0f;
 
+	// ’e”­ËŒã‚Ìd’¼ŠÔ
+	static constexpr float SHOT_DELAY = 1.0f;
+
 	Player(void);
 	~Player(void)override;
 
@@ -119,6 +122,9 @@ private:
 
 	//ƒJƒƒ‰‚ÌŠp“x
 	Camera* camera_;
+
+	// ’e”­ËŒã‚Ìd’¼ŠÔŒvZ—p
+	float stepShotDelay_;
 
 };
 

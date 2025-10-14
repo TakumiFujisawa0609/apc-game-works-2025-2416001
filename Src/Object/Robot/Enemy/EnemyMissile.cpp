@@ -68,6 +68,8 @@ void EnemyMissile::InitPost(void)
     rotPow_ = ROT_POW;
 
     lockcnt = 0;
+
+    hp_ = DEFALUT_HP;
 }
 
 void EnemyMissile::ProcessMove(void)

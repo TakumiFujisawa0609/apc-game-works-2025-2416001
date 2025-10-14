@@ -3,6 +3,7 @@
 #include <memory>
 #include <DxLib.h>
 #include "../../Utility/AsoUtility.h"
+#include "../Wepon/WeponBase.h"
 
 class WeponBase;
 
@@ -20,7 +21,7 @@ public:
 	void Release(void);
 
 	//•Ší‚Ìî•ñ‚ğæ“¾
-	const std::vector<std::shared_ptr<WeponBase>>& GetWepons(void) { return wepons_; }
+	const std::vector<std::shared_ptr<WeponBase>>& GetWepons(void) const { return wepons_; }
 
 	//•Ší‚ÌØ‚è‘Ö‚¦ˆ—
 	void ChangeWepon(WeponBase::WEPON_TYPE type, VECTOR pos, VECTOR dir, VECTOR targetPos = AsoUtility::VECTOR_ZERO);

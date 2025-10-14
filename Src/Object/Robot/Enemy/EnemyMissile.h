@@ -45,6 +45,14 @@ public:
 	//アニメーションの再生速度
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
 
+	//HP
+	static constexpr int DEFALUT_HP = 15;
+
+	// 被ダメ時間
+	static constexpr int CNT_HIT_REACT = 20;
+	// 死亡時間
+	static constexpr int CNT_DEAD_REACT = 40;
+
 	//エネミーの衝突半径
 	static constexpr float DEFALUT_RADIUS = 60.0f;
 	EnemyMissile(void);

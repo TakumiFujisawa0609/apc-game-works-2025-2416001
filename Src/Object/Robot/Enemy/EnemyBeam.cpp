@@ -29,6 +29,30 @@ void EnemyBeam::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
+    switch (state_)
+    {
+    case RobotBase::STATE::STANDBY:
+        UpdateStandby();
+        break;
+    case RobotBase::STATE::KNOCKBACK:
+        UpdateKnockback();
+        break;
+    case RobotBase::STATE::ATTACK:
+        UpdateAttack();
+        break;
+    case RobotBase::STATE::DEAD:
+        UpdateDead();
+        break;
+    case RobotBase::STATE::END:
+        UpdateEnd();
+        break;
+    case RobotBase::STATE::VICTORY:
+        UpdateVictory();
+        break;
+    default:
+        break;
+    }
+
     anim_->Update();
 }
 
@@ -68,6 +92,8 @@ void EnemyBeam::InitPost(void)
     rotPow_ = ROT_POW;
 
     lockcnt = 0;
+
+    hp_ = DEFALUT_HP;
 }
 
 void EnemyBeam::ProcessMove(void)
@@ -88,10 +114,13 @@ void EnemyBeam::ProcessTargetLock(void)
 
 void EnemyBeam::ChangeStandby(void)
 {
+    // 初期アニメーション再生
+    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
 }
 
 void EnemyBeam::ChangeKnockback(void)
 {
+    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
 }
 
 void EnemyBeam::ChangeAttack(void)
@@ -100,6 +129,7 @@ void EnemyBeam::ChangeAttack(void)
 
 void EnemyBeam::ChangeDead(void)
 {
+    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
 }
 
 void EnemyBeam::ChangeVictory(void)
@@ -116,6 +146,10 @@ void EnemyBeam::UpdateStandby(void)
 
 void EnemyBeam::UpdateKnockback(void)
 {
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::STANDBY);
+    }
 }
 
 void EnemyBeam::UpdateAttack(void)
@@ -124,6 +158,10 @@ void EnemyBeam::UpdateAttack(void)
 
 void EnemyBeam::UpdateDead(void)
 {
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::END);
+    }
 }
 
 void EnemyBeam::UpdateVictory(void)

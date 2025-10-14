@@ -1,4 +1,4 @@
-#include "../Wepon/WeponBase.h"
+
 #include "../Wepon/WeponBeam.h"
 #include "../Wepon/WeponMissile.h"
 #include "WeponManager.h"

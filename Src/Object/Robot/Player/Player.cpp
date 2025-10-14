@@ -61,6 +61,9 @@ void Player::InitPost(void)
     rotPow_ = ROT_POW;
     //ロック処理判定カウント
     lockcnt = 0;
+
+    // 弾発射の硬直時間
+    stepShotDelay_ = 0.0f;
 }
 
 void Player::ProcessMove(void)
@@ -69,67 +72,87 @@ void Player::ProcessMove(void)
     VECTOR dir = { 0.0f,0.0f,0.0f };
     //移動量を常に減少
     movePow_ *= FRICTION;
-
     // 入力状態をチェック
-    bool isBustPressed = inpMng_.IsTrgDown(KEY_INPUT_B);
-    bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
-    bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
-    bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
-    bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
+    bool isBustPressed;
 
-    // 上下移動とX軸回転の処理
-    if (isDownPressed) {
-        dir = { 0.0f, 0.0f, -1.0f };
-        if (trans_.rot.x > -MAX_MOVE_ROT) {
-            trans_.rot.x -= rotPow_;
+    if (GetJoypadNum() == 0)
+    {
+        // 入力状態をチェック
+        isBustPressed = inpMng_.IsTrgDown(KEY_INPUT_B);
+        bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
+        bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
+        bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
+        bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
+
+        // 上下移動とX軸回転の処理
+        if (isDownPressed) {
+            dir = { 0.0f, 0.0f, -1.0f };
+            if (trans_.rot.x > -MAX_MOVE_ROT) {
+                trans_.rot.x -= rotPow_;
+            }
+        }
+
+        if (isUpPressed) {
+            dir = { 0.0f, 0.0f, 1.0f };
+            if (trans_.rot.x < MAX_MOVE_ROT) {
+                trans_.rot.x += rotPow_;
+            }
+        }
+
+        // 上下キーが押されていない時、X軸回転を0に戻す
+        if (!isDownPressed && !isUpPressed) {
+            if (trans_.rot.x > rotPow_) {
+                trans_.rot.x -= rotPow_;
+            }
+            if (trans_.rot.x < -rotPow_) {
+                trans_.rot.x += rotPow_;
+            }
+            if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
+                trans_.rot.x = 0.0f;
+            }
+        }
+
+        // 左右移動とZ軸回転の処理
+        if (isRightPressed) {
+            dir = { 1.0f, 0.0f, 0.0f };
+            if (trans_.rot.z > -MAX_MOVE_ROT) {
+                trans_.rot.z -= rotPow_;
+            }
+        }
+        if (isLeftPressed) {
+            dir = { -1.0f, 0.0f, 0.0f };
+            if (trans_.rot.z < MAX_MOVE_ROT) {
+                trans_.rot.z += rotPow_;
+            }
+        }
+
+        // 左右キーが押されていない時、Z軸回転を0に戻す
+        if (!isRightPressed && !isLeftPressed) {
+            if (trans_.rot.z > rotPow_) {
+                trans_.rot.z -= rotPow_;
+            }
+            if (trans_.rot.z < -rotPow_) {
+                trans_.rot.z += rotPow_;
+            }
+            if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
+                trans_.rot.z = 0.0f;
+            }
         }
     }
+    else
+    {
 
-    if (isUpPressed) {
-        dir = { 0.0f, 0.0f, 1.0f };
-        if (trans_.rot.x < MAX_MOVE_ROT) {
-            trans_.rot.x += rotPow_;
-        }
-    }
+        isBustPressed = inpMng_.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::RIGHT
+        );
 
-    // 上下キーが押されていない時、X軸回転を0に戻す
-    if (!isDownPressed && !isUpPressed) {
-        if (trans_.rot.x > rotPow_) {
-            trans_.rot.x -= rotPow_;
-        }
-        if (trans_.rot.x < -rotPow_) {
-            trans_.rot.x += rotPow_;
-        }
-        if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
-            trans_.rot.x = 0.0f;
-        }
-    }
+        // 接続されているゲームパッド１の情報を取得
+        InputManager::JOYPAD_IN_STATE padState =
+            inpMng_.GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+        // アナログキーの入力値から方向を取得
+        dir = inpMng_.GetDirectionXZAKey(padState.AKeyLX, padState.AKeyLY);
 
-    // 左右移動とZ軸回転の処理
-    if (isRightPressed) {
-        dir = { 1.0f, 0.0f, 0.0f };
-        if (trans_.rot.z > -MAX_MOVE_ROT) {
-            trans_.rot.z -= rotPow_;
-        }
-    }
-    if (isLeftPressed) {
-        dir = { -1.0f, 0.0f, 0.0f };
-        if (trans_.rot.z < MAX_MOVE_ROT) {
-            trans_.rot.z += rotPow_;
-        }
-    }
-
-    // 左右キーが押されていない時、Z軸回転を0に戻す
-    if (!isRightPressed && !isLeftPressed) {
-        if (trans_.rot.z > rotPow_) {
-            trans_.rot.z -= rotPow_;
-        }
-        if (trans_.rot.z < -rotPow_) {
-            trans_.rot.z += rotPow_;
-        }
-        if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
-            trans_.rot.z = 0.0f;
-        }
     }
 
     //ブースト時の移動量と最大値を設定
@@ -187,7 +210,18 @@ void Player::ProcessMove(void)
 
 void Player::ProcessRise(void)
 {
-    bool isRisePressed = inpMng_.IsNew(KEY_INPUT_G);
+    bool isRisePressed;
+    if (GetJoypadNum() == 0)
+    {
+        isRisePressed = inpMng_.IsNew(KEY_INPUT_G);
+    }
+    else
+    {
+        isRisePressed = inpMng_.IsPadBtnNew(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::DOWN
+        );
+    }
 
     if (isRisePressed)
     {
@@ -210,17 +244,38 @@ void Player::ProcessAttack(void)
         targetDir = trans_.targetDir;
     }
 
-    if (inpMng_.IsTrgDown(KEY_INPUT_R))
+    bool IsBeam;
+    bool IsMissile;
+
+    if (GetJoypadNum() == 0)
     {
-        useWepon_->ChangeWepon(
+        IsBeam = inpMng_.IsTrgDown(KEY_INPUT_R);
+        IsMissile = inpMng_.IsTrgDown(KEY_INPUT_F);
+    }
+    else
+    {
+        IsBeam = inpMng_.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::L_TRIGGER);
+        IsMissile = inpMng_.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::R_TRIGGER);
+    }
+
+    if (IsBeam && stepShotDelay_ <= 0.0f)
+    {
+        useWepon_[0]->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
             trans_.pos,
             targetDir);
+
+        // 弾発射後の硬直時間セット
+        stepShotDelay_ = SHOT_DELAY;
     }
 
-    if (inpMng_.IsTrgDown(KEY_INPUT_F))
+    if (IsMissile && stepShotDelay_ <= 0.0f)
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < useWepon_.size(); i++)
         {
             // ランダムな角度でばらけさせる
             int randAnglePow = 10000;
@@ -231,19 +286,39 @@ void Player::ProcessAttack(void)
 
             VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
 
-            useWepon_->ChangeWepon(
+            useWepon_[i]->ChangeWepon(
                 WeponBase::WEPON_TYPE::MISSILE,
                 trans_.pos,
                 spreadDir,
                 lockOnPos_
             );
+
+            // 弾発射後の硬直時間セット
+            stepShotDelay_ = SHOT_DELAY;
         }
+    }
+
+    // 弾発射後の硬直時間を減らしていく
+    if (stepShotDelay_ > 0.0f)
+    {
+        stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
     }
 }
 
 void Player::ProcessTargetLock(void)
 {
-    bool  isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
+    bool  isLock;
+
+    if (GetJoypadNum() == 0)
+    {
+        isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
+    }
+    else
+    {
+        isLock = inpMng_.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::LEFT);
+    }
 
     //対象ロック処理
     if (isLock)

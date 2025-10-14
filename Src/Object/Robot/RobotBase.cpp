@@ -36,8 +36,14 @@ void RobotBase::Init(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    useWepon_ = std::make_shared<WeponManager>();
-    useWepon_->Init();
+    for (int i = 0; i < 10; i++)
+    {
+        useWepon_.push_back(std::make_shared<WeponManager>());
+    }
+    for (int i = 0; i < useWepon_.size(); i++)
+    {
+        useWepon_[i]->Init();
+    }
 
     //ó‘Ô‘JˆÚ‰ŠúÝ’è
     ChangeState(STATE::STANDBY);
@@ -87,7 +93,10 @@ void RobotBase::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    useWepon_->Update();
+    for (int i = 0; i < useWepon_.size(); i++)
+    {
+        useWepon_[i]->Update();
+    }
 
     anim_->Update();
 }
@@ -96,7 +105,10 @@ void RobotBase::Draw(void)
 {
 	MV1DrawModel(trans_.modelId);
 
-    useWepon_->Draw();
+    for (int i = 0; i < useWepon_.size(); i++)
+    {
+        useWepon_[i]->Draw();
+    }
 
     switch (state_)
     {
@@ -127,7 +139,10 @@ void RobotBase::Release(void)
 {
 	MV1DeleteModel(trans_.modelId);
 
-    useWepon_->Release();
+    for (int i = 0; i < useWepon_.size(); i++)
+    {
+        useWepon_[i]->Release();
+    }
 }
 
 void RobotBase::ChangeState(STATE state)
@@ -193,5 +208,28 @@ bool RobotBase::IsTargetLockFlage(void)
 void RobotBase::SetLockOnPos(VECTOR lockOnPos)
 {
     lockOnPos_ = lockOnPos;
+}
+
+void RobotBase::Damage(int damage)
+{
+    hp_ -= damage;
+    if (hp_ <= 0)
+    {
+        ChangeState(STATE::DEAD);
+    }
+    else
+    {
+        ChangeState(STATE::KNOCKBACK);
+    }
+}
+
+bool RobotBase::IsCollisionState(void)
+{
+    return state_ == STATE::STANDBY;
+}
+
+bool RobotBase::IsAlive(void)
+{
+    return state_ != STATE::END;
 }
 

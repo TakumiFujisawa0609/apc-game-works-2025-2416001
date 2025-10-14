@@ -27,21 +27,26 @@ public:
 	virtual void Release(void) = 0;
 
 	// 生存判定
-	bool IsAlive(void);
+	bool isAlive_;
+
 	// 武器種別の取得
 	WEPON_TYPE GetType(void);
 	//ダメージの取得
 	float GetDamage(void) { return damage_; }
 
+	float GetColliderRadius(void) { return trans_.Radius_; }
+
+	VECTOR GetStatePos(void) { return statePos_; }
+
 protected:
+	//カプセル先頭座標
+	VECTOR statePos_;
 	// 武器種別
 	WEPON_TYPE type_;
 	//標敵の座標
 	VECTOR targetPos_;
 	// 移動スピード
 	float speed_;
-	// 生存判定
-	bool isAlive_;
 	//ダメージ
 	float damage_;
 	// 画像やモデルなどのロード(純粋仮想関数)

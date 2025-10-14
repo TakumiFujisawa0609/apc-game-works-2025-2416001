@@ -45,13 +45,28 @@ public:
 	//ロックオン座標の設定
 	void SetLockOnPos(VECTOR lockOnPos);
 
+	// ダメージを与える
+	void Damage(int damage);
+
+	float GetHp(void) { return hp_; }
+
+	const std::vector<std::shared_ptr<WeponManager>>& GetUseWepons(void) const { return useWepon_; }
+
+	// 衝突判定が有効な状態
+	bool IsCollisionState(void);
+
+	//敵の生存判定
+	bool IsAlive(void);
+
+	const STATE& GetState(void) const { return state_; }
+
 protected:
 
 	//// 武器
 	//std::unique_ptr<WeponBase> useWepon_;
 	//std::unique_ptr<WeponBeam> weponbeam_;
 	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
-	std::shared_ptr<WeponManager> useWepon_;
+	std::vector<std::shared_ptr<WeponManager>> useWepon_;
 
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
@@ -71,6 +86,14 @@ protected:
 
 	//ロック機能入力カウント
 	int lockcnt;
+
+	// HP
+	int hp_;
+
+	//被ダメージ用一定間隔カウンタ
+	int cntHitReact_;
+	//撃破用一定間隔カウンタ
+	int cntDeadReact_;
 
 	// 状態遷移
 	virtual void ChangeState(STATE state);

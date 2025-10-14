@@ -14,16 +14,18 @@ public:
 	static constexpr float MAX_BEAM_SPEED = 1.0f;
 	//移動スピード
 	static constexpr float DEFAULT_SPEED = 50.0f;
-	//衝突判定用半径
-	static constexpr float DEFAULT_RADIUS = 60.0f;
+	//衝突半径
+	static constexpr float DEFALUT_RADIUS = 40.0f;
 	//モデルの大きさ
 	static constexpr VECTOR DEFAULT_SIZE = { 0.5f, 0.5f, 0.5f };
 	//使用時の相対座標
 	static constexpr VECTOR DEFAULT_POS = { 0.0f, 90.0f, 0.0f };
 	// 使用時のジャンプ力
-	static constexpr float JUMP_POW = 30.0f;
+	static constexpr float JUMP_POW = 20.0f;
 	// 重力
 	static constexpr float GRAVITY = 0.1f;
+
+	static constexpr float DAMAGE = 5.0f;
 
 	// コンストラクタ
 	WeponMissile(WEPON_TYPE type);

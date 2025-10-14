@@ -25,6 +25,10 @@ public:
 
 	// エネミーの取得
 	const std::vector<std::shared_ptr<EnemyBase>>& GetEnemys(void) const;
+
+	//クリアに切り替え
+	bool IsClear;
+
 private:
 
 	// エネミー

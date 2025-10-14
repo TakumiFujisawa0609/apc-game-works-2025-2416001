@@ -32,7 +32,6 @@ public:
 
 	EnemyBase(void);
 	~EnemyBase(void)override;
-	virtual void Update(void)override = 0;
 
 protected:
 

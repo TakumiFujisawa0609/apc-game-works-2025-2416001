@@ -183,27 +183,55 @@ void Camera::ProcessRot(void)
 {
 	// キー入力によるカメラの回転
 	auto& ins = InputManager::GetInstance();
-	if (angles_.x > -Player::MAX_ROBOT_ANGLES){
-		if (ins.IsNew(KEY_INPUT_UP)) 
+	if (GetJoypadNum() == 0)
+	{
+		if (angles_.x > -Player::MAX_ROBOT_ANGLES) {
+			if (ins.IsNew(KEY_INPUT_UP))
+			{
+				angles_.x -= CAMERA_ANGLE_SPEED;
+			}
+		}
+		if (angles_.x < Player::MAX_ROBOT_ANGLES) {
+			if (ins.IsNew(KEY_INPUT_DOWN))
+			{
+				angles_.x += CAMERA_ANGLE_SPEED;
+			}
+		}
+
+		if (ins.IsNew(KEY_INPUT_LEFT))
 		{
-			angles_.x -= CAMERA_ANGLE_SPEED; 
+			angles_.y -= CAMERA_ANGLE_SPEED;
+		}
+
+		if (ins.IsNew(KEY_INPUT_RIGHT))
+		{
+			angles_.y += CAMERA_ANGLE_SPEED;
 		}
 	}
-	if (angles_.x < Player::MAX_ROBOT_ANGLES){
-		if (ins.IsNew(KEY_INPUT_DOWN))
-		{ 
-			angles_.x += CAMERA_ANGLE_SPEED;
+	else
+	{
+		auto& ins = InputManager::GetInstance();
+		// 矢印キーでカメラの角度を変える
+		float rotPow = 1.0f * DX_PI_F / 180.0f;
+
+		// 接続されているゲームパッド１の情報を取得
+		InputManager::JOYPAD_IN_STATE padState =
+			ins.GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+		// アナログキーの入力値から方向を取得
+		VECTOR dir = ins.GetDirectionXZAKey(padState.AKeyRX, padState.AKeyRY);
+
+		//右スティックが上下の傾き
+		angles_.x += dir.z * rotPow * 3.0f;
+		angles_.y += dir.x * rotPow * 3.0f;
+
+		if (angles_.x > 50.0f * DX_PI_F / 180.0f)
+		{
+			angles_.x = 50.0f * DX_PI_F / 180.0f;
 		}
-	}
-
-	if (ins.IsNew(KEY_INPUT_LEFT))
-	{ 
-		angles_.y -= CAMERA_ANGLE_SPEED;
-	}
-
-	if (ins.IsNew(KEY_INPUT_RIGHT)) 
-	{ 
-		angles_.y += CAMERA_ANGLE_SPEED;
+		if (angles_.x < -(20.0f * DX_PI_F / 180.0f))
+		{
+			angles_.x = -(20.0f * DX_PI_F / 180.0f);
+		}
 	}
 
 	//回転行列を使ったカメラ操作処理
@@ -217,6 +245,15 @@ void Camera::ProcessRot(void)
 	VECTOR rotatedPos = VTransform(localPos, mat);
 	// ワールド座標に変換
 	pos_ = VAdd(targetPos_, rotatedPos);
+
+	VECTOR up = { 0.0f, 1.0f, 0.0f };
+
+	// カメラの設定(位置と注視点による制御)
+	SetCameraPositionAndTargetAndUpVec(
+		pos_,
+		targetPos_,
+		up
+	);
 }
 
 void Camera::SetBeforeDrawFixedPoint(void)
