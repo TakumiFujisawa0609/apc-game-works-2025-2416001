@@ -44,6 +44,7 @@ void GameScene::Init(void)
 
 	//エネミー初期化処理
 	enemys_ = std::make_shared<EnemyManager>();
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	enemys_->Init();
 
 
@@ -51,7 +52,6 @@ void GameScene::Init(void)
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		camera->SetEnemy(enemy.get());
@@ -63,18 +63,17 @@ void GameScene::Update(void)
 	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+		if(!enemy->IsAlive())
+		{
+			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+		}
 	}
 
 	//ロボット更新処理
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
-	{
-		player_->SetLockOnPos(enemy->GetTransform().pos);
-	}
-
 	player_->Update();
 	enemys_->Update();
+	
+	
 
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	if (player_->IsTargetLockFlage())
@@ -145,13 +144,12 @@ void GameScene::Draw(void)
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
 
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		DrawFormatString(
 			0, 40, GetColor(255, 255, 255),
 			"HP：(%.1f)",
-			enemy-++->GetHp());
+			enemy->GetHp());
 	}
 }
 
@@ -166,34 +164,38 @@ void GameScene::Release(void)
 void GameScene::UpdateCollider(void)
 {
 	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
-	VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy_->GetTransform().pos);
-
-	if (AsoUtility::IsHitSpheres(
-		playerClliderPos, Player::DEFALUT_RADIUS,
-		enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
+	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
+		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
 
-	}
-
-	for (auto& weapon : player_->GetUseWepons())
-	{
-		for (const auto& useWeapon : weapon->GetWepons())
+		if (AsoUtility::IsHitSpheres(
+			playerClliderPos, Player::DEFALUT_RADIUS,
+			enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
 		{
-			if (AsoUtility::IsHitSpheres(
-				useWeapon->GetStatePos(), useWeapon->GetColliderRadius(),
-				enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
+
+		}
+
+		for (auto& weapon : player_->GetUseWepons())
+		{
+			for (const auto& useWeapon : weapon->GetWepons())
 			{
-				if (!enemy_->IsCollisionState())
+				if (AsoUtility::IsHitSpheres(
+					useWeapon->GetStatePos(), useWeapon->GetColliderRadius(),
+					enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
 				{
-					continue;
-				}
+					if (!enemy->IsCollisionState())
+					{
+						continue;
+					}
 
-				if (useWeapon->isAlive_ == true)
-				{
-					enemy_->Damage(useWeapon->GetDamage());
-				}
+					if (useWeapon->isAlive_ == true)
+					{
+						enemy->Damage(useWeapon->GetDamage());
+					}
 
-				useWeapon->isAlive_ = false;
+					useWeapon->isAlive_ = false;
+				}
 			}
 		}
 	}

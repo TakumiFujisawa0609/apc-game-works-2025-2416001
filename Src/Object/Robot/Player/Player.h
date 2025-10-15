@@ -75,6 +75,8 @@ public:
 
 	void SetCamera(Camera* camera);
 
+	const float& GetDegreep(void) const;
+
 protected:
 
 	// リソースロード

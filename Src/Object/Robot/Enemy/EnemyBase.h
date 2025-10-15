@@ -30,10 +30,22 @@ public:
 		MAX,
 	};
 
+	//出現半径
+	static constexpr float SPAWN_RANIUS = 3000.0f;
+
 	EnemyBase(void);
 	~EnemyBase(void)override;
 
+	//初期化処理
+	virtual void Init(void)override;
+
+	//出現処理
+	void SetSpawnPostiton(void);
+
 protected:
+
+	//敵の出現範囲
+	float spawnRange_;
 
 	// リソースロード
 	virtual void InitLoad(void)override = 0;

@@ -14,10 +14,10 @@ public:
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,0.0f, 0.0f };
 	//初期座標
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
-
 	//衝突座標
 	static constexpr VECTOR  COLLIDER_POS = { 0.0f,100.0f,0.0f };
-
+	//出現範囲
+	static constexpr float SPAWN_RANGE = 2.0f;
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
 	//ブースト時最大回転量

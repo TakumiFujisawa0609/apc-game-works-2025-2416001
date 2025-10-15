@@ -90,10 +90,14 @@ void EnemyBeam::InitPost(void)
     rise_ = RISE_SPEED;
     //回転量
     rotPow_ = ROT_POW;
-
+    //ロックカウント
     lockcnt = 0;
-
+    //HP
     hp_ = DEFALUT_HP;
+    //衝突半径
+    trans_.Radius_ = DEFALUT_RADIUS;
+    //出現範囲
+    spawnRange_ = SPAWN_RANGE;
 }
 
 void EnemyBeam::ProcessMove(void)

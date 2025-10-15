@@ -15,7 +15,8 @@ public:
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,0.0f, 0.0f };
 	//‰ŠúÀ•W
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
-
+	//oŒ»”ÍˆÍ
+	static constexpr float SPAWN_RANGE = 1.0f;
 	//Õ“ËÀ•W
 	static constexpr VECTOR  COLLIDER_POS = { 0.0f,130.0f,0.0f };
 

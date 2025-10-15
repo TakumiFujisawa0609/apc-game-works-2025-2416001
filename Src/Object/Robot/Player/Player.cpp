@@ -25,6 +25,11 @@ void Player::SetCamera(Camera* camera)
     camera_ = camera;
 }
 
+const float& Player::GetDegreep(void) const
+{
+    return atan2f(trans_.rot.x, trans_.rot.z);
+}
+
 void Player::InitLoad(void)
 {
     trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
@@ -61,9 +66,10 @@ void Player::InitPost(void)
     rotPow_ = ROT_POW;
     //ロック処理判定カウント
     lockcnt = 0;
-
     // 弾発射の硬直時間
     stepShotDelay_ = 0.0f;
+    //衝突半径
+    trans_.Radius_ = DEFALUT_RADIUS;
 }
 
 void Player::ProcessMove(void)
