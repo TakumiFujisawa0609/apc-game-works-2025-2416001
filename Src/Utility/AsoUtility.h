@@ -148,4 +148,7 @@ public:
 	/// <returns>Œ…”</returns>
 	static int GetDigitCount(const int _value);
 
+	//â‘Î’l‚ğ•Ô‚·
+	static float MyFabs(const float x);
+
 };

@@ -619,3 +619,8 @@ int AsoUtility::GetDigitCount(const int _value)
 
     return digit;
 }
+
+float AsoUtility::MyFabs(const float x)
+{
+    return (x < 0) ? -x : x;
+}
