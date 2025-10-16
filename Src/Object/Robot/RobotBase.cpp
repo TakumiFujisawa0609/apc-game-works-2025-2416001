@@ -51,6 +51,11 @@ void RobotBase::Init(void)
 
 void RobotBase::Update(void)
 {
+    if (!IsAlive())
+    {
+        return;
+    }
+
     //íxâÑâÒì]èàóù
     DelayRotate();
 
@@ -103,6 +108,12 @@ void RobotBase::Update(void)
 
 void RobotBase::Draw(void)
 {
+    if (!IsAlive())
+    {
+        return;
+    }
+
+
 	MV1DrawModel(trans_.modelId);
 
     for (int i = 0; i < useWepon_.size(); i++)

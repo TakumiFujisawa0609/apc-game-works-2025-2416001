@@ -41,5 +41,8 @@ private:
 	//衝突判定関数
 	void UpdateCollider(void);
 
+	//自動ロックオン対象選別
+	void UpdateAutoLockOn(void);
+
 };
 

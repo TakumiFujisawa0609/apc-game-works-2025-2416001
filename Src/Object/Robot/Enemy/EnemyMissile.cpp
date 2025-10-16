@@ -25,6 +25,11 @@ EnemyMissile::~EnemyMissile(void)
 
 void EnemyMissile::Update(void)
 {
+    if (!IsAlive())
+    {
+        return;
+    }
+
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));

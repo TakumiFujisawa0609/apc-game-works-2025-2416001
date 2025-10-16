@@ -1,51 +1,7 @@
-﻿  Quaternion.cpp
-  Vector2.cpp
-  Vector2F.cpp
-  Camera.cpp
-  Transform.cpp
-  CollisinManager.cpp
-  WeponManager.cpp
-  EnemyBase.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
-  
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Manager/CollisinManager.cpp' をコンパイルしています)
-  
-  EnemyBeam.cpp
-  EnemyMissile.cpp
-  Player.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
-  
-  RobotBase.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
-  
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
-  
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
-  
-  WeponBeam.cpp
+﻿  InputManager.cpp
   GameScene.cpp
-C:\AGS2025fuyu\Src\Object\Robot\Player\Player.cpp(30,1): warning C4172: ローカル変数またはテンポラリ  のアドレスを返します
-  ResultScene.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
-  
-  AsoUtility.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
   
-C:\AGS2025fuyu\Src\Scene\GameScene.cpp(248,41): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\AGS2025fuyu\Src\Utility\AsoUtility.cpp(567,43): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-C:\AGS2025fuyu\Src\Utility\AsoUtility.cpp(567,34): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\AGS2025fuyu\Src\Utility\AsoUtility.cpp(567,16): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-Effekseer_vs2019_x64_d.lib(Effekseer.Matrix43.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Matrix43.obj)' で、または 'C:\AGS2025fuyu\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj)' で、または 'C:\AGS2025fuyu\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Mat43f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Mat43f.obj)' で、または 'C:\AGS2025fuyu\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Mat44f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Mat44f.obj)' で、または 'C:\AGS2025fuyu\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj)' で、または 'C:\AGS2025fuyu\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-  BaseProject.vcxproj -> C:\AGS2025fuyu\x64\Debug\BaseProject.exe
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(192,41): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe

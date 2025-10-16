@@ -52,82 +52,22 @@ void GameScene::Init(void)
 	grid_ = std::make_unique<Grid>();
 
 	camera->SetPlayer(player_.get());
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
-	{
-		camera->SetEnemy(enemy.get());
-	}
 }
 
 void GameScene::Update(void)
 {
 	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	/*for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
 		if(!enemy->IsAlive())
 		{
 			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
 		}
-	}
+	}*/
 
 	//ロボット更新処理
 	player_->Update();
 	enemys_->Update();
-	
-	float degreemum = DX_PI_F * 2;
-
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
-	{
-		VECTOR enemyPos = enemy->GetTransform().pos;
-		VECTOR playerPos = player_->GetTransform().pos;
-
-		//計算して出た暫定的に一番小さい角度を記憶する変数です
-
-		//プレイヤーからエネミーの距離が、一定外だったら処理をスキップする
-		if (AsoUtility::IsLenge(enemyPos, playerPos, degreemum))
-		{
-			continue;
-		}
-
-		//プレイヤーからエネミーの距離を取り、Y座標を0にし、正規化する
-		VECTOR vectorPos = VSub(enemyPos, playerPos);
-		vectorPos.y = 0.0f;
-		VNorm(vectorPos);
-
-		float degree = atan2f(vectorPos.x, vectorPos.z);
-		float degreep = atan2f(player_->GetTransform().rot.x,
-			player_->GetTransform().rot.z);
-	
-		if (DX_PI <= (degreep - degree))
-		{
-			degree = degreep - degree - degreemum;
-		}
-		else if (-DX_PI >= (degreep - degree))
-		{
-			degree = degreep - degree + degreemum;
-		}
-		else
-		{
-			degree = degreep - degree;
-		}
-
-		//求めた角度にプレイヤーとエネミーの距離に応じて補正をかける(距離が長いほど補正は大きい)
-		float lerpPos = AsoUtility::IsLenge(enemyPos, playerPos, 500);
-		degree = degree + degree * lerpPos * 0.3f;
-
-		if (AsoUtility::MyFabs(degreemum) >= AsoUtility::MyFabs(degree))
-		{
-			degreemum = degree;
-		}
-	}
-	if (AsoUtility::MyFabs(degreemum) <= DX_PI_F / 3)
-	{
-
-	}
-	else
-	{
-		
-	}
-
 
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	if (player_->IsTargetLockFlage())
@@ -140,6 +80,7 @@ void GameScene::Update(void)
 	}
 
 	UpdateCollider();
+	UpdateAutoLockOn();
 }
 
 void GameScene::Draw(void)
@@ -184,13 +125,16 @@ void GameScene::Draw(void)
 	{
 		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
 
-		DrawSphere3D(
-			enemyClliderPos,
-			EnemyBeam::DEFALUT_RADIUS,
-			16,
-			GetColor(200, 200, 200),
-			GetColor(200, 200, 200),
-			false);
+		if((enemy->IsAlive()))
+		{
+			DrawSphere3D(
+				enemyClliderPos,
+				EnemyBeam::DEFALUT_RADIUS,
+				16,
+				GetColor(200, 200, 200),
+				GetColor(200, 200, 200),
+				false);
+		}
 	}
 #endif
 
@@ -253,4 +197,76 @@ void GameScene::UpdateCollider(void)
 			}
 		}
 	}
+}
+
+void GameScene::UpdateAutoLockOn(void)
+{
+	Camera* camera = SceneManager::GetInstance().GetCamera();
+	auto& enemys = enemys_->GetEnemys();
+	float degreemum = DX_PI_F * 2;
+	for (auto& enemy : enemys)
+	{
+		VECTOR enemyPos = enemy->GetTransform().pos;
+		VECTOR playerPos = player_->GetTransform().pos;
+		//プレイヤーからエネミーの距離が、一定外だったら処理をスキップする
+		VECTOR vectorPos = VSub(enemyPos, playerPos);
+		if (VSize(vectorPos) >= 2000) {
+			continue;
+		}
+
+		if(enemy->IsAlive())
+		{
+			VECTOR targetPos = enemy->GetTransform().pos;
+
+			auto& inp = InputManager::GetInstance();
+
+			camera->SetEnemy(enemy.get());
+			player_->SetLockOnPos(targetPos);
+		}
+	}
+
+	//std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	////計算して出た暫定的に一番小さい角度を記憶する変数
+	//float degreemum = DX_PI_F * 2;
+	//for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	//{
+	//	VECTOR enemyPos = enemy->GetTransform().pos;
+	//	VECTOR playerPos = player_->GetTransform().pos;
+	//	//プレイヤーからエネミーの距離が、一定外だったら処理をスキップする
+	//	VECTOR vectorPos = VSub(enemyPos, playerPos);
+	//	if (VSize(vectorPos) >= 2000){
+	//		continue;
+	//	}
+
+	//	//エネミーからプレイやー距離を取り、Y座標を0にし、正規化する
+	//	VECTOR vectorPos2 = VSub(enemyPos, playerPos);
+	//	vectorPos2.y = 0.0f;
+	//	VNorm(vectorPos2);
+
+	//	float degree = atan2f(vectorPos2.x, vectorPos2.z);
+	//	float degreep = atan2f(player_->GetTransform().rot.x,
+	//		player_->GetTransform().rot.z);
+
+	//	//求めた角度にプレイヤーとエネミーの距離に応じて補正をかける(距離が長いほど補正は大きい)
+    //  degreep = AsoUtility::LerpAngle(degreep, VSize(vectorPos), 5.0f);
+	//	if (AsoUtility::MyFabs(degreemum) >= AsoUtility::MyFabs(degree))
+	//	{
+	//		degreemum = degree;
+	//	}
+
+	//	Camera* camera = SceneManager::GetInstance().GetCamera();
+	//	if (player_->isLock == true)
+	//	{
+	//		camera->SetEnemy(enemy.get());
+	//		player_->SetLockOnPos(enemy->GetTransform().pos);
+	//	}
+	//}
+	//if (AsoUtility::MyFabs(degreemum) <= DX_PI_F / 0.7f)
+	//{
+	//	player_->isLock = true;
+	//}
+	//else
+	//{
+	//	player_->isLock = false;
+	//}
 }
