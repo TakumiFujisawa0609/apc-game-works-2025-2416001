@@ -13,10 +13,12 @@ public:
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,0.0f, 0.0f };
+	//初期相対座標
+	static constexpr VECTOR LOCAL_DEF_POS = { 0.0f,0.0f, 0.0f };
 	//初期座標
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
 	//出現範囲
-	static constexpr float SPAWN_RANGE = 1.0f;
+	static constexpr float SPAWN_RANGE = 1.2f;
 	//衝突座標
 	static constexpr VECTOR  COLLIDER_POS = { 0.0f,130.0f,0.0f };
 
@@ -78,30 +80,6 @@ protected:
 	void ProcessAttack(void)override;
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
-
-	// 状態遷移
-	void ChangeStandby(void)override;
-	void ChangeKnockback(void)override;
-	void ChangeAttack(void)override;
-	void ChangeDead(void)override;
-	void ChangeVictory(void)override;
-	void ChangeEnd(void)override;
-
-	// 状態別更新
-	void UpdateStandby(void)override;
-	void UpdateKnockback(void)override;
-	void UpdateAttack(void)override;
-	void UpdateDead(void)override;
-	void UpdateVictory(void)override;
-	void UpdateEnd(void)override;
-
-	// 状態別描画
-	void DrawStandby(void)override;
-	void DrawKnockback(void)override;
-	void DrawAttack(void)override;
-	void DrawDead(void)override;
-	void DrawVictory(void)override;
-	void DrawEnd(void)override;
 
 private:
 

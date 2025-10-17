@@ -79,6 +79,11 @@ void GameScene::Update(void)
 		camera->ChangeMode(Camera::MODE::FIXED_POINT);
 	}
 
+	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	{
+		enemy->SetLockOnPos(player_->GetTransform().pos);
+	}
+
 	UpdateCollider();
 	UpdateAutoLockOn();
 }
@@ -142,12 +147,16 @@ void GameScene::Draw(void)
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
 
+	int y = 40;
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
+		int cnt = enemy_.size();
+		float sub = VSize(VSub(player_->GetTransform().pos, enemy->GetTransform().pos));
 		DrawFormatString(
-			0, 40, GetColor(255, 255, 255),
-			"HP：(%.1f)",
-			enemy->GetHp());
+			0, y, GetColor(255, 255, 255),
+			"HP：(%.1f), diff(%.3f)",
+			enemy->GetHp(), sub);
+		y += 16;
 	}
 }
 
@@ -203,70 +212,54 @@ void GameScene::UpdateAutoLockOn(void)
 {
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	auto& enemys = enemys_->GetEnemys();
-	float degreemum = DX_PI_F * 2;
+	auto& inp = InputManager::GetInstance();
+	float diff = 0.0f;
+	float min = 5000.0f;
+	std::shared_ptr<EnemyBase> enemy_;
+
 	for (auto& enemy : enemys)
 	{
-		VECTOR enemyPos = enemy->GetTransform().pos;
-		VECTOR playerPos = player_->GetTransform().pos;
-		//プレイヤーからエネミーの距離が、一定外だったら処理をスキップする
-		VECTOR vectorPos = VSub(enemyPos, playerPos);
-		if (VSize(vectorPos) >= 2000) {
+		VECTOR Pos = VSub(
+			enemy->GetTransform().pos,
+			player_->GetTransform().pos);
+		diff = VSize(Pos);
+		if (diff >= 5000 || !enemy->IsAlive()) {
 			continue;
 		}
 
-		if(enemy->IsAlive())
+		if (diff < min)
 		{
-			VECTOR targetPos = enemy->GetTransform().pos;
-
-			auto& inp = InputManager::GetInstance();
-
-			camera->SetEnemy(enemy.get());
-			player_->SetLockOnPos(targetPos);
+			min = diff;
+			enemy_ = enemy;
 		}
+
+		camera->SetEnemy(enemy_.get());
+		player_->SetLockOnPos(enemy_->GetTransform().pos);
 	}
 
-	//std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
-	////計算して出た暫定的に一番小さい角度を記憶する変数
-	//float degreemum = DX_PI_F * 2;
-	//for (std::shared_ptr<EnemyBase> enemy : enemy_)
-	//{
-	//	VECTOR enemyPos = enemy->GetTransform().pos;
-	//	VECTOR playerPos = player_->GetTransform().pos;
-	//	//プレイヤーからエネミーの距離が、一定外だったら処理をスキップする
-	//	VECTOR vectorPos = VSub(enemyPos, playerPos);
-	//	if (VSize(vectorPos) >= 2000){
-	//		continue;
-	//	}
-
-	//	//エネミーからプレイやー距離を取り、Y座標を0にし、正規化する
-	//	VECTOR vectorPos2 = VSub(enemyPos, playerPos);
-	//	vectorPos2.y = 0.0f;
-	//	VNorm(vectorPos2);
-
-	//	float degree = atan2f(vectorPos2.x, vectorPos2.z);
-	//	float degreep = atan2f(player_->GetTransform().rot.x,
-	//		player_->GetTransform().rot.z);
-
-	//	//求めた角度にプレイヤーとエネミーの距離に応じて補正をかける(距離が長いほど補正は大きい)
-    //  degreep = AsoUtility::LerpAngle(degreep, VSize(vectorPos), 5.0f);
-	//	if (AsoUtility::MyFabs(degreemum) >= AsoUtility::MyFabs(degree))
-	//	{
-	//		degreemum = degree;
-	//	}
-
-	//	Camera* camera = SceneManager::GetInstance().GetCamera();
-	//	if (player_->isLock == true)
-	//	{
-	//		camera->SetEnemy(enemy.get());
-	//		player_->SetLockOnPos(enemy->GetTransform().pos);
-	//	}
-	//}
-	//if (AsoUtility::MyFabs(degreemum) <= DX_PI_F / 0.7f)
-	//{
-	//	player_->isLock = true;
-	//}
-	//else
-	//{
-	//	player_->isLock = false;
-	//}
+	/*EnemyBubbleSort(enemys);*/
 }
+
+//void GameScene::EnemyBubbleSort(std::vector<std::shared_ptr<EnemyBase>> arr)
+//{
+//	int n = arr.size();
+//	for (int i = 0; i < n - 1; i++){
+//		for (int j = 0; j < n - i - 1; j++) {
+//
+//			VECTOR Pos1 = VSub(arr[j]->GetTransform().pos,
+//				player_->GetTransform().pos);
+//			float diff1 = VSize(Pos1);
+//
+//			VECTOR Pos2 = VSub(arr[j + 1]->GetTransform().pos,
+//				player_->GetTransform().pos);
+//			float diff2 = VSize(Pos2);
+//
+//			if (diff1 > diff2)
+//			{
+//				std::shared_ptr<EnemyBase> temp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = temp;
+//			}
+//		}
+//	}
+//}

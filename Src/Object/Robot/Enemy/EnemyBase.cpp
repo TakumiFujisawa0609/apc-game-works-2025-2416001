@@ -1,5 +1,6 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../../Utility/AsoUtility.h"
+#include "../../Common/AnimationController.h"
 #include "../../Manager/WeponManager.h"
 #include "EnemyBase.h"
 
@@ -26,6 +27,7 @@ void EnemyBase::Init(void)
 
     SetSpawnPostiton();
 
+    trans_.pos = VAdd(trans_.localPos, trans_.pos);
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
@@ -72,3 +74,88 @@ void EnemyBase::SetSpawnPostiton(void)
 
     trans_.pos = pos;
 }
+
+void EnemyBase::ChangeStandby(void)
+{
+    // 初期アニメーション再生
+    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
+}
+
+void EnemyBase::ChangeKnockback(void)
+{
+    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
+}
+
+void EnemyBase::ChangeAttack(void)
+{
+}
+
+void EnemyBase::ChangeDead(void)
+{
+    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
+}
+
+void EnemyBase::ChangeVictory(void)
+{
+}
+
+void EnemyBase::ChangeEnd(void)
+{
+}
+
+void EnemyBase::UpdateStandby(void)
+{
+}
+
+void EnemyBase::UpdateKnockback(void)
+{
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::STANDBY);
+    }
+}
+
+void EnemyBase::UpdateAttack(void)
+{
+}
+
+void EnemyBase::UpdateDead(void)
+{
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::END);
+    }
+}
+
+void EnemyBase::UpdateVictory(void)
+{
+}
+
+void EnemyBase::UpdateEnd(void)
+{
+}
+
+void EnemyBase::DrawStandby(void)
+{
+}
+
+void EnemyBase::DrawKnockback(void)
+{
+}
+
+void EnemyBase::DrawAttack(void)
+{
+}
+
+void EnemyBase::DrawDead(void)
+{
+}
+
+void EnemyBase::DrawVictory(void)
+{
+}
+
+void EnemyBase::DrawEnd(void)
+{
+}
+

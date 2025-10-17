@@ -31,7 +31,7 @@ public:
 	};
 
 	//èoåªîºåa
-	static constexpr float SPAWN_RANIUS = 3000.0f;
+	static constexpr float SPAWN_RANIUS = 5000.0f;
 
 	EnemyBase(void);
 	~EnemyBase(void)override;
@@ -65,26 +65,26 @@ protected:
 	virtual void ProcessTargetLock(void)override = 0;
 
 	// èÛë‘ëJà⁄
-	virtual void ChangeStandby(void) = 0;
-	virtual void ChangeKnockback(void) = 0;
-	virtual void ChangeAttack(void) = 0;
-	virtual void ChangeDead(void) = 0;
-	virtual void ChangeVictory(void) = 0;
-	virtual void ChangeEnd(void) = 0;
+	virtual void ChangeStandby(void);
+	virtual void ChangeKnockback(void);
+	virtual void ChangeAttack(void);
+	virtual void ChangeDead(void);
+	virtual void ChangeVictory(void);
+	virtual void ChangeEnd(void);
 	// èÛë‘ï çXêV
-	virtual void UpdateStandby(void) = 0;
-	virtual void UpdateKnockback(void) = 0;
-	virtual void UpdateAttack(void) = 0;
-	virtual void UpdateDead(void) = 0;
-	virtual void UpdateVictory(void) = 0;
-	virtual void UpdateEnd(void) = 0;
+	virtual void UpdateStandby(void);
+	virtual void UpdateKnockback(void);
+	virtual void UpdateAttack(void);
+	virtual void UpdateDead(void);
+	virtual void UpdateVictory(void);
+	virtual void UpdateEnd(void);
 	// èÛë‘ï ï`âÊ
-	virtual void DrawStandby(void) = 0;
-	virtual void DrawKnockback(void) = 0;
-	virtual void DrawAttack(void) = 0;
-	virtual void DrawDead(void) = 0;
-	virtual void DrawVictory(void) = 0;
-	virtual void DrawEnd(void) = 0;
+	virtual void DrawStandby(void);
+	virtual void DrawKnockback(void);
+	virtual void DrawAttack(void);
+	virtual void DrawDead(void);
+	virtual void DrawVictory(void);
+	virtual void DrawEnd(void);
 
 private:
 

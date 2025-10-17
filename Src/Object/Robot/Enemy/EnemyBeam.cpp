@@ -72,6 +72,7 @@ void EnemyBeam::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
+    trans_.localPos = LOCAL_DEF_POS;
 }
 
 void EnemyBeam::InitAnimation(void)
@@ -118,89 +119,5 @@ void EnemyBeam::ProcessAttack(void)
 }
 
 void EnemyBeam::ProcessTargetLock(void)
-{
-}
-
-void EnemyBeam::ChangeStandby(void)
-{
-    // 初期アニメーション再生
-    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
-}
-
-void EnemyBeam::ChangeKnockback(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
-}
-
-void EnemyBeam::ChangeAttack(void)
-{
-}
-
-void EnemyBeam::ChangeDead(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
-}
-
-void EnemyBeam::ChangeVictory(void)
-{
-}
-
-void EnemyBeam::ChangeEnd(void)
-{
-}
-
-void EnemyBeam::UpdateStandby(void)
-{
-}
-
-void EnemyBeam::UpdateKnockback(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::STANDBY);
-    }
-}
-
-void EnemyBeam::UpdateAttack(void)
-{
-}
-
-void EnemyBeam::UpdateDead(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::END);
-    }
-}
-
-void EnemyBeam::UpdateVictory(void)
-{
-}
-
-void EnemyBeam::UpdateEnd(void)
-{
-}
-
-void EnemyBeam::DrawStandby(void)
-{
-}
-
-void EnemyBeam::DrawKnockback(void)
-{
-}
-
-void EnemyBeam::DrawAttack(void)
-{
-}
-
-void EnemyBeam::DrawDead(void)
-{
-}
-
-void EnemyBeam::DrawVictory(void)
-{
-}
-
-void EnemyBeam::DrawEnd(void)
 {
 }

@@ -44,5 +44,7 @@ private:
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
 
+	/*void EnemyBubbleSort(std::vector<std::shared_ptr<EnemyBase>> arr);*/
+
 };
 

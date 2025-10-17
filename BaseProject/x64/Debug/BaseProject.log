@@ -1,7 +1,23 @@
-﻿  InputManager.cpp
+﻿  EnemyManager.cpp
+  EnemyBase.cpp
+  EnemyBeam.cpp
+  EnemyMissile.cpp
   GameScene.cpp
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
 C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(51,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
   
-C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(192,41): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(153,11): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(201,41): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe

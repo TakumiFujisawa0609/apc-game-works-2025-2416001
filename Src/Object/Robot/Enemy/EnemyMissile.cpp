@@ -48,6 +48,7 @@ void EnemyMissile::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
+    trans_.localPos = LOCAL_DEF_POS;
 }
 
 void EnemyMissile::InitAnimation(void)
@@ -94,77 +95,5 @@ void EnemyMissile::ProcessAttack(void)
 }
 
 void EnemyMissile::ProcessTargetLock(void)
-{
-}
-
-void EnemyMissile::ChangeStandby(void)
-{
-}
-
-void EnemyMissile::ChangeKnockback(void)
-{
-}
-
-void EnemyMissile::ChangeAttack(void)
-{
-}
-
-void EnemyMissile::ChangeDead(void)
-{
-}
-
-void EnemyMissile::ChangeVictory(void)
-{
-}
-
-void EnemyMissile::ChangeEnd(void)
-{
-}
-
-void EnemyMissile::UpdateStandby(void)
-{
-}
-
-void EnemyMissile::UpdateKnockback(void)
-{
-}
-
-void EnemyMissile::UpdateAttack(void)
-{
-}
-
-void EnemyMissile::UpdateDead(void)
-{
-}
-
-void EnemyMissile::UpdateVictory(void)
-{
-}
-
-void EnemyMissile::UpdateEnd(void)
-{
-}
-
-void EnemyMissile::DrawStandby(void)
-{
-}
-
-void EnemyMissile::DrawKnockback(void)
-{
-}
-
-void EnemyMissile::DrawAttack(void)
-{
-}
-
-void EnemyMissile::DrawDead(void)
-{
-}
-
-void EnemyMissile::DrawVictory(void)
-{
-}
-
-void EnemyMissile::DrawEnd(void)
 {
 }

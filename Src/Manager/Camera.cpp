@@ -296,8 +296,8 @@ void Camera::TargetLockeOn(void)
 	float targetAngleX = atan2f(-targetDir.y, horizontalDist);
 
 	// 滑らかに回転させる（補間）
-	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 0.5f);
-	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 0.5f);
+	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 1.0f);
+	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 1.0f);
 
 	// ロボットが向いている方向を取得
 	VECTOR robotForward = player_->GetTransform().targetDir;
