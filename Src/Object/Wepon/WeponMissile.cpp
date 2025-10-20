@@ -17,7 +17,7 @@ void WeponMissile::Draw(void)
 	}
 
 	// ビームの終点を方向ベクトルを使って計算
-	statePos_ = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
+	statePos_ = VAdd(trans_.pos, VScale(trans_.moveDir, missileLong_));
 
 		DrawCapsule3D(
 			trans_.pos,
@@ -30,13 +30,13 @@ void WeponMissile::Draw(void)
 
 #ifdef _DEBUG
 
-	DrawFormatString(
+	/*DrawFormatString(
 		0, 60, GetColor(255, 255, 255),
 		"座標：(%.1f,%.1f,%.1f)",
 		trans_.pos.x,
 		trans_.pos.y,
 		trans_.pos.z
-	);
+	);*/
 
 #endif
 }
@@ -53,24 +53,27 @@ void WeponMissile::SetParam(void)
 {
 	trans_.localPos = LOCAL_POS;
 	speed_ = DEFAULT_SPEED;
-	bemeSpeed_ = MAX_BEAM_SPEED;
-	bemelong_ = 0.0f;
+	missileSpeed_ = BEAM_LENGTH_SPEED;
+	missileLong_ = 0.0f;
 	jumpPow_ = JUMP_POW;
 	trans_.Radius_ = DEFALUT_RADIUS;
 	damage_ = DAMAGE;
+	homingCnt_ = 0.0f;
+
 }
 
 void WeponMissile::Move(void)
 {
 
-	if (bemelong_ > MAX_BEAM_LENGTH)
+	if (missileLong_ > MAX_BEAM_LENGTH)
 	{
-		bemelong_ = MAX_BEAM_LENGTH;
+		missileLong_ = MAX_BEAM_LENGTH;
 		trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 	}
 	else
 	{
-		bemelong_ += bemeSpeed_;
+		homingCnt_++;
+		missileLong_ += missileSpeed_;
 	}
 
 	// 重力(加速度を速度に加算していく)
@@ -81,10 +84,12 @@ void WeponMissile::Move(void)
 		isAlive_ = false;
 	}
 
-	if (trans_.pos.y <= 700.0f)
+	if (homingCnt_ <= HOMINGSTATE_CNT)
 	{
 		return;
 	}
+
+	homingCnt_ = HOMINGSTATE_CNT;
 
 	VECTOR toTarget = VSub(targetPos_, trans_.pos);
 	float distance = VSize(toTarget);
@@ -92,10 +97,6 @@ void WeponMissile::Move(void)
 	if (distance >= 0.01f)
 	{
 		VECTOR targetDir = VNorm(toTarget);
-		trans_.moveDir = VNorm(
-			VAdd(
-			VScale(trans_.moveDir, 2.0f),
-			VScale(targetDir, 2.0f)
-		));
+		trans_.moveDir = VNorm(VAdd(trans_.moveDir,targetDir));
 	}
 }

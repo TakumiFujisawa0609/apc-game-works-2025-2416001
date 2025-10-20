@@ -13,6 +13,9 @@ public:
 	//ビーム最大長さ
 	static constexpr float MAX_BEAM_LENGTH = 5000.0f;
 
+	//ビーム生存距離
+	static constexpr float MAX_BEAM_DIFF = 50000.0f;
+
 	//ビームの速度
 	static constexpr float DEFAULT_SPEED = 500.0f;
 

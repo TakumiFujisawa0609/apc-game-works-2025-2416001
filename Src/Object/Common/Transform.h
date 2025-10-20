@@ -39,6 +39,7 @@ public:
 	VECTOR localRot;
 	// ˆÊ’u
 	VECTOR pos;
+	VECTOR cillisionPos;
 	VECTOR localPos;
 
 	MATRIX matScl;

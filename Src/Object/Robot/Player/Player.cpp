@@ -70,6 +70,12 @@ void Player::InitPost(void)
     stepShotDelay_ = 0.0f;
     //衝突半径
     trans_.Radius_ = DEFALUT_RADIUS;
+    //ビーム出現数
+    beamCnt_ = BEAM_CNT;
+    //ミサイル出現数
+    missileCnt_ = MISSILE_CNT;
+    //衝突座標
+    trans_.cillisionPos = COLLIDER_POS;
 }
 
 void Player::ProcessMove(void)
@@ -253,13 +259,11 @@ void Player::ProcessAttack(void)
     bool IsBeam;
     bool IsMissile;
 
-    if (GetJoypadNum() == 0)
-    {
+    if (GetJoypadNum() == 0) {
         IsBeam = inpMng_.IsTrgDown(KEY_INPUT_R);
         IsMissile = inpMng_.IsTrgDown(KEY_INPUT_F);
     }
-    else
-    {
+    else {
         IsBeam = inpMng_.IsPadBtnTrgDown(
             InputManager::JOYPAD_NO::PAD1,
             InputManager::JOYPAD_BTN::L_TRIGGER);
@@ -268,40 +272,28 @@ void Player::ProcessAttack(void)
             InputManager::JOYPAD_BTN::R_TRIGGER);
     }
 
-    if (IsBeam && stepShotDelay_ <= 0.0f)
-    {
-        useWepon_[0]->ChangeWepon(
+    if (IsBeam && stepShotDelay_ <= 0.0f) {
+        useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
             trans_.pos,
-            targetDir);
+            targetDir,
+            beamCnt_);
 
         // 弾発射後の硬直時間セット
         stepShotDelay_ = SHOT_DELAY;
     }
 
-    if (IsMissile && stepShotDelay_ <= 0.0f)
-    {
-        for (int i = 0; i < useWepon_.size(); i++)
-        {
-            // ランダムな角度でばらけさせる
-            int randAnglePow = 10000;
-            int randAnglehraf = randAnglePow / 2;
-            float randomAngleY = targetDir.y + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-            float randomAngleX = targetDir.x + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
-            float randomAngleZ = targetDir.z + ((rand() % randAnglePow - randAnglehraf) / 100.0f);
+    if (IsMissile && stepShotDelay_ <= 0.0f) {
+        useWepon_->ChangeWepon(
+            WeponBase::WEPON_TYPE::MISSILE,
+            trans_.pos,
+            targetDir, 
+            missileCnt_,
+            lockOnPos_
+        );
 
-            VECTOR spreadDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
-
-            useWepon_[i]->ChangeWepon(
-                WeponBase::WEPON_TYPE::MISSILE,
-                trans_.pos,
-                spreadDir,
-                lockOnPos_
-            );
-
-            // 弾発射後の硬直時間セット
-            stepShotDelay_ = SHOT_DELAY;
-        }
+        // 弾発射後の硬直時間セット
+        stepShotDelay_ = SHOT_DELAY;
     }
 
     // 弾発射後の硬直時間を減らしていく
@@ -332,7 +324,7 @@ void Player::ProcessTargetLock(void)
         lockcnt++;
     }
 
-    if (!IsTargetLockFlage())
+    if (camera_->GetCameraMode() == Camera::MODE::FIXED_POINT)
     {
         return;
     }
@@ -394,6 +386,16 @@ void Player::ChangeEnd(void)
 
 void Player::UpdateStandby(void)
 {
+    //移動処理
+    ProcessMove();
+
+    //上昇処理
+    ProcessRise();
+
+    ProcessTargetLock();
+
+    //攻撃処理
+    ProcessAttack();
 }
 
 void Player::UpdateKnockback(void)

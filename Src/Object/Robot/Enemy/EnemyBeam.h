@@ -7,28 +7,25 @@ class EnemyBeam :
     public EnemyBase
 {
 public:
-	// 点滅時の拡散光色
-	static constexpr COLOR_F COLOR_DIF_BLINK = { 1.0f, 0.2f, 0.2f, 1.0f };
+
 	//初期サイズ
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,0.0f, 0.0f };
-	//初期相対座標
-	static constexpr VECTOR LOCAL_DEF_POS = { 0.0f,0.0f, 0.0f };
 	//初期座標
-	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
+	static constexpr VECTOR DEFALUT_POS = { 0.0f,0.0f,1000.0f };
+	//衝突座標
+	static constexpr VECTOR COLLIDER_POS = { 0.0f,150.0f,0.0f };
+
+
 	//出現範囲
 	static constexpr float SPAWN_RANGE = 1.2f;
-	//衝突座標
-	static constexpr VECTOR  COLLIDER_POS = { 0.0f,130.0f,0.0f };
-
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
 	//ブースト時最大回転量
 	static constexpr float MAX_BOOST_ROT = 40.0f * DX_PI_F / 180.0f;
 	//回転量
 	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
-
 	//加速量
 	static constexpr float MOVE_SPEED = 0.95f;
 	//上昇量
@@ -45,18 +42,17 @@ public:
 	static constexpr float STOP_THRESHOLD = 0.1f;
 	// 重力
 	static constexpr float GRAVITY = 5.5f;
-
-	//アニメーションの再生速度
+	//アニメーション再生速度
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
-
-	//エネミーの衝突半径
+	//衝突半径
 	static constexpr float DEFALUT_RADIUS = 70.0f;
+
 
 	//HP
 	static constexpr int DEFALUT_HP = 15;
-
 	// 死亡時間
 	static constexpr int CNT_DEAD_REACT = 40;
+
 
 	EnemyBeam(void);
 	~EnemyBeam(void)override;

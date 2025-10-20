@@ -2,16 +2,12 @@
 #include "../../../Manager/SceneManager.h"
 #include "../../../Manager/Camera.h"
 #include "../../../Manager/InputManager.h"
-
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Utility/MatrixUtility.h"
-
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
-
 #include "../../Wepon/WeponBeam.h"
 #include "../../Wepon/WeponMissile.h"
-
 #include "../../../Application.h"
 #include "EnemyMissile.h"
 
@@ -34,6 +30,30 @@ void EnemyMissile::Update(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
+    switch (state_)
+    {
+    case RobotBase::STATE::STANDBY:
+        UpdateStandby();
+        break;
+    case RobotBase::STATE::KNOCKBACK:
+        UpdateKnockback();
+        break;
+    case RobotBase::STATE::ATTACK:
+        UpdateAttack();
+        break;
+    case RobotBase::STATE::DEAD:
+        UpdateDead();
+        break;
+    case RobotBase::STATE::END:
+        UpdateEnd();
+        break;
+    case RobotBase::STATE::VICTORY:
+        UpdateVictory();
+        break;
+    default:
+        break;
+    }
+
     anim_->Update();
 }
 
@@ -48,7 +68,8 @@ void EnemyMissile::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
-    trans_.localPos = LOCAL_DEF_POS;
+    //Õ“ËÀ•W
+    trans_.cillisionPos = COLLIDER_POS;
 }
 
 void EnemyMissile::InitAnimation(void)
@@ -92,6 +113,16 @@ void EnemyMissile::ProcessRise(void)
 
 void EnemyMissile::ProcessAttack(void)
 {
+    //ˆÚ“®ˆ—
+    ProcessMove();
+
+    //ã¸ˆ—
+    ProcessRise();
+
+    ProcessTargetLock();
+
+    //UŒ‚ˆ—
+    ProcessAttack();
 }
 
 void EnemyMissile::ProcessTargetLock(void)

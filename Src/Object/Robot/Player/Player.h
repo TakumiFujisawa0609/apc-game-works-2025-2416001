@@ -32,7 +32,7 @@ public:
 	//初期座標
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,0.0f };
 	//衝突座標
-	static constexpr VECTOR  COLLIDER_POS = { 0.0f,100.0f,0.0f };
+	static constexpr VECTOR  COLLIDER_POS = { 0.0f,120.0f,0.0f };
 
 
 	//最大回転量
@@ -41,7 +41,6 @@ public:
 	static constexpr float MAX_BOOST_ROT = 40.0f * DX_PI_F / 180.0f;
 	//回転量
 	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
-
 	//加速量
 	static constexpr float MOVE_SPEED = 0.95f;
 	//上昇量
@@ -58,17 +57,21 @@ public:
 	static constexpr float STOP_THRESHOLD = 0.1f;
 	// 重力
 	static constexpr float GRAVITY = 5.5f;
-
 	//アニメーションの再生速度
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
-
 	//プレイヤーのカメラ半径
 	static constexpr float MAX_ROBOT_ANGLES = 40.0f * DX_PI_F / 180.0f;
 	//プレイヤーの衝突半径
 	static constexpr float DEFALUT_RADIUS = 60.0f;
-
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 1.0f;
+
+
+	//ビーム出現数
+	static constexpr int BEAM_CNT = 1;
+	//ミサイル出現数
+	static constexpr int MISSILE_CNT = 10;
+
 
 	Player(void);
 	~Player(void)override;

@@ -159,6 +159,8 @@ void SceneManager::Draw(void)
 	// 描画
 	scene_->Draw();
 
+	camera_->Draw();
+
 	// Effekseerにより再生中のエフェクトを描画する。
 	DrawEffekseer3D();
 

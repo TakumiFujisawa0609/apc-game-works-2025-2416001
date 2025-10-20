@@ -3,7 +3,6 @@
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/Camera.h"
 #include "../../Manager/InputManager.h"
-#include "../../Utility/AsoUtility.h"
 #include "../../Utility/MatrixUtility.h"
 #include "../Common/AnimationController.h"
 #include "./../Common/Transform.h"
@@ -36,14 +35,8 @@ void RobotBase::Init(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    for (int i = 0; i < 10; i++)
-    {
-        useWepon_.push_back(std::make_shared<WeponManager>());
-    }
-    for (int i = 0; i < useWepon_.size(); i++)
-    {
-        useWepon_[i]->Init();
-    }
+    useWepon_ = std::make_shared<WeponManager>();
+    useWepon_->Init();
 
     //ó‘Ô‘JˆÚ‰Šúİ’è
     ChangeState(STATE::STANDBY);
@@ -55,20 +48,6 @@ void RobotBase::Update(void)
     {
         return;
     }
-
-    //’x‰„‰ñ“]ˆ—
-    DelayRotate();
-
-    //ˆÚ“®ˆ—
-    ProcessMove();
-
-    //ã¸ˆ—
-    ProcessRise();
-
-    ProcessTargetLock();
-
-    //UŒ‚ˆ—
-    ProcessAttack();
 
     switch (state_)
     {
@@ -94,15 +73,14 @@ void RobotBase::Update(void)
         break;
     }
 
+    //’x‰„‰ñ“]ˆ—
+    DelayRotate();
+
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    for (int i = 0; i < useWepon_.size(); i++)
-    {
-        useWepon_[i]->Update();
-    }
-
+    useWepon_->Update();
     anim_->Update();
 }
 
@@ -114,12 +92,9 @@ void RobotBase::Draw(void)
     }
 
 
-	MV1DrawModel(trans_.modelId);
+    MV1DrawModel(trans_.modelId);
 
-    for (int i = 0; i < useWepon_.size(); i++)
-    {
-        useWepon_[i]->Draw();
-    }
+    useWepon_->Draw();
 
     switch (state_)
     {
@@ -148,12 +123,9 @@ void RobotBase::Draw(void)
 
 void RobotBase::Release(void)
 {
-	MV1DeleteModel(trans_.modelId);
+    MV1DeleteModel(trans_.modelId);
 
-    for (int i = 0; i < useWepon_.size(); i++)
-    {
-        useWepon_[i]->Release();
-    }
+    useWepon_->Release();
 }
 
 void RobotBase::ChangeState(STATE state)

@@ -45,6 +45,8 @@ protected:
 	WEPON_TYPE type_;
 	//標敵の座標
 	VECTOR targetPos_;
+	//使用者の座標
+	VECTOR playPos_;
 	// 移動スピード
 	float speed_;
 	//ダメージ

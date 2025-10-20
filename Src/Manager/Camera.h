@@ -78,6 +78,8 @@ public:
 	//エネミー機能取得関数
 	void SetEnemy(EnemyBase* enemys);
 
+	MODE GetCameraMode(void) { return mode_; }
+
 private:
 
 	//プレイヤー情報

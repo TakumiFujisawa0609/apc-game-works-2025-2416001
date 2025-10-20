@@ -27,7 +27,8 @@ void WeponBase::Init(VECTOR pos, VECTOR dir)
 	// パラメータ設定
 	SetParam();
 
-	trans_.pos = VAdd(pos, trans_.localPos);
+	playPos_ = pos;
+	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
 }
@@ -39,7 +40,8 @@ void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
 	// パラメータ設定
 	SetParam();
 
-	trans_.pos = VAdd(pos, trans_.localPos);
+	playPos_ = pos;
+	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	targetPos_ = targetPos;
 	isAlive_ = true;

@@ -20,6 +20,8 @@ Camera::Camera(void)
 	mode_ = MODE::NONE;
 	pos_ = AsoUtility::VECTOR_ZERO;
 	targetPos_ = AsoUtility::VECTOR_ZERO;
+	player_ = nullptr;
+	enemys_ = nullptr;
 }
 
 Camera::~Camera(void)
@@ -69,6 +71,16 @@ void Camera::SetBeforeDraw(void)
 
 void Camera::Draw(void)
 {
+#ifdef _DEBUG
+
+	if(mode_ == MODE::FIXED_POINT){
+		DrawString(0, 40, "CameraMode:(Defaluto)", GetColor(255, 255, 255));
+	}
+	else if (mode_ == MODE::TARGET_ROCKE){
+		DrawString(0, 40, "CameraMode:(TagetLocke)", GetColor(255, 255, 255));
+	}
+
+#endif
 }
 
 VECTOR Camera::GetPos(void) const
@@ -103,12 +115,15 @@ VECTOR Camera::GetForward(void) const
 
 void Camera::ChangeMode(MODE mode)
 {
-
 	// カメラの初期設定
 	SetDefault();
 
 	// カメラモードの変更
 	mode_ = mode;
+
+	if (enemys_ == nullptr) {
+		mode_ = Camera::MODE::FIXED_POINT;
+	}
 
 	// 変更時の初期化処理
 	switch (mode_)
@@ -296,8 +311,8 @@ void Camera::TargetLockeOn(void)
 	float targetAngleX = atan2f(-targetDir.y, horizontalDist);
 
 	// 滑らかに回転させる（補間）
-	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 1.0f);
-	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 1.0f);
+	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 0.1f);
+	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 0.1f);
 
 	// ロボットが向いている方向を取得
 	VECTOR robotForward = player_->GetTransform().targetDir;

@@ -4,6 +4,7 @@
 #include <DxLib.h>
 #include "../ObjectBase.h"
 #include "../Wepon/WeponBase.h"
+#include "../../Utility/AsoUtility.h"
 
 class WeponBase;
 class WeponManager;
@@ -43,14 +44,14 @@ public:
 	bool IsTargetLockFlage(void);
 
 	//ロックオン座標の設定
-	void SetLockOnPos(VECTOR lockOnPos);
+	void SetLockOnPos(VECTOR lockOnPos = AsoUtility::VECTOR_ZERO);
 
 	// ダメージを与える
 	void Damage(int damage);
 
 	float GetHp(void) { return hp_; }
 
-	const std::vector<std::shared_ptr<WeponManager>>& GetUseWepons(void) const { return useWepon_; }
+	const std::shared_ptr<WeponManager>& GetUseWepons(void) const { return useWepon_; }
 
 	// 衝突判定が有効な状態
 	bool IsCollisionState(void);
@@ -60,13 +61,19 @@ public:
 
 	const STATE& GetState(void) const { return state_; }
 
+	//当たり判定半径取得
+	const float& GetCillisionRadius(void) { return trans_.Radius_; }
+
+	//当たり判定座標取得
+	const VECTOR& GetCillisionPos(void) { return trans_.cillisionPos; }
+
 protected:
 
 	//// 武器
 	//std::unique_ptr<WeponBase> useWepon_;
 	//std::unique_ptr<WeponBeam> weponbeam_;
 	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
-	std::vector<std::shared_ptr<WeponManager>> useWepon_;
+	std::shared_ptr<WeponManager> useWepon_;
 
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
@@ -86,10 +93,12 @@ protected:
 
 	//ロック機能入力カウント
 	int lockcnt;
-
 	// HP
 	int hp_;
-
+	//ビーム出現数
+	int beamCnt_;
+	//ミサイル出現数
+	int missileCnt_;
 	//被ダメージ用一定間隔カウンタ
 	int cntHitReact_;
 	//撃破用一定間隔カウンタ

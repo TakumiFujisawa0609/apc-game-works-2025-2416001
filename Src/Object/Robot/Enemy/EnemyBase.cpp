@@ -24,7 +24,7 @@ void EnemyBase::Init(void)
     InitAnimation();
     // ‰Šú‰»Œã‚ÌŒÂ•Êˆ—
     InitPost();
-
+    //ƒ‰ƒ“ƒ_ƒ€‚ÈoŒ»À•W
     SetSpawnPostiton();
 
     trans_.pos = VAdd(trans_.localPos, trans_.pos);
@@ -32,14 +32,8 @@ void EnemyBase::Init(void)
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 
-    for (int i = 0; i < 10; i++)
-    {
-        useWepon_.push_back(std::make_shared<WeponManager>());
-    }
-    for (int i = 0; i < useWepon_.size(); i++)
-    {
-        useWepon_[i]->Init();
-    }
+    useWepon_ = std::make_shared<WeponManager>();
+    useWepon_->Init();
 
     //ó‘Ô‘JˆÚ‰Šúİ’è
     ChangeState(STATE::STANDBY);

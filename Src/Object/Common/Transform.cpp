@@ -12,6 +12,7 @@ Transform::Transform(void)
 	moveDir = AsoUtility::VECTOR_ZERO;
 	localPos = AsoUtility::VECTOR_ZERO;
 	localRot = AsoUtility::VECTOR_ZERO;
+	cillisionPos = AsoUtility::VECTOR_ZERO;
 
 	matScl = MGetIdent();
 	matRot = MGetIdent();
@@ -33,6 +34,7 @@ Transform::Transform(int model)
 	targetDir = AsoUtility::VECTOR_ZERO;
 	localPos = AsoUtility::VECTOR_ZERO;
 	localRot = AsoUtility::VECTOR_ZERO;
+	cillisionPos = AsoUtility::VECTOR_ZERO;
 
 	matScl = MGetIdent();
 	matRot = MGetIdent();

@@ -5,7 +5,6 @@
 #include "../Manager/SoundManager.h"
 #include "../Manager/Camera.h"
 #include "../Manager/DataBank.h"
-
 #include "../Object/Common/EffectController.h"
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
@@ -98,7 +97,7 @@ void GameScene::Draw(void)
 
 #ifdef _DEBUG
 
-	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
+	VECTOR playerClliderPos = VAdd(player_->GetCillisionPos(), player_->GetTransform().pos);
 
 	DrawSphere3D(
 		playerClliderPos,
@@ -108,33 +107,30 @@ void GameScene::Draw(void)
 		GetColor(200, 200, 200),
 		false);
 
-	for (auto& weapon : player_->GetUseWepons())
+	for (const auto& useWeapon : player_->GetUseWepons()->GetWepons())
 	{
-		for (const auto& useWeapon : weapon->GetWepons())
+		if (useWeapon->isAlive_ == true)
 		{
-			if(useWeapon->isAlive_ == true)
-			{
-				DrawSphere3D(
-					useWeapon->GetStatePos(),
-					useWeapon->GetColliderRadius(),
-					16,
-					GetColor(200, 200, 200),
-					GetColor(200, 200, 200),
-					false);
-			}
+			DrawSphere3D(
+				useWeapon->GetStatePos(),
+				useWeapon->GetColliderRadius(),
+				16,
+				GetColor(200, 200, 200),
+				GetColor(200, 200, 200),
+				false);
 		}
 	}
 
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
+	auto& enemys = enemys_->GetEnemys();
+	for (auto& enemy : enemys)
 	{
-		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
+		VECTOR enemyClliderPos = VAdd(enemy->GetCillisionPos(), enemy->GetTransform().pos);
 
-		if((enemy->IsAlive()))
+		if ((enemy->IsAlive()))
 		{
 			DrawSphere3D(
 				enemyClliderPos,
-				EnemyBeam::DEFALUT_RADIUS,
+				enemy->GetCillisionRadius(),
 				16,
 				GetColor(200, 200, 200),
 				GetColor(200, 200, 200),
@@ -147,9 +143,8 @@ void GameScene::Draw(void)
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
 
-	int y = 40;
-	for (std::shared_ptr<EnemyBase> enemy : enemy_)
-	{
+	/*int y = 40;
+	for (std::shared_ptr<EnemyBase> enemy : enemy_){
 		int cnt = enemy_.size();
 		float sub = VSize(VSub(player_->GetTransform().pos, enemy->GetTransform().pos));
 		DrawFormatString(
@@ -157,7 +152,7 @@ void GameScene::Draw(void)
 			"HP：(%.1f), diff(%.3f)",
 			enemy->GetHp(), sub);
 		y += 16;
-	}
+	}*/
 }
 
 void GameScene::Release(void)
@@ -170,39 +165,36 @@ void GameScene::Release(void)
 
 void GameScene::UpdateCollider(void)
 {
-	VECTOR playerClliderPos = VAdd(Player::COLLIDER_POS, player_->GetTransform().pos);
+	VECTOR playerClliderPos = VAdd(player_->GetCillisionPos(), player_->GetTransform().pos);
 	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	for (std::shared_ptr<EnemyBase> enemy : enemy_)
 	{
-		VECTOR enemyClliderPos = VAdd(EnemyBeam::COLLIDER_POS, enemy->GetTransform().pos);
 
 		if (AsoUtility::IsHitSpheres(
-			playerClliderPos, Player::DEFALUT_RADIUS,
-			enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
-		{
+			playerClliderPos, player_->GetCillisionRadius(),
+			enemy->GetCillisionPos(), enemy->GetCillisionRadius())) {
 
 		}
 
-		for (auto& weapon : player_->GetUseWepons())
-		{
-			for (const auto& useWeapon : weapon->GetWepons())
+		for (const auto& useWeapon : player_->GetUseWepons()->GetWepons()){
+
+			VECTOR enemyClliderPos = VAdd(enemy->GetCillisionPos(), enemy->GetTransform().pos);
+
+			if (AsoUtility::IsHitSpheres(
+				useWeapon->GetStatePos(), useWeapon->GetColliderRadius(),
+				enemyClliderPos, enemy->GetCillisionRadius()))
 			{
-				if (AsoUtility::IsHitSpheres(
-					useWeapon->GetStatePos(), useWeapon->GetColliderRadius(),
-					enemyClliderPos, EnemyBeam::DEFALUT_RADIUS))
+				if (!enemy->IsCollisionState())
 				{
-					if (!enemy->IsCollisionState())
-					{
-						continue;
-					}
-
-					if (useWeapon->isAlive_ == true)
-					{
-						enemy->Damage(useWeapon->GetDamage());
-					}
-
-					useWeapon->isAlive_ = false;
+					continue;
 				}
+
+				if (useWeapon->isAlive_ == true)
+				{
+					enemy->Damage(useWeapon->GetDamage());
+				}
+
+				useWeapon->isAlive_ = false;
 			}
 		}
 	}
@@ -219,20 +211,25 @@ void GameScene::UpdateAutoLockOn(void)
 
 	for (auto& enemy : enemys)
 	{
+		//プレイヤーからエネミーの長さ
 		VECTOR Pos = VSub(
 			enemy->GetTransform().pos,
 			player_->GetTransform().pos);
 		diff = VSize(Pos);
+
+		//プレイヤーからエネミーの長さが条件より大きい
+		// または、エネミーが生存していないの時処理をスキップ
 		if (diff >= 5000 || !enemy->IsAlive()) {
 			continue;
 		}
 
+		//プレイヤーからエネミーの長さが一番小さい長さを格納
 		if (diff < min)
 		{
 			min = diff;
 			enemy_ = enemy;
 		}
-
+		//長さが一番小さいエネミー情報を渡す
 		camera->SetEnemy(enemy_.get());
 		player_->SetLockOnPos(enemy_->GetTransform().pos);
 	}

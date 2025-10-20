@@ -72,7 +72,9 @@ void EnemyBeam::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
-    trans_.localPos = LOCAL_DEF_POS;
+    trans_.Radius_ = DEFALUT_RADIUS;
+    //è’ìÀç¿ïW
+    trans_.cillisionPos = COLLIDER_POS;
 }
 
 void EnemyBeam::InitAnimation(void)

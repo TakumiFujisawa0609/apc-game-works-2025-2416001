@@ -32,13 +32,13 @@ void WeponBeam::Draw(void)
 
 #ifdef _DEBUG
 
-	DrawFormatString(
-		0, 40, GetColor(255, 255, 255),
+	/*DrawFormatString(
+		0, 60, GetColor(255, 255, 255),
 		"À•WF(%.1f,%.1f,%.1f)",
 		trans_.pos.x,
 		trans_.pos.y,
 		trans_.pos.z
-	);
+	);*/
 
 #endif
 }
@@ -63,6 +63,16 @@ void WeponBeam::SetParam(void)
 
 void WeponBeam::Move(void)
 {
+	VECTOR  pos = VSub(statePos_, playPos_);
+	float diff = VSize(pos);
+	if (diff >= MAX_BEAM_DIFF)
+	{
+		bemelong_ -= speed_;
+		if (bemelong_ >= 0) {
+			isAlive_ = false;
+		}
+	}
+
 	if (bemelong_ > MAX_BEAM_LENGTH)
 	{
 		bemelong_ = MAX_BEAM_LENGTH;
