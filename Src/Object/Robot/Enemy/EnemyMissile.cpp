@@ -7,6 +7,7 @@
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
 #include "../../Wepon/WeponBeam.h"
+#include "../../Manager/WeponManager.h"
 #include "../../Wepon/WeponMissile.h"
 #include "../../../Application.h"
 #include "EnemyMissile.h"
@@ -17,44 +18,6 @@ EnemyMissile::EnemyMissile(void)
 
 EnemyMissile::~EnemyMissile(void)
 {
-}
-
-void EnemyMissile::Update(void)
-{
-    if (!IsAlive())
-    {
-        return;
-    }
-
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-
-    switch (state_)
-    {
-    case RobotBase::STATE::STANDBY:
-        UpdateStandby();
-        break;
-    case RobotBase::STATE::KNOCKBACK:
-        UpdateKnockback();
-        break;
-    case RobotBase::STATE::ATTACK:
-        UpdateAttack();
-        break;
-    case RobotBase::STATE::DEAD:
-        UpdateDead();
-        break;
-    case RobotBase::STATE::END:
-        UpdateEnd();
-        break;
-    case RobotBase::STATE::VICTORY:
-        UpdateVictory();
-        break;
-    default:
-        break;
-    }
-
-    anim_->Update();
 }
 
 void EnemyMissile::InitLoad(void)
@@ -101,30 +64,28 @@ void EnemyMissile::InitPost(void)
     trans_.Radius_ = DEFALUT_RADIUS;
     //出現範囲
     spawnRange_ = SPAWN_RANGE;
-}
-
-void EnemyMissile::ProcessMove(void)
-{
-}
-
-void EnemyMissile::ProcessRise(void)
-{
+    //ミサイル出現数
+    missileCnt_ = MISSILE_CNT;
 }
 
 void EnemyMissile::ProcessAttack(void)
 {
-    //移動処理
-    ProcessMove();
+    if (stepShotDelay_ <= 0.0f) {
+        useWepon_->ChangeWepon(
+            WeponBase::WEPON_TYPE::MISSILE,
+            trans_.pos,
+            trans_.targetDir,
+            missileCnt_,
+            lockOnPos_
+        );
 
-    //上昇処理
-    ProcessRise();
+        // 弾発射後の硬直時間セット
+        stepShotDelay_ = SHOT_DELAY;
+    }
 
-    ProcessTargetLock();
-
-    //攻撃処理
-    ProcessAttack();
-}
-
-void EnemyMissile::ProcessTargetLock(void)
-{
+    // 弾発射後の硬直時間を減らしていく
+    if (stepShotDelay_ > 0.0f)
+    {
+        stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
+    }
 }

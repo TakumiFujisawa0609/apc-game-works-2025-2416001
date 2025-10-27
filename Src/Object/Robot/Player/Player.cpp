@@ -80,6 +80,8 @@ void Player::InitPost(void)
 
 void Player::ProcessMove(void)
 {
+
+    MATRIX matRot = MGetIdent();
     //移動方向
     VECTOR dir = { 0.0f,0.0f,0.0f };
     //移動量を常に減少
@@ -100,27 +102,31 @@ void Player::ProcessMove(void)
         if (isDownPressed) {
             dir = { 0.0f, 0.0f, -1.0f };
             if (trans_.rot.x > -MAX_MOVE_ROT) {
-                trans_.rot.x -= rotPow_;
+               /* trans_.rot.x -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x -= rotPow_));
             }
         }
 
         if (isUpPressed) {
             dir = { 0.0f, 0.0f, 1.0f };
             if (trans_.rot.x < MAX_MOVE_ROT) {
-                trans_.rot.x += rotPow_;
+               /* trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x += rotPow_));
             }
         }
 
         // 上下キーが押されていない時、X軸回転を0に戻す
         if (!isDownPressed && !isUpPressed) {
             if (trans_.rot.x > rotPow_) {
-                trans_.rot.x -= rotPow_;
+                /*trans_.rot.x -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x -= rotPow_));
             }
             if (trans_.rot.x < -rotPow_) {
-                trans_.rot.x += rotPow_;
+                /*trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x += rotPow_));
             }
             if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
-                trans_.rot.x = 0.0f;
+                matRot = MMult(matRot, MGetRotX(0.0f));
             }
         }
 
@@ -128,26 +134,32 @@ void Player::ProcessMove(void)
         if (isRightPressed) {
             dir = { 1.0f, 0.0f, 0.0f };
             if (trans_.rot.z > -MAX_MOVE_ROT) {
-                trans_.rot.z -= rotPow_;
+               /* trans_.rot.z -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z -= rotPow_));
+
             }
         }
         if (isLeftPressed) {
             dir = { -1.0f, 0.0f, 0.0f };
             if (trans_.rot.z < MAX_MOVE_ROT) {
-                trans_.rot.z += rotPow_;
+               /* trans_.rot.z += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z += rotPow_));
+
             }
         }
 
         // 左右キーが押されていない時、Z軸回転を0に戻す
         if (!isRightPressed && !isLeftPressed) {
             if (trans_.rot.z > rotPow_) {
-                trans_.rot.z -= rotPow_;
+                /*trans_.rot.z -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z -= rotPow_));
             }
             if (trans_.rot.z < -rotPow_) {
-                trans_.rot.z += rotPow_;
+                /*trans_.rot.z += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z += rotPow_));
             }
             if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
-                trans_.rot.z = 0.0f;
+                matRot = MMult(matRot, MGetRotZ(0.0f));
             }
         }
     }
@@ -174,7 +186,8 @@ void Player::ProcessMove(void)
         movePow_ += BUST_SPEED;
         maxMoveSpeed = MAX_BUST_SPEED;
         if (trans_.rot.x < MAX_BOOST_ROT) {
-            trans_.rot.x += rotPow_;
+           /* trans_.rot.x += rotPow_;*/
+            matRot = MMult(matRot, MGetRotZ(trans_.rot.x += rotPow_));
         }
     }
 
@@ -197,7 +210,8 @@ void Player::ProcessMove(void)
             movePow_ += BUST_SPEED;
             maxMoveSpeed = MAX_BUST_SPEED;
             if (trans_.rot.x < MAX_BOOST_ROT) {
-                trans_.rot.x += rotPow_;
+               /* trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.x += rotPow_));
             }
         }
         else
@@ -218,6 +232,9 @@ void Player::ProcessMove(void)
 
     // 方向×スピードで移動量を作って、座標に足して移動
     trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, movePow_));
+
+    MV1SetRotationMatrix(trans_.modelId,
+        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
 void Player::ProcessRise(void)

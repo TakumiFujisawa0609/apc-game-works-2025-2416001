@@ -56,13 +56,13 @@ protected:
 	// ‰Šú‰»Œã‚ÌŒÂ•Êˆ—
 	virtual void InitPost(void)override = 0;
 	//ˆÚ“®ˆ—
-	virtual void ProcessMove(void)override = 0;
+	virtual void ProcessMove(void)override;
 	//ã¸ˆ—
-	virtual void ProcessRise(void)override = 0;
+	virtual void ProcessRise(void)override;
 	//UŒ‚ˆ—
 	virtual void ProcessAttack(void)override = 0;
 	//‘ÎÛƒƒbƒNˆ—
-	virtual void ProcessTargetLock(void)override = 0;
+	virtual void ProcessTargetLock(void)override;
 
 	// ó‘Ô‘JˆÚ
 	virtual void ChangeStandby(void);

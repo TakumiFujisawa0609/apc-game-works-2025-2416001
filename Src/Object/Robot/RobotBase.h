@@ -104,6 +104,9 @@ protected:
 	//Œ‚”j—pˆê’èŠÔŠuƒJƒEƒ“ƒ^
 	int cntDeadReact_;
 
+	// ’e”­ËŒã‚Ìd’¼ŠÔŒvZ—p
+	float stepShotDelay_;
+
 	// ó‘Ô‘JˆÚ
 	virtual void ChangeState(STATE state);
 

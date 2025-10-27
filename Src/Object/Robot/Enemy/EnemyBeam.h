@@ -11,7 +11,7 @@ public:
 	//初期サイズ
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
-	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,0.0f, 0.0f };
+	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f, 180.0f * DX_PI_F / 180.0f, 0.0f };
 	//初期座標
 	static constexpr VECTOR DEFALUT_POS = { 0.0f,0.0f,1000.0f };
 	//衝突座標
@@ -47,6 +47,11 @@ public:
 	//衝突半径
 	static constexpr float DEFALUT_RADIUS = 70.0f;
 
+	// 弾発射後の硬直時間
+	static constexpr float SHOT_DELAY = 2.0f;
+
+	//ビーム出現数
+	static constexpr int BEAM_CNT = 1;
 
 	//HP
 	static constexpr int DEFALUT_HP = 15;
@@ -56,7 +61,6 @@ public:
 
 	EnemyBeam(void);
 	~EnemyBeam(void)override;
-	void Update(void)override;
 
 protected:
 
@@ -68,14 +72,8 @@ protected:
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
 	void InitPost(void)override;
-	//移動処理
-	void ProcessMove(void)override;
-	//上昇処理
-	void ProcessRise(void)override;
 	//攻撃処理
 	void ProcessAttack(void)override;
-	//対象ロック処理
-	void ProcessTargetLock(void)override;
 
 private:
 

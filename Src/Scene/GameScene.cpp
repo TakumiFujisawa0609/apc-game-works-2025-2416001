@@ -207,34 +207,43 @@ void GameScene::UpdateAutoLockOn(void)
 	auto& inp = InputManager::GetInstance();
 	float diff = 0.0f;
 	float min = 5000.0f;
-	std::shared_ptr<EnemyBase> enemy_;
+	std::shared_ptr<EnemyBase> enemy_ = nullptr;
 
-	for (auto& enemy : enemys)
+	if(inp.IsTrgDown(KEY_INPUT_LEFT))
 	{
-		//プレイヤーからエネミーの長さ
-		VECTOR Pos = VSub(
-			enemy->GetTransform().pos,
-			player_->GetTransform().pos);
-		diff = VSize(Pos);
-
-		//プレイヤーからエネミーの長さが条件より大きい
-		// または、エネミーが生存していないの時処理をスキップ
-		if (diff >= 5000 || !enemy->IsAlive()) {
-			continue;
-		}
-
-		//プレイヤーからエネミーの長さが一番小さい長さを格納
-		if (diff < min)
+		for (auto& enemy : enemys)
 		{
-			min = diff;
-			enemy_ = enemy;
+			//プレイヤーからエネミーの長さ
+			VECTOR Pos = VSub(
+				enemy->GetTransform().pos,
+				player_->GetTransform().pos);
+			diff = VSize(Pos);
+
+			//プレイヤーからエネミーの長さが条件より大きい
+			// または、エネミーが生存していないの時処理をスキップ
+			if (diff >= 5000 || !enemy->IsAlive()) {
+				continue;
+			}
+
+			//プレイヤーからエネミーの長さが一番小さい長さを格納
+			if (diff < min)
+			{
+				min = diff;
+				enemy_ = enemy;
+			}
+
 		}
-		//長さが一番小さいエネミー情報を渡す
-		camera->SetEnemy(enemy_.get());
-		player_->SetLockOnPos(enemy_->GetTransform().pos);
 	}
 
-	/*EnemyBubbleSort(enemys);*/
+	if (enemy_ == nullptr)
+	{
+		return;
+	}
+
+	//長さが一番小さいエネミー情報を渡す
+	camera->SetEnemy(enemy_.get());
+	player_->SetLockOnPos(enemy_->GetTransform().pos);
+
 }
 
 //void GameScene::EnemyBubbleSort(std::vector<std::shared_ptr<EnemyBase>> arr)

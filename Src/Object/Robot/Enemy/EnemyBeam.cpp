@@ -9,6 +9,7 @@
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
 
+#include "../../Manager/WeponManager.h"
 #include "../../Wepon/WeponBeam.h"
 #include "../../Wepon/WeponMissile.h"
 
@@ -21,44 +22,6 @@ EnemyBeam::EnemyBeam(void)
 
 EnemyBeam::~EnemyBeam(void)
 {
-}
-
-void EnemyBeam::Update(void)
-{
-    if (!IsAlive())
-    {
-        return;
-    }
-
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-
-    switch (state_)
-    {
-    case RobotBase::STATE::STANDBY:
-        UpdateStandby();
-        break;
-    case RobotBase::STATE::KNOCKBACK:
-        UpdateKnockback();
-        break;
-    case RobotBase::STATE::ATTACK:
-        UpdateAttack();
-        break;
-    case RobotBase::STATE::DEAD:
-        UpdateDead();
-        break;
-    case RobotBase::STATE::END:
-        UpdateEnd();
-        break;
-    case RobotBase::STATE::VICTORY:
-        UpdateVictory();
-        break;
-    default:
-        break;
-    }
-
-    anim_->Update();
 }
 
 void EnemyBeam::InitLoad(void)
@@ -75,6 +38,9 @@ void EnemyBeam::InitTransform(void)
     trans_.Radius_ = DEFALUT_RADIUS;
     //衝突座標
     trans_.cillisionPos = COLLIDER_POS;
+
+    //ビーム出現数
+    beamCnt_ = BEAM_CNT;
 }
 
 void EnemyBeam::InitAnimation(void)
@@ -108,18 +74,22 @@ void EnemyBeam::InitPost(void)
     spawnRange_ = SPAWN_RANGE;
 }
 
-void EnemyBeam::ProcessMove(void)
-{
-}
-
-void EnemyBeam::ProcessRise(void)
-{
-}
-
 void EnemyBeam::ProcessAttack(void)
 {
-}
+    if (stepShotDelay_ <= 0.0f) {
+        useWepon_->ChangeWepon(
+            WeponBase::WEPON_TYPE::BEAM,
+            trans_.pos,
+            trans_.targetDir,
+            beamCnt_);
 
-void EnemyBeam::ProcessTargetLock(void)
-{
+        // 弾発射後の硬直時間セット
+        stepShotDelay_ = SHOT_DELAY;
+    }
+
+    // 弾発射後の硬直時間を減らしていく
+    if (stepShotDelay_ > 0.0f)
+    {
+        stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
+    }
 }

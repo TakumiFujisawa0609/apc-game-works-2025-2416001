@@ -128,8 +128,5 @@ private:
 	//ƒJƒƒ‰‚ÌŠp“x
 	Camera* camera_;
 
-	// ’e”­ËŒã‚Ìd’¼ŠÔŒvZ—p
-	float stepShotDelay_;
-
 };
 
