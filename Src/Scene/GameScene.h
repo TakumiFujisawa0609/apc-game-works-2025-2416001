@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include<functional>
 #include "SceneBase.h"
 
 class Player;
@@ -30,22 +29,11 @@ private:
 
 	//ロボット
 	std::unique_ptr<Player> player_;
-
 	//エネミー
 	std::shared_ptr<EnemyManager> enemys_;
-
 	//グリッド
 	std::unique_ptr<Grid> grid_;
-
-
-	//衝突判定関数
-	void UpdateCollider(void);
-
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
-
-	//バブルソート処理
-	/*void EnemyBubbleSort(std::vector<std::shared_ptr<EnemyBase>> arr);*/
-
 };
 

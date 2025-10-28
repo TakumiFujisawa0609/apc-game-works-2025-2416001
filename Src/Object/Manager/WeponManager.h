@@ -33,5 +33,8 @@ private:
 
 	//•Šíí—Ş
 	WeponBase::WEPON_TYPE type_;
+
+	//—LŒø‚È•Ší‚ğæ“¾‚·‚é
+	std::shared_ptr<WeponBase>GetValidWepon(WeponBase::WEPON_TYPE type);
 };
 

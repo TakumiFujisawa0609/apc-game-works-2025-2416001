@@ -152,7 +152,7 @@ void EnemyBase::UpdateStandby(void)
     ProcessTargetLock();
 
     ////ˆÚ“®ˆ—
-    ProcessMove();
+   /* ProcessMove();*/
 
     ////ã¸ˆ—
     //ProcessRise();

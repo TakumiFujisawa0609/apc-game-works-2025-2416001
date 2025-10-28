@@ -45,7 +45,8 @@ void WeponManager::ChangeWepon(
 	WeponBase::WEPON_TYPE type, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos) {
 
 	type_ = type;
-	std::shared_ptr<WeponBase> wepons = nullptr;
+
+	std::shared_ptr<WeponBase> wepon = nullptr;
 
 	for(int i = 0; i < weponCnt; i++)
 	{
@@ -55,13 +56,12 @@ void WeponManager::ChangeWepon(
 			break;
 		case WeponBase::WEPON_TYPE::BEAM:
 		{
-			wepons = std::make_shared<WeponBeam>(WeponBase::WEPON_TYPE::BEAM);
-			wepons->Init(pos, dir);
-			wepons_.emplace_back(wepons);
+			wepon = GetValidWepon(type_);
+			wepon->Init(pos, dir);
 		}
 		break;
 		case WeponBase::WEPON_TYPE::MISSILE: {
-			wepons = std::make_shared<WeponMissile>(WeponBase::WEPON_TYPE::MISSILE);
+			wepon = GetValidWepon(type_);
 
 			// ランダムな角度でばらけさせる
 			int randAnglePow = 10000;
@@ -70,14 +70,36 @@ void WeponManager::ChangeWepon(
 			float randomAngleZ = dir.z + ((rand() % randAnglePow - randAnglePow / 2) / 100.0f);
 			VECTOR moveDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
 
-			wepons->Init(pos, moveDir, targetPos);
-			wepons_.emplace_back(wepons);
+			wepon->Init(pos, moveDir, targetPos);
 		}
-										   break;
+		break;
 		case WeponBase::WEPON_TYPE::SWORD:
 			break;
 		default:
 			break;
 		}
 	}
+}
+
+std::shared_ptr<WeponBase> WeponManager::GetValidWepon(WeponBase::WEPON_TYPE type)
+{
+	size_t size = wepons_.size();
+	for (int i = 0; i < size; i++){
+		// 未使用
+		if (!wepons_[i]->isAlive_)
+		{
+			return wepons_[i];
+		}
+	}
+
+	std::shared_ptr<WeponBase> wepon = nullptr;
+	if(type == WeponBase::WEPON_TYPE::BEAM){
+		wepon = std::make_shared<WeponBeam>(type);
+	}
+	if (type == WeponBase::WEPON_TYPE::MISSILE) {
+		wepon = std::make_shared<WeponMissile>(type);
+	}
+
+	wepons_.emplace_back(wepon);
+	return wepon;
 }

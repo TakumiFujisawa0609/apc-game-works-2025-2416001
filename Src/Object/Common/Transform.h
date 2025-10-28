@@ -62,6 +62,7 @@ public:
 	void Update(void);
 
 	void SetModel(int modelHId);
+
 	/*void MakeCollider(Collider::TYPE type);*/
 
 	// ‘O•û•ûŒü‚ðŽæ“¾

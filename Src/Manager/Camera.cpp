@@ -1,4 +1,4 @@
-#include <math.h>
+ #include <math.h>
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
 

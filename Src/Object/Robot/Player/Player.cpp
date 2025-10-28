@@ -9,7 +9,6 @@
 #include "./../../Common/Transform.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
-
 #include "Player.h"
 
 Player::Player(void)
