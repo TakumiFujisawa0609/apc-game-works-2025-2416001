@@ -19,8 +19,3 @@ void CollisinManager::Update(void)
 void CollisinManager::Release(void)
 {
 }
-
-void CollisinManager::SetWeponIsCollision(const Transform& trans1, const Transform& trans2)
-{
-
-}

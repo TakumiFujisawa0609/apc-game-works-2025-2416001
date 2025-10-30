@@ -6,6 +6,7 @@ class Transform;
 class CollisinManager
 {
 public:
+
 	// コンストラクタ
 	CollisinManager(void);
 	// デストラクタ
@@ -13,8 +14,8 @@ public:
 
 	void Update(void);
 	void Release(void);
+
 private:
 
-	void SetWeponIsCollision(const Transform& trans1, const Transform& trans2);
 };
 
