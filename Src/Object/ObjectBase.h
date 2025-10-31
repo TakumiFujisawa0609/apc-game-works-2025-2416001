@@ -23,6 +23,7 @@ public:
 	virtual void Release(void) = 0;
 
 	inline const Transform& GetTransform(void) const { return trans_; }
+	Transform& GetTransform(void){ return trans_; }
 
 protected:
 

@@ -28,12 +28,15 @@ public:
 private:
 
 	//ロボット
-	std::unique_ptr<Player> player_;
+	std::shared_ptr<Player> player_;
 	//エネミー
 	std::shared_ptr<EnemyManager> enemys_;
 	//グリッド
 	std::unique_ptr<Grid> grid_;
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
+
+	//衝突判定更新
+	void CollisinUpdate(void);
 };
 

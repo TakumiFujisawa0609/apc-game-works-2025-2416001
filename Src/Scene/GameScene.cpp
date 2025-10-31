@@ -8,6 +8,7 @@
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
 #include "../Object/Manager/EnemyManager.h"
+#include "../Object/Manager/CollisinManager.h"
 #include "../Object/Manager/WeponManager.h"
 #include "../Object/Robot/Player/Player.h"
 #include "../Object/Robot/Enemy/EnemyBase.h"
@@ -32,7 +33,7 @@ void GameScene::Init(void)
 	camera->ChangeMode(Camera::MODE::FIXED_POINT);
 
 	//プレイヤー初期化処理
-	player_ = std::make_unique<Player>();
+	player_ = std::make_shared<Player>();
 	player_->Init();
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
@@ -57,6 +58,8 @@ void GameScene::Update(void)
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 
 	UpdateAutoLockOn();
+
+	CollisinUpdate();
 }
 
 void GameScene::Draw(void)
@@ -228,4 +231,29 @@ void GameScene::UpdateAutoLockOn(void)
 	//長さが一番小さいエネミー情報を渡す
 	camera->SetEnemy(enemy_.get());
 	player_->SetLockOnPos(enemy_->GetTransform().pos);
+}
+
+void GameScene::CollisinUpdate(void)
+{
+	auto& enemys = enemys_->GetEnemys();
+	for(auto& enemy : enemys)
+	{
+		auto& collisin_ = CollisinManager::GetInstance();
+
+		collisin_.RegisterSphere(
+			player_,
+			player_->GetTransform().pos,
+			player_->GetTransform().Radius_,
+			CollisinManager::TAG_TYPE::PLAYER,
+			true
+		);
+
+		collisin_.RegisterSphere(
+			enemy,
+			enemy->GetTransform().pos,
+			enemy->GetTransform().Radius_,
+			CollisinManager::TAG_TYPE::ENEMY,
+			true
+		);
+	}
 }

@@ -1,6 +1,33 @@
-﻿  SceneManager.cpp
+﻿  CollisinManager.cpp
   GameScene.cpp
 C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(52,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
   
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13): error C2664: 'void CollisinManager::RegisterSphere(std::shared_ptr<void>,std::shared_ptr<_Ty>,float,CollisinManager::TAG_TYPE,bool)': 引数 2 を 'DxLib::VECTOR' から 'std::shared_ptr<_Ty>' へ変換できません。
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13): error C2664:         with
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13): error C2664:         [
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13): error C2664:             _Ty=DxLib::VECTOR
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13): error C2664:         ]
+      C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(245,27):
+      この変換を実行可能なユーザー定義変換演算子がないか、または演算子を呼び出せません。
+      C:\AGS_2025_fuyu\Src\Object\Manager\CollisinManager.h(64,7):
+      'CollisinManager::RegisterSphere' の宣言を確認してください
+      C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(243,13):
+      引数リスト '(std::shared_ptr<Player>, DxLib::VECTOR, float, CollisinManager::TAG_TYPE, bool)' を一致させようとしているとき
+  
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13): error C2664: 'void CollisinManager::RegisterSphere(std::shared_ptr<void>,std::shared_ptr<_Ty>,float,CollisinManager::TAG_TYPE,bool)': 引数 2 を 'DxLib::VECTOR' から 'std::shared_ptr<_Ty>' へ変換できません。
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13): error C2664:         with
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13): error C2664:         [
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13): error C2664:             _Ty=DxLib::VECTOR
+C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13): error C2664:         ]
+      C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(253,25):
+      この変換を実行可能なユーザー定義変換演算子がないか、または演算子を呼び出せません。
+      C:\AGS_2025_fuyu\Src\Object\Manager\CollisinManager.h(64,7):
+      'CollisinManager::RegisterSphere' の宣言を確認してください
+      C:\AGS_2025_fuyu\Src\Scene\GameScene.cpp(251,13):
+      引数リスト '(const _Ty, DxLib::VECTOR, float, CollisinManager::TAG_TYPE, bool)' を一致させようとしているとき
+          with
+          [
+              _Ty=std::shared_ptr<EnemyBase>
+          ]
+  
