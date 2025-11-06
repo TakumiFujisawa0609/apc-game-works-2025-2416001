@@ -37,7 +37,7 @@ void CollisinManager::Init(void)
 }
 
 // 球の登録
-void CollisinManager::RegisterSphere(std::shared_ptr<void> owner, std::shared_ptr<VECTOR> pos, float radius, TAG_TYPE tag, bool push)
+void CollisinManager::RegisterSphere(std::shared_ptr<void> owner, VECTOR pos, float radius, TAG_TYPE tag, bool push)
 {
 	auto obj = std::make_shared<CollisionObject>();
 
@@ -57,7 +57,7 @@ void CollisinManager::RegisterSphere(std::shared_ptr<void> owner, std::shared_pt
 }
 
 // BOXの登録
-void CollisinManager::RegisterBox(std::shared_ptr<void> owner, std::shared_ptr<VECTOR> pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push)
+void CollisinManager::RegisterBox(std::shared_ptr<void> owner, VECTOR pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push)
 {
 	auto obj = std::make_shared<CollisionObject>();
 
@@ -146,14 +146,14 @@ void CollisinManager::Update(void)
 	for (size_t i = 0; i < n; ++i)
 	{
 		auto& obj1 = objects_[i];
-		std::shared_ptr<VECTOR> pos1 = obj1->posPtr.lock();
+		VECTOR* pos1 = &obj1->posPtr;
 
 		bool isObj1Mesh = (obj1->type == COLLISION_TYPE::MESH || obj1->type == COLLISION_TYPE::MESH_PUSH);
 
 		for (size_t j = i + 1; j < n; ++j)
 		{
 			auto& obj2 = objects_[j];
-			std::shared_ptr<VECTOR> pos2 = obj2->posPtr.lock();
+			VECTOR* pos2 = &obj2->posPtr;
 
 			// タグ的に衝突不要ならスキップ
 			if (!CanCollide(obj1->tag, obj2->tag)) { continue; }
@@ -177,7 +177,7 @@ void CollisinManager::Update(void)
 
 				if (Collider::GetInstance().IsHitSpheres(*pos1, obj1->radius, *pos2, obj2->radius))
 				{
-					if (obj1->pushEnabled && obj2->pushEnabled)
+				/*	if (obj1->pushEnabled && obj2->pushEnabled)
 					{
 						VECTOR diff = VSub(*pos2, *pos1);
 						float distSq = VDot(diff, diff);
@@ -192,7 +192,10 @@ void CollisinManager::Update(void)
 							*pos1 = VSub(*pos1, pushVec);
 							*pos2 = VAdd(*pos2, pushVec);
 						}
-					}
+					}*/
+
+					if(obj1->tag == TAG_TYPE::PLAYER && obj2->tag == TAG_TYPE::ENEMY)
+
 				}
 			}
 
@@ -353,6 +356,27 @@ void CollisinManager::Update(void)
 
 bool CollisinManager::CanCollide(TAG_TYPE tagA, TAG_TYPE tagB) const
 {
+	// プレイヤーと敵の衝突
+	if ((tagA == TAG_TYPE::PLAYER && tagB == TAG_TYPE::ENEMY) ||
+		(tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::PLAYER))
+	{
+		return true;
+	}
+
+	// プレイヤー武器と敵の衝突
+	if ((tagA == TAG_TYPE::PLAYER_WEPON && tagB == TAG_TYPE::ENEMY) ||
+		(tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::PLAYER_WEPON))
+	{
+		return true;
+	}
+
+	// 敵武器とプレイヤーの衝突
+	if ((tagA == TAG_TYPE::PLAYER && tagB == TAG_TYPE::ENEMY_WEPON) ||
+		(tagA == TAG_TYPE::ENEMY_WEPON && tagB == TAG_TYPE::PLAYER))
+	{
+		return true;
+	}
+
 	// カメラと壁の衝突
 	if ((tagA == TAG_TYPE::CAMERA && tagB == TAG_TYPE::WALL) ||
 		(tagA == TAG_TYPE::WALL && tagB == TAG_TYPE::CAMERA))

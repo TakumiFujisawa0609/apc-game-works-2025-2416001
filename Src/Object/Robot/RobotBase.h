@@ -65,7 +65,7 @@ public:
 	const float& GetCillisionRadius(void) { return trans_.Radius_; }
 
 	//“–‚½‚è”»’èÀ•Wæ“¾
-	const VECTOR& GetCillisionPos(void) { return trans_.cillisionPos; }
+	const VECTOR& GetCillisionPos(void)const {return VAdd(trans_.cillisionPos, trans_.pos); }
 
 protected:
 

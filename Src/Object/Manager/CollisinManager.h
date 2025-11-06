@@ -27,16 +27,26 @@ public:
 		PLAYER,      //プレイヤー
 		ENEMY,       //エネミー
 		WALL,        //壁
-		ITEM,        //アイテム
+		PLAYER_WEPON,//プレイヤー武器
+		ENEMY_WEPON,//エネミー武器
 		CAMERA,      //カメラ
 		GROUND,      //地面
+	};
+
+	//ヒットタイプ
+	enum class HIT_TYPE
+	{
+		OBJECT_HIT,
+		STAGE_HIT,
+		PLAYER_WEPON_HIT,
+		ENEMY_WEPON_HIT
 	};
 
 	// 当たり判定情報
 	struct CollisionObject
 	{
 		std::shared_ptr<void> owner;    //所持者
-	    std::weak_ptr<VECTOR> posPtr;   //座標
+		VECTOR posPtr;   //座標
 		float radius = 0.0f;            //半径(球体)
 		VECTOR min = VGet(0, 0, 0);     //最小座標(直方体)
 		VECTOR max = VGet(0, 0, 0);     //最大座標(直方体)
@@ -61,10 +71,10 @@ public:
 	void Init(void);
 
 	// 球の登録
-	void RegisterSphere(std::shared_ptr<void> owner, std::shared_ptr<VECTOR> pos, float radius, TAG_TYPE tag, bool push = false);
+	void RegisterSphere(std::shared_ptr<void> owner, VECTOR pos, float radius, TAG_TYPE tag, bool push = false);
 
 	// BOXの登録
-	void RegisterBox(std::shared_ptr<void> owner, std::shared_ptr<VECTOR> pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push = false);
+	void RegisterBox(std::shared_ptr<void> owner, VECTOR pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push = false);
 
 	// メッシュの登録
 	void RegisterMesh(std::shared_ptr<void> owner, int modelId, TAG_TYPE tag, bool push = false);
@@ -81,6 +91,8 @@ public:
 	// タグ同士で判定するかをチェック
 	bool CanCollide(TAG_TYPE tagA, TAG_TYPE tagB) const;
 
+	const std::shared_ptr<HIT_TYPE> GetHitType(void) const { return hitType_; }
+
 private:
 
 	// コンストラクタ
@@ -94,6 +106,9 @@ private:
 
 	//全ての当たり判定オブジェクト
 	std::vector<std::shared_ptr<CollisionObject>> objects_;
+
+	//ヒット種類
+	std::shared_ptr<HIT_TYPE> hitType_;
 
 };
 

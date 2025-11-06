@@ -7,6 +7,7 @@ class EnemyManager;
 class EnemyBase;
 class EnemyBeam;
 class Grid;
+class CollisinManager;
 
 class GameScene :
     public SceneBase
@@ -33,6 +34,8 @@ private:
 	std::shared_ptr<EnemyManager> enemys_;
 	//グリッド
 	std::unique_ptr<Grid> grid_;
+
+
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
 

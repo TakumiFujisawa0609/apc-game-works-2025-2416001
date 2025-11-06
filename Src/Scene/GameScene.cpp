@@ -27,6 +27,9 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+	//当たり判定インスタンス生成
+	CollisinManager::CreateInstance();
+
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
@@ -42,11 +45,12 @@ void GameScene::Init(void)
 	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
 	enemys_->Init();
 
-
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
+	//カメラの注視点をプレイヤーに設定
 	camera->SetPlayer(player_.get());
+
 }
 
 void GameScene::Update(void)
@@ -55,11 +59,12 @@ void GameScene::Update(void)
 	player_->Update();
 	enemys_->Update();
 
-	Camera* camera = SceneManager::GetInstance().GetCamera();
-
-	UpdateAutoLockOn();
-
+	//各当たり判定更新
 	CollisinUpdate();
+	CollisinManager::GetInstance().Update();
+
+	//ロック対象更新
+	UpdateAutoLockOn();
 }
 
 void GameScene::Draw(void)
@@ -72,10 +77,8 @@ void GameScene::Draw(void)
 
 #ifdef _DEBUG
 
-	VECTOR playerClliderPos = VAdd(player_->GetCillisionPos(), player_->GetTransform().pos);
-
 	DrawSphere3D(
-		playerClliderPos,
+		player_->GetCillisionPos(),
 		Player::DEFALUT_RADIUS,
 		16,
 		GetColor(200, 200, 200),
@@ -99,12 +102,10 @@ void GameScene::Draw(void)
 	auto& enemys = enemys_->GetEnemys();
 	for (auto& enemy : enemys)
 	{
-		VECTOR enemyClliderPos = VAdd(enemy->GetCillisionPos(), enemy->GetTransform().pos);
-
 		if ((enemy->IsAlive()))
 		{
 			DrawSphere3D(
-				enemyClliderPos,
+				enemy->GetCillisionPos(),
 				enemy->GetCillisionRadius(),
 				16,
 				GetColor(200, 200, 200),
@@ -235,25 +236,52 @@ void GameScene::UpdateAutoLockOn(void)
 
 void GameScene::CollisinUpdate(void)
 {
-	auto& enemys = enemys_->GetEnemys();
-	for(auto& enemy : enemys)
-	{
-		auto& collisin_ = CollisinManager::GetInstance();
+	auto& collisin_ = CollisinManager::GetInstance();
+	collisin_.Clear();
+
+	//プレイヤー機能当たり判定
+	collisin_.RegisterSphere(
+		player_,
+		player_->GetCillisionPos(),
+		player_->GetTransform().Radius_,
+		CollisinManager::TAG_TYPE::PLAYER,
+		true
+	);
+
+	auto& playerWepon = player_->GetUseWepons()->GetWepons();
+	for (auto& wepon : playerWepon){
 
 		collisin_.RegisterSphere(
-			player_,
-			player_->GetTransform().pos,
-			player_->GetTransform().Radius_,
-			CollisinManager::TAG_TYPE::PLAYER,
-			true
+			wepon,
+			wepon->GetStatePos(),
+			wepon->GetColliderRadius(),
+			CollisinManager::TAG_TYPE::PLAYER_WEPON,
+			false
 		);
+	}
+
+
+	//エネミー機能当たり判定
+	auto& enemys = enemys_->GetEnemys();
+	for (auto& enemy : enemys){
 
 		collisin_.RegisterSphere(
 			enemy,
-			enemy->GetTransform().pos,
+			enemy->GetCillisionPos(),
 			enemy->GetTransform().Radius_,
 			CollisinManager::TAG_TYPE::ENEMY,
 			true
 		);
+
+		auto& enemyWepon = enemy->GetUseWepons()->GetWepons();
+		for (auto& wepon : enemyWepon){
+			collisin_.RegisterSphere(
+				wepon,
+				wepon->GetStatePos(),
+				wepon->GetColliderRadius(),
+				CollisinManager::TAG_TYPE::ENEMY_WEPON,
+				false
+			);
+		}
 	}
 }
