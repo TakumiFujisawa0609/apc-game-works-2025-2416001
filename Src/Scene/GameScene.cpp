@@ -62,6 +62,7 @@ void GameScene::Update(void)
 	//各当たり判定更新
 	CollisinUpdate();
 	CollisinManager::GetInstance().Update();
+	HitCollisinUpdate();
 
 	//ロック対象更新
 	UpdateAutoLockOn();
@@ -248,8 +249,13 @@ void GameScene::CollisinUpdate(void)
 		true
 	);
 
+
 	auto& playerWepon = player_->GetUseWepons()->GetWepons();
-	for (auto& wepon : playerWepon){
+	for (auto& wepon : playerWepon) {
+
+		if (!wepon->isAlive_) {
+			continue;
+		}
 
 		collisin_.RegisterSphere(
 			wepon,
@@ -263,7 +269,11 @@ void GameScene::CollisinUpdate(void)
 
 	//エネミー機能当たり判定
 	auto& enemys = enemys_->GetEnemys();
-	for (auto& enemy : enemys){
+	for (auto& enemy : enemys) {
+
+		if (!enemy->IsAlive()) {
+			continue;
+		}
 
 		collisin_.RegisterSphere(
 			enemy,
@@ -274,7 +284,12 @@ void GameScene::CollisinUpdate(void)
 		);
 
 		auto& enemyWepon = enemy->GetUseWepons()->GetWepons();
-		for (auto& wepon : enemyWepon){
+		for (auto& wepon : enemyWepon) {
+
+			if (!wepon->isAlive_) {
+				continue;
+			}
+
 			collisin_.RegisterSphere(
 				wepon,
 				wepon->GetStatePos(),
@@ -282,6 +297,32 @@ void GameScene::CollisinUpdate(void)
 				CollisinManager::TAG_TYPE::ENEMY_WEPON,
 				false
 			);
+		}
+	}
+}
+
+void GameScene::HitCollisinUpdate(void)
+{
+	auto& collisin_ = CollisinManager::GetInstance();
+
+	//auto playerHitType = collisin_.GetHitType(player_);
+	//if (playerHitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
+	//	|| playerHitType == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
+	//	player_->Damage(playerHitType);
+	//}
+
+	auto& enemys = enemys_->GetEnemys();
+	for (auto& enemy : enemys) {
+
+		if (!enemy->IsAlive()) {
+			continue;
+		}
+
+		auto enemyHitType = collisin_.GetHitType(enemy);
+		if (enemyHitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
+			|| enemyHitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT
+			|| enemyHitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
+			enemy->Damage(enemyHitType);
 		}
 	}
 }

@@ -143,6 +143,11 @@ void CollisinManager::Update(void)
 	const float CULL_DISTANCE = 1000.0f;
 	const float CULL_DISTANCE_SQ = CULL_DISTANCE * CULL_DISTANCE;
 
+	for (auto& obj : objects_)
+	{
+		obj->hitType = HIT_TYPE::NONE;
+	}
+
 	for (size_t i = 0; i < n; ++i)
 	{
 		auto& obj1 = objects_[i];
@@ -194,8 +199,12 @@ void CollisinManager::Update(void)
 						}
 					}*/
 
-					if(obj1->tag == TAG_TYPE::PLAYER && obj2->tag == TAG_TYPE::ENEMY)
-
+					// 衝突情報を両方のオブジェクトに設定
+					HIT_TYPE hitType = HitCollide(obj1->tag, obj2->tag);
+					if (hitType != HIT_TYPE::NONE){
+						obj1->hitType = hitType;
+						obj2->hitType = hitType;
+					}
 				}
 			}
 
@@ -356,6 +365,7 @@ void CollisinManager::Update(void)
 
 bool CollisinManager::CanCollide(TAG_TYPE tagA, TAG_TYPE tagB) const
 {
+
 	// プレイヤーと敵の衝突
 	if ((tagA == TAG_TYPE::PLAYER && tagB == TAG_TYPE::ENEMY) ||
 		(tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::PLAYER))
@@ -398,4 +408,63 @@ bool CollisinManager::CanCollide(TAG_TYPE tagA, TAG_TYPE tagB) const
 	}
 
 	return false;
+}
+
+CollisinManager::HIT_TYPE CollisinManager::HitCollide(TAG_TYPE tagA, TAG_TYPE tagB) const
+{
+	// プレイヤーと敵の衝突
+	if ((tagA == TAG_TYPE::PLAYER && tagB == TAG_TYPE::ENEMY) ||
+		(tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::PLAYER))
+	{
+		return HIT_TYPE::PLAYER_ENEMY_HIT;
+	}
+
+	// プレイヤー武器と敵の衝突
+	if ((tagA == TAG_TYPE::PLAYER_WEPON && tagB == TAG_TYPE::ENEMY) ||
+		(tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::PLAYER_WEPON))
+	{
+		return HIT_TYPE::PLAYER_WEPON_HIT;
+	}
+
+	// 敵武器とプレイヤーの衝突
+	if ((tagA == TAG_TYPE::PLAYER && tagB == TAG_TYPE::ENEMY_WEPON) ||
+		(tagA == TAG_TYPE::ENEMY_WEPON && tagB == TAG_TYPE::PLAYER))
+	{
+		return HIT_TYPE::ENEMY_WEPON_HIT;
+	}
+
+	//// カメラと壁の衝突
+	//if ((tagA == TAG_TYPE::CAMERA && tagB == TAG_TYPE::WALL) ||
+	//	(tagA == TAG_TYPE::WALL && tagB == TAG_TYPE::CAMERA))
+	//{
+	//	return true;
+	//}
+
+	//// カメラと地面の衝突
+	//if ((tagA == TAG_TYPE::CAMERA && tagB == TAG_TYPE::GROUND) ||
+	//	(tagA == TAG_TYPE::GROUND && tagB == TAG_TYPE::CAMERA))
+	//{
+	//	return true;
+	//}
+
+	// 敵同士は当たる
+	if (tagA == TAG_TYPE::ENEMY && tagB == TAG_TYPE::ENEMY)
+	{
+		return HIT_TYPE::ENEMYS_HIT;
+	}
+
+	return HIT_TYPE::NONE;
+}
+
+CollisinManager::HIT_TYPE CollisinManager::GetHitType(std::shared_ptr<void> owner) const
+{
+	for (const auto& obj : objects_)
+	{
+		if (obj->owner == owner)
+		{
+			return obj->hitType;
+		}
+	}
+
+	return HIT_TYPE::NONE;
 }

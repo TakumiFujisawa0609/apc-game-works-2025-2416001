@@ -382,6 +382,7 @@ void Player::ChangeStandby(void)
 
 void Player::ChangeKnockback(void)
 {
+    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
 }
 
 void Player::ChangeAttack(void)
@@ -390,6 +391,7 @@ void Player::ChangeAttack(void)
 
 void Player::ChangeDead(void)
 {
+    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
 }
 
 void Player::ChangeVictory(void)
@@ -416,6 +418,10 @@ void Player::UpdateStandby(void)
 
 void Player::UpdateKnockback(void)
 {
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::STANDBY);
+    }
 }
 
 void Player::UpdateAttack(void)
@@ -424,6 +430,10 @@ void Player::UpdateAttack(void)
 
 void Player::UpdateDead(void)
 {
+    if (anim_->IsEnd())
+    {
+        ChangeState(STATE::END);
+    }
 }
 
 void Player::UpdateVictory(void)
@@ -456,4 +466,23 @@ void Player::DrawVictory(void)
 
 void Player::DrawEnd(void)
 {
+}
+
+void Player::Damage(CollisinManager::HIT_TYPE type)
+{
+    CollisinManager::HIT_TYPE type_ = type;
+    if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+        hp_ -= 1;
+        ChangeState(STATE::KNOCKBACK);
+    }
+    if (type_ == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
+        hp_ -= 3;
+        ChangeState(STATE::KNOCKBACK);
+    }
+    if (hp_ <= 0){
+        ChangeState(STATE::DEAD);
+    }
+    else{
+        ChangeState(STATE::KNOCKBACK);
+    }
 }

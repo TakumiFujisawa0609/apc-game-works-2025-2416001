@@ -151,8 +151,8 @@ void EnemyBase::UpdateStandby(void)
 
     ProcessTargetLock();
 
-    ////ˆÚ“®ˆ—
-   /* ProcessMove();*/
+    //ˆÚ“®ˆ—
+    ProcessMove();
 
     ////ã¸ˆ—
     //ProcessRise();
@@ -211,5 +211,32 @@ void EnemyBase::DrawVictory(void)
 
 void EnemyBase::DrawEnd(void)
 {
+}
+
+void EnemyBase::Damage(CollisinManager::HIT_TYPE type)
+{
+    CollisinManager::HIT_TYPE type_ = type;
+
+    //if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+    //    hp_ -= 1;
+    //    ChangeState(STATE::KNOCKBACK);
+    //}
+    //if (type_ == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
+    //    hp_ -= 3;
+    //    ChangeState(STATE::KNOCKBACK);
+    //}
+
+    if (type_ == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
+        trans_.pos = trans_.pos;
+    }
+
+    MV1SetPosition(trans_.modelId, trans_.pos);
+
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+    }
+    else {
+        ChangeState(STATE::KNOCKBACK);
+    }
 }
 

@@ -36,7 +36,9 @@ public:
 	//ヒットタイプ
 	enum class HIT_TYPE
 	{
-		OBJECT_HIT,
+		NONE,
+		PLAYER_ENEMY_HIT,
+		ENEMYS_HIT,
 		STAGE_HIT,
 		PLAYER_WEPON_HIT,
 		ENEMY_WEPON_HIT
@@ -56,6 +58,7 @@ public:
 		TAG_TYPE tag = TAG_TYPE::NONE;  // タグ
 		VECTOR center = VGet(0, 0, 0);  //中心座標(メッシュ)
 		float radiusBound = 0.0f;       //境界半径(メッシュ)
+		HIT_TYPE hitType = HIT_TYPE::NONE;//ヒットタイプ
 	};
 
 	// インスタンスの生成
@@ -91,7 +94,10 @@ public:
 	// タグ同士で判定するかをチェック
 	bool CanCollide(TAG_TYPE tagA, TAG_TYPE tagB) const;
 
-	const std::shared_ptr<HIT_TYPE> GetHitType(void) const { return hitType_; }
+	// ヒット種類をチェック
+	HIT_TYPE HitCollide(TAG_TYPE tagA, TAG_TYPE tagB) const;
+
+	HIT_TYPE GetHitType(std::shared_ptr<void> owner) const;
 
 private:
 
@@ -106,9 +112,6 @@ private:
 
 	//全ての当たり判定オブジェクト
 	std::vector<std::shared_ptr<CollisionObject>> objects_;
-
-	//ヒット種類
-	std::shared_ptr<HIT_TYPE> hitType_;
 
 };
 

@@ -80,6 +80,8 @@ public:
 
 	const float& GetDegreep(void) const;
 
+	void Damage(CollisinManager::HIT_TYPE type)override;
+
 protected:
 
 	// リソースロード

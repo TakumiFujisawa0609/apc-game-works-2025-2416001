@@ -193,19 +193,6 @@ void RobotBase::SetLockOnPos(VECTOR lockOnPos)
     lockOnPos_ = lockOnPos;
 }
 
-void RobotBase::Damage(int damage)
-{
-    hp_ -= damage;
-    if (hp_ <= 0)
-    {
-        ChangeState(STATE::DEAD);
-    }
-    else
-    {
-        ChangeState(STATE::KNOCKBACK);
-    }
-}
-
 bool RobotBase::IsCollisionState(void)
 {
     return state_ == STATE::STANDBY;

@@ -42,6 +42,8 @@ public:
 	//oŒ»ˆ—
 	void SetSpawnPostiton(void);
 
+	void Damage(CollisinManager::HIT_TYPE type)override;
+
 protected:
 
 	//“G‚ÌoŒ»”ÍˆÍ
