@@ -1,4 +1,5 @@
 #include "../../Application.h"
+#include "../Common/HpBer.h"
 #include "../../Manager/ResourceManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/Camera.h"
@@ -37,6 +38,8 @@ void RobotBase::Init(void)
 
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
+
+    hpBer_ = new HpBer(maxHp_, hpTextOffset_, hpScl_, hpCol_, hpBackCol_, -1);
 
     //ó‘Ô‘JˆÚ‰ŠúÝ’è
     ChangeState(STATE::STANDBY);
@@ -79,6 +82,8 @@ void RobotBase::Update(void)
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+
+    hpBer_->SetHp(hp_);
 
     useWepon_->Update();
     anim_->Update();
@@ -126,6 +131,7 @@ void RobotBase::Release(void)
     MV1DeleteModel(trans_.modelId);
 
     useWepon_->Release();
+    delete hpBer_;
 }
 
 void RobotBase::ChangeState(STATE state)

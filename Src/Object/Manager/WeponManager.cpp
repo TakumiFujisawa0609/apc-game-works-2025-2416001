@@ -83,14 +83,14 @@ void WeponManager::ChangeWepon(
 
 std::shared_ptr<WeponBase> WeponManager::GetValidWepon(WeponBase::WEPON_TYPE type)
 {
-	size_t size = wepons_.size();
-	for (int i = 0; i < size; i++){
-		// 未使用
-		if (!wepons_[i]->isAlive_)
-		{
-			return wepons_[i];
-		}
-	}
+	//size_t size = wepons_.size();
+	//for (int i = 0; i < size; i++){
+	//	// 未使用
+	//	if (!wepons_[i]->isAlive_)
+	//	{
+	//		return wepons_[i];
+	//	}
+	//}
 
 	std::shared_ptr<WeponBase> wepon = nullptr;
 	if(type == WeponBase::WEPON_TYPE::BEAM){

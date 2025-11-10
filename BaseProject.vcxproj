@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Common\HpBer.cpp" />
     <ClCompile Include="Src\Object\Robot\Enemy\EnemyBeam.cpp" />
     <ClCompile Include="Src\Object\Robot\Enemy\EnemyMissile.cpp" />
     <ClCompile Include="Src\Object\Manager\EnemyManager.cpp" />
@@ -59,6 +60,7 @@
     <ClCompile Include="Src\Object\Manager\WeponManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Common\HpBer.h" />
     <ClInclude Include="Src\Object\Robot\Enemy\EnemyBeam.h" />
     <ClInclude Include="Src\Object\Robot\Enemy\EnemyMissile.h" />
     <ClInclude Include="Src\Object\Manager\EnemyManager.h" />

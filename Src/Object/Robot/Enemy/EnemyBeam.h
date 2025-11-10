@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <DxLib.h>
+#include "../../../Application.h"
 #include "EnemyBase.h"
 class EnemyBeam :
     public EnemyBase
@@ -57,6 +58,22 @@ public:
 	static constexpr int DEFALUT_HP = 15;
 	// 死亡時間
 	static constexpr int CNT_DEAD_REACT = 40;
+
+	// テキスト調整値
+	Vector2 HP_TEXT_OFFSET = { -200, -40 };
+
+	// HPバー同士の間隔
+	Vector2 HPBER_POS = { Application::SCREEN_SIZE_X / 2 ,  50 };
+
+	// HPバーのサイズ
+	Vector2 HPBER_SIZE = { 400, 15 };
+
+	// P1のHPバーの色
+	static constexpr unsigned int HPBER_COLOR = 0xFFFFFF;
+
+	// P1のHPバー背景色
+	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
+
 
 
 	EnemyBeam(void);

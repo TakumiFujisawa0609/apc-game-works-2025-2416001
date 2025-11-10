@@ -2,6 +2,7 @@
 #include "../../../Utility/AsoUtility.h"
 #include "../../Common/AnimationController.h"
 #include "../../Manager/WeponManager.h"
+#include "../../Common/HpBer.h"
 #include "EnemyBase.h"
 
 EnemyBase::EnemyBase(void)
@@ -34,6 +35,8 @@ void EnemyBase::Init(void)
 
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
+
+    hpBer_ = new HpBer(maxHp_, hpTextOffset_, hpScl_, hpCol_, hpBackCol_, -1);
 
     // ’e”­ŽË‚Ìd’¼ŽžŠÔ
     stepShotDelay_ = 0.0f;
@@ -213,30 +216,33 @@ void EnemyBase::DrawEnd(void)
 {
 }
 
+void EnemyBase::DrawHp(void)
+{
+    hpBer_->Draw();
+}
+
 void EnemyBase::Damage(CollisinManager::HIT_TYPE type)
 {
+
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+    }
+
     CollisinManager::HIT_TYPE type_ = type;
 
-    //if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
-    //    hp_ -= 1;
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
-    //if (type_ == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
-    //    hp_ -= 3;
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
+    if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+        hp_ -= 1;
+        ChangeState(STATE::KNOCKBACK);
+    }
+    if (type_ == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
+        hp_ -= 3;
+        ChangeState(STATE::KNOCKBACK);
+    }
 
     if (type_ == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
         trans_.pos = trans_.pos;
     }
 
     MV1SetPosition(trans_.modelId, trans_.pos);
-
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-    }
-    else {
-        ChangeState(STATE::KNOCKBACK);
-    }
 }
 

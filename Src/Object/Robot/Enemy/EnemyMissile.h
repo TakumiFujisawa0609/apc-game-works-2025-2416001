@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <DxLib.h>
+#include "../../../Application.h"
 #include "EnemyBase.h"
 class EnemyMissile :
     public EnemyBase
@@ -46,6 +47,22 @@ public:
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
 	//衝突半径
 	static constexpr float DEFALUT_RADIUS = 60.0f;
+
+	// テキスト調整値
+	Vector2 HP_TEXT_OFFSET = { -200, -40 };
+
+	// HPバー同士の間隔
+	Vector2 HPBER_POS = { Application::SCREEN_SIZE_X / 2 , 50 };
+
+	// HPバーのサイズ
+	Vector2 HPBER_SIZE = { 400, 15 };
+
+	// P1のHPバーの色
+	static constexpr unsigned int HPBER_COLOR = 0xFFFFFF;
+
+	// P1のHPバー背景色
+	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
+
 
 
 	//HP

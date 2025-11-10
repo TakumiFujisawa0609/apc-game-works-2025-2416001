@@ -44,6 +44,9 @@ public:
 
 	void Damage(CollisinManager::HIT_TYPE type)override;
 
+	//HP•`‰æ
+	void DrawHp(void)override;
+
 protected:
 
 	//“G‚ÌoŒ»”ÍˆÍ

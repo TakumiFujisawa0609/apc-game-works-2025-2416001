@@ -7,6 +7,7 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
+#include "./../../Common/HpBer.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
 #include "Player.h"
@@ -75,6 +76,14 @@ void Player::InitPost(void)
     missileCnt_ = MISSILE_CNT;
     //衝突座標
     trans_.cillisionPos = COLLIDER_POS;
+    //HP
+    hp_ = DEFALUT_HP;
+
+    maxHp_ = DEFALUT_HP;
+    hpTextOffset_ = HPBER_POS;
+    hpScl_ = HPBER_SIZE;
+    hpCol_ = HPBER_COLOR;
+    hpBackCol_ = HPBER_COLOR_BACK;
 }
 
 void Player::ProcessMove(void)
@@ -374,6 +383,11 @@ void Player::ProcessTargetLock(void)
     // ローカル回転とグローバル回転を合成してモデルに適用
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+}
+
+void Player::DrawHp(void)
+{
+    hpBer_->Draw();
 }
 
 void Player::ChangeStandby(void)

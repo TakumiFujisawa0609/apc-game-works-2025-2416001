@@ -70,6 +70,15 @@ void EnemyManager::Draw(void)
 	}
 }
 
+void EnemyManager::DrawHp(void)
+{
+	//エネミーHP描画処理
+	for (std::shared_ptr<EnemyBase> enemy : enemys_)
+	{
+		enemy->DrawHp();
+	}
+}
+
 void EnemyManager::Release(void)
 {
 	//エネミー解放処理

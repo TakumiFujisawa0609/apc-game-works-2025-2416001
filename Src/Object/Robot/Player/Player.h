@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <DxLib.h>
+#include "../../../Application.h"
 #include "../RobotBase.h"
 
 class Camera;
@@ -65,6 +66,24 @@ public:
 	static constexpr float DEFALUT_RADIUS = 60.0f;
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 1.0f;
+	//HP
+	static constexpr int DEFALUT_HP = 15;
+
+
+	// テキスト調整値
+	Vector2 HP_TEXT_OFFSET = { -200, -40 };
+
+	// HPバー同士の間隔
+	Vector2 HPBER_POS = { 50,  Application::SCREEN_SIZE_Y - 150 };
+
+	// HPバーのサイズ
+	Vector2 HPBER_SIZE = { 400, 25 };
+
+	// P1のHPバーの色
+	static constexpr unsigned int HPBER_COLOR = 0xFFFFFF;
+
+	// P1のHPバー背景色
+	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
 
 
 	//ビーム出現数
@@ -81,6 +100,9 @@ public:
 	const float& GetDegreep(void) const;
 
 	void Damage(CollisinManager::HIT_TYPE type)override;
+
+	//HP描画
+	void DrawHp(void)override;
 
 protected:
 
@@ -100,6 +122,7 @@ protected:
 	void ProcessAttack(void)override;
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
+
 
 	// 状態遷移
 	void ChangeStandby(void)override;

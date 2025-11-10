@@ -1,4 +1,3 @@
-#include <DxLib.h>
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/ResourceManager.h"
@@ -42,7 +41,7 @@ void GameScene::Init(void)
 
 	//エネミー初期化処理
 	enemys_ = std::make_shared<EnemyManager>();
-	std::vector<std::shared_ptr<EnemyBase>> enemy_ = enemys_->GetEnemys();
+	enemy_ = nullptr;
 	enemys_->Init();
 
 	//グリッド初期化処理
@@ -70,11 +69,18 @@ void GameScene::Update(void)
 
 void GameScene::Draw(void)
 {
-	//ロボット描画処理
-	player_->Draw();
-	enemys_->Draw();
 	//グリッド描画処理
 	grid_->Draw();
+
+	//ロボット描画処理
+	player_->Draw();
+	player_->DrawHp();
+
+	enemys_->Draw();
+	Camera* camera = SceneManager::GetInstance().GetCamera();
+	if (camera->GetCameraMode() == Camera::MODE::TARGET_ROCKE) {
+		enemy_->DrawHp();
+	}
 
 #ifdef _DEBUG
 
@@ -119,7 +125,7 @@ void GameScene::Draw(void)
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
 	
-	float vAngle = 5000.0f;
+	/*float vAngle = 5000.0f;
 
 	MATRIX mat = MGetIdent();
 	mat = MatrixUtility::GetMatrixRotateXYZ(player_->GetTransform().rot);
@@ -143,7 +149,7 @@ void GameScene::Draw(void)
 
 	DrawLine3D(pos0, pos1, 0x000000);
 	DrawLine3D(pos0, pos2, 0x000000);
-	DrawLine3D(pos0, pos3, 0x000000);
+	DrawLine3D(pos0, pos3, 0x000000);*/
 
 #endif
 }
@@ -160,7 +166,6 @@ void GameScene::UpdateAutoLockOn(void)
 {
 	Camera* camera = SceneManager::GetInstance().GetCamera();
 	auto& enemys = enemys_->GetEnemys();
-	std::shared_ptr<EnemyBase> enemy_ = nullptr;
 
 	auto& inp = InputManager::GetInstance();
 	float diff = 0.0f;
@@ -171,68 +176,63 @@ void GameScene::UpdateAutoLockOn(void)
 		enemy->SetLockOnPos(player_->GetTransform().pos);
 	}
 
+	if (enemy_ != nullptr && (!enemy_->IsAlive() || enemy_->GetHp() <= 0)) {
+		enemy_ = nullptr;
+		camera->ChangeMode(Camera::MODE::FIXED_POINT);
+	}
+
 	//プレイヤーのオートロックオン処理
 	if (player_->IsTargetLockFlage()) {
 		camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
 	}
 	else {
 		camera->ChangeMode(Camera::MODE::FIXED_POINT);
-	}
-
-	for (auto& enemy : enemys){
-
-		//プレイヤーからエネミーの長さ
-		VECTOR Pos = VSub(
-			enemy->GetTransform().pos,
-			player_->GetTransform().pos);
-		diff = VSize(Pos);
-
-		//プレイヤーからエネミーの長さが条件より大きい
-		// または、エネミーが生存していないの時処理をスキップ
-		if (diff >= 5000 || !enemy->IsAlive()) {
-			continue;
-		}
-
-		if (inp.IsTrgDown(KEY_INPUT_LEFT)) {
-			//プレイヤーからエネミーの長さが一番小さい長さを格納
-			if (diff < min) {
-				min = diff;
-				enemy_ = enemy;
-			}
-		}
-
-		if (inp.IsTrgDown(KEY_INPUT_RIGHT)) {
-			//プレイヤーからエネミーの長さが一番小さい長さを格納
-			if (diff < min) {
-				min = diff;
-				enemy_ = enemy;
-			}
-		}
-
-		if (inp.IsTrgDown(KEY_INPUT_UP)) {
-			//プレイヤーからエネミーの長さが一番小さい長さを格納
-			if (diff < min) {
-				min = diff;
-				enemy_ = enemy;
-			}
-		}
-
-		if (inp.IsTrgDown(KEY_INPUT_DOWN)) {
-			//プレイヤーからエネミーの長さが一番小さい長さを格納
-			if (diff < min) {
-				min = diff;
-				enemy_ = enemy;
-			}
-		}
-	}
-
-	if (enemy_ == nullptr){
 		return;
+	};
+
+	bool needNewTarget = (enemy_ == nullptr) ||
+		inp.IsTrgDown(KEY_INPUT_LEFT) ||
+		inp.IsTrgDown(KEY_INPUT_RIGHT) ||
+		inp.IsTrgDown(KEY_INPUT_UP) ||
+		inp.IsTrgDown(KEY_INPUT_DOWN);
+
+	if (needNewTarget) {
+		std::shared_ptr<EnemyBase> newTarget = nullptr;
+		for (auto& enemy : enemys) {
+			// 生存している敵のみを対象にする
+			if (!enemy->IsAlive() || enemy->GetHp() <= 0) {
+				continue;
+			}
+
+			//プレイヤーからエネミーの長さ
+			VECTOR Pos = VSub(
+				enemy->GetTransform().pos,
+				player_->GetTransform().pos);
+			diff = VSize(Pos);
+
+			//範囲外はスキップ
+			if (diff >= 5000.0f) {
+				continue;
+			}
+
+			//一番近い敵を探す
+			if (diff < min) {
+				min = diff;
+				newTarget = enemy;
+			}
+		}
+
+		// 新しいターゲットが見つかった場合のみ更新
+		if (newTarget != nullptr) {
+			enemy_ = newTarget;
+		}
 	}
 
-	//長さが一番小さいエネミー情報を渡す
-	camera->SetEnemy(enemy_.get());
-	player_->SetLockOnPos(enemy_->GetTransform().pos);
+	// ターゲットがある場合のみカメラとプレイヤーに設定
+	if (enemy_ != nullptr) {
+		camera->SetEnemy(enemy_.get());
+		player_->SetLockOnPos(enemy_->GetTransform().pos);
+	}
 }
 
 void GameScene::CollisinUpdate(void)

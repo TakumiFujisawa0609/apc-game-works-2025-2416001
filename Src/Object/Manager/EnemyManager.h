@@ -21,6 +21,7 @@ public:
 	void Init(void);
 	void Update(void);
 	void Draw(void);
+	void DrawHp(void);
 	void Release(void);
 
 	// エネミーの取得

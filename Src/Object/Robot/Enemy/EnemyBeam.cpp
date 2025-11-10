@@ -72,6 +72,12 @@ void EnemyBeam::InitPost(void)
     trans_.Radius_ = DEFALUT_RADIUS;
     //èoåªîÕàÕ
     spawnRange_ = SPAWN_RANGE;
+
+    maxHp_ = DEFALUT_HP;
+    hpScl_ = HPBER_SIZE;
+    hpTextOffset_ = { (HPBER_POS.x - hpScl_.x / 2), HPBER_POS.y};
+    hpCol_ = HPBER_COLOR;
+    hpBackCol_ = HPBER_COLOR_BACK;
 }
 
 void EnemyBeam::ProcessAttack(void)

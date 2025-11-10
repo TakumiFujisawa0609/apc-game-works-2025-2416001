@@ -48,7 +48,8 @@ public:
 	struct CollisionObject
 	{
 		std::shared_ptr<void> owner;    //所持者
-		VECTOR posPtr;   //座標
+		VECTOR statePos = VGet(0, 0, 0);//カプセル用先頭座標(後方の座標はposPtr)
+		VECTOR posPtr = VGet(0, 0, 0);   //座標
 		float radius = 0.0f;            //半径(球体)
 		VECTOR min = VGet(0, 0, 0);     //最小座標(直方体)
 		VECTOR max = VGet(0, 0, 0);     //最大座標(直方体)
@@ -75,6 +76,9 @@ public:
 
 	// 球の登録
 	void RegisterSphere(std::shared_ptr<void> owner, VECTOR pos, float radius, TAG_TYPE tag, bool push = false);
+
+	//カプセルの登録
+	void RegisterCapsule(std::shared_ptr<void> owner,VECTOR statePos, VECTOR pos, float radius, TAG_TYPE tag, bool push = false);
 
 	// BOXの登録
 	void RegisterBox(std::shared_ptr<void> owner, VECTOR pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push = false);

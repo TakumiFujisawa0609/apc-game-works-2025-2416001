@@ -56,6 +56,27 @@ void CollisinManager::RegisterSphere(std::shared_ptr<void> owner, VECTOR pos, fl
 	objects_.push_back(obj);
 }
 
+void CollisinManager::RegisterCapsule(std::shared_ptr<void> owner, VECTOR statePos, VECTOR pos, float radius, TAG_TYPE tag, bool push)
+{
+	auto obj = std::make_shared<CollisionObject>();
+
+	obj->owner = owner;
+
+	obj->statePos = statePos;
+
+	obj->posPtr = pos;
+
+	obj->radius = radius;
+
+	obj->type = push ? COLLISION_TYPE::SPHERE_PUSH : COLLISION_TYPE::SPHERE;
+
+	obj->pushEnabled = push;
+
+	obj->tag = tag;
+
+	objects_.push_back(obj);
+}
+
 // BOXの登録
 void CollisinManager::RegisterBox(std::shared_ptr<void> owner, VECTOR pos, VECTOR min, VECTOR max, TAG_TYPE tag, bool push)
 {
@@ -152,6 +173,7 @@ void CollisinManager::Update(void)
 	{
 		auto& obj1 = objects_[i];
 		VECTOR* pos1 = &obj1->posPtr;
+		VECTOR* statePos1 = &obj1->statePos;
 
 		bool isObj1Mesh = (obj1->type == COLLISION_TYPE::MESH || obj1->type == COLLISION_TYPE::MESH_PUSH);
 
@@ -159,6 +181,7 @@ void CollisinManager::Update(void)
 		{
 			auto& obj2 = objects_[j];
 			VECTOR* pos2 = &obj2->posPtr;
+			VECTOR* statePos2 = &obj2->statePos;
 
 			// タグ的に衝突不要ならスキップ
 			if (!CanCollide(obj1->tag, obj2->tag)) { continue; }
@@ -206,6 +229,18 @@ void CollisinManager::Update(void)
 						obj2->hitType = hitType;
 					}
 				}
+
+				if (!statePos1 || !statePos2)continue;
+
+				if (Collider::GetInstance().IsHitSphereCapsule(*pos1, obj1->radius, *statePos2, *pos2, obj2->radius))
+				{
+
+				}
+				else if (Collider::GetInstance().IsHitSphereCapsule(*pos2, obj2->radius, *statePos1, *pos1, obj1->radius))
+				{
+
+				}
+
 			}
 
 			// BOX同士の当たり判定

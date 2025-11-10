@@ -1,6 +1,7 @@
 #pragma once
-#include <memory>
 #include "SceneBase.h"
+#include "../Common/Vector2.h"
+#include <DxLib.h>
 
 class Player;
 class EnemyManager;
@@ -32,9 +33,9 @@ private:
 	std::shared_ptr<Player> player_;
 	//エネミー
 	std::shared_ptr<EnemyManager> enemys_;
+	std::shared_ptr<EnemyBase> enemy_;
 	//グリッド
 	std::unique_ptr<Grid> grid_;
-
 
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);

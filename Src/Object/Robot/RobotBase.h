@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <DxLib.h>
+#include "../../Common/Vector2.h"
 #include "../ObjectBase.h"
 #include "../Wepon/WeponBase.h"
 #include "../../Utility/AsoUtility.h"
@@ -10,6 +11,7 @@
 class WeponBase;
 class WeponManager;
 class AnimationController;
+class HpBer;
 
 class RobotBase
 	:public ObjectBase
@@ -38,6 +40,8 @@ public:
 	void Update(void)override;
 	//描画処理
 	void Draw(void)override;
+	//HP描画
+	virtual void DrawHp(void) = 0;
 	//解放処理
 	void Release(void)override;
 
@@ -79,9 +83,10 @@ protected:
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
 
+	HpBer* hpBer_;
+
 	//状態
 	STATE state_;
-
 	//ロックオン座標
 	VECTOR lockOnPos_;
 
@@ -104,6 +109,14 @@ protected:
 	int cntHitReact_;
 	//撃破用一定間隔カウンタ
 	int cntDeadReact_;
+
+
+	int maxHp_;
+	Vector2 hpTextOffset_;
+	Vector2 hpScl_;
+	unsigned int hpCol_;
+	unsigned int hpBackCol_;
+
 
 	// 弾発射後の硬直時間計算用
 	float stepShotDelay_;
