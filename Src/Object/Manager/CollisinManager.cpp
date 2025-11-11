@@ -166,7 +166,8 @@ void CollisinManager::Update(void)
 
 	for (auto& obj : objects_)
 	{
-		obj->hitType = HIT_TYPE::NONE;
+		obj->hitobj.hitType = HIT_TYPE::NONE;
+		obj->hitobj.pusuPow = VGet(0.0f, 0.0f, 0.0f);
 	}
 
 	for (size_t i = 0; i < n; ++i)
@@ -205,28 +206,36 @@ void CollisinManager::Update(void)
 
 				if (Collider::GetInstance().IsHitSpheres(*pos1, obj1->radius, *pos2, obj2->radius))
 				{
-				/*	if (obj1->pushEnabled && obj2->pushEnabled)
+					if (obj1->pushEnabled && obj2->pushEnabled)
 					{
 						VECTOR diff = VSub(*pos2, *pos1);
 						float distSq = VDot(diff, diff);
-
 						if (distSq > 0.0001f)
 						{
 							float dist = sqrtf(distSq);
-							VECTOR normal = VScale(diff, 1.0f / dist);
-							float overlap = (obj1->radius + obj2->radius) - dist;
-							VECTOR pushVec = VScale(normal, overlap * 0.5f);
+							float minDist = obj1->radius + obj2->radius;
 
-							*pos1 = VSub(*pos1, pushVec);
-							*pos2 = VAdd(*pos2, pushVec);
+							// 重なっている場合のみ処理
+							if (dist < minDist)
+							{
+								VECTOR normal = VScale(diff, 1.0f / dist);
+								float overlap = minDist - dist;
+								VECTOR pushVec = VScale(normal, overlap * 0.5f);
+
+								*pos1 = VSub(*pos1, pushVec);
+								*pos2 = VAdd(*pos2, pushVec);
+
+								obj1->hitobj.pusuPow = pushVec;
+								obj2->hitobj.pusuPow = pushVec;
+							}
 						}
-					}*/
+					}
 
 					// 衝突情報を両方のオブジェクトに設定
 					HIT_TYPE hitType = HitCollide(obj1->tag, obj2->tag);
-					if (hitType != HIT_TYPE::NONE){
-						obj1->hitType = hitType;
-						obj2->hitType = hitType;
+					if (hitType != HIT_TYPE::NONE) {
+						obj1->hitobj.hitType = hitType;
+						obj2->hitobj.hitType = hitType;
 					}
 				}
 
@@ -234,161 +243,169 @@ void CollisinManager::Update(void)
 
 				if (Collider::GetInstance().IsHitSphereCapsule(*pos1, obj1->radius, *statePos2, *pos2, obj2->radius))
 				{
+					// 衝突情報を両方のオブジェクトに設定
+					HIT_TYPE hitType = HitCollide(obj1->tag, obj2->tag);
+					if (hitType != HIT_TYPE::NONE) {
+						obj1->hitobj.hitType;
+					}
+					else if (Collider::GetInstance().IsHitSphereCapsule(*pos2, obj2->radius, *statePos1, *pos1, obj1->radius))
+					{
+						// 衝突情報を両方のオブジェクトに設定
+						HIT_TYPE hitType = HitCollide(obj1->tag, obj2->tag);
+						if (hitType != HIT_TYPE::NONE) {
+							obj2->hitobj.hitType = hitType;
+						}
+					}
 
 				}
-				else if (Collider::GetInstance().IsHitSphereCapsule(*pos2, obj2->radius, *statePos1, *pos1, obj1->radius))
+
+				// BOX同士の当たり判定
+				if ((obj1->type == COLLISION_TYPE::BOX || obj1->type == COLLISION_TYPE::BOX_PUSH) &&
+					(obj2->type == COLLISION_TYPE::BOX || obj2->type == COLLISION_TYPE::BOX_PUSH))
 				{
+					if (!pos1 || !pos2) continue;
 
-				}
+					// AABBの衝突を判定
+					bool hit =
+						(obj1->min.x <= obj2->max.x && obj1->max.x >= obj2->min.x) &&
+						(obj1->min.y <= obj2->max.y && obj1->max.y >= obj2->min.y) &&
+						(obj1->min.z <= obj2->max.z && obj1->max.z >= obj2->min.z);
 
-			}
-
-			// BOX同士の当たり判定
-			if ((obj1->type == COLLISION_TYPE::BOX || obj1->type == COLLISION_TYPE::BOX_PUSH) &&
-				(obj2->type == COLLISION_TYPE::BOX || obj2->type == COLLISION_TYPE::BOX_PUSH))
-			{
-				if (!pos1 || !pos2) continue;
-
-				// AABBの衝突を判定
-				bool hit =
-					(obj1->min.x <= obj2->max.x && obj1->max.x >= obj2->min.x) &&
-					(obj1->min.y <= obj2->max.y && obj1->max.y >= obj2->min.y) &&
-					(obj1->min.z <= obj2->max.z && obj1->max.z >= obj2->min.z);
-
-				if (hit && obj1->pushEnabled && obj2->pushEnabled)
-				{
-					// 押し出し量を計算
-					float dx = std::min(obj1->max.x, obj2->max.x) - std::max(obj1->min.x, obj2->min.x);
-					float dy = std::min(obj1->max.y, obj2->max.y) - std::max(obj1->min.y, obj2->min.y);
-					float dz = std::min(obj1->max.z, obj2->max.z) - std::max(obj1->min.z, obj2->min.z);
-
-					// 最小の押し出し量を求める
-					if (dx <= dy && dx < dz)
+					if (hit && obj1->pushEnabled && obj2->pushEnabled)
 					{
-						float push = (obj1->max.x + obj1->min.x > obj2->max.x + obj2->min.x) ? dx * 0.5f : -dx * 0.5f;
-						pos1->x += push;
-						pos2->x -= push;
-					}
-					else if (dy < dz)
-					{
-						float push = (obj1->max.y + obj1->min.y > obj2->max.y + obj2->min.y) ? dy * 0.5f : -dy * 0.5f;
-						pos1->y += push;
-						pos2->y -= push;
-					}
-					else
-					{
-						float push = (obj1->max.z + obj1->min.z > obj2->max.z + obj2->min.z) ? dz * 0.5f : -dz * 0.5f;
-						pos1->z += push;
-						pos2->z -= push;
-					}
-				}
-			}
+						// 押し出し量を計算
+						float dx = std::min(obj1->max.x, obj2->max.x) - std::max(obj1->min.x, obj2->min.x);
+						float dy = std::min(obj1->max.y, obj2->max.y) - std::max(obj1->min.y, obj2->min.y);
+						float dz = std::min(obj1->max.z, obj2->max.z) - std::max(obj1->min.z, obj2->min.z);
 
-			// メッシュと球の当たり判定（カメラと地面は特別処理）
-			// obj1 = メッシュ、obj2 = 球
-			if (isObj1Mesh && !isObj2Mesh)
-			{
-				if (!pos2) continue;
-
-				VECTOR hitPos, hitNormal;
-				if (Collider::IsHitMeshSphere(obj1->modelId, *pos2, obj2->radius, &hitPos, &hitNormal))
-				{
-					if (obj1->pushEnabled && obj2->pushEnabled)
-					{
-						// カメラと地面の場合は最小限の押し出しのみ（判定用）
-						if (obj2->tag == TAG_TYPE::CAMERA && obj1->tag == TAG_TYPE::GROUND)
+						// 最小の押し出し量を求める
+						if (dx <= dy && dx < dz)
 						{
-							// 法線が下向きの場合は反転
-							if (hitNormal.y < 0.0f)
-							{
-								hitNormal = VScale(hitNormal, -1.0f);
-							}
-
-							// 球の中心から衝突点までのベクトル
-							VECTOR toSphere = VSub(*pos2, hitPos);
-							float dist = VSize(toSphere);
-
-							// めり込み量 = 半径 - 距離
-							float penetration = obj2->radius - dist;
-
-							if (penetration > 0.0f)
-							{
-								// 最小限の押し出し（Y方向のみ、わずかに）
-								// これにより isGroundHit 判定ができる
-								VECTOR minimalPush = VGet(0.0f, 0.1f, 0.0f);
-								*pos2 = VAdd(*pos2, minimalPush);
-							}
+							float push = (obj1->max.x + obj1->min.x > obj2->max.x + obj2->min.x) ? dx * 0.5f : -dx * 0.5f;
+							pos1->x += push;
+							pos2->x -= push;
+						}
+						else if (dy < dz)
+						{
+							float push = (obj1->max.y + obj1->min.y > obj2->max.y + obj2->min.y) ? dy * 0.5f : -dy * 0.5f;
+							pos1->y += push;
+							pos2->y -= push;
 						}
 						else
 						{
-							// 通常の押し出し処理
-							VECTOR toSphere = VSub(*pos2, hitPos);
-							float dist = VSize(toSphere);
-							float penetration = obj2->radius - dist;
+							float push = (obj1->max.z + obj1->min.z > obj2->max.z + obj2->min.z) ? dz * 0.5f : -dz * 0.5f;
+							pos1->z += push;
+							pos2->z -= push;
+						}
+					}
+				}
 
-							if (penetration > 0.0f)
+				// メッシュと球の当たり判定（カメラと地面は特別処理）
+				// obj1 = メッシュ、obj2 = 球
+				if (isObj1Mesh && !isObj2Mesh)
+				{
+					if (!pos2) continue;
+
+					VECTOR hitPos, hitNormal;
+					if (Collider::IsHitMeshSphere(obj1->modelId, *pos2, obj2->radius, &hitPos, &hitNormal))
+					{
+						if (obj1->pushEnabled && obj2->pushEnabled)
+						{
+							// カメラと地面の場合は最小限の押し出しのみ（判定用）
+							if (obj2->tag == TAG_TYPE::CAMERA && obj1->tag == TAG_TYPE::GROUND)
 							{
+								// 法線が下向きの場合は反転
 								if (hitNormal.y < 0.0f)
 								{
 									hitNormal = VScale(hitNormal, -1.0f);
 								}
 
-								VECTOR pushVec = VScale(hitNormal, penetration);
-								*pos2 = VAdd(*pos2, pushVec);
+								// 球の中心から衝突点までのベクトル
+								VECTOR toSphere = VSub(*pos2, hitPos);
+								float dist = VSize(toSphere);
+
+								// めり込み量 = 半径 - 距離
+								float penetration = obj2->radius - dist;
+
+								if (penetration > 0.0f)
+								{
+									// 最小限の押し出し（Y方向のみ、わずかに）
+									// これにより isGroundHit 判定ができる
+									VECTOR minimalPush = VGet(0.0f, 0.1f, 0.0f);
+									*pos2 = VAdd(*pos2, minimalPush);
+								}
+							}
+							else
+							{
+								// 通常の押し出し処理
+								VECTOR toSphere = VSub(*pos2, hitPos);
+								float dist = VSize(toSphere);
+								float penetration = obj2->radius - dist;
+
+								if (penetration > 0.0f)
+								{
+									if (hitNormal.y < 0.0f)
+									{
+										hitNormal = VScale(hitNormal, -1.0f);
+									}
+
+									VECTOR pushVec = VScale(hitNormal, penetration);
+									*pos2 = VAdd(*pos2, pushVec);
+								}
 							}
 						}
 					}
 				}
-			}
-			// obj2 = メッシュ、obj1 = 球
-			else if (isObj2Mesh && !isObj1Mesh)
-			{
-				if (!pos1) continue;
-
-				VECTOR hitPos, hitNormal;
-				if (Collider::IsHitMeshSphere(obj2->modelId, *pos1, obj1->radius, &hitPos, &hitNormal))
+				// obj2 = メッシュ、obj1 = 球
+				else if (isObj2Mesh && !isObj1Mesh)
 				{
-					if (obj1->pushEnabled && obj2->pushEnabled)
+					if (!pos1) continue;
+
+					VECTOR hitPos, hitNormal;
+					if (Collider::IsHitMeshSphere(obj2->modelId, *pos1, obj1->radius, &hitPos, &hitNormal))
 					{
-						// カメラと地面の場合は最小限の押し出しのみ（判定用）
-						if (obj1->tag == TAG_TYPE::CAMERA && obj2->tag == TAG_TYPE::GROUND)
+						if (obj1->pushEnabled && obj2->pushEnabled)
 						{
-							// 法線が下向きの場合は反転
-							if (hitNormal.y < 0.0f)
+							// カメラと地面の場合は最小限の押し出しのみ（判定用）
+							if (obj1->tag == TAG_TYPE::CAMERA && obj2->tag == TAG_TYPE::GROUND)
 							{
-								hitNormal = VScale(hitNormal, -1.0f);
-							}
-
-							// 球の中心から衝突点までのベクトル
-							VECTOR toSphere = VSub(*pos1, hitPos);
-							float dist = VSize(toSphere);
-
-							// めり込み量 = 半径 - 距離
-							float penetration = obj1->radius - dist;
-
-							if (penetration > 0.0f)
-							{
-								// 最小限の押し出し（Y方向のみ、わずかに）
-								VECTOR minimalPush = VGet(0.0f, 0.1f, 0.0f);
-								*pos1 = VAdd(*pos1, minimalPush);
-							}
-						}
-						else
-						{
-							// 通常の押し出し処理
-							VECTOR toSphere = VSub(*pos1, hitPos);
-							float dist = VSize(toSphere);
-							float penetration = obj1->radius - dist;
-
-							if (penetration > 0.0f)
-							{
+								// 法線が下向きの場合は反転
 								if (hitNormal.y < 0.0f)
 								{
 									hitNormal = VScale(hitNormal, -1.0f);
 								}
 
-								VECTOR pushVec = VScale(hitNormal, penetration);
-								*pos1 = VAdd(*pos1, pushVec);
+								// 球の中心から衝突点までのベクトル
+								VECTOR toSphere = VSub(*pos1, hitPos);
+								float dist = VSize(toSphere);
+
+								// めり込み量 = 半径 - 距離
+								float penetration = obj1->radius - dist;
+
+								if (penetration > 0.0f)
+								{
+									// 最小限の押し出し（Y方向のみ、わずかに）
+									VECTOR minimalPush = VGet(0.0f, 0.1f, 0.0f);
+									*pos1 = VAdd(*pos1, minimalPush);
+								}
+							}
+							else
+							{
+								// 通常の押し出し処理
+								VECTOR toSphere = VSub(*pos1, hitPos);
+								float dist = VSize(toSphere);
+								float penetration = obj1->radius - dist;
+
+								if (penetration > 0.0f)
+								{
+									if (hitNormal.y < 0.0f)
+									{
+										hitNormal = VScale(hitNormal, -1.0f);
+									}
+
+									VECTOR pushVec = VScale(hitNormal, penetration);
+									*pos1 = VAdd(*pos1, pushVec);
+								}
 							}
 						}
 					}
@@ -497,9 +514,20 @@ CollisinManager::HIT_TYPE CollisinManager::GetHitType(std::shared_ptr<void> owne
 	{
 		if (obj->owner == owner)
 		{
-			return obj->hitType;
+			return obj->hitobj.hitType;
 		}
 	}
 
 	return HIT_TYPE::NONE;
+}
+
+const CollisinManager::HitObject& CollisinManager::GetCollisionObject(std::shared_ptr<void> owner) const
+{
+	for (const auto& obj : objects_)
+	{
+		if (obj->owner == owner)
+		{
+			return obj->hitobj;
+		}
+	}
 }

@@ -340,7 +340,7 @@ void Player::ProcessTargetLock(void)
     {
         isLock = inpMng_.IsPadBtnTrgDown(
             InputManager::JOYPAD_NO::PAD1,
-            InputManager::JOYPAD_BTN::LEFT);
+            InputManager::JOYPAD_BTN::L_BTN);
     }
 
     //ëŒè€ÉçÉbÉNèàóù
@@ -482,21 +482,24 @@ void Player::DrawEnd(void)
 {
 }
 
-void Player::Damage(CollisinManager::HIT_TYPE type)
+void Player::Damage(CollisinManager::HitObject hitObject)
 {
-    CollisinManager::HIT_TYPE type_ = type;
-    if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+    CollisinManager::HitObject hitObject_ = hitObject;
+
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+        return;
+    }
+
+    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
         hp_ -= 1;
+        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_B, 50.0f));
         ChangeState(STATE::KNOCKBACK);
     }
-    if (type_ == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
+    if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
         hp_ -= 3;
         ChangeState(STATE::KNOCKBACK);
     }
-    if (hp_ <= 0){
-        ChangeState(STATE::DEAD);
-    }
-    else{
-        ChangeState(STATE::KNOCKBACK);
-    }
+
+    MV1SetPosition(trans_.modelId, trans_.pos);
 }

@@ -67,7 +67,7 @@ public:
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 1.0f;
 	//HP
-	static constexpr int DEFALUT_HP = 15;
+	static constexpr int DEFALUT_HP = 50;
 
 
 	// テキスト調整値
@@ -99,7 +99,7 @@ public:
 
 	const float& GetDegreep(void) const;
 
-	void Damage(CollisinManager::HIT_TYPE type)override;
+	void Damage(CollisinManager::HitObject hitObject)override;
 
 	//HP描画
 	void DrawHp(void)override;

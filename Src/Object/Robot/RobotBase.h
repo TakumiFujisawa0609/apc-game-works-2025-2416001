@@ -52,7 +52,7 @@ public:
 	void SetLockOnPos(VECTOR lockOnPos = AsoUtility::VECTOR_ZERO);
 
 	// É_ÉÅÅ[ÉWÇó^Ç¶ÇÈ
-	virtual void Damage(CollisinManager::HIT_TYPE type) = 0;
+	virtual void Damage(CollisinManager::HitObject hitObject) = 0;
 
 	float GetHp(void) { return hp_; }
 

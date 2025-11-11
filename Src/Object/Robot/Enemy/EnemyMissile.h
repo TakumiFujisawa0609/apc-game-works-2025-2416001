@@ -66,14 +66,14 @@ public:
 
 
 	//HP
-	static constexpr int DEFALUT_HP = 15;
+	static constexpr int DEFALUT_HP = 10;
 	// 被ダメ時間
 	static constexpr int CNT_HIT_REACT = 20;
 	// 死亡時間
 	static constexpr int CNT_DEAD_REACT = 40;
 
 	// 弾発射後の硬直時間
-	static constexpr float SHOT_DELAY = 3.0f;
+	static constexpr float SHOT_DELAY = 14.0f;
 
 	//ミサイル出現数
 	static constexpr int MISSILE_CNT = 10;

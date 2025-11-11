@@ -54,6 +54,11 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
+	if (!player_->IsAlive() || enemys_->IsClear == true)
+	{
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+	}
+
 	//ロボット更新処理
 	player_->Update();
 	enemys_->Update();
@@ -78,7 +83,7 @@ void GameScene::Draw(void)
 
 	enemys_->Draw();
 	Camera* camera = SceneManager::GetInstance().GetCamera();
-	if (camera->GetCameraMode() == Camera::MODE::TARGET_ROCKE) {
+	if (enemy_ != nullptr && camera->GetCameraMode() == Camera::MODE::TARGET_ROCKE) {
 		enemy_->DrawHp();
 	}
 
@@ -176,7 +181,7 @@ void GameScene::UpdateAutoLockOn(void)
 		enemy->SetLockOnPos(player_->GetTransform().pos);
 	}
 
-	if (enemy_ != nullptr && (!enemy_->IsAlive() || enemy_->GetHp() <= 0)) {
+	if (enemy_ != nullptr && ( !enemy_->IsAlive() || enemy_->GetHp() <= 0)) {
 		enemy_ = nullptr;
 		camera->ChangeMode(Camera::MODE::FIXED_POINT);
 	}
@@ -190,41 +195,78 @@ void GameScene::UpdateAutoLockOn(void)
 		return;
 	};
 
-	bool needNewTarget = (enemy_ == nullptr) ||
-		inp.IsTrgDown(KEY_INPUT_LEFT) ||
-		inp.IsTrgDown(KEY_INPUT_RIGHT) ||
-		inp.IsTrgDown(KEY_INPUT_UP) ||
-		inp.IsTrgDown(KEY_INPUT_DOWN);
+	bool needNewTarget;
+
+	// キー入力によるカメラの回転
+	auto& ins = InputManager::GetInstance();
+	if (GetJoypadNum() == 0)
+	{
+		needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
+	}
+	else
+	{
+		auto& ins = InputManager::GetInstance();
+		needNewTarget = ins.IsPadBtnTrgDown(
+			InputManager::JOYPAD_NO::PAD1,
+			InputManager::JOYPAD_BTN::R_BTN
+		);
+	}
+
 
 	if (needNewTarget) {
 		std::shared_ptr<EnemyBase> newTarget = nullptr;
-		for (auto& enemy : enemys) {
-			// 生存している敵のみを対象にする
-			if (!enemy->IsAlive() || enemy->GetHp() <= 0) {
-				continue;
-			}
 
-			//プレイヤーからエネミーの長さ
+		// 現在のターゲットが有効かチェック
+		bool currentTargetValid = (enemy_ != nullptr &&
+			enemy_->IsAlive() &&
+			enemy_->GetHp() > 0);
+
+		// 現在のターゲットが有効な場合は、距離チェックのみ行う
+		if (currentTargetValid) {
 			VECTOR Pos = VSub(
-				enemy->GetTransform().pos,
+				enemy_->GetTransform().pos,
 				player_->GetTransform().pos);
-			diff = VSize(Pos);
+			float currentDiff = VSize(Pos);
 
-			//範囲外はスキップ
-			if (diff >= 5000.0f) {
-				continue;
-			}
-
-			//一番近い敵を探す
-			if (diff < min) {
-				min = diff;
-				newTarget = enemy;
+			// 現在のターゲットが範囲外の場合のみ新しいターゲットを探す
+			if (currentDiff >= 5000.0f) {
+				currentTargetValid = false;
 			}
 		}
 
-		// 新しいターゲットが見つかった場合のみ更新
-		if (newTarget != nullptr) {
-			enemy_ = newTarget;
+		// 現在のターゲットが無効な場合のみ、新しいターゲットを探す
+		if (!currentTargetValid) {
+			float min = FLT_MAX;
+
+			for (auto& enemy : enemys) {
+				// 生存している敵のみを対象にする
+				if (!enemy->IsAlive() || enemy->GetHp() <= 0) {
+					continue;
+				}
+				//プレイヤーからエネミーの長さ
+				VECTOR Pos = VSub(
+					enemy->GetTransform().pos,
+					player_->GetTransform().pos);
+				float diff = VSize(Pos);
+				//範囲外はスキップ
+				if (diff >= 5000.0f) {
+					continue;
+				}
+				//一番近い敵を探す
+				if (diff < min) {
+					min = diff;
+					newTarget = enemy;
+				}
+			}
+
+			// 新しいターゲットが見つかった場合のみ更新
+			if (newTarget != nullptr) {
+				enemy_ = newTarget;
+			}
+			else {
+				// 見つからなかった場合はターゲットをクリア
+				enemy_ = nullptr;
+			}
 		}
 	}
 
@@ -257,9 +299,10 @@ void GameScene::CollisinUpdate(void)
 			continue;
 		}
 
-		collisin_.RegisterSphere(
+		collisin_.RegisterCapsule(
 			wepon,
 			wepon->GetStatePos(),
+			wepon->GetTransform().pos,
 			wepon->GetColliderRadius(),
 			CollisinManager::TAG_TYPE::PLAYER_WEPON,
 			false
@@ -290,9 +333,10 @@ void GameScene::CollisinUpdate(void)
 				continue;
 			}
 
-			collisin_.RegisterSphere(
+			collisin_.RegisterCapsule(
 				wepon,
-				wepon->GetStatePos(),
+				wepon->GetStatePos(), 
+				wepon->GetTransform().pos,
 				wepon->GetColliderRadius(),
 				CollisinManager::TAG_TYPE::ENEMY_WEPON,
 				false
@@ -305,11 +349,16 @@ void GameScene::HitCollisinUpdate(void)
 {
 	auto& collisin_ = CollisinManager::GetInstance();
 
-	//auto playerHitType = collisin_.GetHitType(player_);
-	//if (playerHitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
-	//	|| playerHitType == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
-	//	player_->Damage(playerHitType);
-	//}
+	if(player_->GetState() != Player::STATE::KNOCKBACK
+		|| player_->GetState() != Player::STATE::DEAD
+		|| player_->GetState() != Player::STATE::END)
+	{
+		auto playerHitObj = collisin_.GetCollisionObject(player_);
+		if (playerHitObj.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
+			|| playerHitObj.hitType == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
+			player_->Damage(playerHitObj);
+		}
+	}
 
 	auto& enemys = enemys_->GetEnemys();
 	for (auto& enemy : enemys) {
@@ -318,11 +367,11 @@ void GameScene::HitCollisinUpdate(void)
 			continue;
 		}
 
-		auto enemyHitType = collisin_.GetHitType(enemy);
-		if (enemyHitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
-			|| enemyHitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT
-			|| enemyHitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
-			enemy->Damage(enemyHitType);
+		auto enemyHitObj = collisin_.GetCollisionObject(enemy);
+		if (enemyHitObj.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT
+			|| enemyHitObj.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT
+			|| enemyHitObj.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
+			enemy->Damage(enemyHitObj);
 		}
 	}
 }

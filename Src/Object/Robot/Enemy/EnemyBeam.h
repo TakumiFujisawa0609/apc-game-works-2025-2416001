@@ -49,7 +49,7 @@ public:
 	static constexpr float DEFALUT_RADIUS = 70.0f;
 
 	// ’e”­ËŒã‚Ìd’¼ŠÔ
-	static constexpr float SHOT_DELAY = 2.0f;
+	static constexpr float SHOT_DELAY = 7.0f;
 
 	//ƒr[ƒ€oŒ»”
 	static constexpr int BEAM_CNT = 1;

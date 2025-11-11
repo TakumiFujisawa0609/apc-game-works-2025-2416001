@@ -1,2 +1,5 @@
-﻿  WeponManager.cpp
+﻿  EnemyManager.cpp
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
   BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe

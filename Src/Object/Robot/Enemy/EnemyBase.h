@@ -42,7 +42,7 @@ public:
 	//oŒ»ˆ—
 	void SetSpawnPostiton(void);
 
-	void Damage(CollisinManager::HIT_TYPE type)override;
+	void Damage(CollisinManager::HitObject hitObject)override;
 
 	//HP•`‰æ
 	void DrawHp(void)override;

@@ -221,26 +221,27 @@ void EnemyBase::DrawHp(void)
     hpBer_->Draw();
 }
 
-void EnemyBase::Damage(CollisinManager::HIT_TYPE type)
+void EnemyBase::Damage(CollisinManager::HitObject hitObject)
 {
 
     if (hp_ <= 0) {
         ChangeState(STATE::DEAD);
+        return;
     }
 
-    CollisinManager::HIT_TYPE type_ = type;
+    CollisinManager::HitObject hitObject_ = hitObject;
 
-    if (type_ == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
         hp_ -= 1;
+        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 50.0f));
         ChangeState(STATE::KNOCKBACK);
     }
-    if (type_ == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
+    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
         hp_ -= 3;
         ChangeState(STATE::KNOCKBACK);
     }
-
-    if (type_ == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
-        trans_.pos = trans_.pos;
+    if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
+        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 10.0f));
     }
 
     MV1SetPosition(trans_.modelId, trans_.pos);

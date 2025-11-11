@@ -20,7 +20,7 @@ public:
 	static constexpr float DEFAULT_SPEED = 500.0f;
 
 	//è’ìÀîºåa
-	static constexpr float DEFALUT_RADIUS = 50.0f;
+	static constexpr float DEFALUT_RADIUS = 15.0f;
 
 	static constexpr float DAMAGE = 3.0f;
 

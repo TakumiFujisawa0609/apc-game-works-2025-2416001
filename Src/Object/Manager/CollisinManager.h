@@ -44,6 +44,12 @@ public:
 		ENEMY_WEPON_HIT
 	};
 
+	struct HitObject
+	{
+		HIT_TYPE hitType = HIT_TYPE::NONE;//ヒットタイプ
+		VECTOR pusuPow = VGet(0, 0, 0);
+	};
+
 	// 当たり判定情報
 	struct CollisionObject
 	{
@@ -59,7 +65,8 @@ public:
 		TAG_TYPE tag = TAG_TYPE::NONE;  // タグ
 		VECTOR center = VGet(0, 0, 0);  //中心座標(メッシュ)
 		float radiusBound = 0.0f;       //境界半径(メッシュ)
-		HIT_TYPE hitType = HIT_TYPE::NONE;//ヒットタイプ
+
+		HitObject hitobj;
 	};
 
 	// インスタンスの生成
@@ -102,6 +109,8 @@ public:
 	HIT_TYPE HitCollide(TAG_TYPE tagA, TAG_TYPE tagB) const;
 
 	HIT_TYPE GetHitType(std::shared_ptr<void> owner) const;
+
+	const HitObject& GetCollisionObject(std::shared_ptr<void> owner) const;
 
 private:
 
