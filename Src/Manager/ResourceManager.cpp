@@ -45,6 +45,9 @@ void ResourceManager::Init(void)
 
 	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Enemy/EnemyStan.mv1");
 	resourcesMap_.emplace(SRC::ENEMY_STAN, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Wepon/Wepon.mv1");
+	resourcesMap_.emplace(SRC::WEPON, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

@@ -25,7 +25,7 @@ void WeponBeam::Draw(void)
 		trans_.pos,      // 開始点
 		statePos_,          // 終点（方向を考慮）
 		5.0f,
-		8,
+		30,
 		GetColor(0, 255, 0),
 		GetColor(255, 255, 255),
 		FALSE);

@@ -123,6 +123,8 @@ protected:
 	//‘ÎÛƒƒbƒNˆ—
 	void ProcessTargetLock(void)override;
 
+	virtual void UpdateWepon(void) = 0;
+
 
 	// ó‘Ô‘JˆÚ
 	void ChangeStandby(void)override;

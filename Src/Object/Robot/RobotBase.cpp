@@ -33,8 +33,12 @@ void RobotBase::Init(void)
     InitPost();
 
     MV1SetPosition(trans_.modelId, trans_.pos);
+    MV1SetPosition(weponModel.modelId, weponModel.pos);
+
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    MV1SetRotationMatrix(weponModel.modelId,
+        MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
 
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
@@ -80,8 +84,12 @@ void RobotBase::Update(void)
     DelayRotate();
 
     MV1SetPosition(trans_.modelId, trans_.pos);
+    MV1SetPosition(weponModel.modelId, weponModel.pos);
+
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    MV1SetRotationMatrix(weponModel.modelId,
+        MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
 
     hpBer_->SetHp(hp_);
 
@@ -98,6 +106,7 @@ void RobotBase::Draw(void)
 
 
     MV1DrawModel(trans_.modelId);
+    MV1DrawModel(weponModel.modelId);
 
     useWepon_->Draw();
 
@@ -129,6 +138,7 @@ void RobotBase::Draw(void)
 void RobotBase::Release(void)
 {
     MV1DeleteModel(trans_.modelId);
+    MV1DeleteModel(weponModel.modelId);
 
     useWepon_->Release();
     delete hpBer_;
@@ -167,14 +177,19 @@ void RobotBase::InitTransformPost(void)
 {
     // 大きさをモデルに反映
     MV1SetScale(trans_.modelId, trans_.scl);
+    MV1SetScale(weponModel.modelId, weponModel.scl);
     // 角度から方向に変換する
     trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
+    weponModel.moveDir = { sinf(weponModel.rot.y), 0.0f, cosf(weponModel.rot.y) };
     // 行列の合成(子, 親と指定すると親⇒子の順に適用される)
     // 回転行列をモデルに反映
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    MV1SetRotationMatrix(weponModel.modelId,
+        MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
     // 座標をモデルに反映
     MV1SetPosition(trans_.modelId, trans_.pos);
+    MV1SetPosition(weponModel.modelId, weponModel.pos);
 }
 
 void RobotBase::DelayRotate(void)

@@ -33,6 +33,7 @@ const float& Player::GetDegreep(void) const
 void Player::InitLoad(void)
 {
     trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
+    weponModel.SetModel(resMng_.LoadModelDuplicate(ResourceManager::SRC::WEPON));
 }
 
 void Player::InitTransform(void)
@@ -418,6 +419,8 @@ void Player::ChangeEnd(void)
 
 void Player::UpdateStandby(void)
 {
+    UpdateWepon();
+
     //ˆÚ“®ˆ—
     ProcessMove();
 

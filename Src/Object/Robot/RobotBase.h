@@ -79,6 +79,7 @@ protected:
 	//std::unique_ptr<WeponBeam> weponbeam_;
 	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
 	std::shared_ptr<WeponManager> useWepon_;
+	Transform weponModel;
 
 	//アニメション
 	std::unique_ptr<AnimationController> anim_;
@@ -145,6 +146,7 @@ protected:
 	virtual void ProcessAttack(void) = 0;
 	//対象ロック処理
 	virtual void ProcessTargetLock(void) = 0;
+	virtual void UpdateWepon(void) = 0;
 
 	// 状態遷移
 	virtual void ChangeStandby(void) = 0;

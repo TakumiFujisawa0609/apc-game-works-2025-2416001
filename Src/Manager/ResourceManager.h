@@ -24,7 +24,10 @@ public:
 		ENEMY_GEORGE,
 		ENEMY_LEELA,
 		ENEMY_MIKE,
-		ENEMY_STAN,
+		ENEMY_STAN, 
+
+		//•Šíƒ‚ƒfƒ‹
+	    WEPON
 	};
 
 	/// <summary>

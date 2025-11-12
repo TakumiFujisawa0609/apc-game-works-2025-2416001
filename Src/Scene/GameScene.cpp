@@ -79,7 +79,9 @@ void GameScene::Draw(void)
 
 	//ƒƒ{ƒbƒg•`‰æˆ—
 	player_->Draw();
-	player_->DrawHp();
+	if(player_->IsAlive()){
+		player_->DrawHp();
+	}
 
 	enemys_->Draw();
 	Camera* camera = SceneManager::GetInstance().GetCamera();
