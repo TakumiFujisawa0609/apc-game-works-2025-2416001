@@ -485,9 +485,9 @@ void Player::DrawEnd(void)
 {
 }
 
-void Player::Damage(CollisinManager::HitObject hitObject)
+void Player::Damage(void)
 {
-    CollisinManager::HitObject hitObject_ = hitObject;
+    /*CollisinManager::HitObject hitObject_ = hitObject;
 
     if (hp_ <= 0) {
         ChangeState(STATE::DEAD);
@@ -504,5 +504,5 @@ void Player::Damage(CollisinManager::HitObject hitObject)
         ChangeState(STATE::KNOCKBACK);
     }
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
+    MV1SetPosition(trans_.modelId, trans_.pos);*/
 }

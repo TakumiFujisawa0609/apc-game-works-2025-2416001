@@ -1,39 +1,88 @@
 #pragma once
-#include <memory>
-#include <DxLib.h>
+#include<set>
+#include"Geometry/Geometry.h"
+
+class ObjetBase;
 
 class Collider
 {
+
 public :
-	//インスタンスの生成
-	static void CreateInstance(void);
+	
+	enum class TAG
+	{
+		//モデル
+		PLAYER,
+		ENEMY,
 
-	//インスタンスの取得
-	static Collider& GetInstance(void);
+		//武器タグ
+		PLAYER_BEAM,
+		PLAYER_MISSILE,
+		ENEMY_BEAM,
+		ENEMY_MISSILE,
 
-	//初期化処理
-	void Init(void);
+		//ステージ
+		STAGE,
+	};
 
-	//// 正方形同士の当たり判定
-	//bool IsHitBoxes(const Vector2F box1, const float box1Range, const Vector2F box2, const float box2Range)const;
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="_tags">自身の衝突用タグ</param>
+	/// <param name="_geometry">当たり判定の形状</param>
+	/// <param name="_notHitTags">衝突させないタグ</param>
+	Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags);
 
-	// 球体同士の衝突判定
-	static bool IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2);
+	// デストラクタ
+	~Collider(void);
 
-	//球体とカプセルの衝突判定
-	static bool IsHitSphereCapsule(const VECTOR& sphPos, float sphRadius, const VECTOR& capPos1, const VECTOR& capPos2, float capRadius);
+	//衝突用タグの取得
+	inline const std::set<TAG> GetTags(void)const { return tags_; }
 
-	//メッシュと球の衝突判定
-	static bool IsHitMeshSphere(int modelId, const VECTOR& sphPos, float sphRadius, VECTOR* hitPos = nullptr, VECTOR* hitNor = nullptr);
+	//当たり判定の形状を取得
+	inline Geometry& GetGeometry(void)const { return geometry_; }
+
+	//衝突させないタグの取得
+	inline const std::set<TAG> GetNotHitTags(void)const { return notHitTags_; }
+
+	//親を取得
+	inline const ObjectBase& GetParent(void)const { return parent_; }
+
+	//当たったかの判定の取得
+	inline const bool IsHit(void)const { return isHit_; }
+
+	//当たっていない
+	inline void NotHit(void) { isHit_ = false; }
+
+	//終了判定の取得
+	inline const bool IsDead(void)const { return isDead_; }
+
+	//終了処理(所持者の解放時に置く)
+	inline void Kill(void) { isDead_ = true; }
+
+	/// <summary>
+	/// 当たった時の処理
+	/// </summary>
+	/// <param name="_collider">相手のコライダ</param>
+	void OnHit(const std::weak_ptr<Collider> _collider);
 
 private:
 
-	//コンストラクタ
-	Collider(void) = default;
+	//親
+	ObjectBase& parent_;
 
-	//デストラクタ
-	~Collider(void) = default;
+	// 衝突用タグ
+	std::set<TAG> tags_;
 
-	//インスタンス用
-	static Collider* instance_;
+	// 衝突しないタグ
+	std::set<TAG> notHitTags_;
+
+	//当たり判定の形状
+	Geometry& geometry_;
+
+	//当たったかの判定
+	bool isHit_;
+
+	//終了判定
+	bool isDead_;
 };

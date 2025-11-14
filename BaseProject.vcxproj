@@ -19,11 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Common\Geometry\Capsule.cpp" />
+    <ClCompile Include="Src\Object\Common\Geometry\Cube.cpp" />
+    <ClCompile Include="Src\Object\Common\Geometry\Geometry.cpp" />
+    <ClCompile Include="Src\Object\Common\Geometry\Line.cpp" />
+    <ClCompile Include="Src\Object\Common\Geometry\Model.cpp" />
+    <ClCompile Include="Src\Object\Common\Geometry\Sphere.cpp" />
     <ClCompile Include="Src\Object\Common\HpBer.cpp" />
     <ClCompile Include="Src\Object\Robot\Enemy\EnemyBeam.cpp" />
     <ClCompile Include="Src\Object\Robot\Enemy\EnemyMissile.cpp" />
     <ClCompile Include="Src\Object\Manager\EnemyManager.cpp" />
-    <ClCompile Include="Src\Object\Manager\CollisinManager.cpp" />
+    <ClCompile Include="Src\Object\Manager\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Robot\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Src\Object\Robot\Player\Player.cpp" />
     <ClCompile Include="Src\Object\Common\Grid.cpp" />
@@ -60,11 +66,17 @@
     <ClCompile Include="Src\Object\Manager\WeponManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Common\Geometry\Capsule.h" />
+    <ClInclude Include="Src\Object\Common\Geometry\Cube.h" />
+    <ClInclude Include="Src\Object\Common\Geometry\Geometry.h" />
+    <ClInclude Include="Src\Object\Common\Geometry\Line.h" />
+    <ClInclude Include="Src\Object\Common\Geometry\Model.h" />
+    <ClInclude Include="Src\Object\Common\Geometry\Sphere.h" />
     <ClInclude Include="Src\Object\Common\HpBer.h" />
     <ClInclude Include="Src\Object\Robot\Enemy\EnemyBeam.h" />
     <ClInclude Include="Src\Object\Robot\Enemy\EnemyMissile.h" />
     <ClInclude Include="Src\Object\Manager\EnemyManager.h" />
-    <ClInclude Include="Src\Object\Manager\CollisinManager.h" />
+    <ClInclude Include="Src\Object\Manager\CollisionManager.h" />
     <ClInclude Include="Src\Object\Robot\Enemy\EnemyBase.h" />
     <ClInclude Include="Src\Object\Robot\Player\Player.h" />
     <ClInclude Include="Src\Object\Common\Grid.h" />

@@ -624,3 +624,10 @@ float AsoUtility::MyFabs(const float x)
 {
     return (x < 0) ? -x : x;
 }
+
+float AsoUtility::ClampFloat(float value, float minVal, float maxVal)
+{
+    if (value < minVal) return minVal;
+    if (value > maxVal) return maxVal;
+    return value;
+}

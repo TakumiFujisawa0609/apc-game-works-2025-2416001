@@ -1,6 +1,455 @@
-﻿  GameScene.cpp
+﻿  Capsule.cpp
+  Cube.cpp
+  Line.cpp
+  Model.cpp
+  Sphere.cpp
+  EnemyBeam.cpp
+  EnemyMissile.cpp
+  EnemyManager.cpp
+  CollisionManager.cpp
+  EnemyBase.cpp
+  Player.cpp
+  RobotBase.cpp
+  Camera.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Manager/CollisionManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(65,15): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(65,15): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(72,15): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(72,15): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(79,15): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp(79,15): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(328,9): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(328,9): error C3329: 構文エラー: '}' ではなく ')' が必要です
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(328,9): error C2143: 構文エラー: ';' が '?' の前にありません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(328,9): error C2059: 構文エラー: '?'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(328,9): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(329,9): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(329,9): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(330,9): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(330,9): error C2059: 構文エラー: ')'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(333,49): error C2065: 'point': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(333,56): error C2065: 'clamped': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(337,8): error C2065: 'ft': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(341,2): error C2059: 構文エラー: 'return'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(342,1): error C2059: 構文エラー: '}'
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp(342,1): error C2143: 構文エラー: ';' が '}' の前にありません。
+  Collider.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+  Transform.cpp
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+  ObjectBase.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+  Quaternion.cpp
+  Vector2.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+  Vector2F.cpp
+  ResultScene.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
+  
+  GameScene.cpp
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
+  
+  AsoUtility.cpp
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
+  
+  WeponBase.cpp
+  WeponBeam.cpp
+C:\AGS_2025_fuyu\Src\Object\ObjectBase.cpp(4,10): error C1083: include ファイルを開けません。'Manager/CollisinManager.h':No such file or directory
+  WeponMissile.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Common/Collider.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,11): error C7550: 'Collider::{ctor}': このコンテキストの修飾名は、型ではなくコンストラクターの名前を指定します
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,32): error C2065: 'parent': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,20): error C2597: 静的でないメンバー 'Collider::ObjectBase' への参照が正しくありません。
+      C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,20):
+      'Collider::ObjectBase' の宣言を確認してください
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,20): error C3867: 'Collider::ObjectBase': 非標準の構文です。メンバーにポインタを作成するには '&' を使用してください
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,20): error C2568: '&': オーバーロード関数のうち、どれを呼び出すのか決定できません。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(6,40): error C2059: 構文エラー: 'const'
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(7,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(7,10): error C2065: 'parent': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(8,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(8,8): error C2065: 'tags': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(9,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(9,12): error C2065: 'geometry': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(10,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(10,14): error C2065: 'notHitTags': 定義されていない識別子です。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(11,1): error C2059: 構文エラー: '{'
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(11,1): error C2143: 構文エラー: ';' が '{' の前にありません。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp(11,1): error C2447: '{': 対応する関数ヘッダーがありません (旧形式の仮引数リスト?)
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+  WeponManager.cpp
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Common/Transform.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Wepon/WeponBeam.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Utility\AsoUtility.cpp(567,43): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\AGS_2025_fuyu\Src\Utility\AsoUtility.cpp(567,34): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\AGS_2025_fuyu\Src\Utility\AsoUtility.cpp(567,16): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Wepon/WeponBase.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
 C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
   
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(73,1): warning C4172: ローカル変数またはテンポラリ  のアドレスを返します
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Wepon/WeponMissile.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(34,11): error C2061: 構文エラー: 識別子 'ObjectBase'
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,25): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,15): error C7524: ブロック スコープ宣言または非静的データ メンバーでは 'inline' 指定子は使用できません
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(49,48): error C2334: '{' の前に予期しないトークンがありました。関数の本体は無視されます
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,12): error C2143: 構文エラー: ';' が '&' の前にありません。
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.h(72,21): error C2238: ';' の前に無効なトークンがあります。
+  (ソース ファイル 'Src/Object/Manager/WeponManager.cpp' をコンパイルしています)
+  

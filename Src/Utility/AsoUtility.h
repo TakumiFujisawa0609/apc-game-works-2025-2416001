@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iostream>
+#include <algorithm>
 #include <DxLib.h>
 #include "../Common/Vector2.h"
 #include "../Common/Quaternion.h"
@@ -150,5 +152,7 @@ public:
 
 	//â‘Î’l‚ğ•Ô‚·
 	static float MyFabs(const float x);
+
+	static float ClampFloat(float value, float minVal, float maxVal);
 
 };

@@ -99,7 +99,7 @@ public:
 
 	const float& GetDegreep(void) const;
 
-	void Damage(CollisinManager::HitObject hitObject)override;
+	void Damage(void)override;
 
 	//HP•`‰æ
 	void DrawHp(void)override;

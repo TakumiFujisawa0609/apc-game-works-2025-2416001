@@ -221,29 +221,29 @@ void EnemyBase::DrawHp(void)
     hpBer_->Draw();
 }
 
-void EnemyBase::Damage(CollisinManager::HitObject hitObject)
+void EnemyBase::Damage(void)
 {
 
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-        return;
-    }
+    //if (hp_ <= 0) {
+    //    ChangeState(STATE::DEAD);
+    //    return;
+    //}
 
-    CollisinManager::HitObject hitObject_ = hitObject;
+    //CollisinManager::HitObject hitObject_ = hitObject;
 
-    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
-        hp_ -= 1;
-        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 50.0f));
-        ChangeState(STATE::KNOCKBACK);
-    }
-    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
-        hp_ -= 3;
-        ChangeState(STATE::KNOCKBACK);
-    }
-    if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
-        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 10.0f));
-    }
+    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
+    //    hp_ -= 1;
+    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 50.0f));
+    //    ChangeState(STATE::KNOCKBACK);
+    //}
+    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
+    //    hp_ -= 3;
+    //    ChangeState(STATE::KNOCKBACK);
+    //}
+    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
+    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 10.0f));
+    //}
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
+    //MV1SetPosition(trans_.modelId, trans_.pos);
 }
 

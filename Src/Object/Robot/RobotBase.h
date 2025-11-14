@@ -6,7 +6,7 @@
 #include "../ObjectBase.h"
 #include "../Wepon/WeponBase.h"
 #include "../../Utility/AsoUtility.h"
-#include "../Manager/CollisinManager.h"
+#include "../Manager/CollisionManager.h"
 
 class WeponBase;
 class WeponManager;
@@ -52,7 +52,7 @@ public:
 	void SetLockOnPos(VECTOR lockOnPos = AsoUtility::VECTOR_ZERO);
 
 	// É_ÉÅÅ[ÉWÇó^Ç¶ÇÈ
-	virtual void Damage(CollisinManager::HitObject hitObject) = 0;
+	virtual void Damage(void) = 0;
 
 	float GetHp(void) { return hp_; }
 
