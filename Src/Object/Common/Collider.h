@@ -2,7 +2,7 @@
 #include<set>
 #include"Geometry/Geometry.h"
 
-class ObjetBase;
+class ObjectBase;
 
 class Collider
 {
@@ -16,10 +16,8 @@ public :
 		ENEMY,
 
 		//武器タグ
-		PLAYER_BEAM,
-		PLAYER_MISSILE,
-		ENEMY_BEAM,
-		ENEMY_MISSILE,
+		PLAYER_WEPON,
+		ENEMY_WEPON,
 
 		//ステージ
 		STAGE,

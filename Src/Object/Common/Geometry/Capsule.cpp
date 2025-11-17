@@ -1,3 +1,4 @@
+#include<algorithm>
 #include"../../../Utility/AsoUtility.h"
 #include "../../../Common/Quaternion.h"
 #include"Model.h"

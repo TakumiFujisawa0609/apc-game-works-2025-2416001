@@ -91,14 +91,9 @@ const bool CollisionManager::IsPlayer(const Collider::TAG tag) const
 	return tag == Collider::TAG::PLAYER;
 }
 
-const bool CollisionManager::IsPlayerBeam(const Collider::TAG tag) const
+const bool CollisionManager::IsPlayerWepon(const Collider::TAG tag) const
 {
-	return tag == Collider::TAG::PLAYER_BEAM;
-}
-
-const bool CollisionManager::IsPlayerMissile(const Collider::TAG tag) const
-{
-	return tag == Collider::TAG::PLAYER_MISSILE;
+	return tag == Collider::TAG::PLAYER_WEPON;
 }
 
 const bool CollisionManager::IsEnemy(const Collider::TAG tag) const
@@ -106,14 +101,9 @@ const bool CollisionManager::IsEnemy(const Collider::TAG tag) const
 	return tag == Collider::TAG::ENEMY;
 }
 
-const bool CollisionManager::IsEnemyBeam(const Collider::TAG tag) const
+const bool CollisionManager::IsEnemyWepon(const Collider::TAG tag) const
 {
-	return tag == Collider::TAG::ENEMY_BEAM;
-}
-
-const bool CollisionManager::IsEnemyMissile(const Collider::TAG tag) const
-{
-	return tag == Collider::TAG::ENEMY_MISSILE;
+	return tag == Collider::TAG::ENEMY_WEPON;
 }
 
 const bool CollisionManager::IsStage(const Collider::TAG tag) const
@@ -131,10 +121,8 @@ CollisionManager::CollisionManager(void)
 
 	hitRange_[Collider::TAG::PLAYER] = HIT_RANGE_NORMAL;
 	hitRange_[Collider::TAG::ENEMY] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::PLAYER_BEAM] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::PLAYER_MISSILE] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::ENEMY_BEAM] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::ENEMY_MISSILE] = HIT_RANGE_NORMAL;
+	hitRange_[Collider::TAG::PLAYER_WEPON] = HIT_RANGE_NORMAL;
+	hitRange_[Collider::TAG::ENEMY_WEPON] = HIT_RANGE_NORMAL;
 
 	hitRange_[Collider::TAG::STAGE] = HIT_RANGE_NORMAL;
 }

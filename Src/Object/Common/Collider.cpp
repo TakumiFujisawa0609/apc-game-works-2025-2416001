@@ -9,8 +9,6 @@ Collider::Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geome
 	geometry_(geometry),
 	notHitTags_(notHitTags)
 {
-	isHit_ = false;
-	isDead_ = false;
 }
 
 Collider::~Collider(void)

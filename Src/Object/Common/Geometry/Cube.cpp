@@ -1,4 +1,6 @@
-﻿#include<cassert>
+﻿#define NOMINMAX
+#include<algorithm>
+#include<cassert>
 #include"../../../Common/Quaternion.h"
 #include"../../../Utility/AsoUtility.h"
 #include"Model.h"

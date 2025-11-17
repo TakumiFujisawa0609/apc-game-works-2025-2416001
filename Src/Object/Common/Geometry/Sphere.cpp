@@ -1,4 +1,5 @@
-﻿#include<algorithm>
+﻿#define NOMINMAX
+#include<algorithm>
 #include "../../../Common/Quaternion.h"
 #include "../../../Utility/AsoUtility.h"
 #include"Model.h"

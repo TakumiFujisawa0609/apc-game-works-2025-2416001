@@ -46,18 +46,11 @@ public:
 	const bool IsPlayer(const Collider::TAG tag)const;
 
 	/// <summary>
-	/// そのタグがプレイヤービームかどうか調べる
+	/// そのタグがプレイヤ武器かどうか調べる
 	/// </summary>
 	/// <param name="_tag">調べるタグ</param>
-	/// <returns>true:プレイヤービームだった</returns>
-	const bool IsPlayerBeam(const Collider::TAG tag)const;
-
-	/// <summary>
-	/// そのタグがプレイヤーミサイルかどうか調べる
-	/// </summary>
-	/// <param name="_tag">調べるタグ</param>
-	/// <returns>true:プレイヤーミサイルだった</returns>
-	const bool IsPlayerMissile(const Collider::TAG tag)const;
+	/// <returns>true:プレイヤー武器だった</returns>
+	const bool IsPlayerWepon(const Collider::TAG tag)const;
 
 	/// <summary>
 	/// そのタグがエネミーかどうか調べる
@@ -67,18 +60,11 @@ public:
 	const bool IsEnemy(const Collider::TAG tag)const;
 
 	/// <summary>
-	/// そのタグがエネミービームかどうか調べる
+	/// そのタグがエネミー武器かどうか調べる
 	/// </summary>
 	/// <param name="_tag">調べるタグ</param>
-	/// <returns>true:エネミービームだった</returns>
-	const bool IsEnemyBeam(const Collider::TAG tag)const;
-
-	/// <summary>
-	/// そのタグエネミーミサイルかどうか調べる
-	/// </summary>
-	/// <param name="_tag">調べるタグ</param>
-	/// <returns>true:エネミーミサイルだった</returns>
-	const bool IsEnemyMissile(const Collider::TAG tag)const;
+	/// <returns>true:エネミー武器だった</returns>
+	const bool IsEnemyWepon(const Collider::TAG tag)const;
 
 	/// <summary>
 	/// そのタグステージかどうか調べる

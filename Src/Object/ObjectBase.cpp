@@ -1,7 +1,7 @@
 #include "../Manager/ResourceManager.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
-#include "Manager/CollisinManager.h"
+#include "Manager/CollisionManager.h"
 #include "ObjectBase.h"
 
 ObjectBase::ObjectBase(void)
@@ -20,6 +20,10 @@ ObjectBase::~ObjectBase(void)
 	}
 }
 
+void ObjectBase::OnHit(const std::weak_ptr<Collider> hitCol)
+{
+}
+
 void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
 {
 	//当たり判定情報
@@ -32,7 +36,7 @@ void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_pt
 	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags);
 
 	//コライダを管理マネージャーに追加
-	CollisinManager::GetInstance().AddCollider(colParam.collider_);
+	CollisionManager::GetInstance().AddCollider(colParam.collider_);
 
 	//配列にセット
 	colParam_.push_back(std::move(colParam));

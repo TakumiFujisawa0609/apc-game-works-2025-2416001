@@ -10,6 +10,8 @@
 #include "./../../Common/HpBer.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
+#include "../../Common/Geometry/Sphere.h"
+#include "../../Manager/CollisionManager.h"
 #include "Player.h"
 
 Player::Player(void)
@@ -28,6 +30,10 @@ void Player::SetCamera(Camera* camera)
 const float& Player::GetDegreep(void) const
 {
     return atan2f(trans_.rot.x, trans_.rot.z);
+}
+
+void Player::Damage(void)
+{
 }
 
 void Player::InitLoad(void)
@@ -85,6 +91,9 @@ void Player::InitPost(void)
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
+    MakeCollider({ Collider::TAG::PLAYER }, std::move(geo), { Collider::TAG::PLAYER_WEPON });
 }
 
 void Player::ProcessMove(void)
@@ -391,6 +400,11 @@ void Player::DrawHp(void)
     hpBer_->Draw();
 }
 
+void Player::OnHit(const std::weak_ptr<Collider> hitCol)
+{
+
+}
+
 void Player::ChangeStandby(void)
 {
 }
@@ -483,26 +497,4 @@ void Player::DrawVictory(void)
 
 void Player::DrawEnd(void)
 {
-}
-
-void Player::Damage(void)
-{
-    /*CollisinManager::HitObject hitObject_ = hitObject;
-
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-        return;
-    }
-
-    if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
-        hp_ -= 1;
-        trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_B, 50.0f));
-        ChangeState(STATE::KNOCKBACK);
-    }
-    if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMY_WEPON_HIT) {
-        hp_ -= 3;
-        ChangeState(STATE::KNOCKBACK);
-    }
-
-    MV1SetPosition(trans_.modelId, trans_.pos);*/
 }

@@ -1,3 +1,5 @@
+#define NOMINMAX
+#include <algorithm>
 #include "../../../Common/Quaternion.h"
 #include "../../../Utility/AsoUtility.h"
 #include"Model.h"
@@ -5,6 +7,7 @@
 #include"Sphere.h"
 #include"Capsule.h"
 #include"Line.h"
+#include <DxLib.h>
 
 //***************************************************
 //ê¸

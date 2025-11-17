@@ -1,5 +1,5 @@
 #pragma once
-#include<DxLib.h>
+
 #include"Geometry.h"
 
 class Sphere : public Geometry

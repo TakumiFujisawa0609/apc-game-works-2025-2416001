@@ -221,6 +221,10 @@ void EnemyBase::DrawHp(void)
     hpBer_->Draw();
 }
 
+void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
+{
+}
+
 void EnemyBase::Damage(void)
 {
 

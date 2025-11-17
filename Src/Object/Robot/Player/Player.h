@@ -104,6 +104,8 @@ public:
 	//HP描画
 	void DrawHp(void)override;
 
+	void OnHit(const std::weak_ptr<Collider> hitCol)override;
+
 protected:
 
 	// リソースロード
