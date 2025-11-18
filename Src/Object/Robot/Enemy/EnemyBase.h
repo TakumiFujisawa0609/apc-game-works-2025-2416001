@@ -71,6 +71,8 @@ protected:
 	//‘ÎÛƒƒbƒNˆ—
 	virtual void ProcessTargetLock(void)override;
 
+    void UpdateWepon(void)override;
+
 	// ó‘Ô‘JˆÚ
 	virtual void ChangeStandby(void);
 	virtual void ChangeKnockback(void);

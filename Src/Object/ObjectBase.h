@@ -39,7 +39,7 @@ public:
 	Transform& GetTransform(void){ return trans_; }
 
 	//ƒqƒbƒgˆ—
-	virtual void OnHit(const std::weak_ptr<Collider> hitCol) = 0;
+	virtual void OnHit(const std::weak_ptr<Collider> hitCol);
 
 protected:
 

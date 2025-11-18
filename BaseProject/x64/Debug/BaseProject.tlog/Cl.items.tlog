@@ -1,8 +1,14 @@
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Capsule.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Capsule.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Cube.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Geometry.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Geometry.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Line.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Line.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Model.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Model.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Sphere.obj
 C:\AGS_2025_fuyu\Src\Object\Common\HpBer.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\HpBer.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyBeam.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyBeam.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyMissile.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyMissile.obj
 C:\AGS_2025_fuyu\Src\Object\Manager\EnemyManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyManager.obj
-C:\AGS_2025_fuyu\Src\Object\Manager\CollisinManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\CollisinManager.obj
+C:\AGS_2025_fuyu\Src\Object\Manager\CollisionManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\CollisionManager.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyBase.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Player\Player.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Player.obj
 C:\AGS_2025_fuyu\Src\Object\Common\Grid.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Grid.obj

@@ -125,7 +125,7 @@ protected:
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
 
-	virtual void UpdateWepon(void) = 0;
+	void UpdateWepon(void)override;
 
 
 	// 状態遷移
@@ -156,6 +156,8 @@ private:
 
 	//カメラの角度
 	Camera* camera_;
+
+	bool debug_;
 
 };
 

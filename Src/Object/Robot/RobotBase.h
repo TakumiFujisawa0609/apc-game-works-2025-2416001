@@ -72,9 +72,6 @@ public:
 	//“–‚½‚è”»’èÀ•Wæ“¾
 	const VECTOR& GetCillisionPos(void)const {return VAdd(trans_.cillisionPos, trans_.pos); }
 
-	//ƒqƒbƒgˆ—
-	virtual void OnHit(const std::weak_ptr<Collider> hitCol)override = 0;
-
 protected:
 
 	//// •Ší

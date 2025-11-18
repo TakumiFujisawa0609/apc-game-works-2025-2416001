@@ -1,3 +1,4 @@
+#include<memory>
 #include "../../../Application.h"
 #include "../../../Manager/ResourceManager.h"
 #include "../../../Manager/SceneManager.h"
@@ -12,6 +13,7 @@
 #include "../../Manager/WeponManager.h"
 #include "../../Common/Geometry/Sphere.h"
 #include "../../Manager/CollisionManager.h"
+#include "../../Common/Collider.h"
 #include "Player.h"
 
 Player::Player(void)
@@ -92,7 +94,7 @@ void Player::InitPost(void)
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
 
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
     MakeCollider({ Collider::TAG::PLAYER }, std::move(geo), { Collider::TAG::PLAYER_WEPON });
 }
 
@@ -395,14 +397,36 @@ void Player::ProcessTargetLock(void)
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
+void Player::UpdateWepon(void)
+{
+}
+
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
+
+    if (debug_ == true)
+    {
+        DrawString(0, 80, "“–‚½‚Á‚Ä‚¢‚é",false);
+    }
 }
 
 void Player::OnHit(const std::weak_ptr<Collider> hitCol)
 {
+    debug_ = false;
 
+    if (hp_ <= 0) {
+       ChangeState(STATE::DEAD);
+       return;
+   }
+
+    for (auto tag : hitCol.lock()->GetTags())
+    {
+        if (tag == Collider::TAG::ENEMY)
+        {
+            debug_ = true;
+        }
+    }
 }
 
 void Player::ChangeStandby(void)

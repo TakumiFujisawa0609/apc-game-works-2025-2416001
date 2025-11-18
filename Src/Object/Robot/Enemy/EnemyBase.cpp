@@ -1,8 +1,10 @@
+#include <memory>
 #include "../../../Utility/MatrixUtility.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../Common/AnimationController.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
+#include "../../Common/Geometry/Sphere.h"
 #include "EnemyBase.h"
 
 EnemyBase::EnemyBase(void)
@@ -40,6 +42,9 @@ void EnemyBase::Init(void)
 
     // 弾発射の硬直時間
     stepShotDelay_ = 0.0f;
+
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
+    MakeCollider({ Collider::TAG::ENEMY }, std::move(geo), { Collider::TAG::ENEMY_WEPON });
 
     //状態遷移初期設定
     ChangeState(STATE::STANDBY);
@@ -119,6 +124,10 @@ void EnemyBase::ProcessTargetLock(void)
     // ローカル回転とグローバル回転を合成してモデルに適用
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+}
+
+void EnemyBase::UpdateWepon(void)
+{
 }
 
 void EnemyBase::ChangeStandby(void)
