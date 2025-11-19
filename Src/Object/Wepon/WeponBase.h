@@ -1,6 +1,9 @@
 #pragma once
 #include <DxLib.h>
 #include "../ObjectBase.h"
+
+class Collider;
+
 class WeponBase
 	:public ObjectBase
 {
@@ -20,8 +23,8 @@ public:
 	// デストラクタ
 	~WeponBase(void);
 	void Init(void)override;
-	void Init(VECTOR pos, VECTOR dir);
-	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos);
+	void Init(VECTOR pos, VECTOR dir, Collider::TAG tag);
+	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag);
 	void Update(void)override;
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;

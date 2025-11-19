@@ -39,11 +39,5 @@ private:
 
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
-
-	//衝突判定更新
-	void CollisinUpdate(void);
-
-	//衝突後情報更新
-	void HitCollisinUpdate(void);
 };
 

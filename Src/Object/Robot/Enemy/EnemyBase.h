@@ -33,6 +33,9 @@ public:
 	//èoåªîºåa
 	static constexpr float SPAWN_RANIUS = 5000.0f;
 
+	// èdóÕ
+	static constexpr float GRAVITY = 5.5f;
+
 	EnemyBase(void);
 	~EnemyBase(void)override;
 

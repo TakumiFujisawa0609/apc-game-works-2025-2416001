@@ -121,8 +121,8 @@ CollisionManager::CollisionManager(void)
 
 	hitRange_[Collider::TAG::PLAYER] = HIT_RANGE_NORMAL;
 	hitRange_[Collider::TAG::ENEMY] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::PLAYER_WEPON] = HIT_RANGE_NORMAL;
-	hitRange_[Collider::TAG::ENEMY_WEPON] = HIT_RANGE_NORMAL;
+	hitRange_[Collider::TAG::PLAYER_WEPON] = HIT_RANGE_WEPON;
+	hitRange_[Collider::TAG::ENEMY_WEPON] = HIT_RANGE_WEPON;
 
 	hitRange_[Collider::TAG::STAGE] = HIT_RANGE_NORMAL;
 }
@@ -184,12 +184,12 @@ const bool CollisionManager::JudgeIsCollision(const int _col1Num, const int _col
 		//2人目のタグ
 		for (auto tag2 : tags2)
 		{
-			//双方のタグが違うタグか
-			if (tag1 == tag2)
-			{
-				//同じタグを持っていた
-				return false;
-			}
+			////双方のタグが違うタグか
+			//if (tag1 == tag2)
+			//{
+			//	//同じタグを持っていた
+			//	return false;
+			//}
 
 			//設定されたタグか
 			if (!JudgeIsColTag(tag1, tag2))
@@ -211,19 +211,20 @@ const bool CollisionManager::JudgeIsCollision(const int _col1Num, const int _col
 	return true;
 }
 
-const bool CollisionManager::JudgeIsColTag(const Collider::TAG _tag1, const Collider::TAG _tag2) const
+const bool CollisionManager::JudgeIsColTag(const Collider::TAG tag1, const Collider::TAG tag2) const
 {
 	//ここにタグごとの正確な判定の取る取らないを決める
 
 	//総合
 	bool ret = true;
 
-	////どちらともアイテムなら
-	//if (IsItem(_tag1) && IsItem(_tag2))
-	//{
-	//	//当たり判定しない
-	//	ret = false;
-	//}
+	//どちらともアイテムなら
+	if (tag1 == Collider::TAG::ENEMY_WEPON && tag2 == Collider::TAG::PLAYER_WEPON
+		|| tag2 == Collider::TAG::ENEMY_WEPON && tag1 == Collider::TAG::PLAYER_WEPON)
+	{
+		//当たり判定しない
+		ret = false;
+	}
 
 	return ret;
 }

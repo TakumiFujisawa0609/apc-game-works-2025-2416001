@@ -6,6 +6,7 @@
 #include "../Wepon/WeponBase.h"
 
 class WeponBase;
+class Collider;
 
 class WeponManager
 {
@@ -24,7 +25,7 @@ public:
 	const std::vector<std::shared_ptr<WeponBase>>& GetWepons(void) const { return wepons_; }
 
 	//ïêäÌÇÃêÿÇËë÷Ç¶èàóù
-	void ChangeWepon(WeponBase::WEPON_TYPE type, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos = AsoUtility::VECTOR_ZERO);
+	void ChangeWepon(WeponBase::WEPON_TYPE type, Collider::TAG tag, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos = AsoUtility::VECTOR_ZERO);
 
 private:
 

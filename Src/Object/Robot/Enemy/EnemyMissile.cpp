@@ -79,6 +79,7 @@ void EnemyMissile::ProcessAttack(void)
     if (stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::MISSILE,
+            Collider::TAG::ENEMY_WEPON,
             trans_.pos,
             trans_.targetDir,
             missileCnt_,

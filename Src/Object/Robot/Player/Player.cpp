@@ -312,6 +312,7 @@ void Player::ProcessAttack(void)
     if (IsBeam && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
+            Collider::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir,
             beamCnt_);
@@ -323,6 +324,7 @@ void Player::ProcessAttack(void)
     if (IsMissile && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::MISSILE,
+            Collider::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir, 
             missileCnt_,
@@ -404,29 +406,23 @@ void Player::UpdateWepon(void)
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
-
-    if (debug_ == true)
-    {
-        DrawString(0, 80, "ìñÇΩÇ¡ÇƒÇ¢ÇÈ",false);
-    }
 }
 
-void Player::OnHit(const std::weak_ptr<Collider> hitCol)
-{
-    debug_ = false;
-
-    if (hp_ <= 0) {
-       ChangeState(STATE::DEAD);
-       return;
-   }
-
-    for (auto tag : hitCol.lock()->GetTags())
-    {
-        if (tag == Collider::TAG::ENEMY)
-        {
-            debug_ = true;
-        }
-    }
+void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
+{  
+  /* if (auto collider = hitCol.lock()){  
+       for (const auto& tag : collider->GetTags())  {  
+           for (const auto& dir : { collider->GetHitMoveDir() }){  
+               if (tag == Collider::TAG::ENEMY){  
+                   trans_.pos = VAdd(trans_.pos, VScale(dir, 100.0f));
+                   hp_ -= 1;  
+               }  
+               if (tag == Collider::TAG::ENEMY_WEPON){  
+                   hp_ -= 1;  
+               }  
+           }  
+       }  
+   }  */
 }
 
 void Player::ChangeStandby(void)
@@ -457,6 +453,7 @@ void Player::ChangeEnd(void)
 
 void Player::UpdateStandby(void)
 {
+
     UpdateWepon();
 
     //à⁄ìÆèàóù

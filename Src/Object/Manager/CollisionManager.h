@@ -10,8 +10,9 @@ class Geometry;
 class CollisionManager
 {
 public:
-		//当たり判定をする範囲
+	//当たり判定をする範囲
 	static constexpr float HIT_RANGE_NORMAL = 1000.0f;	//通常の当たり判定距離
+	static constexpr float HIT_RANGE_WEPON = 10000.0f;	//武器の当たり判定距離
 
 	//更新用
 	static constexpr int COL_UPDATE_FRAME = 0;		//更新フレーム
@@ -115,7 +116,7 @@ private:
 	/// <param name="_tag1">1つ目のタグ</param>
 	/// <param name="_tag2">2つ目のタグ</param>
 	/// <returns>true:当たり判定をする</returns>
-	const bool JudgeIsColTag(const Collider::TAG _tag1, const Collider::TAG _tag2)const;
+	const bool JudgeIsColTag(const Collider::TAG tag1, const Collider::TAG tag2)const;
 
 	/// <summary>
 	/// 当たり判定

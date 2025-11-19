@@ -155,4 +155,6 @@ public:
 
 	static float ClampFloat(float value, float minVal, float maxVal);
 
+	static VECTOR 
+
 };

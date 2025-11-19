@@ -91,6 +91,15 @@ void EnemyBase::ProcessMove(void)
 
 void EnemyBase::ProcessRise(void)
 {
+    if (trans_.pos.y > 0)
+    {
+        trans_.pos.y -= GRAVITY;
+    }
+    else {
+        trans_.pos.y = 0;
+    }
+
+    MV1SetPosition(trans_.modelId, trans_.pos);
 }
 
 void EnemyBase::ProcessTargetLock(void)
@@ -166,8 +175,8 @@ void EnemyBase::UpdateStandby(void)
     //ˆÚ“®ˆ—
     ProcessMove();
 
-    ////ã¸ˆ—
-    //ProcessRise();
+    //ã¸ˆ—
+    ProcessRise();
 
     //UŒ‚ˆ—
     ProcessAttack();
@@ -232,6 +241,20 @@ void EnemyBase::DrawHp(void)
 
 void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
 {
+    if (auto collider = hitCol.lock()) {
+        for (const auto& tag : collider->GetTags()) {
+            for (const auto& dir : { collider->GetHitMoveDir() }) {
+                if (tag == Collider::TAG::PLAYER) {
+                    VECTOR nockbackDir = { -trans_.moveDir.x, -trans_.moveDir.y, -trans_.moveDir.z };
+                    trans_.pos = VAdd(trans_.pos, VScale(nockbackDir, 100.0f));
+                    hp_ -= 1;
+                }
+                if (tag == Collider::TAG::PLAYER_WEPON) {
+                    hp_ -= 1;
+                }
+            }
+        }
+    }
 }
 
 void EnemyBase::Damage(void)

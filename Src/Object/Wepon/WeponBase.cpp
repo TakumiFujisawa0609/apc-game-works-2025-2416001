@@ -1,6 +1,7 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Utility/MatrixUtility.h"
 #include "../Common/Transform.h"
+#include "../Common/Geometry/Sphere.h"
 #include "WeponBase.h"
 
 WeponBase::WeponBase(WEPON_TYPE type)
@@ -20,7 +21,7 @@ void WeponBase::Init(void)
 	SetParam();
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir)
+void WeponBase::Init(VECTOR pos, VECTOR dir, Collider::TAG tag)
 {
 	// 画像やモデルなどのロード
 	Load();
@@ -31,9 +32,12 @@ void WeponBase::Init(VECTOR pos, VECTOR dir)
 	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
+
+	std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
+	MakeCollider({ tag }, std::move(geo));
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
+void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag)
 {
 	// 画像やモデルなどのロード
 	Load();
@@ -46,6 +50,8 @@ void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
 	targetPos_ = targetPos;
 	isAlive_ = true;
 
+	std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
+	MakeCollider({ tag }, std::move(geo));
 }
 
 void WeponBase::Update(void)

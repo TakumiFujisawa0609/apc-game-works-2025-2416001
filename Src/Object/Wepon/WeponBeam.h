@@ -17,7 +17,7 @@ public:
 	static constexpr float MAX_BEAM_DIFF = 50000.0f;
 
 	//ÉrÅ[ÉÄÇÃë¨ìx
-	static constexpr float DEFAULT_SPEED = 500.0f;
+	static constexpr float DEFAULT_SPEED = 400.0f;
 
 	//è’ìÀîºåa
 	static constexpr float DEFALUT_RADIUS = 15.0f;

@@ -70,7 +70,7 @@ public:
 	const float& GetCillisionRadius(void) { return trans_.Radius_; }
 
 	//“–‚½‚è”»’èÀ•Wæ“¾
-	const VECTOR& GetCillisionPos(void)const {return VAdd(trans_.cillisionPos, trans_.pos); }
+	const VECTOR& GetCillisionPos(void)const { return trans_.cillisionPos; }
 
 protected:
 
@@ -169,5 +169,6 @@ protected:
 	virtual void DrawDead(void) = 0;
 	virtual void DrawVictory(void) = 0;
 	virtual void DrawEnd(void) = 0;
+
 };
 

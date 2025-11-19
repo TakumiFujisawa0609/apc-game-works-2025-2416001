@@ -51,6 +51,7 @@ void RobotBase::Init(void)
 
 void RobotBase::Update(void)
 {
+
     if (!IsAlive())
     {
         return;
@@ -82,7 +83,10 @@ void RobotBase::Update(void)
 
     //íxâÑâÒì]èàóù
     DelayRotate();
-
+    trans_.cillisionPos = {
+        trans_.pos.x,
+        trans_.pos.y + trans_.cillisionPos.y,
+    trans_.pos.z };
     MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetPosition(weponModel.modelId, weponModel.pos);
 

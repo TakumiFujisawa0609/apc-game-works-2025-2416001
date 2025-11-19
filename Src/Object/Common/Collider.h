@@ -3,6 +3,7 @@
 #include"Geometry/Geometry.h"
 
 class ObjectBase;
+class Transform;
 
 class Collider
 {
@@ -23,28 +24,50 @@ public :
 		STAGE,
 	};
 
+	struct HIT_OBJECT
+	{
+		//親
+		ObjectBase& parent;
+
+		// 衝突用タグ
+		std::set<TAG> tags;
+
+		//当たり判定の形状
+		Geometry& geometry;
+
+		// 衝突しないタグ
+		std::set<TAG> notHitTags;
+
+		VECTOR& dir;
+	};
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="_tags">自身の衝突用タグ</param>
 	/// <param name="_geometry">当たり判定の形状</param>
 	/// <param name="_notHitTags">衝突させないタグ</param>
-	Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags);
+	Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& dir);
 
 	// デストラクタ
 	~Collider(void);
 
+	inline const HIT_OBJECT GetHitObject(void)const { return hitObj_; }
+
 	//衝突用タグの取得
-	inline const std::set<TAG> GetTags(void)const { return tags_; }
+	inline const std::set<TAG> GetTags(void)const { return  hitObj_.tags; }
+
+	//衝突用方向ベクトルを取得
+	inline VECTOR& GetHitMoveDir(void)const { return  hitObj_.dir; }
 
 	//当たり判定の形状を取得
-	inline Geometry& GetGeometry(void)const { return geometry_; }
+	inline Geometry& GetGeometry(void)const { return  hitObj_.geometry; }
 
 	//衝突させないタグの取得
-	inline const std::set<TAG> GetNotHitTags(void)const { return notHitTags_; }
+	inline const std::set<TAG> GetNotHitTags(void)const { return  hitObj_.notHitTags; }
 
 	//親を取得
-	inline const ObjectBase& GetParent(void)const { return parent_; }
+	inline const ObjectBase& GetParent(void)const { return  hitObj_.parent; }
 
 	//当たったかの判定の取得
 	inline const bool IsHit(void)const { return isHit_; }
@@ -66,17 +89,7 @@ public :
 
 private:
 
-	//親
-	ObjectBase& parent_;
-
-	// 衝突用タグ
-	std::set<TAG> tags_;
-
-	// 衝突しないタグ
-	std::set<TAG> notHitTags_;
-
-	//当たり判定の形状
-	Geometry& geometry_;
+	HIT_OBJECT hitObj_;
 
 	//当たったかの判定
 	bool isHit_;

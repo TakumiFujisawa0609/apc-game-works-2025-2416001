@@ -85,6 +85,7 @@ void EnemyBeam::ProcessAttack(void)
     if (stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
+            Collider::TAG::ENEMY_WEPON,
             trans_.pos,
             trans_.targetDir,
             beamCnt_);
