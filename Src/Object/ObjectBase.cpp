@@ -33,7 +33,7 @@ void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_pt
 	colParam.geometry_ = std::move(_geometry);
 
 	//情報を使ってコライダの作成
-	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags, trans_.moveDir);
+	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags, trans_.pos, trans_.Radius_);
 
 	//コライダを管理マネージャーに追加
 	CollisionManager::GetInstance().AddCollider(colParam.collider_);

@@ -38,7 +38,9 @@ public :
 		// 衝突しないタグ
 		std::set<TAG> notHitTags;
 
-		VECTOR& dir;
+		VECTOR& pos;
+
+		float& radus;
 	};
 
 	/// <summary>
@@ -47,7 +49,7 @@ public :
 	/// <param name="_tags">自身の衝突用タグ</param>
 	/// <param name="_geometry">当たり判定の形状</param>
 	/// <param name="_notHitTags">衝突させないタグ</param>
-	Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& dir);
+	Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& pos, float& radus);
 
 	// デストラクタ
 	~Collider(void);
@@ -57,8 +59,11 @@ public :
 	//衝突用タグの取得
 	inline const std::set<TAG> GetTags(void)const { return  hitObj_.tags; }
 
-	//衝突用方向ベクトルを取得
-	inline VECTOR& GetHitMoveDir(void)const { return  hitObj_.dir; }
+	//衝突用ベクトルを取得
+	inline VECTOR& GetHitMovePos(void)const { return  hitObj_.pos; }
+
+	//衝突用半径を取得
+	inline float& GetHitRadius(void)const { return hitObj_.radus; }
 
 	//当たり判定の形状を取得
 	inline Geometry& GetGeometry(void)const { return  hitObj_.geometry; }

@@ -1,37 +1,5 @@
-﻿  Application.cpp
-  Camera.cpp
-  CollisionManager.cpp
-  EnemyManager.cpp
-  ObjectBase.cpp
-  EnemyBase.cpp
-  EnemyBeam.cpp
-  EnemyMissile.cpp
-  Player.cpp
-  RobotBase.cpp
-  GameScene.cpp
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Manager/EnemyManager.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  EnemyBase.cpp
+C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
   
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBeam.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyMissile.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Player/Player.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\Player\Player.cpp(34,1): warning C4172: ローカル変数またはテンポラリ  のアドレスを返します
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Manager/Camera.cpp' をコンパイルしています)
-  
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
-  
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+  BaseProject.vcxproj -> C:\AGS2025fuyu\x64\Debug\BaseProject.exe

@@ -243,10 +243,11 @@ void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
 {
     if (auto collider = hitCol.lock()) {
         for (const auto& tag : collider->GetTags()) {
-            for (const auto& dir : { collider->GetHitMoveDir() }) {
+            for (const auto& pos : { collider->GetHitMovePos() }) {
+                for(const auto& radius : {collider->GetHitRadius()})
                 if (tag == Collider::TAG::PLAYER) {
-                    VECTOR nockbackDir = { -trans_.moveDir.x, -trans_.moveDir.y, -trans_.moveDir.z };
-                    trans_.pos = VAdd(trans_.pos, VScale(nockbackDir, 100.0f));
+                    VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, pos, radius);
+                    trans_.pos = VSub(newVec, trans_.pos);
                     hp_ -= 1;
                 }
                 if (tag == Collider::TAG::PLAYER_WEPON) {

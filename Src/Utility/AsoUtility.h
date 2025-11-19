@@ -155,6 +155,6 @@ public:
 
 	static float ClampFloat(float value, float minVal, float maxVal);
 
-	static VECTOR 
+	static VECTOR GetResolve(const VECTOR& pos1, const float r1, const VECTOR& pos2, const float r2);
 
 };

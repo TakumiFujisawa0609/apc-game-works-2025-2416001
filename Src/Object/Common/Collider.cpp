@@ -4,8 +4,8 @@
 #include "Collider.h"
 
 
-Collider::Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& dir):
-	hitObj_{ parent, tags, geometry, notHitTags, dir}
+Collider::Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& pos, float& radus):
+	hitObj_{ parent, tags, geometry, notHitTags, pos, radus}
 {
 }
 

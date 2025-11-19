@@ -631,3 +631,20 @@ float AsoUtility::ClampFloat(float value, float minVal, float maxVal)
     if (value > maxVal) return maxVal;
     return value;
 }
+
+VECTOR AsoUtility::GetResolve(const VECTOR& pos1, const float r1, const VECTOR& pos2, const float r2)
+{
+    VECTOR diff = VSub(pos2, pos1);
+    float diffSize = VSize(diff);
+    if (diffSize == 0)
+    {
+        return DIR_B;
+    }
+
+    VECTOR collisionDiff = { diff.x / diffSize, diff.y / diffSize, diff.z / diffSize };
+    float radiusDepth = (r1 + r2) - diffSize;
+
+    VECTOR newVec = VScale(collisionDiff, (radiusDepth / 1.5f));
+
+    return newVec;
+}
