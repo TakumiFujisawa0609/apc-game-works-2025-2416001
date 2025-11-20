@@ -7,7 +7,7 @@
 #include "Manager/SoundManager.h"
 #include "Object/Manager/CollisionManager.h"
 
-#include "./FpsControl/FpsControl.h"
+#include "./FpsControl/FpsController.h"
 #include "Application.h"
 
 Application* Application::instance_ = nullptr;
@@ -42,6 +42,9 @@ void Application::Init(void)
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
 	ChangeWindowMode(true);
 
+	// FPS制御初期化
+	fps_ = std::make_unique<FpsController>(FRAME_RATE);
+
 	// DxLibの初期化
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 	isInitFail_ = false;
@@ -56,10 +59,6 @@ void Application::Init(void)
 
 	// キー制御初期化
 	SetUseDirectInputFlag(true);
-
-	// FPS初期化
-	fps_ = std::make_unique<FpsControl>();
-	fps_->Init();
 
 	// リソース管理初期化
 	ResourceManager::CreateInstance();
@@ -82,25 +81,24 @@ void Application::Run(void)
 	// ゲームループ
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
-		//フレームレートを更新
-		if (!fps_->UpdateFrameRate()) continue;
 
 		InputManager::GetInstance().Update();
 
+		CollisionManager::GetInstance().Sweep();
 		CollisionManager::GetInstance().Update();
 
 		SceneManager::GetInstance().Update();
 		SceneManager::GetInstance().Draw();
 
-		//フレームレート計算
-		fps_->CalcFrameRate();
-
+#ifdef _DEBUG
+		// 平均FPS描画
+		fps_->Draw();
+#endif
 		ScreenFlip();
 
-
-
+		// 理想FPS経過待ち
+		fps_->Wait();
 	}
-
 }
 
 void Application::Destroy(void)

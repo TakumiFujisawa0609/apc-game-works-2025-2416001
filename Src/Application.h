@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
-class FpsControl;
+class FpsController;
 class Application
 {
 
@@ -10,6 +10,9 @@ public:
 	// スクリーンサイズ
 	static constexpr int SCREEN_SIZE_X = 1024;
 	static constexpr int SCREEN_SIZE_Y = 640;
+
+	// 固定FPS
+	static constexpr int FRAME_RATE = 60;
 
 	// データパス関連
 	//-------------------------------------------
@@ -48,7 +51,7 @@ private:
 	static Application* instance_;
 
 	//FPS
-	std::unique_ptr<FpsControl> fps_;
+	std::unique_ptr<FpsController> fps_;
 
 	// 初期化失敗
 	bool isInitFail_;

@@ -1,5 +1,2 @@
-﻿  EnemyBase.cpp
-C:\AGS2025fuyu\Src\Object\Robot\RobotBase.h(57,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
-  
-  BaseProject.vcxproj -> C:\AGS2025fuyu\x64\Debug\BaseProject.exe
+﻿  Application.cpp
+  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe

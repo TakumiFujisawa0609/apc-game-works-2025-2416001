@@ -41,6 +41,8 @@ public:
 	//ヒット処理
 	virtual void OnHit(const std::weak_ptr<Collider> hitCol);
 
+	void ColliderClear(void);
+
 protected:
 
 	// シングルトン参照

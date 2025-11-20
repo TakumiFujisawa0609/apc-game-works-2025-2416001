@@ -92,6 +92,8 @@ public :
 	/// <param name="_collider">‘ŠŽè‚ÌƒRƒ‰ƒCƒ_</param>
 	void OnHit(const std::weak_ptr<Collider> _collider);
 
+	void Clear(void);
+
 private:
 
 	HIT_OBJECT hitObj_;

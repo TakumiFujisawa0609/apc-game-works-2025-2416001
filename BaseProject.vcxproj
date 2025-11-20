@@ -34,7 +34,7 @@
     <ClCompile Include="Src\Object\Robot\Player\Player.cpp" />
     <ClCompile Include="Src\Object\Common\Grid.cpp" />
     <ClCompile Include="Src\Object\Robot\RobotBase.cpp" />
-    <ClCompile Include="Src\FpsControl\FpsControl.cpp" />
+    <ClCompile Include="Src\FpsControl\FpsController.cpp" />
     <ClCompile Include="Src\Manager\Camera.cpp" />
     <ClCompile Include="Src\Manager\DataBank.cpp" />
     <ClCompile Include="Src\Manager\Sound.cpp" />
@@ -81,7 +81,7 @@
     <ClInclude Include="Src\Object\Robot\Player\Player.h" />
     <ClInclude Include="Src\Object\Common\Grid.h" />
     <ClInclude Include="Src\Object\Robot\RobotBase.h" />
-    <ClInclude Include="Src\FpsControl\FpsControl.h" />
+    <ClInclude Include="Src\FpsControl\FpsController.h" />
     <ClInclude Include="Src\Manager\Camera.h" />
     <ClInclude Include="Src\Manager\DataBank.h" />
     <ClInclude Include="Src\Manager\Sound.h" />

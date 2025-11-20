@@ -24,6 +24,11 @@ void ObjectBase::OnHit(const std::weak_ptr<Collider> hitCol)
 {
 }
 
+void ObjectBase::ColliderClear(void)
+{
+	colParam_.clear();
+}
+
 void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
 {
 	//“–‚½‚è”»’èî•ñ

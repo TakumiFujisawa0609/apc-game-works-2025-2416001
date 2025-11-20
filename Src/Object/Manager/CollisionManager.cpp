@@ -47,6 +47,11 @@ void CollisionManager::Update(void)
 		updateFrame_++;
 		return;
 	}
+	
+	for (auto& col : colliders_)
+	{
+		col->Clear();
+	}
 
 	for (int i = 0; i < colliders_.size() - 1; i++)
 	{

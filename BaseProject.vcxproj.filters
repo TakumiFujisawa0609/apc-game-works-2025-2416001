@@ -120,7 +120,7 @@
     <ClCompile Include="Src\Object\Common\EffectController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\FpsControl\FpsControl.cpp">
+    <ClCompile Include="Src\FpsControl\FpsController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Manager\DataBank.cpp">
@@ -257,7 +257,7 @@
     <ClInclude Include="Src\Object\Common\EffectController.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\FpsControl\FpsControl.h">
+    <ClInclude Include="Src\FpsControl\FpsController.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Manager\DataBank.h">
