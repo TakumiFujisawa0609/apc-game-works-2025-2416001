@@ -24,11 +24,6 @@ void ObjectBase::OnHit(const std::weak_ptr<Collider> hitCol)
 {
 }
 
-void ObjectBase::ColliderClear(void)
-{
-	colParam_.clear();
-}
-
 void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
 {
 	//当たり判定情報
@@ -38,7 +33,7 @@ void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_pt
 	colParam.geometry_ = std::move(_geometry);
 
 	//情報を使ってコライダの作成
-	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags, trans_.pos, trans_.Radius_);
+	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags);
 
 	//コライダを管理マネージャーに追加
 	CollisionManager::GetInstance().AddCollider(colParam.collider_);

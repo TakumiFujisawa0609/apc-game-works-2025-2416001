@@ -4,8 +4,10 @@
 #include "Collider.h"
 
 
-Collider::Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags, VECTOR& pos, float& radus):
-	hitObj_{ parent, tags, geometry, notHitTags, pos, radus}
+Collider::Collider(ObjectBase& parent, const std::set<TAG> tags, Geometry& geometry, const std::set<TAG> notHitTags):
+	hitObj_{ parent, geometry},
+	tags_(tags),
+    notHitTags_(notHitTags)
 {
 	isHit_ = false;
 	isDead_ = false;
@@ -22,9 +24,4 @@ void Collider::OnHit(const std::weak_ptr<Collider> _collider)
 
 	//親に相手のコライダを渡す
 	hitObj_.parent.OnHit(_collider);
-}
-
-void Collider::Clear(void)
-{
-	hitObj_.parent.ColliderClear();
 }

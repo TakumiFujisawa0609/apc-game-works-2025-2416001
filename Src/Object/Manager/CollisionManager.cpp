@@ -47,16 +47,30 @@ void CollisionManager::Update(void)
 		updateFrame_++;
 		return;
 	}
-	
-	for (auto& col : colliders_)
+
+	for (auto& collider : colliders_)
 	{
-		col->Clear();
+		if (collider && !collider->IsDead())
+		{
+			// 各コライダの当たり判定フラグをリセット
+			collider->NotHit();
+		}
 	}
 
 	for (int i = 0; i < colliders_.size() - 1; i++)
 	{
+		// 無効なコライダはスキップ
+		if (!colliders_[i] || colliders_[i]->IsDead())
+		{
+			continue;
+		}
 		for (int j = i + 1; j < colliders_.size(); j++)
 		{
+			// 無効なコライダはスキップ
+			if (!colliders_[j] || colliders_[j]->IsDead())
+			{
+				continue;
+			}
 			//当たり判定をするか
 			if (!JudgeIsCollision(i, j))
 			{

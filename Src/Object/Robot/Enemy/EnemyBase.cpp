@@ -241,19 +241,16 @@ void EnemyBase::DrawHp(void)
 
 void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
 {
-    if (auto collider = hitCol.lock()) {
-        for (const auto& tag : collider->GetTags()) {
-            for (const auto& pos : { collider->GetHitMovePos() }) {
-                for (const auto& radius : { collider->GetHitRadius() })
-                    if (tag == Collider::TAG::PLAYER
-                        || tag == Collider::TAG::ENEMY) {
-                    VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, pos, radius);
-                    trans_.pos = VSub(trans_.pos, newVec);
-                }
-                if (tag == Collider::TAG::PLAYER_WEPON) {
-                    hp_ -= 1;
-                }
-            }
+
+    for (const auto& tag : hitCol.lock()->GetTags()) {
+        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform()})
+        if (tag == Collider::TAG::PLAYER
+            || tag == Collider::TAG::ENEMY) {
+            VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
+            trans_.pos = VSub(trans_.pos, newVec);
+        }
+        if (tag == Collider::TAG::PLAYER_WEPON) {
+            hp_ -= 1;
         }
     }
 }

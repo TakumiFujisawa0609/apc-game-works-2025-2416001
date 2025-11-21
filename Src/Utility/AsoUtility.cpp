@@ -644,7 +644,7 @@ VECTOR AsoUtility::GetResolve(const VECTOR& pos1, const float r1, const VECTOR& 
     VECTOR collisionDiff = { diff.x / diffSize, diff.y / diffSize, diff.z / diffSize };
     float radiusDepth = (r1 + r2) - diffSize;
 
-    VECTOR newVec = VScale(collisionDiff, (radiusDepth / 1.5f));
+    VECTOR newVec = VScale(collisionDiff, radiusDepth);
 
     return newVec;
 }
