@@ -105,9 +105,6 @@
     <ClCompile Include="Src\Object\Common\AnimationController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Collider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Common\Transform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -159,9 +156,6 @@
     <ClCompile Include="Src\Object\Manager\WeponManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Manager\CollisionManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Manager\EnemyManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -174,22 +168,22 @@
     <ClCompile Include="Src\Object\Common\HpBer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Capsule.cpp">
+    <ClCompile Include="Src\Object\Common\Geometry\ColliderCapsule.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Cube.cpp">
+    <ClCompile Include="Src\Object\Common\Geometry\ColliderBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Geometry.cpp">
+    <ClCompile Include="Src\Object\Common\Geometry\ColliderLine.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Line.cpp">
+    <ClCompile Include="Src\Object\Common\Geometry\ColliderModel.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Model.cpp">
+    <ClCompile Include="Src\Object\Common\Geometry\ColliderSphere.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Sphere.cpp">
+    <ClCompile Include="Src\Object\Manager\CollisionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -240,9 +234,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Common\AnimationController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Collider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Common\Transform.h">
@@ -296,9 +287,6 @@
     <ClInclude Include="Src\Object\Manager\WeponManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Manager\CollisionManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Manager\EnemyManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -311,22 +299,22 @@
     <ClInclude Include="Src\Object\Common\HpBer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Capsule.h">
+    <ClInclude Include="Src\Object\Common\Geometry\ColliderCapsule.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Cube.h">
+    <ClInclude Include="Src\Object\Common\Geometry\ColliderBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Geometry.h">
+    <ClInclude Include="Src\Object\Common\Geometry\ColliderLine.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Line.h">
+    <ClInclude Include="Src\Object\Common\Geometry\ColliderModel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Model.h">
+    <ClInclude Include="Src\Object\Common\Geometry\ColliderSphere.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Sphere.h">
+    <ClInclude Include="Src\Object\Manager\CollisionManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

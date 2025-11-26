@@ -41,8 +41,6 @@ public:
 
 	VECTOR GetStatePos(void) { return statePos_; }
 
-	void OnHit(const std::weak_ptr<Collider> hitCol)override;
-
 protected:
 	//カプセル先頭座標
 	VECTOR statePos_;

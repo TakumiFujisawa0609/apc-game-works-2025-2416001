@@ -36,12 +36,15 @@ const float& Player::GetDegreep(void) const
 
 void Player::Damage(void)
 {
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+    }
 }
 
 void Player::InitLoad(void)
 {
     trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
-    weponModel.SetModel(resMng_.LoadModelDuplicate(ResourceManager::SRC::WEPON));
+    weponModel = 0;
 }
 
 void Player::InitTransform(void)
@@ -93,9 +96,6 @@ void Player::InitPost(void)
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
-
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
-    MakeCollider({ Collider::TAG::PLAYER }, std::move(geo), { Collider::TAG::PLAYER_WEPON });
 }
 
 void Player::ProcessMove(void)
@@ -406,23 +406,6 @@ void Player::UpdateWepon(void)
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
-}
-
-void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
-{  
-  /* if (auto collider = hitCol.lock()){  
-       for (const auto& tag : collider->GetTags())  {  
-           for (const auto& dir : { collider->GetHitMoveDir() }){  
-               if (tag == Collider::TAG::ENEMY){  
-                   trans_.pos = VAdd(trans_.pos, VScale(dir, 100.0f));
-                   hp_ -= 1;  
-               }  
-               if (tag == Collider::TAG::ENEMY_WEPON){  
-                   hp_ -= 1;  
-               }  
-           }  
-       }  
-   }  */
 }
 
 void Player::ChangeStandby(void)

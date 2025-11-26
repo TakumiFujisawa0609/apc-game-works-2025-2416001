@@ -43,9 +43,6 @@ void EnemyBase::Init(void)
     // íeî≠éÀÇÃçdíºéûä‘
     stepShotDelay_ = 0.0f;
 
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
-    MakeCollider({ Collider::TAG::ENEMY }, std::move(geo), { Collider::TAG::ENEMY_WEPON });
-
     //èÛë‘ëJà⁄èâä˙ê›íË
     ChangeState(STATE::STANDBY);
 }
@@ -239,45 +236,10 @@ void EnemyBase::DrawHp(void)
     hpBer_->Draw();
 }
 
-void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
-{
-
-    for (const auto& tag : hitCol.lock()->GetTags()) {
-        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform()})
-        if (tag == Collider::TAG::PLAYER
-            || tag == Collider::TAG::ENEMY) {
-            VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
-            trans_.pos = VSub(trans_.pos, newVec);
-        }
-        if (tag == Collider::TAG::PLAYER_WEPON) {
-            hp_ -= 1;
-        }
-    }
-}
-
 void EnemyBase::Damage(void)
 {
-
-    //if (hp_ <= 0) {
-    //    ChangeState(STATE::DEAD);
-    //    return;
-    //}
-
-    //CollisinManager::HitObject hitObject_ = hitObject;
-
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
-    //    hp_ -= 1;
-    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 50.0f));
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
-    //    hp_ -= 3;
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
-    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 10.0f));
-    //}
-
-    //MV1SetPosition(trans_.modelId, trans_.pos);
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+    }
 }
 
