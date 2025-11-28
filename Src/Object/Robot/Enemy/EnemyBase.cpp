@@ -4,7 +4,6 @@
 #include "../../Common/AnimationController.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
-#include "../../Common/Geometry/Sphere.h"
 #include "EnemyBase.h"
 
 EnemyBase::EnemyBase(void)
@@ -17,16 +16,8 @@ EnemyBase::~EnemyBase(void)
 
 void EnemyBase::Init(void)
 {
-    // リソースロード
-    InitLoad();
-    // Transform初期化
-    InitTransform();
-    // 大きさ、回転、座標のモデル設定
-    InitTransformPost();
-    // アニメーションの初期化
-    InitAnimation();
-    // 初期化後の個別処理
-    InitPost();
+    ObjectBase::Init();
+
     //ランダムな出現座標
     SetSpawnPostiton();
 

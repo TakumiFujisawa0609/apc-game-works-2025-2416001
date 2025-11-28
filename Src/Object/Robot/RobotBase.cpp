@@ -21,22 +21,9 @@ RobotBase::~RobotBase(void)
 
 void RobotBase::Init(void)
 {
-    // リソースロード
-    InitLoad();
-    // Transform初期化
-    InitTransform();
-    // 大きさ、回転、座標のモデル設定
-    InitTransformPost();
-    // アニメーションの初期化
-    InitAnimation();
-    // 初期化後の個別処理
-    InitPost();
+    ObjectBase::Init();
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
     MV1SetPosition(weponModel.modelId, weponModel.pos);
-
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
     MV1SetRotationMatrix(weponModel.modelId,
         MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
 
@@ -108,6 +95,13 @@ void RobotBase::Draw(void)
         return;
     }
 
+#ifdef _DEBUG
+    // 所有しているコライダの描画
+    for (const auto& own : ownColliders_)
+    {
+        own.second->Draw();
+    }
+#endif // _DEBUG
 
     MV1DrawModel(trans_.modelId);
     MV1DrawModel(weponModel.modelId);
@@ -141,11 +135,18 @@ void RobotBase::Draw(void)
 
 void RobotBase::Release(void)
 {
+
     MV1DeleteModel(trans_.modelId);
     MV1DeleteModel(weponModel.modelId);
 
     useWepon_->Release();
     delete hpBer_;
+
+    // 自身のコライダ解放
+    for (auto& own : ownColliders_)
+    {
+        delete own.second;
+    }
 }
 
 void RobotBase::ChangeState(STATE state)
@@ -175,25 +176,6 @@ void RobotBase::ChangeState(STATE state)
     default:
         break;
     }
-}
-
-void RobotBase::InitTransformPost(void)
-{
-    // 大きさをモデルに反映
-    MV1SetScale(trans_.modelId, trans_.scl);
-    MV1SetScale(weponModel.modelId, weponModel.scl);
-    // 角度から方向に変換する
-    trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
-    weponModel.moveDir = { sinf(weponModel.rot.y), 0.0f, cosf(weponModel.rot.y) };
-    // 行列の合成(子, 親と指定すると親⇒子の順に適用される)
-    // 回転行列をモデルに反映
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-    MV1SetRotationMatrix(weponModel.modelId,
-        MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
-    // 座標をモデルに反映
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetPosition(weponModel.modelId, weponModel.pos);
 }
 
 void RobotBase::DelayRotate(void)

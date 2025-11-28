@@ -125,17 +125,6 @@ protected:
 	// 状態遷移
 	virtual void ChangeState(STATE state);
 
-	// リソースロード
-	virtual void InitLoad(void) = 0;
-	// 大きさ、回転、座標の初期化
-	virtual void InitTransform(void) = 0;
-	// 大きさ、回転、座標のモデル設定
-	void InitTransformPost(void);
-	// アニメーションの初期化
-	virtual void InitAnimation(void) = 0;
-	// 初期化後の個別処理
-	virtual void InitPost(void) = 0;
-
 	//移動処理
 	virtual void ProcessMove(void) = 0;
 	//キャラの遅延回転処理

@@ -30,6 +30,7 @@ void Model::AddExcludeFrameIds(const std::string& name)
 
 void Model::ClearExcludeFrame(void)
 {
+	excludeFrameIds_.clear();
 }
 
 bool Model::IsExcludeFrame(int frameIdx) const
