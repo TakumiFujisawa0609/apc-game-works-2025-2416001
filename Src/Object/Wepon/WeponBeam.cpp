@@ -1,5 +1,6 @@
 #include "../../Utility/MatrixUtility.h"
 #include "../../Utility/AsoUtility.h"
+#include "../Common/Geometry/ColliderCapsule.h"
 #include "WeponBeam.h"
 
 WeponBeam::WeponBeam(WEPON_TYPE type):
@@ -51,6 +52,12 @@ void WeponBeam::InitTransform(void)
 
 void WeponBeam::InitCollider(void)
 {
+	// カプセルコライダ
+	ColliderCapsule* colCapsule = new ColliderCapsule(
+		ColliderBase::TAG::PLAYER, &trans_,
+		statePos_, trans_.pos,
+		trans_.Radius_);
+	ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
 }
 
 void WeponBeam::InitPost(void)

@@ -24,6 +24,8 @@ void ObjectBase::Init(void)
 	InitTransform();
 	// 大きさ、回転、座標のモデル設定
 	InitTransformPost();
+	// 衝突判定の初期化
+	InitCollider();
 	// アニメーションの初期化
 	InitAnimation();
 	// 初期化後の個別処理
@@ -43,19 +45,16 @@ const ColliderBase* ObjectBase::GetOwnCollider(int key) const
 	return ownColliders_.at(key);
 }
 
-void ObjectBase::AddHitCollider(const std::vector<const ColliderBase*> hitColliders)
+void ObjectBase::AddHitCollider(const ColliderBase* hitCollider)
 {
 	for (const auto& c : hitColliders_)
 	{
-		for (const auto& hitCollider : hitColliders)
+		if (c == hitCollider)
 		{
-			if (c == hitCollider)
-			{
-				return;
-			}
+			return;
 		}
 	}
-	hitColliders_ = hitColliders;
+	hitColliders_.emplace_back(hitCollider);
 }
 
 void ObjectBase::ClearHitCollider(void)

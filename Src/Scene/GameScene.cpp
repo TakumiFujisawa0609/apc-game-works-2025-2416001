@@ -101,20 +101,17 @@ void GameScene::Release(void)
 
 void GameScene::InitCollision(void)
 {
-	std::vector<const ColliderBase*> colliders;
+	const ColliderBase* playerCollider =
+		player_->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
+	enemy_->AddHitCollider(playerCollider);
 
-	colliders.emplace_back(
-		player_->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL)));
-
-	auto& enemys = enemys_->GetEnemys();
-	for (auto& enemy : enemys)
+	/*auto& enemys = enemys_->GetEnemys();
+	for(auto& enemy : enemys)
 	{
-		colliders.emplace_back(
-			enemy->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL)));
-	}
-
-	player_->AddHitCollider(colliders);
-	enemy_->AddHitCollider(colliders);
+		const ColliderBase* enemyCollider =
+			enemy->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
+		player_->AddHitCollider(enemyCollider);
+	}*/
 }
 
 void GameScene::UpdateAutoLockOn(void)

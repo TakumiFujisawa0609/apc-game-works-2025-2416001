@@ -46,7 +46,7 @@ public:
 	const ColliderBase* GetOwnCollider(int key) const;
 
 	// 衝突対象となるコライダを登録
-	void AddHitCollider(std::vector<const ColliderBase*> hitColliders);
+	void AddHitCollider(const ColliderBase* hitCollider);
 
 	// 衝突対象となるコライダをクリア
 	void ClearHitCollider(void);
