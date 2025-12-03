@@ -5,7 +5,6 @@
 #include "Manager/InputManager.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/SoundManager.h"
-#include "Object/Manager/CollisionManager.h"
 
 #include "./FpsControl/FpsController.h"
 #include "Application.h"
@@ -67,9 +66,6 @@ void Application::Init(void)
 	SoundManager::CreateInstance();
 	SoundManager::GetInstance().Init();
 
-	//“–‚½‚è”»’èŠÇ—‰Šú‰»
-	CollisionManager::CreateInstance();
-
 	SceneManager::CreateInstance();
 	InputManager::CreateInstance();
 
@@ -83,9 +79,6 @@ void Application::Run(void)
 	{
 
 		InputManager::GetInstance().Update();
-
-		CollisionManager::GetInstance().Sweep();
-		CollisionManager::GetInstance().Update();
 
 		SceneManager::GetInstance().Update();
 		SceneManager::GetInstance().Draw();
@@ -117,7 +110,6 @@ void Application::Destroy(void)
 	InputManager::GetInstance().Destroy();
 	ResourceManager::GetInstance().Release();
 	SoundManager::GetInstance().Destroy();
-	CollisionManager::GetInstance().Destroy();
 
 	delete instance_;
 

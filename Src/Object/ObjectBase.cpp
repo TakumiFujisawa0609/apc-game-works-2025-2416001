@@ -43,16 +43,19 @@ const ColliderBase* ObjectBase::GetOwnCollider(int key) const
 	return ownColliders_.at(key);
 }
 
-void ObjectBase::AddHitCollider(const ColliderBase* hitCollider)
+void ObjectBase::AddHitCollider(const std::vector<const ColliderBase*> hitColliders)
 {
 	for (const auto& c : hitColliders_)
 	{
-		if (c == hitCollider)
+		for (const auto& hitCollider : hitColliders)
 		{
-			return;
+			if (c == hitCollider)
+			{
+				return;
+			}
 		}
 	}
-	hitColliders_.emplace_back(hitCollider);
+	hitColliders_ = hitColliders;
 }
 
 void ObjectBase::ClearHitCollider(void)

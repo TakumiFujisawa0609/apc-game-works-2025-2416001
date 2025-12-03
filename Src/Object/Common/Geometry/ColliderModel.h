@@ -3,7 +3,7 @@
 #include <string>
 #include"ColliderBase.h"
 
-class Model : public ColliderBase
+class ColliderModel : public ColliderBase
 {
 public:
 
@@ -13,9 +13,9 @@ public:
 	/// <param name="_pos">追従する親の座標</param>
 	/// <param name="_rot">追従する親の回転</param>
 	/// <param name="_modelId">追従する親のモデルID</param>
-	Model(TAG tag, const Transform* follow);
+	ColliderModel(TAG tag, const Transform* follow);
 	//デストラクタ
-	~Model(void)override;
+	~ColliderModel(void)override;
 
 	// 指定された文字を含むフレームを衝突判定から除外
 	void AddExcludeFrameIds(const std::string& name);

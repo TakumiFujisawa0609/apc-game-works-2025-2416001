@@ -71,10 +71,11 @@ void EnemyBase::SetSpawnPostiton(void)
 void EnemyBase::ProcessMove(void)
 {
     ////移動量を常に減少
-    movePow_ = 11.0f;
+    moveSpeed_ = 11.0f;
 
     // 方向×スピードで移動量を作って、座標に足して移動
-    trans_.pos = VAdd(trans_.pos, VScale(trans_.targetDir, movePow_));
+    
+    movePow_= VAdd(trans_.pos, VScale(trans_.targetDir, moveSpeed_));
 }
 
 void EnemyBase::ProcessRise(void)

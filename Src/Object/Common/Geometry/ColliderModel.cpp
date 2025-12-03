@@ -2,17 +2,17 @@
 #include "../../Common/Transform.h"
 #include "ColliderModel.h"
 
-Model::Model(TAG tag, const Transform* follow)
+ColliderModel::ColliderModel(TAG tag, const Transform* follow)
 	:
 	ColliderBase(SHAPE::MODEL, tag, follow)
 {
 }
 
-Model::~Model(void)
+ColliderModel::~ColliderModel(void)
 {
 }
 
-void Model::AddExcludeFrameIds(const std::string& name)
+void ColliderModel::AddExcludeFrameIds(const std::string& name)
 {
 	// ÉtÉåÅ[ÉÄêîÇéÊìæ
 	int num = MV1GetFrameNum(follow_->modelId);
@@ -28,12 +28,12 @@ void Model::AddExcludeFrameIds(const std::string& name)
 	}
 }
 
-void Model::ClearExcludeFrame(void)
+void ColliderModel::ClearExcludeFrame(void)
 {
 	excludeFrameIds_.clear();
 }
 
-bool Model::IsExcludeFrame(int frameIdx) const
+bool ColliderModel::IsExcludeFrame(int frameIdx) const
 {
 	// èúäOîªíË
 	if (std::find(

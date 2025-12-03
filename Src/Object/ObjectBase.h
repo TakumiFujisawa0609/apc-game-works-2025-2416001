@@ -15,6 +15,13 @@ class ObjectBase
 {
 public:
 
+	// 衝突判定種別
+	enum class COLLIDER_TYPE
+	{
+		MODEL = 0,
+		MAX,
+	};
+
 	// コンストラクタ
 	ObjectBase(void);
 
@@ -39,7 +46,7 @@ public:
 	const ColliderBase* GetOwnCollider(int key) const;
 
 	// 衝突対象となるコライダを登録
-	void AddHitCollider(const ColliderBase* hitCollider);
+	void AddHitCollider(std::vector<const ColliderBase*> hitColliders);
 
 	// 衝突対象となるコライダをクリア
 	void ClearHitCollider(void);

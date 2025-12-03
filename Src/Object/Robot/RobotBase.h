@@ -74,10 +74,15 @@ public:
 
 protected:
 
-	//// 武器
-	//std::unique_ptr<WeponBase> useWepon_;
-	//std::unique_ptr<WeponBeam> weponbeam_;
-	//std::vector<std::unique_ptr<WeponMissile>> weponMissile_;
+	// 最大落下速度
+	static constexpr float MAX_FALL_SPEED = -30.0f;
+
+	// 衝突時の押し戻し試行回数
+	static constexpr int CNT_TRY_COLLISION = 20;
+	// 衝突時の押し戻し量
+	static constexpr float COLLISION_BACK_DIS = 1.0f;
+
+	// 武器
 	std::shared_ptr<WeponManager> useWepon_;
 	Transform weponModel;
 
@@ -91,12 +96,18 @@ protected:
 	//ロックオン座標
 	VECTOR lockOnPos_;
 
-	//上昇量
-	float rise_;
-	//移動量
-	float movePow_;
-	//回転量
-	float rotPow_;
+	// 移動量
+	VECTOR movePow_;
+	// 移動前の座標
+	VECTOR prevPos_;
+	// ジャンプ量
+	VECTOR jumpPow_;
+	// 移動スピード
+	float moveSpeed_;
+	// ジャンプの入力受付時間
+	float stepJump_;
+	// ジャンプ判定
+	bool isJump_;
 
 	//ロック機能入力カウント
 	int lockcnt;
@@ -136,6 +147,14 @@ protected:
 	//対象ロック処理
 	virtual void ProcessTargetLock(void) = 0;
 	virtual void UpdateWepon(void) = 0;
+
+	// 重力計算
+	void CalcGravityPow(void);
+	// 衝突判定
+	virtual void CollisionReserve(void) {}
+	void Collision(void);
+	void CollisionGravity(void);
+	void CollisionCapsule(void);
 
 	// 状態遷移
 	virtual void ChangeStandby(void) = 0;

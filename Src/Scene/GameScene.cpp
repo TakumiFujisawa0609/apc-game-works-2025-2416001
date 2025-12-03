@@ -9,6 +9,7 @@
 #include "../Object/Manager/EnemyManager.h"
 #include "../Object/Manager/CollisionManager.h"
 #include "../Object/Manager/WeponManager.h"
+#include "../Object/ObjectBase.h"
 #include "../Object/Robot/Player/Player.h"
 #include "../Object/Robot/Enemy/EnemyBase.h"
 #include "../Utility/AsoUtility.h"
@@ -47,6 +48,8 @@ void GameScene::Init(void)
 	//カメラの注視点をプレイヤーに設定
 	camera->SetPlayer(player_.get());
 
+
+	InitCollision();
 }
 
 void GameScene::Update(void)
@@ -82,48 +85,9 @@ void GameScene::Draw(void)
 	}
 
 #ifdef _DEBUG
-
-	DrawSphere3D(
-		player_->GetCillisionPos(),
-		Player::DEFALUT_RADIUS,
-		16,
-		GetColor(200, 200, 200),
-		GetColor(200, 200, 200),
-		false);
-
-	for (const auto& useWeapon : player_->GetUseWepons()->GetWepons())
-	{
-		if (useWeapon->isAlive_ == true)
-		{
-			DrawSphere3D(
-				useWeapon->GetStatePos(),
-				useWeapon->GetColliderRadius(),
-				16,
-				GetColor(200, 200, 200),
-				GetColor(200, 200, 200),
-				false);
-		}
-	}
-
-	auto& enemys = enemys_->GetEnemys();
-	for (auto& enemy : enemys)
-	{
-		if ((enemy->IsAlive()))
-		{
-			DrawSphere3D(
-				enemy->GetCillisionPos(),
-				enemy->GetCillisionRadius(),
-				16,
-				GetColor(200, 200, 200),
-				GetColor(200, 200, 200),
-				false);
-		}
-	}
-
 	DrawFormatString(
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
-
 #endif
 }
 
@@ -133,6 +97,24 @@ void GameScene::Release(void)
 	player_->Release();
 	//エネミー解放処理
 	enemys_->Release();
+}
+
+void GameScene::InitCollision(void)
+{
+	std::vector<const ColliderBase*> colliders;
+
+	colliders.emplace_back(
+		player_->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL)));
+
+	auto& enemys = enemys_->GetEnemys();
+	for (auto& enemy : enemys)
+	{
+		colliders.emplace_back(
+			enemy->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL)));
+	}
+
+	player_->AddHitCollider(colliders);
+	enemy_->AddHitCollider(colliders);
 }
 
 void GameScene::UpdateAutoLockOn(void)

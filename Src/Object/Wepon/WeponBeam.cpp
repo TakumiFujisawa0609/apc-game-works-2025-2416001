@@ -43,21 +43,20 @@ void WeponBeam::Draw(void)
 #endif
 }
 
-void WeponBeam::Release(void)
-{
-}
-
-
-void WeponBeam::Load(void)
-{
-}
-
-void WeponBeam::SetParam(void)
+void WeponBeam::InitTransform(void)
 {
 	trans_.localPos = LOCAL_POS;
+	trans_.Radius_ = DEFALUT_RADIUS;
+}
+
+void WeponBeam::InitCollider(void)
+{
+}
+
+void WeponBeam::InitPost(void)
+{
 	speed_ = DEFAULT_SPEED;
 	bemelong_ = 0.0f;
-	trans_.Radius_ = DEFALUT_RADIUS;
 	damage_ = DAMAGE;
 }
 

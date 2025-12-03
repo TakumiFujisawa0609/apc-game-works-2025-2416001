@@ -22,12 +22,11 @@ public:
 
 	// デストラクタ
 	~WeponBase(void);
-	void Init(void)override;
-	void Init(VECTOR pos, VECTOR dir, Collider::TAG tag);
-	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag);
+	void Init(VECTOR pos, VECTOR dir);
+	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos);
 	void Update(void)override;
 	virtual void Draw(void) = 0;
-	virtual void Release(void) = 0;
+	void Release(void)override{}
 
 	// 生存判定
 	bool isAlive_;
@@ -54,10 +53,12 @@ protected:
 	float speed_;
 	//ダメージ
 	float damage_;
-	// 画像やモデルなどのロード(純粋仮想関数)
-	virtual void Load(void) = 0;
-	// パラメータ設定(純粋仮想関数)
-	virtual void SetParam(void) = 0;
+
+	// リソースロード
+	void InitLoad(void)override{}
+	// アニメーションの初期化
+	void InitAnimation(void)override{}
+
 	// 移動処理
 	virtual void Move(void);
 };
