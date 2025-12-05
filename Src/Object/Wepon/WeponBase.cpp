@@ -50,6 +50,10 @@ WeponBase::WEPON_TYPE WeponBase::GetType(void)
 	return type_;
 }
 
+void WeponBase::OnHit(const std::weak_ptr<Collider> hitCol)
+{
+}
+
 void WeponBase::Move(void)
 {
 	// ˆÚ“®ˆ—(ˆê•û•ûŒü)

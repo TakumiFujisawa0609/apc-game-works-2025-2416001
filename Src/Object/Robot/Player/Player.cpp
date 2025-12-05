@@ -7,13 +7,11 @@
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
+#include "../../Common/Geometry/Sphere.h"
 #include "./../../Common/Transform.h"
 #include "./../../Common/HpBer.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
-#include "../../Common/Geometry/ColliderBase.h"
-#include "../../Common/Geometry/ColliderLine.h"
-#include "../../Common/Geometry/ColliderCapsule.h"
 #include "Player.h"
 
 Player::Player(void)
@@ -55,22 +53,6 @@ void Player::InitTransform(void)
     trans_.localRot = LOCAL_DEF_ROT;
 }
 
-void Player::InitCollider(void)
-{
-    // 線分コライダ
-    ColliderLine* colLine = new ColliderLine(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::LINE), colLine);
-
-    // カプセルコライダ
-    ColliderCapsule* colCapsule = new ColliderCapsule(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
-        COL_CAPSULE_RADIUS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
-}
-
 void Player::InitAnimation(void)
 {
     anim_ = std::make_unique<AnimationController>(trans_.modelId);
@@ -102,6 +84,10 @@ void Player::InitPost(void)
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    //形状情報
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, 40.0f);
+    MakeCollider({ Collider::TAG::PLAYER}, std::move(geo));
 }
 
 void Player::ProcessMove(void)
@@ -297,55 +283,11 @@ void Player::UpdateWepon(void)
 {
 }
 
-void Player::CollisionReserve(void)
-{
-    // アニメーションごとの線分調整
-    if (anim_->GetPlayType() == static_cast<int>(ANIM_TYPE::JUMP))
-    {
-        // ジャンプ中は線分を伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_JUMP_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_JUMP_END_LOCAL_POS);
-        }
-        // ジャンプ中はカプセルを伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_JUMP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_JUMP_LOCAL_POS);
-        }
-    }
-    else
-    {
-        // 通常時の線分に戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
-        }
-        // 通常時のカプセルに戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
-        }
-    }
-}
-
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
 }
 
-<<<<<<< HEAD
 void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
 {  
     for (const auto& tag : hitCol.lock()->GetTags()) {
@@ -360,8 +302,6 @@ void Player::OnHit(const std::weak_ptr<Collider> hitCol)
     }
 }
 
-=======
->>>>>>> c1c9b69f7ef628583b6c2a1c641fe5ddfda3d99b
 void Player::ChangeStandby(void)
 {
 }

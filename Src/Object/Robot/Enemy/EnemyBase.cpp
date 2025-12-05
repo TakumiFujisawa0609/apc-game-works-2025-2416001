@@ -2,6 +2,7 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../Common/AnimationController.h"
+#include "../../Common/Geometry/Sphere.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
 #include "EnemyBase.h"
@@ -36,6 +37,10 @@ void EnemyBase::Init(void)
 
     //ó‘Ô‘JˆÚ‰Šúİ’è
     ChangeState(STATE::STANDBY);
+
+    //Œ`óî•ñ
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, 40.0f);
+    MakeCollider({ Collider::TAG::ENEMY }, std::move(geo));
 }
 
 void EnemyBase::SetSpawnPostiton(void)
@@ -226,6 +231,20 @@ void EnemyBase::DrawEnd(void)
 void EnemyBase::DrawHp(void)
 {
     hpBer_->Draw();
+}
+
+void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
+{
+    for (const auto& tag : hitCol.lock()->GetTags()) {
+        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform() })
+            if (tag == Collider::TAG::PLAYER) {
+                VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
+                trans_.pos = VSub(trans_.pos, newVec);
+            }
+        if (tag == Collider::TAG::PLAYER_WEPON) {
+            hp_ -= 1;
+        }
+    }
 }
 
 void EnemyBase::Damage(void)

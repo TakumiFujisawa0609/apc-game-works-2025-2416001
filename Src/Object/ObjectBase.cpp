@@ -14,6 +14,11 @@ ObjectBase::ObjectBase(void)
 
 ObjectBase::~ObjectBase(void)
 {
+	for (auto& colParam : colParam_)
+	{
+		//所持している全コライダの削除
+		colParam.collider_->Kill();
+	}
 }
 
 void ObjectBase::Init(void)
@@ -24,8 +29,6 @@ void ObjectBase::Init(void)
 	InitTransform();
 	// 大きさ、回転、座標のモデル設定
 	InitTransformPost();
-	// 衝突判定の初期化
-	InitCollider();
 	// アニメーションの初期化
 	InitAnimation();
 	// 初期化後の個別処理
@@ -36,33 +39,12 @@ void ObjectBase::Init(void)
 		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
-const ColliderBase* ObjectBase::GetOwnCollider(int key) const
+void ObjectBase::OnHit(const std::weak_ptr<Collider> _hitCol)
 {
-	if (ownColliders_.count(key) == 0)
-	{
-		return nullptr;
-	}
-	return ownColliders_.at(key);
 }
 
-void ObjectBase::AddHitCollider(const ColliderBase* hitCollider)
+void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
 {
-	for (const auto& c : hitColliders_)
-	{
-		if (c == hitCollider)
-		{
-			return;
-		}
-	}
-	hitColliders_.emplace_back(hitCollider);
-}
-
-void ObjectBase::ClearHitCollider(void)
-{
-<<<<<<< HEAD
-
-
-
 	//当たり判定情報
 	ColParam colParam;
 
@@ -77,8 +59,6 @@ void ObjectBase::ClearHitCollider(void)
 
 	//配列にセット
 	colParam_.push_back(std::move(colParam));
-=======
-	hitColliders_.clear(); 
 }
 
 void ObjectBase::InitTransformPost(void)
@@ -93,5 +73,4 @@ void ObjectBase::InitTransformPost(void)
 		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 	// 座標をモデルに反映
 	MV1SetPosition(trans_.modelId, trans_.pos);
->>>>>>> c1c9b69f7ef628583b6c2a1c641fe5ddfda3d99b
 }

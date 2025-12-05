@@ -37,9 +37,6 @@ private:
 	//グリッド
 	std::unique_ptr<Grid> grid_;
 
-	//当たり判定初期化処理
-	void InitCollision(void);
-
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);
 };

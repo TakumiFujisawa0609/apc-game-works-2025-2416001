@@ -35,8 +35,6 @@ protected:
 
 	// ‘å‚«‚³A‰ñ“]AÀ•W‚Ì‰Šú‰»
 	void InitTransform(void)override;
-	// Õ“Ë”»’è‚Ì‰Šú‰»
-	void InitCollider(void)override;
 	// ‰Šú‰»Œã‚ÌŒÂ•Êˆ—
 	void InitPost(void)override;
 	//ˆÚ“®ˆ—

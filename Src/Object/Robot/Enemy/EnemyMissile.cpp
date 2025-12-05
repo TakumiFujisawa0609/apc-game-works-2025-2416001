@@ -10,8 +10,6 @@
 #include "../../Manager/WeponManager.h"
 #include "../../Wepon/WeponMissile.h"
 #include "../../../Application.h"
-#include "../../Common/Geometry/ColliderLine.h"
-#include "../../Common/Geometry/ColliderCapsule.h"
 #include "EnemyMissile.h"
 
 EnemyMissile::EnemyMissile(void)
@@ -33,22 +31,6 @@ void EnemyMissile::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
-}
-
-void EnemyMissile::InitCollider(void)
-{
-    // 線分コライダ
-    ColliderLine* colLine = new ColliderLine(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::LINE), colLine);
-
-    // カプセルコライダ
-    ColliderCapsule* colCapsule = new ColliderCapsule(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
-        COL_CAPSULE_RADIUS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
 }
 
 void EnemyMissile::InitAnimation(void)
@@ -103,48 +85,5 @@ void EnemyMissile::ProcessAttack(void)
     if (stepShotDelay_ > 0.0f)
     {
         stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
-    }
-}
-
-void EnemyMissile::CollisionReserve(void)
-{
-    // アニメーションごとの線分調整
-    if (anim_->GetPlayType() == static_cast<int>(ANIM_TYPE::JUMP))
-    {
-        // ジャンプ中は線分を伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_JUMP_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_JUMP_END_LOCAL_POS);
-        }
-        // ジャンプ中はカプセルを伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_JUMP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_JUMP_LOCAL_POS);
-        }
-    }
-    else
-    {
-        // 通常時の線分に戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
-        }
-        // 通常時のカプセルに戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
-        }
     }
 }

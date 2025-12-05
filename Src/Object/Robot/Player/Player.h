@@ -106,14 +106,14 @@ public:
 	//HP描画
 	void DrawHp(void)override;
 
+	void OnHit(const std::weak_ptr<Collider> hitCol)override;
+
 protected:
 
 	// リソースロード
 	void InitLoad(void)override;
 	// 大きさ、回転、座標の初期化
 	void InitTransform(void)override;
-	// 衝突判定の初期化
-	void InitCollider(void)override;
 	// アニメーションの初期化
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
@@ -128,9 +128,6 @@ protected:
 	void ProcessTargetLock(void)override;
 
 	void UpdateWepon(void)override;
-
-	// 衝突判定
-	void CollisionReserve(void) override;
 
 
 	// 状態遷移

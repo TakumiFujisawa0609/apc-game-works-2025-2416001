@@ -150,11 +150,6 @@ protected:
 
 	// d—ÍŒvZ
 	void CalcGravityPow(void);
-	// Õ“Ë”»’è
-	virtual void CollisionReserve(void) {}
-	void Collision(void);
-	void CollisionGravity(void);
-	void CollisionCapsule(void);
 
 	// ó‘Ô‘JˆÚ
 	virtual void ChangeStandby(void) = 0;

@@ -51,8 +51,6 @@ void GameScene::Init(void)
 	//カメラの注視点をプレイヤーに設定
 	camera->SetPlayer(player_.get());
 
-
-	InitCollision();
 }
 
 void GameScene::Update(void)
@@ -104,21 +102,6 @@ void GameScene::Release(void)
 	player_->Release();
 	//エネミー解放処理
 	enemys_->Release();
-}
-
-void GameScene::InitCollision(void)
-{
-	const ColliderBase* playerCollider =
-		player_->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
-	enemy_->AddHitCollider(playerCollider);
-
-	/*auto& enemys = enemys_->GetEnemys();
-	for(auto& enemy : enemys)
-	{
-		const ColliderBase* enemyCollider =
-			enemy->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
-		player_->AddHitCollider(enemyCollider);
-	}*/
 }
 
 void GameScene::UpdateAutoLockOn(void)

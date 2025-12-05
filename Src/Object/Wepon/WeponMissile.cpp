@@ -1,4 +1,3 @@
-#include "../Common/Geometry/ColliderCapsule.h"
 #include "WeponMissile.h"
 
 WeponMissile::WeponMissile(WEPON_TYPE type):
@@ -46,16 +45,6 @@ void WeponMissile::InitTransform(void)
 {
 	trans_.localPos = LOCAL_POS;
 	trans_.Radius_ = DEFALUT_RADIUS;
-}
-
-void WeponMissile::InitCollider(void)
-{
-	// カプセルコライダ
-	ColliderCapsule* colCapsule = new ColliderCapsule(
-		ColliderBase::TAG::PLAYER, &trans_,
-		statePos_, trans_.pos,
-		trans_.Radius_);
-	ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
 }
 
 void WeponMissile::InitPost(void)
