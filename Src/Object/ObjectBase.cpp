@@ -1,6 +1,7 @@
 #include "../Manager/ResourceManager.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
+#include "../Utility/MatrixUtility.h"
 #include "Manager/CollisionManager.h"
 #include "ObjectBase.h"
 
@@ -13,19 +14,55 @@ ObjectBase::ObjectBase(void)
 
 ObjectBase::~ObjectBase(void)
 {
-	for (auto& colParam : colParam_)
+}
+
+void ObjectBase::Init(void)
+{
+	// リソースロード
+	InitLoad();
+	// Transform初期化
+	InitTransform();
+	// 大きさ、回転、座標のモデル設定
+	InitTransformPost();
+	// 衝突判定の初期化
+	InitCollider();
+	// アニメーションの初期化
+	InitAnimation();
+	// 初期化後の個別処理
+	InitPost();
+
+	MV1SetPosition(trans_.modelId, trans_.pos);
+	MV1SetRotationMatrix(trans_.modelId,
+		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+}
+
+const ColliderBase* ObjectBase::GetOwnCollider(int key) const
+{
+	if (ownColliders_.count(key) == 0)
 	{
-		//所持している全コライダの削除
-		colParam.collider_->Kill();
+		return nullptr;
 	}
+	return ownColliders_.at(key);
 }
 
-void ObjectBase::OnHit(const std::weak_ptr<Collider> hitCol)
+void ObjectBase::AddHitCollider(const ColliderBase* hitCollider)
 {
+	for (const auto& c : hitColliders_)
+	{
+		if (c == hitCollider)
+		{
+			return;
+		}
+	}
+	hitColliders_.emplace_back(hitCollider);
 }
 
-void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
+void ObjectBase::ClearHitCollider(void)
 {
+<<<<<<< HEAD
+
+
+
 	//当たり判定情報
 	ColParam colParam;
 
@@ -40,4 +77,21 @@ void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_pt
 
 	//配列にセット
 	colParam_.push_back(std::move(colParam));
+=======
+	hitColliders_.clear(); 
+}
+
+void ObjectBase::InitTransformPost(void)
+{
+	// 大きさをモデルに反映
+	MV1SetScale(trans_.modelId, trans_.scl);
+	// 角度から方向に変換する
+	trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
+	// 行列の合成(子, 親と指定すると親⇒子の順に適用される)
+	// 回転行列をモデルに反映
+	MV1SetRotationMatrix(trans_.modelId,
+		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+	// 座標をモデルに反映
+	MV1SetPosition(trans_.modelId, trans_.pos);
+>>>>>>> c1c9b69f7ef628583b6c2a1c641fe5ddfda3d99b
 }

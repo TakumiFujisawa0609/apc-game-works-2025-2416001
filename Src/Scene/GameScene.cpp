@@ -9,6 +9,7 @@
 #include "../Object/Manager/EnemyManager.h"
 #include "../Object/Manager/CollisionManager.h"
 #include "../Object/Manager/WeponManager.h"
+#include "../Object/ObjectBase.h"
 #include "../Object/Robot/Player/Player.h"
 #include "../Object/Robot/Enemy/EnemyBase.h"
 #include "../Utility/AsoUtility.h"
@@ -26,6 +27,9 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+	//当たり判定管理初期化
+	CollisionManager::CreateInstance();
+
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
@@ -47,6 +51,8 @@ void GameScene::Init(void)
 	//カメラの注視点をプレイヤーに設定
 	camera->SetPlayer(player_.get());
 
+
+	InitCollision();
 }
 
 void GameScene::Update(void)
@@ -55,6 +61,9 @@ void GameScene::Update(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
 	}
+
+	CollisionManager::GetInstance().Sweep();
+	CollisionManager::GetInstance().Update();
 
 	//ロボット更新処理
 	player_->Update();
@@ -82,57 +91,34 @@ void GameScene::Draw(void)
 	}
 
 #ifdef _DEBUG
-
-	DrawSphere3D(
-		player_->GetCillisionPos(),
-		Player::DEFALUT_RADIUS,
-		16,
-		GetColor(200, 200, 200),
-		GetColor(200, 200, 200),
-		false);
-
-	for (const auto& useWeapon : player_->GetUseWepons()->GetWepons())
-	{
-		if (useWeapon->isAlive_ == true)
-		{
-			DrawSphere3D(
-				useWeapon->GetStatePos(),
-				useWeapon->GetColliderRadius(),
-				16,
-				GetColor(200, 200, 200),
-				GetColor(200, 200, 200),
-				false);
-		}
-	}
-
-	auto& enemys = enemys_->GetEnemys();
-	for (auto& enemy : enemys)
-	{
-		if ((enemy->IsAlive()))
-		{
-			DrawSphere3D(
-				enemy->GetCillisionPos(),
-				enemy->GetCillisionRadius(),
-				16,
-				GetColor(200, 200, 200),
-				GetColor(200, 200, 200),
-				false);
-		}
-	}
-
 	DrawFormatString(
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
-
 #endif
 }
 
 void GameScene::Release(void)
 {
+	CollisionManager::GetInstance().Destroy();
 	//ロボット解放処理
 	player_->Release();
 	//エネミー解放処理
 	enemys_->Release();
+}
+
+void GameScene::InitCollision(void)
+{
+	const ColliderBase* playerCollider =
+		player_->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
+	enemy_->AddHitCollider(playerCollider);
+
+	/*auto& enemys = enemys_->GetEnemys();
+	for(auto& enemy : enemys)
+	{
+		const ColliderBase* enemyCollider =
+			enemy->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
+		player_->AddHitCollider(enemyCollider);
+	}*/
 }
 
 void GameScene::UpdateAutoLockOn(void)
