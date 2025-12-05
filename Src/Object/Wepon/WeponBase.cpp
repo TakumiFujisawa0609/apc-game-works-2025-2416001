@@ -1,7 +1,6 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Utility/MatrixUtility.h"
 #include "../Common/Transform.h"
-#include "../Common/Geometry/Sphere.h"
 #include "WeponBase.h"
 
 WeponBase::WeponBase(WEPON_TYPE type)
@@ -13,36 +12,19 @@ WeponBase::~WeponBase(void)
 {
 }
 
-void WeponBase::Init(void)
+void WeponBase::Init(VECTOR pos, VECTOR dir)
 {
-	// 画像やモデルなどのロード
-	Load();
-	// パラメータ設定
-	SetParam();
-}
-
-void WeponBase::Init(VECTOR pos, VECTOR dir, Collider::TAG tag)
-{
-	// 画像やモデルなどのロード
-	Load();
-	// パラメータ設定
-	SetParam();
+	ObjectBase::Init();
 
 	playPos_ = pos;
 	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	isAlive_ = true;
-
-	std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
-	MakeCollider({ tag }, std::move(geo));
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag)
+void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
 {
-	// 画像やモデルなどのロード
-	Load();
-	// パラメータ設定
-	SetParam();
+	ObjectBase::Init();
 
 	playPos_ = pos;
 	trans_.pos = VAdd(playPos_, trans_.localPos);
@@ -50,8 +32,6 @@ void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag
 	targetPos_ = targetPos;
 	isAlive_ = true;
 
-	std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, trans_.Radius_);
-	MakeCollider({ tag }, std::move(geo));
 }
 
 void WeponBase::Update(void)
@@ -68,10 +48,6 @@ void WeponBase::Update(void)
 WeponBase::WEPON_TYPE WeponBase::GetType(void)
 {
 	return type_;
-}
-
-void WeponBase::OnHit(const std::weak_ptr<Collider> hitCol)
-{
 }
 
 void WeponBase::Move(void)

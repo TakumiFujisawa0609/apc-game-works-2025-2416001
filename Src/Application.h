@@ -22,7 +22,12 @@ public:
 	static const std::string PATH_SOUND;
 	static const std::string PATH_OBJECT;
 
-	//-------------------------------------------
+	//-------------------------------------------]
+
+
+	// 重力
+	static constexpr float GRAVITY = 9.81f * 100.0f;
+	static constexpr float GRAVITY_SCALE = 0.7f;
 
 	// 明示的にインステンスを生成する
 	static void CreateInstance(void);
@@ -44,6 +49,9 @@ public:
 
 	// 解放成功／失敗の判定
 	bool IsReleaseFail(void) const;
+
+	// 重力の取得
+	float GetGravityPow(void) const { return GRAVITY * GRAVITY_SCALE; }
 
 private:
 

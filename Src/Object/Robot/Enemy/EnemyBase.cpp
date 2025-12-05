@@ -4,7 +4,6 @@
 #include "../../Common/AnimationController.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
-#include "../../Common/Geometry/Sphere.h"
 #include "EnemyBase.h"
 
 EnemyBase::EnemyBase(void)
@@ -17,16 +16,8 @@ EnemyBase::~EnemyBase(void)
 
 void EnemyBase::Init(void)
 {
-    // リソースロード
-    InitLoad();
-    // Transform初期化
-    InitTransform();
-    // 大きさ、回転、座標のモデル設定
-    InitTransformPost();
-    // アニメーションの初期化
-    InitAnimation();
-    // 初期化後の個別処理
-    InitPost();
+    ObjectBase::Init();
+
     //ランダムな出現座標
     SetSpawnPostiton();
 
@@ -42,9 +33,6 @@ void EnemyBase::Init(void)
 
     // 弾発射の硬直時間
     stepShotDelay_ = 0.0f;
-
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
-    MakeCollider({ Collider::TAG::ENEMY }, std::move(geo), { Collider::TAG::ENEMY_WEPON });
 
     //状態遷移初期設定
     ChangeState(STATE::STANDBY);
@@ -83,10 +71,11 @@ void EnemyBase::SetSpawnPostiton(void)
 void EnemyBase::ProcessMove(void)
 {
     ////移動量を常に減少
-    movePow_ = 11.0f;
+    moveSpeed_ = 11.0f;
 
     // 方向×スピードで移動量を作って、座標に足して移動
-    trans_.pos = VAdd(trans_.pos, VScale(trans_.targetDir, movePow_));
+    
+    movePow_= VAdd(trans_.pos, VScale(trans_.targetDir, moveSpeed_));
 }
 
 void EnemyBase::ProcessRise(void)
@@ -239,45 +228,10 @@ void EnemyBase::DrawHp(void)
     hpBer_->Draw();
 }
 
-void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
-{
-
-    for (const auto& tag : hitCol.lock()->GetTags()) {
-        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform()})
-        if (tag == Collider::TAG::PLAYER
-            || tag == Collider::TAG::ENEMY) {
-            VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
-            trans_.pos = VSub(trans_.pos, newVec);
-        }
-        if (tag == Collider::TAG::PLAYER_WEPON) {
-            hp_ -= 1;
-        }
-    }
-}
-
 void EnemyBase::Damage(void)
 {
-
-    //if (hp_ <= 0) {
-    //    ChangeState(STATE::DEAD);
-    //    return;
-    //}
-
-    //CollisinManager::HitObject hitObject_ = hitObject;
-
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_ENEMY_HIT) {
-    //    hp_ -= 1;
-    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 50.0f));
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::PLAYER_WEPON_HIT) {
-    //    hp_ -= 3;
-    //    ChangeState(STATE::KNOCKBACK);
-    //}
-    //if (hitObject_.hitType == CollisinManager::HIT_TYPE::ENEMYS_HIT) {
-    //    trans_.pos = VAdd(trans_.pos, VScale(AsoUtility::DIR_F, 10.0f));
-    //}
-
-    //MV1SetPosition(trans_.modelId, trans_.pos);
+    if (hp_ <= 0) {
+        ChangeState(STATE::DEAD);
+    }
 }
 
