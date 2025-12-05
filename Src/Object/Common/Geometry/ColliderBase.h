@@ -20,7 +20,7 @@ public:
 	enum class TAG
 	{
 		PLAYER,
-		STSGE,
+		STAGE,
 		ENEMY,
 		WEPON,
 	};

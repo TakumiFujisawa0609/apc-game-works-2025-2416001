@@ -12,7 +12,7 @@ public:
 	// デストラクタ
 	~ColliderCapsule(void);
 	// 親Transformからの相対位置を取得
-	const VECTOR& GetLocalPosTop(void) const{return localPosTop_}
+	const VECTOR& GetLocalPosTop(void) const { return localPosTop_; }
 	const VECTOR& GetLocalPosDown(void) const { return localPosDown_; }
 	// 親Transformからの相対位置をセット
 	void SetLocalPosTop(const VECTOR& pos) { localPosTop_ = pos; }

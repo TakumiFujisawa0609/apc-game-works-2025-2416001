@@ -15,6 +15,13 @@ class ObjectBase
 {
 public:
 
+	// 衝突判定種別
+	enum class COLLIDER_TYPE
+	{
+		MODEL = 0,
+		MAX,
+	};
+
 	// コンストラクタ
 	ObjectBase(void);
 

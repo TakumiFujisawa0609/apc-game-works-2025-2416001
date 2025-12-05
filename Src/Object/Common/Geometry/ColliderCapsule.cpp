@@ -58,3 +58,4 @@ void ColliderCapsule::DrawDebug(int color)
 	DrawLine3D(s, e, color);
 	// カプセルの中心
 	DrawSphere3D(GetCenter(), 5.0f, 10, color, color, true);
+}
