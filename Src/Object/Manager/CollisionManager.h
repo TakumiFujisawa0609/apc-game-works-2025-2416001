@@ -26,6 +26,9 @@ public:
 	//コライダの追加
 	void AddCollider(const std::shared_ptr<Collider> _collider);
 
+	/// 削除
+	void Clear(void);
+
 	//必要なくなったコライダの削除(更新の最後に置く)
 	void Sweep(void);
 

@@ -26,6 +26,9 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+	//当たり判定管理初期化
+	CollisionManager::CreateInstance();
+
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
@@ -55,6 +58,9 @@ void GameScene::Update(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
 	}
+
+	CollisionManager::GetInstance().Sweep();
+	CollisionManager::GetInstance().Update();
 
 	//ロボット更新処理
 	player_->Update();
@@ -129,6 +135,7 @@ void GameScene::Draw(void)
 
 void GameScene::Release(void)
 {
+	CollisionManager::GetInstance().Destroy();
 	//ロボット解放処理
 	player_->Release();
 	//エネミー解放処理

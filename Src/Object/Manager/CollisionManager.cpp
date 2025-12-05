@@ -22,6 +22,11 @@ void CollisionManager::AddCollider(const std::shared_ptr<Collider> _collider)
 	colliders_.push_back(_collider);
 }
 
+void CollisionManager::Clear(void)
+{
+	colliders_.clear();
+}
+
 void CollisionManager::Sweep(void)
 {
 	//終了したコライダを並び変える

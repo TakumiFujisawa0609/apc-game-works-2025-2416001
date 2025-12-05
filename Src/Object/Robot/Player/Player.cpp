@@ -410,19 +410,16 @@ void Player::DrawHp(void)
 
 void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
 {  
-  /* if (auto collider = hitCol.lock()){  
-       for (const auto& tag : collider->GetTags())  {  
-           for (const auto& dir : { collider->GetHitMoveDir() }){  
-               if (tag == Collider::TAG::ENEMY){  
-                   trans_.pos = VAdd(trans_.pos, VScale(dir, 100.0f));
-                   hp_ -= 1;  
-               }  
-               if (tag == Collider::TAG::ENEMY_WEPON){  
-                   hp_ -= 1;  
-               }  
-           }  
-       }  
-   }  */
+    for (const auto& tag : hitCol.lock()->GetTags()) {
+        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform() })
+            if (tag == Collider::TAG::ENEMY) {
+                VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
+                trans_.pos = VSub(trans_.pos, newVec);
+            }
+        if (tag == Collider::TAG::ENEMY_WEPON) {
+            hp_ -= 1;
+        }
+    }
 }
 
 void Player::ChangeStandby(void)
