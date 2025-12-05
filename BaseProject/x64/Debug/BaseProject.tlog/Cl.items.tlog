@@ -1,12 +1,14 @@
-C:\AGS_2025_fuyu\Src\Object\Common\Geometry\ColliderCapsule.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ColliderCapsule.obj
-C:\AGS_2025_fuyu\Src\Object\Common\Geometry\ColliderBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ColliderBase.obj
-C:\AGS_2025_fuyu\Src\Object\Common\Geometry\ColliderLine.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ColliderLine.obj
-C:\AGS_2025_fuyu\Src\Object\Common\Geometry\ColliderModel.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ColliderModel.obj
-C:\AGS_2025_fuyu\Src\Object\Common\Geometry\ColliderSphere.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ColliderSphere.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Capsule.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Capsule.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Cube.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Cube.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Geometry.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Geometry.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Line.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Line.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Model.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Model.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Geometry\Sphere.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Sphere.obj
 C:\AGS_2025_fuyu\Src\Object\Common\HpBer.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\HpBer.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyBeam.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyBeam.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyMissile.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyMissile.obj
 C:\AGS_2025_fuyu\Src\Object\Manager\EnemyManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyManager.obj
+C:\AGS_2025_fuyu\Src\Object\Manager\CollisionManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\CollisionManager.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Enemy\EnemyBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\EnemyBase.obj
 C:\AGS_2025_fuyu\Src\Object\Robot\Player\Player.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Player.obj
 C:\AGS_2025_fuyu\Src\Object\Common\Grid.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Grid.obj
@@ -20,6 +22,7 @@ C:\AGS_2025_fuyu\Src\Object\Common\EffectController.cpp;C:\AGS_2025_fuyu\BasePro
 C:\AGS_2025_fuyu\Src\Manager\Resource.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Resource.obj
 C:\AGS_2025_fuyu\Src\Manager\ResourceManager.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ResourceManager.obj
 C:\AGS_2025_fuyu\Src\Object\Common\AnimationController.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\AnimationController.obj
+C:\AGS_2025_fuyu\Src\Object\Common\Collider.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Collider.obj
 C:\AGS_2025_fuyu\Src\Object\Common\Transform.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Transform.obj
 C:\AGS_2025_fuyu\Src\Object\ObjectBase.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\ObjectBase.obj
 C:\AGS_2025_fuyu\Src\Common\Quaternion.cpp;C:\AGS_2025_fuyu\BaseProject\x64\Debug\Quaternion.obj

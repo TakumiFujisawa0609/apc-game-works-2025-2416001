@@ -36,17 +36,13 @@ public:
 	~WeponMissile(void);
 
 	void Draw(void) override;
-
+	void Release(void) override;
 protected:
 
-	// 大きさ、回転、座標の初期化
-	void InitTransform(void)override;
-	// 衝突判定の初期化
-	void InitCollider(void)override;
-	// 初期化後の個別処理
-	void InitPost(void)override;
-	// 移動処理
-	void Move(void) override;
+	// 画像やモデルなどのロード
+	void Load(void) override;
+	// パラメータ設定
+	void SetParam(void) override;
 
 private:
 
@@ -59,5 +55,8 @@ private:
 
 	//追尾カウント
 	float homingCnt_;
+
+	// 移動処理
+	void Move(void) override;
 };
 

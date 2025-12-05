@@ -32,11 +32,9 @@ public:
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
 	//初期座標
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,0.0f };
+	//衝突座標
+	static constexpr VECTOR  COLLIDER_POS = { 0.0f,120.0f,0.0f };
 
-	// 衝突判定用線分開始
-	static constexpr VECTOR COL_LINE_START_LOCAL_POS = { 0.0f, 80.0f, 0.0f };
-	// 衝突判定用線分終了
-	static constexpr VECTOR COL_LINE_END_LOCAL_POS = { 0.0f, -10.0f, 0.0f };
 
 	//最大回転量
 	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
@@ -106,14 +104,14 @@ public:
 	//HP描画
 	void DrawHp(void)override;
 
+	void OnHit(const std::weak_ptr<Collider> hitCol)override;
+
 protected:
 
 	// リソースロード
 	void InitLoad(void)override;
 	// 大きさ、回転、座標の初期化
 	void InitTransform(void)override;
-	// 衝突判定の初期化
-	void InitCollider(void)override;
 	// アニメーションの初期化
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
@@ -128,9 +126,6 @@ protected:
 	void ProcessTargetLock(void)override;
 
 	void UpdateWepon(void)override;
-
-	// 衝突判定
-	void CollisionReserve(void) override;
 
 
 	// 状態遷移
@@ -158,24 +153,6 @@ protected:
 	void DrawEnd(void)override;
 
 private:
-
-	// 衝突判定用カプセル上部球体(ジャンプ時)
-	static constexpr VECTOR COL_CAPSULE_TOP_JUMP_LOCAL_POS =
-	{ 0.0f, 160.0f, 0.0f };
-	// 衝突判定用カプセル下部球体(ジャンプ時)
-	static constexpr VECTOR COL_CAPSULE_DOWN_JUMP_LOCAL_POS =
-	{ 0.0f, 80.0f, 0.0f };
-
-	// 衝突判定用線分開始(ジャンプ時)
-	static constexpr VECTOR COL_LINE_JUMP_START_LOCAL_POS = { 0.0f, 130.0f, 0.0f };
-	// 衝突判定用線分終了(ジャンプ時)
-	static constexpr VECTOR COL_LINE_JUMP_END_LOCAL_POS = { 0.0f, 50.0f, 0.0f };
-	// 衝突判定用カプセル上部球体
-	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 110.0f, 0.0f };
-	// 衝突判定用カプセル下部球体
-	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
-	// 衝突判定用カプセル球体半径
-	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
 
 	//カメラの角度
 	Camera* camera_;

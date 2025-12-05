@@ -13,6 +13,7 @@
 #include "../Scene/TitleScene.h"
 #include "../Scene/GameScene.h"
 #include "../Scene/ResultScene.h"
+
 #include"DataBank.h"
 
 #include "Camera.h"
@@ -75,11 +76,12 @@ void SceneManager::Init(void)
 	//データバンクの作成
 	DataBank::CreateInstance();
 
+
 	// 3D用の設定
 	Init3D();
 
 	// 初期シーンの設定
-	DoChangeScene(SCENE_ID::TITLE);
+	DoChangeScene(SCENE_ID::GAME);
 
 }
 void SceneManager::Init3D(void)

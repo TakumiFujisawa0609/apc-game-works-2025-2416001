@@ -22,11 +22,12 @@ public:
 
 	// デストラクタ
 	~WeponBase(void);
-	void Init(VECTOR pos, VECTOR dir);
-	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos);
+	void Init(void)override;
+	void Init(VECTOR pos, VECTOR dir, Collider::TAG tag);
+	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos, Collider::TAG tag);
 	void Update(void)override;
 	virtual void Draw(void) = 0;
-	void Release(void)override{}
+	virtual void Release(void) = 0;
 
 	// 生存判定
 	bool isAlive_;
@@ -39,6 +40,8 @@ public:
 	float GetColliderRadius(void) { return trans_.Radius_; }
 
 	VECTOR GetStatePos(void) { return statePos_; }
+
+	void OnHit(const std::weak_ptr<Collider> hitCol)override;
 
 protected:
 	//カプセル先頭座標
@@ -53,12 +56,10 @@ protected:
 	float speed_;
 	//ダメージ
 	float damage_;
-
-	// リソースロード
-	void InitLoad(void)override{}
-	// アニメーションの初期化
-	void InitAnimation(void)override{}
-
+	// 画像やモデルなどのロード(純粋仮想関数)
+	virtual void Load(void) = 0;
+	// パラメータ設定(純粋仮想関数)
+	virtual void SetParam(void) = 0;
 	// 移動処理
 	virtual void Move(void);
 };

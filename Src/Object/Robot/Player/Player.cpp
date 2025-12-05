@@ -11,9 +11,9 @@
 #include "./../../Common/HpBer.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
-#include "../../Common/Geometry/ColliderBase.h"
-#include "../../Common/Geometry/ColliderLine.h"
-#include "../../Common/Geometry/ColliderCapsule.h"
+#include "../../Common/Geometry/Sphere.h"
+#include "../../Manager/CollisionManager.h"
+#include "../../Common/Collider.h"
 #include "Player.h"
 
 Player::Player(void)
@@ -36,15 +36,12 @@ const float& Player::GetDegreep(void) const
 
 void Player::Damage(void)
 {
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-    }
 }
 
 void Player::InitLoad(void)
 {
     trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
-    weponModel = 0;
+    weponModel.SetModel(resMng_.LoadModelDuplicate(ResourceManager::SRC::WEPON));
 }
 
 void Player::InitTransform(void)
@@ -53,22 +50,6 @@ void Player::InitTransform(void)
     trans_.pos = DEFALUT_POS;
     trans_.scl = DEFALUT_SCL;
     trans_.localRot = LOCAL_DEF_ROT;
-}
-
-void Player::InitCollider(void)
-{
-    // 線分コライダ
-    ColliderLine* colLine = new ColliderLine(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::LINE), colLine);
-
-    // カプセルコライダ
-    ColliderCapsule* colCapsule = new ColliderCapsule(
-        ColliderBase::TAG::PLAYER, &trans_,
-        COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
-        COL_CAPSULE_RADIUS);
-    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
 }
 
 void Player::InitAnimation(void)
@@ -86,14 +67,24 @@ void Player::InitAnimation(void)
 
 void Player::InitPost(void)
 {
+    //移動量
+    movePow_ = 0;
+    //上昇量
+    rise_ = RISE_SPEED;
+    //回転量
+    rotPow_ = ROT_POW;
     //ロック処理判定カウント
     lockcnt = 0;
     // 弾発射の硬直時間
     stepShotDelay_ = 0.0f;
+    //衝突半径
+    trans_.Radius_ = DEFALUT_RADIUS;
     //ビーム出現数
     beamCnt_ = BEAM_CNT;
     //ミサイル出現数
     missileCnt_ = MISSILE_CNT;
+    //衝突座標
+    trans_.cillisionPos = COLLIDER_POS;
     //HP
     hp_ = DEFALUT_HP;
 
@@ -102,6 +93,9 @@ void Player::InitPost(void)
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.cillisionPos, trans_.Radius_);
+    MakeCollider({ Collider::TAG::PLAYER }, std::move(geo), { Collider::TAG::PLAYER_WEPON });
 }
 
 void Player::ProcessMove(void)
@@ -109,40 +103,158 @@ void Player::ProcessMove(void)
 
     MATRIX matRot = MGetIdent();
     //移動方向
-    VECTOR dir = AsoUtility::VECTOR_ZERO;
-    movePow_ = AsoUtility::VECTOR_ZERO;
-    moveSpeed_ = 0.0f;
-
+    VECTOR dir = { 0.0f,0.0f,0.0f };
+    //移動量を常に減少
+    movePow_ *= FRICTION;
     // 入力状態をチェック
     bool isBustPressed;
 
-    auto& ins = InputManager::GetInstance();
-    if (GetJoypadNum() == 0){
+    if (GetJoypadNum() == 0)
+    {
         // 入力状態をチェック
-        if (ins.IsNew(KEY_INPUT_W)) { dir = AsoUtility::DIR_F; }
-        if (ins.IsNew(KEY_INPUT_A)) { dir = AsoUtility::DIR_L; }
-        if (ins.IsNew(KEY_INPUT_S)) { dir = AsoUtility::DIR_B; }
-        if (ins.IsNew(KEY_INPUT_D)) { dir = AsoUtility::DIR_R; }
+        isBustPressed = inpMng_.IsTrgDown(KEY_INPUT_B);
+        bool isDownPressed = inpMng_.IsNew(KEY_INPUT_S);
+        bool isUpPressed = inpMng_.IsNew(KEY_INPUT_W);
+        bool isRightPressed = inpMng_.IsNew(KEY_INPUT_D);
+        bool isLeftPressed = inpMng_.IsNew(KEY_INPUT_A);
+
+        // 上下移動とX軸回転の処理
+        if (isDownPressed) {
+            dir = { 0.0f, 0.0f, -1.0f };
+            if (trans_.rot.x > -MAX_MOVE_ROT) {
+               /* trans_.rot.x -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x -= rotPow_));
+            }
+        }
+
+        if (isUpPressed) {
+            dir = { 0.0f, 0.0f, 1.0f };
+            if (trans_.rot.x < MAX_MOVE_ROT) {
+               /* trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x += rotPow_));
+            }
+        }
+
+        // 上下キーが押されていない時、X軸回転を0に戻す
+        if (!isDownPressed && !isUpPressed) {
+            if (trans_.rot.x > rotPow_) {
+                /*trans_.rot.x -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x -= rotPow_));
+            }
+            if (trans_.rot.x < -rotPow_) {
+                /*trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotX(trans_.rot.x += rotPow_));
+            }
+            if (trans_.rot.x >= -rotPow_ && trans_.rot.x <= rotPow_) {
+                matRot = MMult(matRot, MGetRotX(0.0f));
+            }
+        }
+
+        // 左右移動とZ軸回転の処理
+        if (isRightPressed) {
+            dir = { 1.0f, 0.0f, 0.0f };
+            if (trans_.rot.z > -MAX_MOVE_ROT) {
+               /* trans_.rot.z -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z -= rotPow_));
+
+            }
+        }
+        if (isLeftPressed) {
+            dir = { -1.0f, 0.0f, 0.0f };
+            if (trans_.rot.z < MAX_MOVE_ROT) {
+               /* trans_.rot.z += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z += rotPow_));
+
+            }
+        }
+
+        // 左右キーが押されていない時、Z軸回転を0に戻す
+        if (!isRightPressed && !isLeftPressed) {
+            if (trans_.rot.z > rotPow_) {
+                /*trans_.rot.z -= rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z -= rotPow_));
+            }
+            if (trans_.rot.z < -rotPow_) {
+                /*trans_.rot.z += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.z += rotPow_));
+            }
+            if (trans_.rot.z >= -rotPow_ && trans_.rot.z <= rotPow_) {
+                matRot = MMult(matRot, MGetRotZ(0.0f));
+            }
+        }
     }
-    else{
+    else
+    {
+
+        isBustPressed = inpMng_.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1,
+            InputManager::JOYPAD_BTN::RIGHT
+        );
+
         // 接続されているゲームパッド１の情報を取得
         InputManager::JOYPAD_IN_STATE padState =
             inpMng_.GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
         // アナログキーの入力値から方向を取得
         dir = inpMng_.GetDirectionXZAKey(padState.AKeyLX, padState.AKeyLY);
+
+    }
+
+    //ブースト時の移動量と最大値を設定
+    float maxMoveSpeed = MAX_MOVE_SPEED;
+    if (isBustPressed)
+    {
+        movePow_ += BUST_SPEED;
+        maxMoveSpeed = MAX_BUST_SPEED;
+        if (trans_.rot.x < MAX_BOOST_ROT) {
+           /* trans_.rot.x += rotPow_;*/
+            matRot = MMult(matRot, MGetRotZ(trans_.rot.x += rotPow_));
+        }
     }
 
     if (!AsoUtility::EqualsVZero(dir))
     {
-        moveSpeed_ = MOVE_SPEED;
         // XYZの回転行列
         // XZ平面移動にする場合は、XZの回転を考慮しないようにする
         MATRIX mat = MGetIdent();
+        /*mat = MMult(mat, MGetRotX(rot_.x));*/
         mat = MMult(mat, MGetRotY(camera_->GetAngles().y));
+        /*mat = MMult(mat, MGetRotZ(angles_.z));*/
+
         // 回転行列を使用して、ベクトルを回転させる
         trans_.moveDir = VTransform(dir, mat);
-        movePow_ = VScale(trans_.moveDir, moveSpeed_);
+
+
+        //入力中のブースト時の移動量と最大値を設定
+        if (isBustPressed)
+        {
+            movePow_ += BUST_SPEED;
+            maxMoveSpeed = MAX_BUST_SPEED;
+            if (trans_.rot.x < MAX_BOOST_ROT) {
+               /* trans_.rot.x += rotPow_;*/
+                matRot = MMult(matRot, MGetRotZ(trans_.rot.x += rotPow_));
+            }
+        }
+        else
+        {
+            //加速度処理
+            movePow_ += MOVE_SPEED;
+            maxMoveSpeed = MAX_MOVE_SPEED;
+        }
+
+        // 最高速度制限
+        if (movePow_ > maxMoveSpeed) {
+            movePow_ -= (movePow_ - maxMoveSpeed) * 0.1f;
+        }
     }
+
+    // 停止閾値以下なら完全停止
+    if (movePow_ < STOP_THRESHOLD) { movePow_ = 0.0f; }
+
+    // 方向×スピードで移動量を作って、座標に足して移動
+    trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, movePow_));
+
+    MV1SetRotationMatrix(trans_.modelId,
+        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
 void Player::ProcessRise(void)
@@ -162,21 +274,13 @@ void Player::ProcessRise(void)
 
     if (isRisePressed)
     {
-        // ジャンプ量の計算
-        float jumpSpeed = RISE_SPEED * scnMng_.GetDeltaTime();
-        jumpPow_ = VAdd(jumpPow_, VScale(AsoUtility::DIR_U, jumpSpeed));
-    }
-    else
-    {
-        // ボタンを離したらジャンプ力に加算しない
-        stepJump_ = 0.0f;
+        trans_.pos.y += rise_;
     }
 
     if (trans_.pos.y > 0)
     {
         trans_.pos.y -= GRAVITY;
     }
-
     MV1SetPosition(trans_.modelId, trans_.pos);
 }
 
@@ -208,6 +312,7 @@ void Player::ProcessAttack(void)
     if (IsBeam && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
+            Collider::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir,
             beamCnt_);
@@ -219,6 +324,7 @@ void Player::ProcessAttack(void)
     if (IsMissile && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::MISSILE,
+            Collider::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir, 
             missileCnt_,
@@ -297,71 +403,28 @@ void Player::UpdateWepon(void)
 {
 }
 
-void Player::CollisionReserve(void)
-{
-    // アニメーションごとの線分調整
-    if (anim_->GetPlayType() == static_cast<int>(ANIM_TYPE::JUMP))
-    {
-        // ジャンプ中は線分を伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_JUMP_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_JUMP_END_LOCAL_POS);
-        }
-        // ジャンプ中はカプセルを伸ばす
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_JUMP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_JUMP_LOCAL_POS);
-        }
-    }
-    else
-    {
-        // 通常時の線分に戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
-        {
-            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
-            colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
-            colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
-        }
-        // 通常時のカプセルに戻す
-        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
-        {
-            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
-            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
-            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
-        }
-    }
-}
-
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
 }
 
-<<<<<<< HEAD
 void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
 {  
-    for (const auto& tag : hitCol.lock()->GetTags()) {
-        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform() })
-            if (tag == Collider::TAG::ENEMY) {
-                VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
-                trans_.pos = VSub(trans_.pos, newVec);
-            }
-        if (tag == Collider::TAG::ENEMY_WEPON) {
-            hp_ -= 1;
-        }
-    }
+  /* if (auto collider = hitCol.lock()){  
+       for (const auto& tag : collider->GetTags())  {  
+           for (const auto& dir : { collider->GetHitMoveDir() }){  
+               if (tag == Collider::TAG::ENEMY){  
+                   trans_.pos = VAdd(trans_.pos, VScale(dir, 100.0f));
+                   hp_ -= 1;  
+               }  
+               if (tag == Collider::TAG::ENEMY_WEPON){  
+                   hp_ -= 1;  
+               }  
+           }  
+       }  
+   }  */
 }
 
-=======
->>>>>>> c1c9b69f7ef628583b6c2a1c641fe5ddfda3d99b
 void Player::ChangeStandby(void)
 {
 }

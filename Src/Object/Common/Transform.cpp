@@ -19,6 +19,8 @@ Transform::Transform(void)
 	matPos = MGetIdent();
 	quaRot = Quaternion();
 	quaRotLocal = Quaternion();
+
+	collider = nullptr;
 }
 
 Transform::Transform(int model)
@@ -39,6 +41,8 @@ Transform::Transform(int model)
 	matPos = MGetIdent();
 	quaRot = Quaternion();
 	quaRotLocal = Quaternion();
+
+	collider = nullptr;
 }
 
 Transform::~Transform(void)

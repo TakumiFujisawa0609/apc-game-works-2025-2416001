@@ -1,4 +1,3 @@
-#include "../Common/Geometry/ColliderCapsule.h"
 #include "WeponMissile.h"
 
 WeponMissile::WeponMissile(WEPON_TYPE type):
@@ -42,30 +41,25 @@ void WeponMissile::Draw(void)
 #endif
 }
 
-void WeponMissile::InitTransform(void)
+void WeponMissile::Release(void)
+{
+}
+
+void WeponMissile::Load(void)
+{
+}
+
+void WeponMissile::SetParam(void)
 {
 	trans_.localPos = LOCAL_POS;
-	trans_.Radius_ = DEFALUT_RADIUS;
-}
-
-void WeponMissile::InitCollider(void)
-{
-	// カプセルコライダ
-	ColliderCapsule* colCapsule = new ColliderCapsule(
-		ColliderBase::TAG::PLAYER, &trans_,
-		statePos_, trans_.pos,
-		trans_.Radius_);
-	ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
-}
-
-void WeponMissile::InitPost(void)
-{
 	speed_ = DEFAULT_SPEED;
 	missileSpeed_ = BEAM_LENGTH_SPEED;
 	missileLong_ = 0.0f;
 	jumpPow_ = JUMP_POW;
+	trans_.Radius_ = DEFALUT_RADIUS;
 	damage_ = DAMAGE;
 	homingCnt_ = 0.0f;
+
 }
 
 void WeponMissile::Move(void)

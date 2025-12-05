@@ -15,12 +15,8 @@ public:
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f, 180.0f * DX_PI_F / 180.0f, 0.0f };
 	//初期座標
 	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
-
-	// 衝突判定用線分開始
-	static constexpr VECTOR COL_LINE_START_LOCAL_POS = { 0.0f, 80.0f, 0.0f };
-	// 衝突判定用線分終了
-	static constexpr VECTOR COL_LINE_END_LOCAL_POS = { 0.0f, -10.0f, 0.0f };
-
+	//衝突座標
+	static constexpr VECTOR  COLLIDER_POS = { 0.0f,130.0f,0.0f };
 
 
 	//出現範囲
@@ -92,8 +88,6 @@ protected:
 	void InitLoad(void)override;
 	// 大きさ、回転、座標の初期化
 	void InitTransform(void)override;
-	// 衝突判定の初期化
-	void InitCollider(void)override;
 	// アニメーションの初期化
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
@@ -101,28 +95,7 @@ protected:
 	//攻撃処理
 	void ProcessAttack(void)override;
 
-	// 衝突判定
-	void CollisionReserve(void) override;
-
 private:
-
-	// 衝突判定用カプセル上部球体(ジャンプ時)
-	static constexpr VECTOR COL_CAPSULE_TOP_JUMP_LOCAL_POS =
-	{ 0.0f, 160.0f, 0.0f };
-	// 衝突判定用カプセル下部球体(ジャンプ時)
-	static constexpr VECTOR COL_CAPSULE_DOWN_JUMP_LOCAL_POS =
-	{ 0.0f, 80.0f, 0.0f };
-
-	// 衝突判定用線分開始(ジャンプ時)
-	static constexpr VECTOR COL_LINE_JUMP_START_LOCAL_POS = { 0.0f, 130.0f, 0.0f };
-	// 衝突判定用線分終了(ジャンプ時)
-	static constexpr VECTOR COL_LINE_JUMP_END_LOCAL_POS = { 0.0f, 50.0f, 0.0f };
-	// 衝突判定用カプセル上部球体
-	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 110.0f, 0.0f };
-	// 衝突判定用カプセル下部球体
-	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
-	// 衝突判定用カプセル球体半径
-	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
 
 };
 

@@ -1,9 +1,8 @@
 #pragma once
 #include<vector>
 #include<memory>
-#include<map>
 #include"Common/Transform.h"
-#include "Common/Geometry/ColliderBase.h"
+#include "Common/Collider.h"
 
 class ResourceManager;
 class SceneManager;
@@ -15,11 +14,11 @@ class ObjectBase
 {
 public:
 
-	// 衝突判定種別
-	enum class COLLIDER_TYPE
+	//当たり判定情報
+	struct ColParam
 	{
-		MODEL = 0,
-		MAX,
+		std::unique_ptr<Geometry> geometry_;	//形状情報
+		std::shared_ptr<Collider> collider_;	//全体の当たり判定情報
 	};
 
 	// コンストラクタ
@@ -28,28 +27,19 @@ public:
 	// デストラクタ
 	virtual ~ObjectBase(void);
 
-	virtual void Init(void);
+	virtual void Init(void) = 0;
 	virtual void Update(void) = 0;
 	virtual void Draw(void) = 0;
 	virtual void Release(void) = 0;
 
+	const bool IsDead(void)const { return isDead_; }
+	void Kill(void) { isDead_ = true; }
+
 	inline const Transform& GetTransform(void) const { return trans_; }
 	Transform& GetTransform(void){ return trans_; }
 
-	// 自身の衝突情報取得
-	const std::map<int, ColliderBase*>& GetOwnColliders(void) const
-	{
-		return ownColliders_;
-	}
-
-	// 特定の自身の衝突情報取得
-	const ColliderBase* GetOwnCollider(int key) const;
-
-	// 衝突対象となるコライダを登録
-	void AddHitCollider(const ColliderBase* hitCollider);
-
-	// 衝突対象となるコライダをクリア
-	void ClearHitCollider(void);
+	//ヒット処理
+	virtual void OnHit(const std::weak_ptr<Collider> hitCol);
 
 protected:
 
@@ -61,29 +51,18 @@ protected:
 	// モデル制御の基本情報
 	Transform trans_;
 
-	// 自身の衝突情報
-	std::map<int, ColliderBase*> ownColliders_;
+	bool isDead_;
 
-	// 衝突相手の情報
-	std::vector<const ColliderBase*> hitColliders_;
+	//当たり判定関係
+	std::vector<ColParam> colParam_;
 
-	// リソースロード
-	virtual void InitLoad(void) = 0;
-
-	// 大きさ、回転、座標の初期化
-	virtual void InitTransform(void) = 0;
-
-	// 衝突判定の初期化
-	virtual void InitCollider(void) = 0;
-
-	// 大きさ、回転、座標のモデル設定
-	void InitTransformPost(void);
-
-	// アニメーションの初期化
-	virtual void InitAnimation(void) = 0;
-
-	// 初期化後の個別処理
-	virtual void InitPost(void) = 0;
+	/// <summary>
+	/// 当たり判定作成(形状情報作成後)
+	/// </summary>
+	/// <param name="_tag">自身の当たり判定タグ</param>
+	/// <param name="_Geometry">自身の形状情報</param>
+	/// <param name="_notHitTags">衝突させないタグ</param>
+	void MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags = {});
 
 };
 
