@@ -2,7 +2,6 @@
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Utility/MatrixUtility.h"
-#include "Manager/CollisionManager.h"
 #include "ObjectBase.h"
 
 ObjectBase::ObjectBase(void)
@@ -14,11 +13,6 @@ ObjectBase::ObjectBase(void)
 
 ObjectBase::~ObjectBase(void)
 {
-	for (auto& colParam : colParam_)
-	{
-		//所持している全コライダの削除
-		colParam.collider_->Kill();
-	}
 }
 
 void ObjectBase::Init(void)
@@ -39,28 +33,6 @@ void ObjectBase::Init(void)
 		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
-void ObjectBase::OnHit(const std::weak_ptr<Collider> _hitCol)
-{
-}
-
-void ObjectBase::MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags)
-{
-	//当たり判定情報
-	ColParam colParam;
-
-	//形状情報の挿入
-	colParam.geometry_ = std::move(_geometry);
-
-	//情報を使ってコライダの作成
-	colParam.collider_ = std::make_shared<Collider>(*this, _tag, *colParam.geometry_, _notHitTags);
-
-	//コライダを管理マネージャーに追加
-	CollisionManager::GetInstance().AddCollider(colParam.collider_);
-
-	//配列にセット
-	colParam_.push_back(std::move(colParam));
-}
-
 void ObjectBase::InitTransformPost(void)
 {
 	// 大きさをモデルに反映
@@ -73,4 +45,31 @@ void ObjectBase::InitTransformPost(void)
 		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 	// 座標をモデルに反映
 	MV1SetPosition(trans_.modelId, trans_.pos);
+}
+
+const ColliderBase* ObjectBase::GetOwnCollider(int key) const
+{
+	if (ownColliders_.count(key) == 0)
+	{
+		return nullptr;
+	}
+	return ownColliders_.at(key);
+}
+
+void ObjectBase::AddHitCollider(const ColliderBase* hitCollider)
+{
+	for (const auto& c : hitColliders_)
+	{
+		if (c == hitCollider)
+		{
+			return;
+		}
+	}
+	hitColliders_.emplace_back(hitCollider);
+
+}
+
+void ObjectBase::ClearHitCollider(void)
+{
+	hitColliders_.clear();
 }

@@ -125,6 +125,14 @@ void RobotBase::Draw(void)
     default:
         break;
     }
+
+#ifdef _DEBUG
+    // 所有しているコライダの描画
+    for (const auto& own : ownColliders_)
+    {
+        own.second->Draw();
+    }
+#endif // _DEBUG
 }
 
 void RobotBase::Release(void)
@@ -135,6 +143,12 @@ void RobotBase::Release(void)
 
     useWepon_->Release();
     delete hpBer_;
+
+    // 自身のコライダ解放
+    for (auto& own : ownColliders_)
+    {
+        delete own.second;
+    }
 }
 
 void RobotBase::ChangeState(STATE state)

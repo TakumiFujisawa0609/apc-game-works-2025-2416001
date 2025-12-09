@@ -3,7 +3,7 @@
 #include<memory>
 #include<map>
 #include"Common/Transform.h"
-#include "Common/Collider.h"
+#include "Common/Collider/ColliderBase.h"
 
 class ResourceManager;
 class SceneManager;
@@ -14,13 +14,6 @@ class Collider;
 class ObjectBase
 {
 public:
-
-	//当たり判定情報
-	struct ColParam
-	{
-		std::unique_ptr<Geometry> geometry_;	//形状情報
-		std::shared_ptr<Collider> collider_;	//全体の当たり判定情報
-	};
 
 	// コンストラクタ
 	ObjectBase(void);
@@ -36,13 +29,20 @@ public:
 	inline const Transform& GetTransform(void) const { return trans_; }
 	Transform& GetTransform(void){ return trans_; }
 
-	const bool IsDead(void)const { return isDead_; }
-	void Kill(void) { isDead_ = true; }
+	// 自身の衝突情報取得
+	const std::map<int, ColliderBase*>& GetOwnColliders(void) const
+	{
+		return ownColliders_;
+	}
 
-	const Transform& GetTrans(void)const { return trans_; }
+	// 特定の自身の衝突情報取得
+	const ColliderBase* GetOwnCollider(int key) const;
 
-	//ヒット処理
-	virtual void OnHit(const std::weak_ptr<Collider> _hitCol);
+	// 衝突対象となるコライダを登録
+	void AddHitCollider(const ColliderBase* hitCollider);
+
+	// 衝突対象となるコライダをクリア
+	void ClearHitCollider(void);
 
 protected:
 
@@ -54,18 +54,11 @@ protected:
 	// モデル制御の基本情報
 	Transform trans_;
 
-	//当たり判定関係
-	std::vector<ColParam> colParam_;
+	// 自身の衝突情報
+	std::map<int, ColliderBase*> ownColliders_;
 
-	bool isDead_;
-
-	/// <summary>
-	/// 当たり判定作成(形状情報作成後)
-	/// </summary>
-	/// <param name="_tag">自身の当たり判定タグ</param>
-	/// <param name="_Geometry">自身の形状情報</param>
-	/// <param name="_notHitTags">衝突させないタグ</param>
-	void MakeCollider(const std::set<Collider::TAG> _tag, std::unique_ptr<Geometry> _geometry, const std::set<Collider::TAG> _notHitTags = {});
+	// 衝突相手の情報
+	std::vector<const ColliderBase*> hitColliders_;
 
 	// リソースロード
 	virtual void InitLoad(void) = 0;
@@ -75,6 +68,9 @@ protected:
 
 	// 大きさ、回転、座標のモデル設定
 	void InitTransformPost(void);
+
+	// 衝突判定の初期化
+	virtual void InitCollider(void) = 0;
 
 	// アニメーションの初期化
 	virtual void InitAnimation(void) = 0;
