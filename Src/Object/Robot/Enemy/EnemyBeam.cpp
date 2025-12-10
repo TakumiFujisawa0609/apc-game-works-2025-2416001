@@ -36,6 +36,10 @@ void EnemyBeam::InitTransform(void)
     beamCnt_ = BEAM_CNT;
 }
 
+void EnemyBeam::InitCollider(void)
+{
+}
+
 void EnemyBeam::InitAnimation(void)
 {
     anim_ = std::make_unique<AnimationController>(trans_.modelId);
@@ -83,4 +87,8 @@ void EnemyBeam::ProcessAttack(void)
     {
         stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
     }
+}
+
+void EnemyBeam::CollisionReserve(void)
+{
 }

@@ -19,32 +19,48 @@ void ObjectBase::Init(void)
 {
 	// リソースロード
 	InitLoad();
+
 	// Transform初期化
 	InitTransform();
-	// 大きさ、回転、座標のモデル設定
-	InitTransformPost();
+
+	// 衝突判定の初期化
+	InitCollider();
+
 	// アニメーションの初期化
 	InitAnimation();
+
 	// 初期化後の個別処理
 	InitPost();
-
-	MV1SetPosition(trans_.modelId, trans_.pos);
-	MV1SetRotationMatrix(trans_.modelId,
-		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
-void ObjectBase::InitTransformPost(void)
+void ObjectBase::Draw(void)
 {
-	// 大きさをモデルに反映
-	MV1SetScale(trans_.modelId, trans_.scl);
-	// 角度から方向に変換する
-	trans_.moveDir = { sinf(trans_.rot.y), 0.0f, cosf(trans_.rot.y) };
-	// 行列の合成(子, 親と指定すると親⇒子の順に適用される)
-	// 回転行列をモデルに反映
-	MV1SetRotationMatrix(trans_.modelId,
-		MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-	// 座標をモデルに反映
-	MV1SetPosition(trans_.modelId, trans_.pos);
+#ifdef _DEBUG
+	// 所有しているコライダの描画
+	for (const auto& own : ownColliders_)
+	{
+		own.second->Draw();
+	}
+#endif // _DEBUG
+
+	if (trans_.modelId != -1)
+	{
+		MV1DrawModel(trans_.modelId);
+	}
+}
+
+void ObjectBase::Release(void)
+{
+	// 自身のコライダ解放
+	for (auto& own : ownColliders_)
+	{
+		delete own.second;
+	}
+
+	if (trans_.modelId != -1)
+	{
+		MV1DeleteModel(trans_.modelId);
+	}
 }
 
 const ColliderBase* ObjectBase::GetOwnCollider(int key) const

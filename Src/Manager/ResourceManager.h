@@ -25,6 +25,8 @@ public:
 		ENEMY_LEELA,
 		ENEMY_MIKE,
 		ENEMY_STAN, 
+		SKY_DOME,
+		MAIN_STAGE,
 
 		//•Šíƒ‚ƒfƒ‹
 	    WEPON

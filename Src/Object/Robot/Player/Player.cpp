@@ -7,8 +7,10 @@
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
-#include "../../Common/Geometry/Sphere.h"
 #include "./../../Common/Transform.h"
+#include "../../Common/Collider/ColliderLine.h"
+#include "../../Common/Collider/ColliderCapsule.h"
+#include "../../../Common/Quaternion.h"
 #include "./../../Common/HpBer.h"
 #include "../../Wepon/WeponBase.h"
 #include "../../Manager/WeponManager.h"
@@ -47,10 +49,31 @@ void Player::InitLoad(void)
 
 void Player::InitTransform(void)
 {
-    trans_.rot = AsoUtility::VECTOR_ZERO;
-    trans_.pos = DEFALUT_POS;
+
     trans_.scl = DEFALUT_SCL;
-    trans_.localRot = LOCAL_DEF_ROT;
+    trans_.quaRot = Quaternion::Identity();
+    trans_.quaRotLocal = Quaternion::Identity();
+    trans_.quaRotLocal =
+        Quaternion::Mult(trans_.quaRotLocal,
+            Quaternion::AngleAxis(AsoUtility::Deg2RadF(180.0f), AsoUtility::AXIS_Y));
+    trans_.pos = AsoUtility::VECTOR_ZERO;
+    trans_.Update();
+}
+
+void Player::InitCollider(void)
+{
+    // 主に地面との衝突で仕様する線分コライダ
+    ColliderLine* colLine = new ColliderLine(
+        ColliderBase::TAG::PLAYER, &trans_,
+        COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
+    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::LINE), colLine);
+
+    // 主に壁や木などの衝突で仕様するカプセルコライダ
+    ColliderCapsule* colCapsule = new ColliderCapsule(
+        ColliderBase::TAG::PLAYER, &trans_,
+        COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
+        COL_CAPSULE_RADIUS);
+    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::CAPSULE), colCapsule);
 }
 
 void Player::InitAnimation(void)
@@ -84,10 +107,6 @@ void Player::InitPost(void)
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
-
-    //形状情報
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, 40.0f);
-    MakeCollider({ Collider::TAG::PLAYER}, std::move(geo));
 }
 
 void Player::ProcessMove(void)
@@ -123,34 +142,30 @@ void Player::ProcessMove(void)
         moveSpeed_ = MOVE_SPEED;
         // XYZの回転行列
         // XZ平面移動にする場合は、XZの回転を考慮しないようにする
-        MATRIX mat = MGetIdent();
-        mat = MMult(mat, MGetRotY(camera_->GetAngles().y));
-        // 回転行列を使用して、ベクトルを回転させる
-        trans_.moveDir = VTransform(dir, mat);
+        Quaternion cameraRot = scnMng_.GetCamera()->GetQuaRotY();
+        trans_.moveDir = Quaternion::PosAxis(cameraRot, dir);
         movePow_ = VScale(trans_.moveDir, moveSpeed_);
     }
 }
 
 void Player::ProcessRise(void)
 {
-    bool isRisePressed;
-    if (GetJoypadNum() == 0)
-    {
-        isRisePressed = inpMng_.IsNew(KEY_INPUT_G);
-    }
-    else
-    {
-        isRisePressed = inpMng_.IsPadBtnNew(
-            InputManager::JOYPAD_NO::PAD1,
-            InputManager::JOYPAD_BTN::DOWN
-        );
-    }
+    auto& ins = InputManager::GetInstance();
+    // 持続ジャンプ処理
+    bool isHitKeyNew = ins.IsNew(KEY_INPUT_BACKSLASH)
+        || ins.IsPadBtnNew(
+            InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN);
 
-    if (isRisePressed)
+    if (isHitKeyNew)
     {
-        // ジャンプ量の計算
-        float jumpSpeed = RISE_SPEED * scnMng_.GetDeltaTime();
-        jumpPow_ = VAdd(jumpPow_, VScale(AsoUtility::DIR_U, jumpSpeed));
+        // ジャンプの入力受付時間を減少
+        stepJump_ += scnMng_.GetDeltaTime();
+        if (stepJump_ < TIME_JUMP_INPUT)
+        {
+            // ジャンプ量の計算
+            float jumpSpeed = POW_JUMP_KEEP * scnMng_.GetDeltaTime();
+            jumpPow_ = VAdd(jumpPow_, VScale(AsoUtility::DIR_U, jumpSpeed));
+        }
     }
     else
     {
@@ -158,12 +173,22 @@ void Player::ProcessRise(void)
         stepJump_ = 0.0f;
     }
 
-    if (trans_.pos.y > 0)
-    {
-        trans_.pos.y -= GRAVITY;
-    }
+    // 初期ジャンプ処理
+    bool isHitKey = ins.IsTrgDown(KEY_INPUT_BACKSLASH)
+        || ins.IsPadBtnTrgDown(
+            InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN);
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
+    // ジャンプ
+    if (isHitKey && !isJump_)
+    {
+        // ジャンプ量の計算
+        float jumpSpeed = POW_JUMP_INIT * scnMng_.GetDeltaTime();
+        jumpPow_ = VScale(AsoUtility::DIR_U, jumpSpeed);
+        isJump_ = true;
+        // アニメーション再生
+        anim_->Play(
+            static_cast<int>(ANIM_TYPE::JUMP), false);
+    }
 }
 
 void Player::ProcessAttack(void)
@@ -283,23 +308,52 @@ void Player::UpdateWepon(void)
 {
 }
 
+void Player::CollisionReserve(void)
+{
+    // アニメーションごとの線分調整
+    if (anim_->GetPlayType() == static_cast<int>(ANIM_TYPE::JUMP))
+    {
+        // ジャンプ中は線分を伸ばす
+        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::LINE)) != 0)
+        {
+            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
+                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::LINE)));
+            colLine->SetLocalPosStart(COL_LINE_JUMP_START_LOCAL_POS);
+            colLine->SetLocalPosEnd(COL_LINE_JUMP_END_LOCAL_POS);
+        }
+        // ジャンプ中はカプセルを伸ばす
+        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::CAPSULE)) != 0)
+        {
+            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
+                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::CAPSULE)));
+            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_JUMP_LOCAL_POS);
+            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_JUMP_LOCAL_POS);
+        }
+    }
+    else
+    {
+        // 通常時の線分に戻す
+        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::LINE)) != 0)
+        {
+            ColliderLine* colLine = dynamic_cast<ColliderLine*>(
+                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::LINE)));
+            colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
+            colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
+        }
+        // 通常時のカプセルに戻す
+        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::CAPSULE)) != 0)
+        {
+            ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
+                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::CAPSULE)));
+            colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
+            colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
+        }
+    }
+}
+
 void Player::DrawHp(void)
 {
     hpBer_->Draw();
-}
-
-void Player::OnHit(const std::weak_ptr<Collider> hitCol)  
-{  
-    for (const auto& tag : hitCol.lock()->GetTags()) {
-        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform() })
-            if (tag == Collider::TAG::ENEMY) {
-                VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
-                trans_.pos = VSub(trans_.pos, newVec);
-            }
-        if (tag == Collider::TAG::ENEMY_WEPON) {
-            hp_ -= 1;
-        }
-    }
 }
 
 void Player::ChangeStandby(void)

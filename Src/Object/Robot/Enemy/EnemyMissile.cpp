@@ -33,6 +33,10 @@ void EnemyMissile::InitTransform(void)
     trans_.localRot = LOCAL_DEF_ROT;
 }
 
+void EnemyMissile::InitCollider(void)
+{
+}
+
 void EnemyMissile::InitAnimation(void)
 {
     anim_ = std::make_unique<AnimationController>(trans_.modelId);
@@ -86,4 +90,8 @@ void EnemyMissile::ProcessAttack(void)
     {
         stepShotDelay_ -= SceneManager::GetInstance().GetDeltaTime();
     }
+}
+
+void EnemyMissile::CollisionReserve(void)
+{
 }

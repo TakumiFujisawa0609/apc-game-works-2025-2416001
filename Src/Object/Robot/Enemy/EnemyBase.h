@@ -50,16 +50,12 @@ public:
 	//HP•`‰æ
 	void DrawHp(void)override;
 
-	void OnHit(const std::weak_ptr<Collider> hitCol)override;
-
 protected:
 
 	//“G‚ÌoŒ»”ÍˆÍ
 	float spawnRange_;
 	//ˆÚ“®ˆ—
 	virtual void ProcessMove(void)override;
-	//ã¸ˆ—
-	virtual void ProcessRise(void)override;
 	//‘ÎÛƒƒbƒNˆ—
 	virtual void ProcessTargetLock(void)override;
 

@@ -49,6 +49,10 @@ void WeponBeam::InitTransform(void)
 	trans_.Radius_ = DEFALUT_RADIUS;
 }
 
+void WeponBeam::InitCollider(void)
+{
+}
+
 void WeponBeam::InitPost(void)
 {
 	speed_ = DEFAULT_SPEED;

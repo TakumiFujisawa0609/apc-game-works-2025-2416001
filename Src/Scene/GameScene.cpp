@@ -7,11 +7,13 @@
 #include "../Object/Common/Transform.h"
 #include "../Object/Common/Grid.h"
 #include "../Object/Manager/EnemyManager.h"
-#include "../Object/Manager/CollisionManager.h"
 #include "../Object/Manager/WeponManager.h"
 #include "../Object/ObjectBase.h"
 #include "../Object/Robot/Player/Player.h"
 #include "../Object/Robot/Enemy/EnemyBase.h"
+#include "../Object/Common/Collider/ColliderBase.h"
+#include "../Object/Stage/SkyDome.h"
+#include "../Object/Stage/Stage.h"
 #include "../Utility/AsoUtility.h"
 #include "../Utility/MatrixUtility.h"
 #include "../Application.h"
@@ -27,13 +29,17 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
-	//当たり判定管理初期化
-	CollisionManager::CreateInstance();
 
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
-	camera->ChangeMode(Camera::MODE::FIXED_POINT);
+	camera->ChangeMode(Camera::MODE::FOLLOW);
+
+	//ステージ初期化処理
+	stage_ = std::make_shared<Stage>();
+	skydome_ = std::make_shared<SkyDome>();
+	stage_->Init();
+	skydome_->Init();
 
 	//プレイヤー初期化処理
 	player_ = std::make_shared<Player>();
@@ -49,8 +55,18 @@ void GameScene::Init(void)
 	grid_ = std::make_unique<Grid>();
 
 	//カメラの注視点をプレイヤーに設定
-	camera->SetPlayer(player_.get());
+	camera->SetFollow(&player_.get()->GetTransform());
 
+	// ステージモデルのコライダーをプレイヤーに登録
+	const ColliderBase* stageCollider =
+		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
+	const ColliderBase* cameraCollider =
+		camera->GetOwnCollider(static_cast<int>(Camera::COLLIDER_TYPE::SPHERE));
+
+	player_->AddHitCollider(stageCollider);
+	enemys_->AddHitCollider(stageCollider);
+	camera->AddHitCollider(stageCollider);
+	stage_->AddHitCollider(cameraCollider);
 }
 
 void GameScene::Update(void)
@@ -60,8 +76,8 @@ void GameScene::Update(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
 	}
 
-	CollisionManager::GetInstance().Sweep();
-	CollisionManager::GetInstance().Update();
+	stage_->Update();
+	skydome_->Update();
 
 	//ロボット更新処理
 	player_->Update();
@@ -75,6 +91,9 @@ void GameScene::Draw(void)
 {
 	//グリッド描画処理
 	grid_->Draw();
+
+	skydome_->Draw();
+	stage_->Draw();
 
 	//ロボット描画処理
 	player_->Draw();
@@ -92,12 +111,21 @@ void GameScene::Draw(void)
 	DrawFormatString(
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
+
+	DrawFormatString(0, 40, 0xFFFFFF,
+		"Player(%.1f, %.1f, %.1f)",
+		player_->GetTransform().pos.x,
+		player_->GetTransform().pos.y,
+		player_->GetTransform().pos.z);
+
 #endif
 }
 
 void GameScene::Release(void)
 {
-	CollisionManager::GetInstance().Destroy();
+	stage_->Release();
+	skydome_->Release();
+
 	//ロボット解放処理
 	player_->Release();
 	//エネミー解放処理
@@ -120,7 +148,7 @@ void GameScene::UpdateAutoLockOn(void)
 
 	if (enemy_ != nullptr && ( !enemy_->IsAlive() || enemy_->GetHp() <= 0)) {
 		enemy_ = nullptr;
-		camera->ChangeMode(Camera::MODE::FIXED_POINT);
+		camera->ChangeMode(Camera::MODE::FOLLOW);
 	}
 
 	//プレイヤーのオートロックオン処理
@@ -128,7 +156,7 @@ void GameScene::UpdateAutoLockOn(void)
 		camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
 	}
 	else {
-		camera->ChangeMode(Camera::MODE::FIXED_POINT);
+		camera->ChangeMode(Camera::MODE::FOLLOW);
 		return;
 	};
 
@@ -209,7 +237,7 @@ void GameScene::UpdateAutoLockOn(void)
 
 	// ターゲットがある場合のみカメラとプレイヤーに設定
 	if (enemy_ != nullptr) {
-		camera->SetEnemy(enemy_.get());
+		camera->SetTargetFollow(&enemy_.get()->GetTransform());
 		player_->SetLockOnPos(enemy_->GetTransform().pos);
 	}
 }

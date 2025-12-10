@@ -74,8 +74,6 @@ public:
 	// P1のHPバー背景色
 	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
 
-
-
 	EnemyBeam(void);
 	~EnemyBeam(void)override;
 
@@ -85,6 +83,8 @@ protected:
 	void InitLoad(void)override;
 	// 大きさ、回転、座標の初期化
 	void InitTransform(void)override;
+	// 衝突判定の初期化
+	void InitCollider(void)override;
 	// アニメーションの初期化
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
@@ -92,6 +92,8 @@ protected:
 	//攻撃処理
 	void ProcessAttack(void)override;
 
+	// 衝突判定
+	void CollisionReserve(void) override;
 
 private:
 

@@ -4,6 +4,7 @@
 #include <DxLib.h>
 
 class EnemyBase;
+class ColliderBase;
 
 class EnemyManager
 {
@@ -23,6 +24,9 @@ public:
 	void Draw(void);
 	void DrawHp(void);
 	void Release(void);
+
+	// 衝突対象となるコライダを登録
+	void AddHitCollider(const ColliderBase* hitCollider);
 
 	// エネミーの取得
 	const std::vector<std::shared_ptr<EnemyBase>>& GetEnemys(void) const;

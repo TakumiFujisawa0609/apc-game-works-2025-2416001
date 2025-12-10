@@ -38,34 +38,18 @@ public:
 	// 衝突判定用線分終了
 	static constexpr VECTOR COL_LINE_END_LOCAL_POS = { 0.0f, -10.0f, 0.0f };
 
-	//最大回転量
-	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
-	//ブースト時最大回転量
-	static constexpr float MAX_BOOST_ROT = 40.0f * DX_PI_F / 180.0f;
-	//回転量
-	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
-	//加速量
-	static constexpr float MOVE_SPEED = 0.95f;
-	//上昇量
-	static constexpr float RISE_SPEED = 10.5f;
-	//ブースト量
-	static constexpr float BUST_SPEED = 10.0f;
-	//最大加速量
-	static constexpr float MAX_MOVE_SPEED = 20.0f;
-	//最大ブースト量
-	static constexpr float MAX_BUST_SPEED = 30.0f;
-	//摩擦係数
-	static constexpr float FRICTION = 0.96f;
-	//停止判定の値
-	static constexpr float STOP_THRESHOLD = 0.1f;
-	// 重力
-	static constexpr float GRAVITY = 5.5f;
+
+	// 移動速度
+	static constexpr float MOVE_SPEED = 20.0f;
+	// ジャンプ力
+	static constexpr float POW_JUMP_INIT = 3500.0f;
+	// 持続ジャンプ力
+	static constexpr float POW_JUMP_KEEP = 400.0f;
+	// ジャンプ受付時間
+	static constexpr float TIME_JUMP_INPUT = 0.5f;
+
 	//アニメーションの再生速度
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
-	//プレイヤーのカメラ半径
-	static constexpr float MAX_ROBOT_ANGLES = 40.0f * DX_PI_F / 180.0f;
-	//プレイヤーの衝突半径
-	static constexpr float DEFALUT_RADIUS = 60.0f;
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 1.0f;
 	//HP
@@ -106,14 +90,14 @@ public:
 	//HP描画
 	void DrawHp(void)override;
 
-	void OnHit(const std::weak_ptr<Collider> hitCol)override;
-
 protected:
 
 	// リソースロード
 	void InitLoad(void)override;
 	// 大きさ、回転、座標の初期化
 	void InitTransform(void)override;
+	// 衝突判定の初期化
+	void InitCollider(void)override;
 	// アニメーションの初期化
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
@@ -129,6 +113,8 @@ protected:
 
 	void UpdateWepon(void)override;
 
+	// 衝突判定
+	void CollisionReserve(void) override;
 
 	// 状態遷移
 	void ChangeStandby(void)override;

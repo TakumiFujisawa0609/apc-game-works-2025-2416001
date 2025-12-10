@@ -48,6 +48,12 @@ void ResourceManager::Init(void)
 
 	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Wepon/Wepon.mv1");
 	resourcesMap_.emplace(SRC::WEPON, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "Stage/MainStage/MainStage.mv1");
+	resourcesMap_.emplace(SRC::MAIN_STAGE, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "SkyDome/Skydome.mv1");
+	resourcesMap_.emplace(SRC::SKY_DOME, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

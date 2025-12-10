@@ -168,24 +168,6 @@
     <ClCompile Include="Src\Object\Common\HpBer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Capsule.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Cube.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Geometry.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Line.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Model.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Geometry\Sphere.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Common\Collider\ColliderBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -333,24 +315,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Common\Geometry\ColliderSphere.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Capsule.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Cube.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Geometry.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Line.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Model.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Geometry\Sphere.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Common\Collider\ColliderBase.h">

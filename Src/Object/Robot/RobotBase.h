@@ -6,7 +6,6 @@
 #include "../ObjectBase.h"
 #include "../Wepon/WeponBase.h"
 #include "../../Utility/AsoUtility.h"
-#include "../Manager/CollisionManager.h"
 
 class WeponBase;
 class WeponManager;
@@ -17,6 +16,14 @@ class RobotBase
 	:public ObjectBase
 {
 public:
+
+	// Õ“Ë”»’èí•Ê
+	enum class COLLIDER_TYPE
+	{
+		LINE,
+		CAPSULE,
+		MAX,
+	};
 
 	// ó‘Ô
 	enum class STATE
@@ -141,7 +148,7 @@ protected:
 	//ƒLƒƒƒ‰‚Ì’x‰„‰ñ“]ˆ—
 	void DelayRotate(void);
 	//ã¸ˆ—
-	virtual void ProcessRise(void) = 0;
+	virtual void ProcessRise(void){}
 	//UŒ‚ˆ—
 	virtual void ProcessAttack(void) = 0;
 	//‘ÎÛƒƒbƒNˆ—
@@ -150,6 +157,11 @@ protected:
 
 	// d—ÍŒvZ
 	void CalcGravityPow(void);
+	// Õ“Ë”»’è
+	virtual void CollisionReserve(void) {}
+	void Collision(void);
+	void CollisionGravity(void);
+	void CollisionCapsule(void);
 
 	// ó‘Ô‘JˆÚ
 	virtual void ChangeStandby(void) = 0;

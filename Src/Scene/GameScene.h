@@ -9,6 +9,8 @@ class EnemyBase;
 class EnemyBeam;
 class Grid;
 class CollisinManager;
+class Stage;
+class SkyDome;
 
 class GameScene :
     public SceneBase
@@ -36,6 +38,10 @@ private:
 	std::shared_ptr<EnemyBase> enemy_;
 	//グリッド
 	std::unique_ptr<Grid> grid_;
+
+	//ステージ
+	std::shared_ptr<Stage> stage_;
+	std::shared_ptr<SkyDome> skydome_;
 
 	//自動ロックオン対象選別
 	void UpdateAutoLockOn(void);

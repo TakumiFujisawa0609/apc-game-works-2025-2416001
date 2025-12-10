@@ -2,7 +2,6 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../Common/AnimationController.h"
-#include "../../Common/Geometry/Sphere.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
 #include "EnemyBase.h"
@@ -22,11 +21,6 @@ void EnemyBase::Init(void)
     //ランダムな出現座標
     SetSpawnPostiton();
 
-    trans_.pos = VAdd(trans_.localPos, trans_.pos);
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
 
@@ -37,10 +31,6 @@ void EnemyBase::Init(void)
 
     //状態遷移初期設定
     ChangeState(STATE::STANDBY);
-
-    //形状情報
-    std::unique_ptr<Sphere> geo = std::make_unique<Sphere>(trans_.pos, 40.0f);
-    MakeCollider({ Collider::TAG::ENEMY }, std::move(geo));
 }
 
 void EnemyBase::SetSpawnPostiton(void)
@@ -81,19 +71,6 @@ void EnemyBase::ProcessMove(void)
     // 方向×スピードで移動量を作って、座標に足して移動
     
     movePow_= VAdd(trans_.pos, VScale(trans_.targetDir, moveSpeed_));
-}
-
-void EnemyBase::ProcessRise(void)
-{
-    if (trans_.pos.y > 0)
-    {
-        trans_.pos.y -= GRAVITY;
-    }
-    else {
-        trans_.pos.y = 0;
-    }
-
-    MV1SetPosition(trans_.modelId, trans_.pos);
 }
 
 void EnemyBase::ProcessTargetLock(void)
@@ -231,20 +208,6 @@ void EnemyBase::DrawEnd(void)
 void EnemyBase::DrawHp(void)
 {
     hpBer_->Draw();
-}
-
-void EnemyBase::OnHit(const std::weak_ptr<Collider> hitCol)
-{
-    for (const auto& tag : hitCol.lock()->GetTags()) {
-        for (const auto& parame : { hitCol.lock()->GetParent().GetTransform() })
-            if (tag == Collider::TAG::PLAYER) {
-                VECTOR newVec = AsoUtility::GetResolve(trans_.pos, trans_.Radius_, parame.pos, parame.Radius_);
-                trans_.pos = VSub(trans_.pos, newVec);
-            }
-        if (tag == Collider::TAG::PLAYER_WEPON) {
-            hp_ -= 1;
-        }
-    }
 }
 
 void EnemyBase::Damage(void)

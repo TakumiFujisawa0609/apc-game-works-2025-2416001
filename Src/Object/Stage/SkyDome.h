@@ -1,8 +1,8 @@
 #pragma once
-#include "ActorBase.h"
+#include "../ObjectBase.h"
 #include "../Common/Transform.h"
 class SkyDome :
-    public ActorBase
+    public ObjectBase
 {
 public:
 

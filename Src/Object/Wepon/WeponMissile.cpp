@@ -47,6 +47,10 @@ void WeponMissile::InitTransform(void)
 	trans_.Radius_ = DEFALUT_RADIUS;
 }
 
+void WeponMissile::InitCollider(void)
+{
+}
+
 void WeponMissile::InitPost(void)
 {
 	speed_ = DEFAULT_SPEED;

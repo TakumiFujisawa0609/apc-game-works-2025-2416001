@@ -23,8 +23,8 @@ public:
 
 	virtual void Init(void);
 	virtual void Update(void) = 0;
-	virtual void Draw(void) = 0;
-	virtual void Release(void) = 0;
+	virtual void Draw(void);
+	virtual void Release(void);
 
 	inline const Transform& GetTransform(void) const { return trans_; }
 	Transform& GetTransform(void){ return trans_; }
@@ -65,9 +65,6 @@ protected:
 
 	// 大きさ、回転、座標の初期化
 	virtual void InitTransform(void) = 0;
-
-	// 大きさ、回転、座標のモデル設定
-	void InitTransformPost(void);
 
 	// 衝突判定の初期化
 	virtual void InitCollider(void) = 0;

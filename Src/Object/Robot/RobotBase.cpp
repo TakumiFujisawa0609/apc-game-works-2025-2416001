@@ -6,6 +6,9 @@
 #include "../../Manager/InputManager.h"
 #include "../../Utility/MatrixUtility.h"
 #include "../Common/AnimationController.h"
+#include "../Common/Collider/ColliderLine.h"
+#include "../Common/Collider/ColliderModel.h"
+#include "../Common/Collider/ColliderCapsule.h"
 #include "./../Common/Transform.h"
 #include "../Wepon/WeponBase.h"
 #include "../Manager/WeponManager.h"
@@ -23,10 +26,6 @@ void RobotBase::Init(void)
 {
     ObjectBase::Init();
 
-    MV1SetPosition(weponModel.modelId, weponModel.pos);
-    MV1SetRotationMatrix(weponModel.modelId,
-        MatrixUtility::Multiplication(weponModel.localRot, weponModel.rot));
-
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
 
@@ -38,11 +37,13 @@ void RobotBase::Init(void)
 
 void RobotBase::Update(void)
 {
-
     if (!IsAlive())
     {
         return;
     }
+
+    // 移動前座標を更新
+    prevPos_ = trans_.pos;
 
     switch (state_)
     {
@@ -74,18 +75,16 @@ void RobotBase::Update(void)
     // 重力による移動量
     CalcGravityPow();
 
-    // 移動処理
-    trans_.pos = VAdd(trans_.pos, movePow_);
+    // 衝突判定前準備
+    CollisionReserve();
 
-    //// ジャンプ量を加算
-    //trans_.pos = VAdd(trans_.pos, jumpPow_);
+    // 衝突判定
+    Collision();
 
-    MV1SetPosition(trans_.modelId, trans_.pos);
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    // モデル制御更新
+    trans_.Update();
 
     hpBer_->SetHp(hp_);
-
     useWepon_->Update();
     anim_->Update();
 }
@@ -97,8 +96,7 @@ void RobotBase::Draw(void)
         return;
     }
 
-    MV1DrawModel(trans_.modelId);
-    MV1DrawModel(weponModel.modelId);
+    ObjectBase::Draw();
 
     useWepon_->Draw();
 
@@ -125,30 +123,15 @@ void RobotBase::Draw(void)
     default:
         break;
     }
-
-#ifdef _DEBUG
-    // 所有しているコライダの描画
-    for (const auto& own : ownColliders_)
-    {
-        own.second->Draw();
-    }
-#endif // _DEBUG
 }
 
 void RobotBase::Release(void)
 {
-
-    MV1DeleteModel(trans_.modelId);
-    MV1DeleteModel(weponModel.modelId);
+    ObjectBase::Release();
 
     useWepon_->Release();
     delete hpBer_;
 
-    // 自身のコライダ解放
-    for (auto& own : ownColliders_)
-    {
-        delete own.second;
-    }
 }
 
 void RobotBase::ChangeState(STATE state)
@@ -182,10 +165,11 @@ void RobotBase::ChangeState(STATE state)
 
 void RobotBase::DelayRotate(void)
 {
-    // 移動方向から角度に変換する
-    float goal = atan2f(trans_.moveDir.x, trans_.moveDir.z);
-    // 常に最短経路で補間
-    trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, goal, 0.2f);
+    // 移動方向から回転に変換する
+    Quaternion goalRot = Quaternion::LookRotation(trans_.moveDir);
+    // 回転の補間
+    trans_.quaRot =
+        Quaternion::Slerp(trans_.quaRot, goalRot, 0.2f);
 }
 
 bool RobotBase::IsTargetLockFlage(void)
@@ -227,5 +211,102 @@ void RobotBase::CalcGravityPow(void)
     if (jumpPow_.y < MAX_FALL_SPEED)
     {
         jumpPow_.y = MAX_FALL_SPEED;
+    }
+}
+
+void RobotBase::Collision(void)
+{
+    // 移動処理
+    trans_.pos = VAdd(trans_.pos, movePow_);
+
+    // 衝突(カプセル)
+    CollisionCapsule();
+
+    // ジャンプ量を加算
+    /*trans_.pos = VAdd(trans_.pos, jumpPow_);*/
+
+    // 衝突(重力)
+    CollisionGravity();
+}
+
+void RobotBase::CollisionGravity(void)
+{
+    // 落下中しか判定しない
+    if (!(VDot(AsoUtility::DIR_D, jumpPow_) > 0.9f))
+    {
+        return;
+    }
+
+    // 線分コライダ
+    int lineType = static_cast<int>(COLLIDER_TYPE::LINE);
+
+    // 線分コライダが無ければ処理を抜ける
+    if (ownColliders_.count(lineType) == 0) return;
+
+    // 線分コライダ情報
+    ColliderLine* colliderLine_ =
+        dynamic_cast<ColliderLine*>(ownColliders_.at(lineType));
+
+    if (colliderLine_ == nullptr) return;
+
+    // 登録されている衝突物を全てチェック
+    for (const auto& hitCol : hitColliders_)
+    {
+        // ステージ以外は処理を飛ばす
+        if (hitCol->GetTag() != ColliderBase::TAG::STAGE) continue;
+
+        // 派生クラスへキャスト
+        const ColliderModel* colliderModel =
+            dynamic_cast<const ColliderModel*>(hitCol);
+
+        if (colliderModel == nullptr) continue;
+
+        bool isHit = colliderLine_->PushBackUp(colliderModel, trans_, 2.0f, true, false);
+
+        if (isHit)
+        {
+            isJump_ = false;
+        }
+    }
+    if (!isJump_)
+    {
+        // ジャンプリセット
+        jumpPow_ = AsoUtility::VECTOR_ZERO;
+
+        // ジャンプの入力受付時間をリセット
+        stepJump_ = 0.0f;
+    }
+}
+
+void RobotBase::CollisionCapsule(void)
+{
+    // カプセルコライダ  
+    int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
+    // カプセルコライダが無ければ処理を抜ける  
+    if (ownColliders_.count(capsuleType) == 0) return;
+    // カプセルコライダ情報  
+    ColliderCapsule* colliderCapsule =
+        dynamic_cast<ColliderCapsule*>(ownColliders_.at(capsuleType));
+
+    if (colliderCapsule == nullptr) return;
+    // 登録されている衝突物を全てチェック  
+    for (const auto& hitCol : hitColliders_)
+    {
+        // モデル以外は処理を飛ばす  
+        if (hitCol->GetShape() != ColliderBase::SHAPE::MODEL) continue;
+
+        const ColliderModel* colliderModel =
+            dynamic_cast<const ColliderModel*>(hitCol);
+
+        if (colliderModel == nullptr) continue;
+
+        colliderCapsule->PushBackAlongNormal(
+            colliderModel,
+            trans_,
+            CNT_TRY_COLLISION,
+            COLLISION_BACK_DIS,
+            true,
+            false
+        );
     }
 }
