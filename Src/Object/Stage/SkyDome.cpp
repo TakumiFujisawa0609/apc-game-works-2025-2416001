@@ -34,7 +34,7 @@ void SkyDome::InitLoad(void)
 
 void SkyDome::InitTransform(void)
 {
-	trans_.scl = { 100.0f, 100.0f, 100.0f };
+	trans_.scl = { 150.0f, 150.0f, 150.0f };
 	trans_.quaRot = Quaternion::Identity();
 	trans_.quaRotLocal = Quaternion::Identity();
 	trans_.quaRotLocal =

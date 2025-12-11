@@ -29,18 +29,6 @@ void Player::SetCamera(Camera* camera)
     camera_ = camera;
 }
 
-const float& Player::GetDegreep(void) const
-{
-    return atan2f(trans_.rot.x, trans_.rot.z);
-}
-
-void Player::Damage(void)
-{
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-    }
-}
-
 void Player::InitLoad(void)
 {
     trans_.modelId = resMng_.LoadModelDuplicate(ResourceManager::SRC::ENEMY_GEORGE);
@@ -49,14 +37,13 @@ void Player::InitLoad(void)
 
 void Player::InitTransform(void)
 {
-
     trans_.scl = DEFALUT_SCL;
     trans_.quaRot = Quaternion::Identity();
     trans_.quaRotLocal = Quaternion::Identity();
     trans_.quaRotLocal =
         Quaternion::Mult(trans_.quaRotLocal,
             Quaternion::AngleAxis(AsoUtility::Deg2RadF(180.0f), AsoUtility::AXIS_Y));
-    trans_.pos = AsoUtility::VECTOR_ZERO;
+    trans_.pos = DEFALUT_POS;
     trans_.Update();
 }
 
@@ -102,49 +89,110 @@ void Player::InitPost(void)
     //HP
     hp_ = DEFALUT_HP;
 
+    // 移動方向
+    trans_.moveDir = AsoUtility::VECTOR_ZERO;
+    // 移動スピード
+    moveSpeed_ = 0.0f;
+    // 移動量
+    movePow_ = AsoUtility::VECTOR_ZERO;
+
     maxHp_ = DEFALUT_HP;
     hpTextOffset_ = HPBER_POS;
     hpScl_ = HPBER_SIZE;
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    //状態
+    state_ = STATE::IDLE;
+}
+
+void Player::UpdateProcess(void)
+{
+    //移動処理
+    ProcessMove();
+
+    //上昇処理
+    ProcessRise();
+
+    //攻撃処理
+    ProcessAttack();
+
+    //対象ロック処理
+    ProcessTargetLock();
+}
+
+void Player::UpdateProcessPost(void)
+{
 }
 
 void Player::ProcessMove(void)
 {
+    if (state_ != STATE::IDLE) {
+        return;
+    }
 
-    MATRIX matRot = MGetIdent();
-    //移動方向
-    VECTOR dir = AsoUtility::VECTOR_ZERO;
-    movePow_ = AsoUtility::VECTOR_ZERO;
     moveSpeed_ = 0.0f;
-
-    // 入力状態をチェック
-    bool isBustPressed;
+    movePow_ = AsoUtility::VECTOR_ZERO;
+    VECTOR dir = AsoUtility::VECTOR_ZERO;
 
     auto& ins = InputManager::GetInstance();
-    if (GetJoypadNum() == 0){
-        // 入力状態をチェック
+    if (GetJoypadNum() == 0) {
+
         if (ins.IsNew(KEY_INPUT_W)) { dir = AsoUtility::DIR_F; }
         if (ins.IsNew(KEY_INPUT_A)) { dir = AsoUtility::DIR_L; }
         if (ins.IsNew(KEY_INPUT_S)) { dir = AsoUtility::DIR_B; }
         if (ins.IsNew(KEY_INPUT_D)) { dir = AsoUtility::DIR_R; }
     }
-    else{
+    else {
         // 接続されているゲームパッド１の情報を取得
         InputManager::JOYPAD_IN_STATE padState =
-            inpMng_.GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+            ins.GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
         // アナログキーの入力値から方向を取得
-        dir = inpMng_.GetDirectionXZAKey(padState.AKeyLX, padState.AKeyLY);
+        dir = ins.GetDirectionXZAKey(padState.AKeyLX, padState.AKeyLY);
     }
 
     if (!AsoUtility::EqualsVZero(dir))
     {
-        moveSpeed_ = MOVE_SPEED;
-        // XYZの回転行列
-        // XZ平面移動にする場合は、XZの回転を考慮しないようにする
+        if (state_ == STATE::IDLE) {
+            bool isD;
+            auto& ins = InputManager::GetInstance();
+            if (GetJoypadNum() == 0)
+            {
+                isD = ins.IsNew(KEY_INPUT_RSHIFT);
+            }
+            else {
+                isD = ins.IsPadBtnNew(InputManager::JOYPAD_NO::PAD1,
+                    InputManager::JOYPAD_BTN::R_TRIGGER);
+            }
+
+            //ジャンプ中はアニメーションを変えない
+            if (!isJump_)
+            {
+                if (isD) {
+                    moveSpeed_ = SPEED_DASH;
+                    anim_->Play(static_cast<int>(ANIM_TYPE::WALK));
+                }
+                else {
+                    moveSpeed_ = SPEED_MOVE;
+                    anim_->Play(static_cast<int>(ANIM_TYPE::RUN));
+                }
+            }
+        }
+
         Quaternion cameraRot = scnMng_.GetCamera()->GetQuaRotY();
         trans_.moveDir = Quaternion::PosAxis(cameraRot, dir);
         movePow_ = VScale(trans_.moveDir, moveSpeed_);
+    }
+    else {
+        // ジャンプ中はアニメーションを変えない
+        if (!isJump_)
+        {
+            if (state_ == STATE::IDLE) {
+                // 歩くアニメーションを再生すること！(ループ再生有り)
+                // アニメーションの再生
+                anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
+            }
+        }
     }
 }
 
@@ -304,10 +352,6 @@ void Player::ProcessTargetLock(void)
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
 }
 
-void Player::UpdateWepon(void)
-{
-}
-
 void Player::CollisionReserve(void)
 {
     // アニメーションごとの線分調整
@@ -349,104 +393,4 @@ void Player::CollisionReserve(void)
             colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
         }
     }
-}
-
-void Player::DrawHp(void)
-{
-    hpBer_->Draw();
-}
-
-void Player::ChangeStandby(void)
-{
-}
-
-void Player::ChangeKnockback(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
-}
-
-void Player::ChangeAttack(void)
-{
-}
-
-void Player::ChangeDead(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
-}
-
-void Player::ChangeVictory(void)
-{
-}
-
-void Player::ChangeEnd(void)
-{
-}
-
-void Player::UpdateStandby(void)
-{
-
-    UpdateWepon();
-
-    //移動処理
-    ProcessMove();
-
-    //上昇処理
-    ProcessRise();
-
-    ProcessTargetLock();
-
-    //攻撃処理
-    ProcessAttack();
-}
-
-void Player::UpdateKnockback(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::STANDBY);
-    }
-}
-
-void Player::UpdateAttack(void)
-{
-}
-
-void Player::UpdateDead(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::END);
-    }
-}
-
-void Player::UpdateVictory(void)
-{
-}
-
-void Player::UpdateEnd(void)
-{
-}
-
-void Player::DrawStandby(void)
-{
-}
-
-void Player::DrawKnockback(void)
-{
-}
-
-void Player::DrawAttack(void)
-{
-}
-
-void Player::DrawDead(void)
-{
-}
-
-void Player::DrawVictory(void)
-{
-}
-
-void Player::DrawEnd(void)
-{
 }

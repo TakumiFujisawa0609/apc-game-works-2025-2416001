@@ -202,9 +202,8 @@ SceneManager::SCENE_ID SceneManager::GetSceneID(void)
 float SceneManager::GetDeltaTime(void) const
 {
 	//return 1.0f / DEFAULT_FPS;
-	return deltaTime_;
+	return 1.0f / 60.0f;
 }
-
 
 Camera* SceneManager::GetCamera(void) const
 {

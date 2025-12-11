@@ -1,5 +1,5 @@
 ﻿  RobotBase.cpp
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(64,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(47,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
   
   BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe

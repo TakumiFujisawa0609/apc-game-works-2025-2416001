@@ -249,27 +249,27 @@ MATRIX Quaternion::ToMatrix(void) const
     return ToMatrix(Quaternion(w, x, y, z));
 }
 
-Quaternion Quaternion::LookRotation(VECTOR dir)
+Quaternion Quaternion::LookRotation(const VECTOR& dir)
 {
     VECTOR up = { 0.0f, 1.0f, 0.0f };
     return LookRotation(dir, up);
 }
 
-Quaternion Quaternion::LookRotation(VECTOR dir, VECTOR up)
+Quaternion Quaternion::LookRotation(const VECTOR& dir, const VECTOR& up)
 {
 
-    dir = AsoUtility::VNormalize(dir);
-    VECTOR right = AsoUtility::VNormalize(VCross(up, dir));
-    up = VCross(dir, right);
+    VECTOR norDir = AsoUtility::VNormalize(dir);
+    VECTOR right = AsoUtility::VNormalize(VCross(up, norDir));
+    VECTOR crossUp = VCross(norDir, right);
     auto m00 = right.x;
     auto m01 = right.y;
     auto m02 = right.z;
-    auto m10 = up.x;
-    auto m11 = up.y;
-    auto m12 = up.z;
-    auto m20 = dir.x;
-    auto m21 = dir.y;
-    auto m22 = dir.z;
+    auto m10 = crossUp.x;
+    auto m11 = crossUp.y;
+    auto m12 = crossUp.z;
+    auto m20 = norDir.x;
+    auto m21 = norDir.y;
+    auto m22 = norDir.z;
 
 
     float num8 = (m00 + m11) + m22;
@@ -322,7 +322,7 @@ Quaternion Quaternion::LookRotation(VECTOR dir, VECTOR up)
 
 }
 
-Quaternion Quaternion::GetRotation(MATRIX mat)
+Quaternion Quaternion::GetRotation(const MATRIX& mat)
 {
 
     Quaternion ret;
@@ -516,7 +516,7 @@ Quaternion Quaternion::Inverse(void) const
 
 }
 
-Quaternion Quaternion::Slerp(Quaternion from, Quaternion to, double t)
+Quaternion Quaternion::Slerp(const Quaternion& from, const Quaternion& to, double t)
 {
     if (t > 1) t = 1;
     if (t < 0) t = 0;
@@ -529,28 +529,28 @@ inline float SIGN(float x) {
 }
 
 inline float NORM(float a, float b, float c, float d) {
-    return sqrt(a * a + b * b + c * c + d * d);
+    return sqrtf(a * a + b * b + c * c + d * d);
 }
 
-Quaternion Quaternion::FromToRotation(VECTOR fromDir, VECTOR toDir)
+Quaternion Quaternion::FromToRotation(const VECTOR& fromDir, const VECTOR& toDir)
 {
 
-	VECTOR axis = VCross(fromDir, toDir);
-	double angle = AsoUtility::AngleDeg(fromDir, toDir);
-	if (angle >= 179.9196)
-	{
-		auto r = VCross(fromDir, AsoUtility::DIR_R);
-		axis = VCross(r, fromDir);
-		//if (axis.sqrMagnitude < 0.000001f)
-		float len = axis.x * axis.x + axis.y * axis.y + axis.z * axis.z;
-		if (len < 0.000001f)
-		{
-			axis = AsoUtility::DIR_U;
-		}
-	}
+    VECTOR axis = VCross(fromDir, toDir);
+    double angle = AsoUtility::AngleDeg(fromDir, toDir);
+    if (angle >= 179.9196)
+    {
+        auto r = VCross(fromDir, AsoUtility::DIR_R);
+        axis = VCross(r, fromDir);
+        //if (axis.sqrMagnitude < 0.000001f)
+        float len = axis.x * axis.x + axis.y * axis.y + axis.z * axis.z;
+        if (len < 0.000001f)
+        {
+            axis = AsoUtility::DIR_U;
+        }
+    }
 
-	axis = AsoUtility::VNormalize(axis);
-	return Quaternion::AngleAxis(AsoUtility::Deg2RadD(angle), axis);
+    axis = AsoUtility::VNormalize(axis);
+    return Quaternion::AngleAxis(AsoUtility::Deg2RadD(angle), axis);
 
 }
 
@@ -567,9 +567,9 @@ Quaternion Quaternion::RotateTowards(const Quaternion& from, const Quaternion& t
 
 double Quaternion::Angle(const Quaternion& q1, const Quaternion& q2)
 {
-	double cos = Quaternion::Dot(q1, q2);
+    double cos = Quaternion::Dot(q1, q2);
     double ac = acos(cos);
-	return ac * (180.0 / DX_PI);
+    return ac * (180.0 / DX_PI);
 }
 
 Quaternion Quaternion::SlerpUnclamped(Quaternion a, Quaternion b, float t)
@@ -600,10 +600,10 @@ Quaternion Quaternion::SlerpUnclamped(Quaternion a, Quaternion b, float t)
     else if (cosHalfAngle < 0.0f)
     {
         //b.xyz() = -b.xyz();
-		b.x = b.x * -1.0f;
-		b.y = b.y * -1.0f;
-		b.z = b.z * -1.0f;
-		b.w = -b.w;
+        b.x = b.x * -1.0f;
+        b.y = b.y * -1.0f;
+        b.z = b.z * -1.0f;
+        b.w = -b.w;
         cosHalfAngle = -cosHalfAngle;
     }
 
@@ -628,7 +628,7 @@ Quaternion Quaternion::SlerpUnclamped(Quaternion a, Quaternion b, float t)
     //Quaternion result = Quaternion(blendA * a.xyz() + blendB * b.xyz(), blendA * a.w + blendB * b.w);
     VECTOR v = VAdd(VScale(a.xyz(), blendA), VScale(b.xyz(), blendB));
     //Quaternion result = Quaternion(v.x, v.y, v.z, blendA * a.w + blendB * b.w);
-	Quaternion result = Quaternion(blendA * a.w + blendB * b.w, v.x, v.y, v.z);
+    Quaternion result = Quaternion(blendA * a.w + blendB * b.w, v.x, v.y, v.z);
     if (result.LengthSquared() > 0.0f)
     {
         return Normalize(result);
@@ -663,47 +663,39 @@ VECTOR Quaternion::xyz(void) const
 void Quaternion::ToAngleAxis(float* angle, VECTOR* axis)
 {
 
-	if (abs(this->w) > 1.0f)
-	{
-		this->Normalize();
-	}
-	*angle = 2.0f * acosf((float)this->w); // angle
+    if (abs(this->w) > 1.0f)
+    {
+        this->Normalize();
+    }
+    *angle = 2.0f * acosf((float)this->w); // angle
 
     if (x == 0 && y == 0 && z == 0)
     {
         *angle = 0.0f;
     }
 
-	float den = sqrtf(1.0f - (float)(this->w * this->w));
-	if (den > 0.0001f)
-	{
-		//axis = q->xyz / den;
-		auto v = this->xyz();
-		axis->x = v.x / den;
-		axis->y = v.y / den;
-		axis->z = v.z / den;
-	}
-	else
-	{
-		// This occurs when the angle is zero. 
-		// Not a problem: just set an arbitrary normalized axis.
-		*axis = { 1.0f, 0.0f, 0.0f };
-	}
+    float den = sqrtf(1.0f - (float)(this->w * this->w));
+    if (den > 0.0001f)
+    {
+        //axis = q->xyz / den;
+        auto v = this->xyz();
+        axis->x = v.x / den;
+        axis->y = v.y / den;
+        axis->z = v.z / den;
+    }
+    else
+    {
+        // This occurs when the angle is zero. 
+        // Not a problem: just set an arbitrary normalized axis.
+        *axis = { 1.0f, 0.0f, 0.0f };
+    }
 
 }
 
-Quaternion Quaternion::operator*(float& f) {
+Quaternion Quaternion::operator*(float f) {
     return Quaternion(w * f, x * f, y * f, z * f);
 }
 
-const Quaternion Quaternion::operator*(const float& f) {
-    return Quaternion(w * f, x * f, y * f, z * f);
-}
-
-Quaternion Quaternion::operator+(Quaternion& rhs) {
-    return Quaternion(w + rhs.w, x + rhs.x, y + rhs.y, z + rhs.z);
-}
-
-const Quaternion Quaternion::operator+(const Quaternion& rhs) {
+Quaternion Quaternion::operator+(const Quaternion& rhs) {
     return Quaternion(w + rhs.w, x + rhs.x, y + rhs.y, z + rhs.z);
 }

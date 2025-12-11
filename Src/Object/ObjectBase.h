@@ -44,6 +44,9 @@ public:
 	// 衝突対象となるコライダをクリア
 	void ClearHitCollider(void);
 
+	//生存フラグ取得
+	const bool GetIsAlive(void)const { return isAlive_; }
+
 protected:
 
 	// シングルトン参照
@@ -53,6 +56,9 @@ protected:
 
 	// モデル制御の基本情報
 	Transform trans_;
+
+	//生存フラグ
+	bool isAlive_;
 
 	// 自身の衝突情報
 	std::map<int, ColliderBase*> ownColliders_;

@@ -28,9 +28,6 @@ void EnemyBase::Init(void)
 
     // ’e”­ŽË‚Ìd’¼ŽžŠÔ
     stepShotDelay_ = 0.0f;
-
-    //ó‘Ô‘JˆÚ‰ŠúÝ’è
-    ChangeState(STATE::STANDBY);
 }
 
 void EnemyBase::SetSpawnPostiton(void)
@@ -61,6 +58,25 @@ void EnemyBase::SetSpawnPostiton(void)
     VECTOR pos = VAdd(spawnPos, vec);
 
     trans_.pos = pos;
+}
+
+void EnemyBase::UpdateProcess(void)
+{
+    //ˆÚ“®ˆ—
+    ProcessMove();
+
+    //ã¸ˆ—
+    ProcessRise();
+
+    //UŒ‚ˆ—
+    ProcessAttack();
+
+    //‘ÎÛƒƒbƒNˆ—
+    ProcessTargetLock();
+}
+
+void EnemyBase::UpdateProcessPost(void)
+{
 }
 
 void EnemyBase::ProcessMove(void)
@@ -104,116 +120,5 @@ void EnemyBase::ProcessTargetLock(void)
     // ƒ[ƒJƒ‹‰ñ“]‚ÆƒOƒ[ƒoƒ‹‰ñ“]‚ð‡¬‚µ‚Äƒ‚ƒfƒ‹‚É“K—p
     MV1SetRotationMatrix(trans_.modelId,
         MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
-}
-
-void EnemyBase::UpdateWepon(void)
-{
-}
-
-void EnemyBase::ChangeStandby(void)
-{
-    // ‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
-    anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
-}
-
-void EnemyBase::ChangeKnockback(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
-}
-
-void EnemyBase::ChangeAttack(void)
-{
-}
-
-void EnemyBase::ChangeDead(void)
-{
-    anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
-}
-
-void EnemyBase::ChangeVictory(void)
-{
-}
-
-void EnemyBase::ChangeEnd(void)
-{
-}
-
-void EnemyBase::UpdateStandby(void)
-{
-
-    ProcessTargetLock();
-
-    //ˆÚ“®ˆ—
-    ProcessMove();
-
-    //ã¸ˆ—
-    ProcessRise();
-
-    //UŒ‚ˆ—
-    ProcessAttack();
-}
-
-void EnemyBase::UpdateKnockback(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::STANDBY);
-    }
-}
-
-void EnemyBase::UpdateAttack(void)
-{
-}
-
-void EnemyBase::UpdateDead(void)
-{
-    if (anim_->IsEnd())
-    {
-        ChangeState(STATE::END);
-    }
-}
-
-void EnemyBase::UpdateVictory(void)
-{
-}
-
-void EnemyBase::UpdateEnd(void)
-{
-}
-
-void EnemyBase::DrawStandby(void)
-{
-}
-
-void EnemyBase::DrawKnockback(void)
-{
-}
-
-void EnemyBase::DrawAttack(void)
-{
-}
-
-void EnemyBase::DrawDead(void)
-{
-}
-
-void EnemyBase::DrawVictory(void)
-{
-}
-
-void EnemyBase::DrawEnd(void)
-{
-}
-
-void EnemyBase::DrawHp(void)
-{
-    hpBer_->Draw();
-}
-
-void EnemyBase::Damage(void)
-{
-    if (hp_ <= 0) {
-        ChangeState(STATE::DEAD);
-    }
 }
 

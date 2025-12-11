@@ -26,12 +26,19 @@ public:
 		MAX,
 	};
 
+	enum class STATE
+	{
+		IDLE,
+		RUN,
+		FAST_RUN
+	};
+
 	//初期サイズ
 	static constexpr VECTOR DEFALUT_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f,180.0f * DX_PI_F / 180.0f, 0.0f };
 	//初期座標
-	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,0.0f };
+	static constexpr VECTOR  DEFALUT_POS = { 0.0f,100.0f,0.0f };
 
 	// 衝突判定用線分開始
 	static constexpr VECTOR COL_LINE_START_LOCAL_POS = { 0.0f, 80.0f, 0.0f };
@@ -39,8 +46,10 @@ public:
 	static constexpr VECTOR COL_LINE_END_LOCAL_POS = { 0.0f, -10.0f, 0.0f };
 
 
-	// 移動速度
-	static constexpr float MOVE_SPEED = 20.0f;
+	// 移動速度(通常)
+	static constexpr float SPEED_MOVE = 5.0f;
+	// 移動速度(ダッシュ)
+	static constexpr float SPEED_DASH = 10.0f;
 	// ジャンプ力
 	static constexpr float POW_JUMP_INIT = 3500.0f;
 	// 持続ジャンプ力
@@ -83,13 +92,6 @@ public:
 
 	void SetCamera(Camera* camera);
 
-	const float& GetDegreep(void) const;
-
-	void Damage(void)override;
-
-	//HP描画
-	void DrawHp(void)override;
-
 protected:
 
 	// リソースロード
@@ -102,6 +104,11 @@ protected:
 	void InitAnimation(void)override;
 	// 初期化後の個別処理
 	void InitPost(void)override;
+
+	// 更新系
+	void UpdateProcess(void)override;
+	void UpdateProcessPost(void)override;
+
 	//移動処理
 	void ProcessMove(void)override;
 	//上昇処理
@@ -111,34 +118,8 @@ protected:
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
 
-	void UpdateWepon(void)override;
-
 	// 衝突判定
 	void CollisionReserve(void) override;
-
-	// 状態遷移
-	void ChangeStandby(void)override;
-	void ChangeKnockback(void)override;
-	void ChangeAttack(void)override;
-	void ChangeDead(void)override;
-	void ChangeVictory(void)override;
-	void ChangeEnd(void)override;
-
-	// 状態別更新
-	void UpdateStandby(void)override;
-	void UpdateKnockback(void)override;
-	void UpdateAttack(void)override;
-	void UpdateDead(void)override;
-	void UpdateVictory(void)override;
-	void UpdateEnd(void)override;
-
-	// 状態別描画
-	void DrawStandby(void)override;
-	void DrawKnockback(void)override;
-	void DrawAttack(void)override;
-	void DrawDead(void)override;
-	void DrawVictory(void)override;
-	void DrawEnd(void)override;
 
 private:
 
@@ -159,6 +140,9 @@ private:
 	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
 	// 衝突判定用カプセル球体半径
 	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
+
+	//状態
+	STATE state_;
 
 	//カメラの角度
 	Camera* camera_;

@@ -45,43 +45,24 @@ public:
 	//oŒ»ˆ—
 	void SetSpawnPostiton(void);
 
-	void Damage(void)override;
-
-	//HP•`‰æ
-	void DrawHp(void)override;
 
 protected:
 
 	//“G‚ÌoŒ»”ÍˆÍ
 	float spawnRange_;
+
+	// XVŒn
+	void UpdateProcess(void)override;
+	void UpdateProcessPost(void)override;
+
 	//ˆÚ“®ˆ—
-	virtual void ProcessMove(void)override;
+	void ProcessMove(void)override;
+	//ã¸ˆ—
+	virtual void ProcessRise(void) {}
+	//UŒ‚ˆ—
+	virtual void ProcessAttack(void) {}
 	//‘ÎÛƒƒbƒNˆ—
-	virtual void ProcessTargetLock(void)override;
-
-    void UpdateWepon(void)override;
-
-	// ó‘Ô‘JˆÚ
-	virtual void ChangeStandby(void);
-	virtual void ChangeKnockback(void);
-	virtual void ChangeAttack(void);
-	virtual void ChangeDead(void);
-	virtual void ChangeVictory(void);
-	virtual void ChangeEnd(void);
-	// ó‘Ô•ÊXV
-	virtual void UpdateStandby(void);
-	virtual void UpdateKnockback(void);
-	virtual void UpdateAttack(void);
-	virtual void UpdateDead(void);
-	virtual void UpdateVictory(void);
-	virtual void UpdateEnd(void);
-	// ó‘Ô•Ê•`‰æ
-	virtual void DrawStandby(void);
-	virtual void DrawKnockback(void);
-	virtual void DrawAttack(void);
-	virtual void DrawDead(void);
-	virtual void DrawVictory(void);
-	virtual void DrawEnd(void);
+	void ProcessTargetLock(void)override;
 
 private:
 

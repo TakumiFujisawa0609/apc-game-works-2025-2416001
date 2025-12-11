@@ -1,10 +1,7 @@
 #pragma once
-#include <vector>
-#include <memory>
 #include <DxLib.h>
 #include "../Common/Quaternion.h"
 #include "../Object/ObjectBase.h"
-
 class Transform;
 
 class Camera : public ObjectBase
@@ -41,7 +38,6 @@ public:
 	static constexpr float LIMIT_X_UP_RAD = 40.0f * (DX_PI_F / 180.0f);
 	static constexpr float LIMIT_X_DW_RAD = 10.0f * (DX_PI_F / 180.0f);
 
-
 	// カメラモード
 	enum class MODE
 	{
@@ -59,6 +55,7 @@ public:
 		MAX,
 	};
 
+	// コンストラクタ
 	Camera(void);
 
 	// デストラクタ
@@ -73,33 +70,41 @@ public:
 	// デバッグ用描画
 	void DrawDebug(void);
 
+	// 解放
+	void Release(void)override;
+
 	// 座標の取得
 	const VECTOR& GetPos(void) const;
 
 	// 角度の取得
 	const VECTOR& GetAngles(void) const;
 	const Quaternion& GetQuaRot(void) const;
+
 	// X回転を抜いたY軸のみのカメラ角度
 	const Quaternion& GetQuaRotY(void) const;
+
 	// 注視点の取得
 	const VECTOR& GetTargetPos(void) const;
+
 	// カメラの前方方向
 	VECTOR GetForward(void) const;
 
+	//カメラモードの取得
+	const MODE& GetCameraMode(void)const{ return mode_; }
+
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
+
 	// 追従対象の設定
 	void SetFollow(const Transform* follow);
+
 	//ロックオン対象の設定
 	void SetTargetFollow(const Transform* follow);
-
-	MODE GetCameraMode(void) { return mode_; }
 
 	// 衝突対象となるコライダを登録
 	void AddHitCollider(const ColliderBase* hitCollider);
 
 protected:
-
 	// リソースロード
 	void InitLoad(void) override {}
 	// 大きさ、回転、座標の初期化
@@ -116,7 +121,7 @@ private:
 	// カメラが追従対象とするTransform
 	const Transform* followTransform_;
 
-	// カメラが追従対象とするTransform
+	//ロックオン対象のTransform
 	const Transform* targetTransform_;
 
 	// 衝突時の押し戻し試行回数
@@ -173,6 +178,7 @@ private:
 
 	// カメラの更新前位置
 	VECTOR prePos_;
+
 
 };
 

@@ -1,18 +1,11 @@
-#include <math.h>
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
-
 #include "../Utility/AsoUtility.h"
 #include "../Utility/MatrixUtility.h"
 #include "../Object/Common/Transform.h"
-#include "../Object/Robot/Player/Player.h"
-#include "../Object/Robot/Enemy/EnemyBase.h"
 #include "../Object/Common/Collider/ColliderModel.h"
 #include "../Object/Common/Collider/ColliderSphere.h"
 #include "InputManager.h"
-
-#include "../Application.h"
-
 #include "Camera.h"
 
 Camera::Camera(void)
@@ -81,6 +74,10 @@ void Camera::DrawDebug(void)
 	}
 
 #endif
+}
+
+void Camera::Release(void)
+{
 }
 
 void Camera::SetFollow(const Transform* follow)

@@ -89,6 +89,7 @@ protected:
 	void InitAnimation(void)override;
 	// ‰Šú‰»Œã‚ÌŒÂ•Êˆ—
 	void InitPost(void)override;
+
 	//UŒ‚ˆ—
 	void ProcessAttack(void)override;
 

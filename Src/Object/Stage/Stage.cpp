@@ -41,7 +41,7 @@ void Stage::InitLoad(void)
 
 void Stage::InitTransform(void)
 {
-	trans_.scl = { 1.0f, 1.0f, 1.0f };
+	trans_.scl = { 2.0f, 2.0f, 2.0f };
 	trans_.pos = { 0.0f, -100.0f, 0.0f };
 	trans_.Update();
 }

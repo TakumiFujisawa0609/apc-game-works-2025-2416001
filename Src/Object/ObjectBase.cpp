@@ -9,6 +9,7 @@ ObjectBase::ObjectBase(void)
 	scnMng_(SceneManager::GetInstance()),
 	inpMng_(InputManager::GetInstance())
 {
+	isAlive_ = true;
 }
 
 ObjectBase::~ObjectBase(void)
@@ -35,6 +36,11 @@ void ObjectBase::Init(void)
 
 void ObjectBase::Draw(void)
 {
+	if (!isAlive_)
+	{
+		return;
+	}
+
 #ifdef _DEBUG
 	// 所有しているコライダの描画
 	for (const auto& own : ownColliders_)

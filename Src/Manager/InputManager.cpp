@@ -30,6 +30,7 @@ void InputManager::Init(void)
 	InputManager::GetInstance().Add(KEY_INPUT_SPACE);
 	InputManager::GetInstance().Add(KEY_INPUT_BACK);
 	InputManager::GetInstance().Add(KEY_INPUT_Z);
+	InputManager::GetInstance().Add(KEY_INPUT_BACKSLASH);
 
 	// 1P
 	InputManager::GetInstance().Add(KEY_INPUT_UP);

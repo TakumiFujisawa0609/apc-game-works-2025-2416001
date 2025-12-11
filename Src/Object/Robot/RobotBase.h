@@ -25,18 +25,6 @@ public:
 		MAX,
 	};
 
-	// 状態
-	enum class STATE
-	{
-		NONE,
-		STANDBY,
-		KNOCKBACK,
-		ATTACK,
-		DEAD,
-		END,
-		VICTORY,
-	};
-
 	// コンストラクタ
 	RobotBase(void);
 	// デストラクタ
@@ -47,8 +35,6 @@ public:
 	void Update(void)override;
 	//描画処理
 	void Draw(void)override;
-	//HP描画
-	virtual void DrawHp(void) = 0;
 	//解放処理
 	void Release(void)override;
 
@@ -58,32 +44,14 @@ public:
 	//ロックオン座標の設定
 	void SetLockOnPos(VECTOR lockOnPos = AsoUtility::VECTOR_ZERO);
 
-	// ダメージを与える
-	virtual void Damage(void) = 0;
-
 	float GetHp(void) { return hp_; }
 
 	const std::shared_ptr<WeponManager>& GetUseWepons(void) const { return useWepon_; }
-
-	// 衝突判定が有効な状態
-	bool IsCollisionState(void);
-
-	//敵の生存判定
-	bool IsAlive(void);
-
-	const STATE& GetState(void) const { return state_; }
-
-	//当たり判定半径取得
-	const float& GetCillisionRadius(void) { return trans_.Radius_; }
-
-	//当たり判定座標取得
-	const VECTOR& GetCillisionPos(void)const { return trans_.cillisionPos; }
 
 protected:
 
 	// 最大落下速度
 	static constexpr float MAX_FALL_SPEED = -30.0f;
-
 	// 衝突時の押し戻し試行回数
 	static constexpr int CNT_TRY_COLLISION = 20;
 	// 衝突時の押し戻し量
@@ -98,8 +66,6 @@ protected:
 
 	HpBer* hpBer_;
 
-	//状態
-	STATE state_;
 	//ロックオン座標
 	VECTOR lockOnPos_;
 
@@ -129,61 +95,37 @@ protected:
 	//撃破用一定間隔カウンタ
 	int cntDeadReact_;
 
-
 	int maxHp_;
 	Vector2 hpTextOffset_;
 	Vector2 hpScl_;
 	unsigned int hpCol_;
 	unsigned int hpBackCol_;
 
-
 	// 弾発射後の硬直時間計算用
 	float stepShotDelay_;
 
-	// 状態遷移
-	virtual void ChangeState(STATE state);
+	// 更新系
+	virtual void UpdateProcess(void) = 0;
+	virtual void UpdateProcessPost(void) = 0;
 
 	//移動処理
 	virtual void ProcessMove(void) = 0;
-	//キャラの遅延回転処理
-	void DelayRotate(void);
 	//上昇処理
-	virtual void ProcessRise(void){}
+	virtual void ProcessRise(void) {}
 	//攻撃処理
 	virtual void ProcessAttack(void) = 0;
 	//対象ロック処理
 	virtual void ProcessTargetLock(void) = 0;
-	virtual void UpdateWepon(void) = 0;
 
+	//キャラの遅延回転処理
+	void DelayRotate(void);
 	// 重力計算
 	void CalcGravityPow(void);
+
 	// 衝突判定
 	virtual void CollisionReserve(void) {}
 	void Collision(void);
 	void CollisionGravity(void);
 	void CollisionCapsule(void);
-
-	// 状態遷移
-	virtual void ChangeStandby(void) = 0;
-	virtual void ChangeKnockback(void) = 0;
-	virtual void ChangeAttack(void) = 0;
-	virtual void ChangeDead(void) = 0;
-	virtual void ChangeVictory(void) = 0;
-	virtual void ChangeEnd(void) = 0;
-	// 状態別更新
-	virtual void UpdateStandby(void) = 0;
-	virtual void UpdateKnockback(void) = 0;
-	virtual void UpdateAttack(void) = 0;
-	virtual void UpdateDead(void) = 0;
-	virtual void UpdateVictory(void) = 0;
-	virtual void UpdateEnd(void) = 0;
-	// 状態別描画
-	virtual void DrawStandby(void) = 0;
-	virtual void DrawKnockback(void) = 0;
-	virtual void DrawAttack(void) = 0;
-	virtual void DrawDead(void) = 0;
-	virtual void DrawVictory(void) = 0;
-	virtual void DrawEnd(void) = 0;
-
 };
 

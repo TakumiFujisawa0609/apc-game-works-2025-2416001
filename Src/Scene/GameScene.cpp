@@ -33,7 +33,6 @@ void GameScene::Init(void)
 	//ロボット初期化処理
 	//カメラ追尾対象初期設定
 	Camera* camera = SceneManager::GetInstance().GetCamera();
-	camera->ChangeMode(Camera::MODE::FOLLOW);
 
 	//ステージ初期化処理
 	stage_ = std::make_shared<Stage>();
@@ -43,6 +42,7 @@ void GameScene::Init(void)
 
 	//プレイヤー初期化処理
 	player_ = std::make_shared<Player>();
+	camera->SetFollow(&player_.get()->GetTransform());
 	player_->Init();
 	player_->SetCamera(SceneManager::GetInstance().GetCamera());
 
@@ -54,8 +54,7 @@ void GameScene::Init(void)
 	//グリッド初期化処理
 	grid_ = std::make_unique<Grid>();
 
-	//カメラの注視点をプレイヤーに設定
-	camera->SetFollow(&player_.get()->GetTransform());
+	camera->ChangeMode(Camera::MODE::FOLLOW);
 
 	// ステージモデルのコライダーをプレイヤーに登録
 	const ColliderBase* stageCollider =
@@ -71,7 +70,7 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
-	if (!player_->IsAlive() || enemys_->IsClear == true)
+	if (!player_->GetIsAlive() || enemys_->IsClear == true)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
 	}
@@ -84,7 +83,7 @@ void GameScene::Update(void)
 	enemys_->Update();
 
 	//ロック対象更新
-	UpdateAutoLockOn();
+	//UpdateAutoLockOn();
 }
 
 void GameScene::Draw(void)
@@ -97,15 +96,8 @@ void GameScene::Draw(void)
 
 	//ロボット描画処理
 	player_->Draw();
-	if(player_->IsAlive()){
-		player_->DrawHp();
-	}
 
 	enemys_->Draw();
-	Camera* camera = SceneManager::GetInstance().GetCamera();
-	if (enemy_ != nullptr && camera->GetCameraMode() == Camera::MODE::TARGET_ROCKE) {
-		enemy_->DrawHp();
-	}
 
 #ifdef _DEBUG
 	DrawFormatString(
@@ -146,7 +138,7 @@ void GameScene::UpdateAutoLockOn(void)
 		enemy->SetLockOnPos(player_->GetTransform().pos);
 	}
 
-	if (enemy_ != nullptr && ( !enemy_->IsAlive() || enemy_->GetHp() <= 0)) {
+	if (enemy_ != nullptr && ( !enemy_->GetIsAlive() || enemy_->GetHp() <= 0)) {
 		enemy_ = nullptr;
 		camera->ChangeMode(Camera::MODE::FOLLOW);
 	}
@@ -183,7 +175,7 @@ void GameScene::UpdateAutoLockOn(void)
 
 		// 現在のターゲットが有効かチェック
 		bool currentTargetValid = (enemy_ != nullptr &&
-			enemy_->IsAlive() &&
+			enemy_->GetIsAlive() &&
 			enemy_->GetHp() > 0);
 
 		// 現在のターゲットが有効な場合は、距離チェックのみ行う
@@ -205,7 +197,7 @@ void GameScene::UpdateAutoLockOn(void)
 
 			for (auto& enemy : enemys) {
 				// 生存している敵のみを対象にする
-				if (!enemy->IsAlive() || enemy->GetHp() <= 0) {
+				if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) {
 					continue;
 				}
 				//プレイヤーからエネミーの長さ
