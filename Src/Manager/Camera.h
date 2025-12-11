@@ -29,7 +29,7 @@ public:
 	static constexpr float VIEW_FAR = 20000.0f;
 
 	// 追従位置からカメラ位置までの相対座標
-	static constexpr VECTOR FOLLOW_CAMERA_LOCAL_POS = { 0.0f, 50.0f, -400.0f };
+	static constexpr VECTOR FOLLOW_CAMERA_LOCAL_POS = { 0.0f, 300.0f, -500.0f };
 
 	// 追従位置から注視点までの相対座標
 	static constexpr VECTOR FOLLOW_TARGET_LOCAL_POS = { 0.0f, 0.0f, 500.0f };

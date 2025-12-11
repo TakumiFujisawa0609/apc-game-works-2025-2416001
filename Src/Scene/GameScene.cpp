@@ -70,10 +70,10 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
-	if (!player_->GetIsAlive() || enemys_->IsClear == true)
+	/*if (!player_->GetIsAlive() || enemys_->IsClear == true)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
-	}
+	}*/
 
 	stage_->Update();
 	skydome_->Update();

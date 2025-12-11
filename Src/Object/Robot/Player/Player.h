@@ -47,11 +47,11 @@ public:
 
 
 	// 移動速度(通常)
-	static constexpr float SPEED_MOVE = 5.0f;
+	static constexpr float SPEED_MOVE = 10.0f;
 	// 移動速度(ダッシュ)
 	static constexpr float SPEED_DASH = 10.0f;
 	// ジャンプ力
-	static constexpr float POW_JUMP_INIT = 3500.0f;
+	static constexpr float POW_JUMP_INIT = 5500.0f;
 	// 持続ジャンプ力
 	static constexpr float POW_JUMP_KEEP = 400.0f;
 	// ジャンプ受付時間
@@ -89,6 +89,8 @@ public:
 
 	Player(void);
 	~Player(void)override;
+
+	void Debug(void)override;
 
 	void SetCamera(Camera* camera);
 

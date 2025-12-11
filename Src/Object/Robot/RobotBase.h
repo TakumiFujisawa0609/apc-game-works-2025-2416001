@@ -38,6 +38,8 @@ public:
 	//解放処理
 	void Release(void)override;
 
+	virtual void Debug(void) {}
+
 	//ロック機能入力フラグ
 	bool IsTargetLockFlage(void);
 

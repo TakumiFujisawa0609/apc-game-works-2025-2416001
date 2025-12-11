@@ -24,6 +24,10 @@ Player::~Player(void)
 {
 }
 
+void Player::Debug(void)
+{
+}
+
 void Player::SetCamera(Camera* camera)
 {
     camera_ = camera;

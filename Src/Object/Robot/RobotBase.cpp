@@ -77,6 +77,8 @@ void RobotBase::Draw(void)
 
     ObjectBase::Draw();
 
+    Debug();
+
     useWepon_->Draw();
 }
 
@@ -127,7 +129,9 @@ void RobotBase::CalcGravityPow(void)
     // 重力速度の制限
     if (jumpPow_.y < MAX_FALL_SPEED)
     {
+        jumpPow_.x = 0;
         jumpPow_.y = MAX_FALL_SPEED;
+        jumpPow_.z = 0;
     }
 }
 
@@ -140,7 +144,7 @@ void RobotBase::Collision(void)
     CollisionCapsule();
 
     // ジャンプ量を加算
-   /* trans_.pos = VAdd(trans_.pos, jumpPow_);*/
+    trans_.pos = VAdd(trans_.pos, jumpPow_);
 
     // 衝突(重力)
     CollisionGravity();
