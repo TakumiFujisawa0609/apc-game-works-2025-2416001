@@ -20,20 +20,20 @@ void EnemyManager::Init(void)
 
 void EnemyManager::Update(void)
 {
-	// すべての敵の生存状態をチェック
-	if (cntEnemy_ >= SPAWN_ENEMY) {
-		bool allDead = true;
-		for (std::shared_ptr<EnemyBase> enemy : enemys_) {
-			if (!enemy->GetIsAlive()) {
-				allDead = false;
-				break;
-			}
-		}
-		// すべての敵が死んでいたらクリア
-		if (allDead) {
-			IsClear = true;
-		}
-	}
+	//// すべての敵の生存状態をチェック
+	//if (cntEnemy_ >= SPAWN_ENEMY) {
+	//	bool allDead = true;
+	//	for (std::shared_ptr<EnemyBase> enemy : enemys_) {
+	//		if (!enemy->GetIsAlive()) {
+	//			allDead = false;
+	//			break;
+	//		}
+	//	}
+	//	// すべての敵が死んでいたらクリア
+	//	if (allDead) {
+	//		IsClear = true;
+	//	}
+	//}
 
 	// 出現カウンタ
 	cntSpawn_++;

@@ -6,6 +6,8 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
+#include "./../../Common/Collider/ColliderCapsule.h"
+#include "./../../Common/Collider/ColliderLine.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Wepon/WeponBeam.h"
 #include "../../Wepon/WeponMissile.h"
@@ -27,17 +29,25 @@ void EnemyBeam::InitLoad(void)
 
 void EnemyBeam::InitTransform(void)
 {
-    trans_.rot = AsoUtility::VECTOR_ZERO;
-    trans_.pos = DEFALUT_POS;
     trans_.scl = ROBOT_DEF_SCL;
-    trans_.localRot = LOCAL_DEF_ROT;
-
-    //ビーム出現数
-    beamCnt_ = BEAM_CNT;
+    trans_.quaRotLocal = Quaternion::Euler(LOCAL_DEF_ROT);
+    trans_.Update();
 }
 
 void EnemyBeam::InitCollider(void)
 {
+    // 主に地面との衝突で仕様する線分コライダ
+    ColliderLine* colLine = new ColliderLine(
+        ColliderBase::TAG::ENEMY, &trans_,
+        COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
+    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::LINE), colLine);
+
+    // 主に壁や木などの衝突で仕様するカプセルコライダ
+    ColliderCapsule* colCapsule = new ColliderCapsule(
+        ColliderBase::TAG::ENEMY, &trans_,
+        COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
+        COL_CAPSULE_RADIUS);
+    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::CAPSULE), colCapsule);
 }
 
 void EnemyBeam::InitAnimation(void)
@@ -61,6 +71,8 @@ void EnemyBeam::InitPost(void)
     hp_ = DEFALUT_HP;
     //出現範囲
     spawnRange_ = SPAWN_RANGE;
+    //ビーム出現数
+    beamCnt_ = BEAM_CNT;
 
     maxHp_ = DEFALUT_HP;
     hpScl_ = HPBER_SIZE;
@@ -91,4 +103,20 @@ void EnemyBeam::ProcessAttack(void)
 
 void EnemyBeam::CollisionReserve(void)
 {
+    // 通常時の線分に戻す
+    if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::LINE)) != 0)
+    {
+        ColliderLine* colLine = dynamic_cast<ColliderLine*>(
+            ownColliders_.at(static_cast<int>(COLLIDER_TYPE::LINE)));
+        colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
+        colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
+    }
+    // 通常時のカプセルに戻す
+    if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::CAPSULE)) != 0)
+    {
+        ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
+            ownColliders_.at(static_cast<int>(COLLIDER_TYPE::CAPSULE)));
+        colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
+        colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
+    }
 }
