@@ -27,9 +27,9 @@ void Stage::Draw(void)
 	}
 #endif // _DEBUG
 
-	if (trans_.modelId != -1)
+	for (auto& drawFrame : DRAW_FRAME)
 	{
-		MV1DrawModel(trans_.modelId);
+		MV1DrawFrame(trans_.modelId, drawFrame);
 	}
 }
 

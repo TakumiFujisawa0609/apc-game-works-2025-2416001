@@ -69,8 +69,6 @@ void EnemyMissile::InitPost(void)
     lockcnt = 0;
     //HP
     hp_ = DEFALUT_HP;
-    //衝突半径
-    trans_.Radius_ = DEFALUT_RADIUS;
     //出現範囲
     spawnRange_ = SPAWN_RANGE;
     //ミサイル出現数

@@ -47,12 +47,13 @@ protected:
 private:
 
 	// 除外フレーム名称
-	const std::vector<std::string> EXCLUDE_FRAME_NAMES = { "Mush", "Grass", };
+	const std::vector<std::string> EXCLUDE_FRAME_NAMES = { "Mush", "Grass", "Tree", "Stump", "Rock"};
 
 	// 対象フレーム
 	const std::vector<std::string> TARGET_FRAME_NAMES = { "Ground", };
 
 	std::vector<int> frameOpacityRate_;
+	std::vector<int> DRAW_FRAME = { 1,2,3,4,5,6,7,8,27,28,30 };
 
 	// 衝突判定
 	void Collision(void);

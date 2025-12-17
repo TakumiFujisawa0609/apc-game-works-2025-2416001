@@ -16,50 +16,39 @@ void EnemyManager::Init(void)
 	// 最初から出現させる
 	cntSpawn_ = SPAWN_INTERVAL_1 - 10;
 	cntEnemy_ = 0;
+
+	std::shared_ptr<EnemyBase> enemy = std::make_shared<EnemyBeam>();
+	enemy->Init();
+	enemys_.emplace_back(enemy);
 }
 
 void EnemyManager::Update(void)
 {
-	//// すべての敵の生存状態をチェック
-	//if (cntEnemy_ >= SPAWN_ENEMY) {
-	//	bool allDead = true;
-	//	for (std::shared_ptr<EnemyBase> enemy : enemys_) {
-	//		if (!enemy->GetIsAlive()) {
-	//			allDead = false;
-	//			break;
-	//		}
+	//// 出現カウンタ
+	//cntSpawn_++;
+
+	////敵の数をカウント
+	//if (cntEnemy_ < SPAWN_ENEMY)
+	//{
+
+	//	// 一定間隔でエネミーを出現させる
+	//	if (cntSpawn_ % SPAWN_INTERVAL_1 == 0)
+	//	{
+	//		std::shared_ptr<EnemyBase> enemy = std::make_shared<EnemyBeam>();
+	//		enemy->Init();
+	//		enemys_.emplace_back(enemy);
+	//		++cntEnemy_;
 	//	}
-	//	// すべての敵が死んでいたらクリア
-	//	if (allDead) {
-	//		IsClear = true;
+
+	//	// 一定間隔でエネミーを出現させる
+	//	if (cntSpawn_ % SPAWN_INTERVAL_2 == 0)
+	//	{
+	//		std::shared_ptr<EnemyBase> enemy = std::make_shared<EnemyMissile>();
+	//		enemy->Init();
+	//		enemys_.emplace_back(enemy);
+	//		++cntEnemy_;
 	//	}
 	//}
-
-	// 出現カウンタ
-	cntSpawn_++;
-
-	//敵の数をカウント
-	if (cntEnemy_ < SPAWN_ENEMY)
-	{
-
-		// 一定間隔でエネミーを出現させる
-		if (cntSpawn_ % SPAWN_INTERVAL_1 == 0)
-		{
-			std::shared_ptr<EnemyBase> enemy = std::make_shared<EnemyBeam>();
-			enemy->Init();
-			enemys_.emplace_back(enemy);
-			++cntEnemy_;
-		}
-
-		// 一定間隔でエネミーを出現させる
-		if (cntSpawn_ % SPAWN_INTERVAL_2 == 0)
-		{
-			std::shared_ptr<EnemyBase> enemy = std::make_shared<EnemyMissile>();
-			enemy->Init();
-			enemys_.emplace_back(enemy);
-			++cntEnemy_;
-		}
-	}
 	//エネミー更新処理
 	for (std::shared_ptr<EnemyBase> enemy : enemys_)
 	{

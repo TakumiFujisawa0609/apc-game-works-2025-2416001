@@ -13,72 +13,32 @@ public:
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
 	static constexpr VECTOR LOCAL_DEF_ROT = { 0.0f, 180.0f * DX_PI_F / 180.0f, 0.0f };
-	//初期座標
-	static constexpr VECTOR  DEFALUT_POS = { 0.0f,0.0f,1000.0f };
 
 	// 衝突判定用線分開始
 	static constexpr VECTOR COL_LINE_START_LOCAL_POS = { 0.0f, 80.0f, 0.0f };
 	// 衝突判定用線分終了
 	static constexpr VECTOR COL_LINE_END_LOCAL_POS = { 0.0f, -10.0f, 0.0f };
 
-
-
 	//出現範囲
 	static constexpr float SPAWN_RANGE = 2.0f;
-	//最大回転量
-	static constexpr float MAX_MOVE_ROT = 15.0f * DX_PI_F / 180.0f;
-	//ブースト時最大回転量
-	static constexpr float MAX_BOOST_ROT = 40.0f * DX_PI_F / 180.0f;
-	//回転量
-	static constexpr float ROT_POW = 2.5f * DX_PI_F / 180.0f;
-	//加速量
-	static constexpr float MOVE_SPEED = 0.95f;
-	//上昇量
-	static constexpr float RISE_SPEED = 10.5f;
-	//ブースト量
-	static constexpr float BUST_SPEED = 10.0f;
-	//最大加速量
-	static constexpr float MAX_MOVE_SPEED = 20.0f;
-	//最大ブースト量
-	static constexpr float MAX_BUST_SPEED = 30.0f;
-	//摩擦係数
-	static constexpr float FRICTION = 0.96f;
-	//停止判定の値
-	static constexpr float STOP_THRESHOLD = 0.1f;
-	// 重力
-	static constexpr float GRAVITY = 5.5f;
 	//アニメーション再生速度
 	static constexpr float DEFAULT_ANIMATION = 30.0f;
-	//衝突半径
-	static constexpr float DEFALUT_RADIUS = 60.0f;
 
 	// テキスト調整値
 	Vector2 HP_TEXT_OFFSET = { -200, -40 };
-
 	// HPバー同士の間隔
 	Vector2 HPBER_POS = { Application::SCREEN_SIZE_X / 2 , 50 };
-
 	// HPバーのサイズ
 	Vector2 HPBER_SIZE = { 400, 15 };
-
 	// P1のHPバーの色
 	static constexpr unsigned int HPBER_COLOR = 0xFFFFFF;
-
 	// P1のHPバー背景色
 	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
 
-
-
 	//HP
 	static constexpr int DEFALUT_HP = 10;
-	// 被ダメ時間
-	static constexpr int CNT_HIT_REACT = 20;
-	// 死亡時間
-	static constexpr int CNT_DEAD_REACT = 40;
-
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 14.0f;
-
 	//ミサイル出現数
 	static constexpr int MISSILE_CNT = 10;
 

@@ -88,9 +88,6 @@ void GameScene::Update(void)
 
 void GameScene::Draw(void)
 {
-	//グリッド描画処理
-	grid_->Draw();
-
 	skydome_->Draw();
 	stage_->Draw();
 
@@ -100,6 +97,9 @@ void GameScene::Draw(void)
 	enemys_->Draw();
 
 #ifdef _DEBUG
+	////グリッド描画処理
+	//grid_->Draw();
+
 	DrawFormatString(
 		0, 20, GetColor(255, 255, 255),
 		"GameScene");
@@ -109,6 +109,15 @@ void GameScene::Draw(void)
 		player_->GetTransform().pos.x,
 		player_->GetTransform().pos.y,
 		player_->GetTransform().pos.z);
+
+	for(auto enemy : enemys_->GetEnemys())
+	{
+		DrawFormatString(0, 60, 0xFFFFFF,
+			"Enemy(%.1f, %.1f, %.1f)",
+			enemy->GetTransform().pos.x,
+			enemy->GetTransform().pos.y,
+			enemy->GetTransform().pos.z);
+	}
 
 #endif
 }

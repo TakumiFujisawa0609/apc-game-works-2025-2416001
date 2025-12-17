@@ -35,7 +35,7 @@ void EnemyBase::SetSpawnPostiton(void)
     //出現半径
     float radius = SPAWN_RANIUS;
     //出現中心座標
-    VECTOR spawnPos = AsoUtility::VECTOR_ZERO;
+    VECTOR spawnPos = { 0.0f, 150.0f, 0.0f };
     //長さを設定
     radius *= spawnRange_;
 
@@ -81,12 +81,10 @@ void EnemyBase::UpdateProcessPost(void)
 
 void EnemyBase::ProcessMove(void)
 {
-    ////移動量を常に減少
+    //移動量を常に減少
     moveSpeed_ = 11.0f;
 
-    // 方向×スピードで移動量を作って、座標に足して移動
-    
-    movePow_= VAdd(trans_.pos, VScale(trans_.targetDir, moveSpeed_));
+    movePow_ = VScale(trans_.targetDir, moveSpeed_);
 }
 
 void EnemyBase::ProcessTargetLock(void)
