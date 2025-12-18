@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <DxLib.h>
+#include <functional>
 #include "../RobotBase.h"
 
 class EnemyBase
@@ -16,22 +17,8 @@ public:
 		MISSILE
 	};
 
-	//アニメーション
-	enum class ANIM_TYPE
-	{
-		GESUTYE = 0,
-		DEATH = 1,
-		HIT_REACT = 3,
-		IDLE = 5,
-		JUMP = 6,
-		RUN = 11,
-		ATTACK = 14,
-		WALK = 16,
-		MAX,
-	};
-
 	//出現半径
-	static constexpr float SPAWN_RANIUS = 5000.0f;
+	static constexpr float SPAWN_RANIUS = 500.0f;
 
 	EnemyBase(void);
 	~EnemyBase(void)override;
@@ -45,8 +32,17 @@ public:
 
 protected:
 
+	// 状態管理
+	int stateBase_;
+	// 状態管理(状態遷移時初期処理)
+	std::map<int, std::function<void(void)>> stateChanges_;
+	// 状態管理(更新ステップ)
+	std::function<void(void)> stateUpdate_;
+
 	//敵の出現範囲
 	float spawnRange_;
+	//移動可能範囲
+	float moveRadius_;
 
 	// 更新系
 	void UpdateProcess(void)override;
@@ -60,6 +56,12 @@ protected:
 	virtual void ProcessAttack(void) {}
 	//対象ロック処理
 	void ProcessTargetLock(void)override;
+
+	// 状態遷移
+	void ChangeState(int state);
+
+	// 移動可能範囲判定
+	/*bool InMovableRange(void) const;*/
 
 private:
 

@@ -8,6 +8,14 @@ class WeponBase
 	:public ObjectBase
 {
 public:
+
+	// Õ“Ë”»’èí•Ê
+	enum class COLLIDER_TYPE
+	{
+		SPHERE,
+		MAX,
+	};
+
 	//UŒ‚í—Ş
 	enum class WEPON_TYPE
 	{

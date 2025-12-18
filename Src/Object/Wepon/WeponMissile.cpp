@@ -1,3 +1,4 @@
+#include "../Common/Collider/ColliderSphere.h"
 #include "WeponMissile.h"
 
 WeponMissile::WeponMissile(WEPON_TYPE type):
@@ -49,6 +50,15 @@ void WeponMissile::InitTransform(void)
 
 void WeponMissile::InitCollider(void)
 {
+	// 主に地面との衝突で使用する球体コライダ
+	ColliderSphere* colliderSphere = new ColliderSphere(
+		ColliderBase::TAG::CAMERA,
+		&trans_,
+		AsoUtility::VECTOR_ZERO,
+		COL_CAPSULE_SPHERE
+	);
+	ownColliders_.emplace(
+		static_cast<int>(COLLIDER_TYPE::SPHERE), colliderSphere);
 }
 
 void WeponMissile::InitPost(void)

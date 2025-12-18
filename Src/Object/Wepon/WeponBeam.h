@@ -44,6 +44,9 @@ protected:
 
 private:
 
+	// Õ“Ë”»’è—p‹…‘Ì”¼Œa
+	static constexpr float COL_CAPSULE_SPHERE = 50.0f;
+
 	//ƒr[ƒ€‚Ì’·‚³
 	float bemelong_;
 };

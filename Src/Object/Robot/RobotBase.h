@@ -129,5 +129,6 @@ protected:
 	void Collision(void);
 	void CollisionGravity(void);
 	void CollisionCapsule(void);
+	void CollisionSphere(void);
 };
 

@@ -18,9 +18,6 @@ void EnemyBase::Init(void)
 {
     ObjectBase::Init();
 
-    //ランダムな出現座標
-    SetSpawnPostiton();
-
     useWepon_ = std::make_shared<WeponManager>();
     useWepon_->Init();
 
@@ -35,7 +32,7 @@ void EnemyBase::SetSpawnPostiton(void)
     //出現半径
     float radius = SPAWN_RANIUS;
     //出現中心座標
-    VECTOR spawnPos = { 0.0f, 150.0f, 0.0f };
+    VECTOR spawnPos = { 0.0f, 100.0f, 0.0f };
     //長さを設定
     radius *= spawnRange_;
 
@@ -62,6 +59,9 @@ void EnemyBase::SetSpawnPostiton(void)
 
 void EnemyBase::UpdateProcess(void)
 {
+    //対象ロック処理
+    ProcessTargetLock();
+
     //移動処理
     ProcessMove();
 
@@ -70,9 +70,6 @@ void EnemyBase::UpdateProcess(void)
 
     //攻撃処理
     ProcessAttack();
-
-    //対象ロック処理
-    ProcessTargetLock();
 }
 
 void EnemyBase::UpdateProcessPost(void)
@@ -82,7 +79,7 @@ void EnemyBase::UpdateProcessPost(void)
 void EnemyBase::ProcessMove(void)
 {
     //移動量を常に減少
-    moveSpeed_ = 11.0f;
+    moveSpeed_ = 0.0f;
 
     movePow_ = VScale(trans_.targetDir, moveSpeed_);
 }
@@ -99,24 +96,41 @@ void EnemyBase::ProcessTargetLock(void)
     }
 
     // ターゲット方向の正規化
-    VECTOR targetDir = VNorm(toTarget);
+    trans_.targetDir = VNorm(toTarget);
 
     // ターゲット方向からY軸回転角度を計算（水平方向）
-    float targetAngleY = atan2f(targetDir.x, targetDir.z);
+    float targetAngleY = atan2f(trans_.targetDir.x, trans_.targetDir.z);
 
     // ターゲット方向のX軸回転角度を計算（上下の角度）
-    float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
-    float targetAngleX = atan2f(-targetDir.y, horizontalDist);
+    float horizontalDist = sqrtf(trans_.targetDir.x * trans_.targetDir.x + trans_.targetDir.z * trans_.targetDir.z);
+    float targetAngleX = atan2f(-trans_.targetDir.y, horizontalDist);
 
     // 滑らかに回転させる
     trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, targetAngleY, 0.5f);
     trans_.rot.x = AsoUtility::LerpAngle(trans_.rot.x, targetAngleX, 0.5f);
 
     // 移動方向もターゲット方向に更新
-    trans_.targetDir = targetDir;
-
-    // ローカル回転とグローバル回転を合成してモデルに適用
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    trans_.moveDir = trans_.targetDir;
 }
+
+void EnemyBase::ChangeState(int state)
+{
+    stateBase_ = state;
+    // 各状態遷移の初期処理
+    stateChanges_[stateBase_]();
+}
+
+//bool EnemyBase::InMovableRange(void) const
+//{
+//    bool ret = false;
+//    // 初期位置からの距離
+//    float dis = static_cast<float>(
+//        AsoUtility::SqrMagnitude(defaultPos_, transform_.pos));
+//    // 指定距離判定
+//    if (dis < moveRadius_ * moveRadius_)
+//    {
+//        return true;
+//    }
+//    return ret;
+//}
 

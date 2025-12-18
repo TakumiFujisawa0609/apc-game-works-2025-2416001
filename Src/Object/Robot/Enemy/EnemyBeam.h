@@ -9,6 +9,30 @@ class EnemyBeam :
 {
 public:
 
+	// 状態
+	enum class STATE
+	{
+		NONE,
+		THINK,
+		IDLE,
+		WANDER,
+		END
+	};
+
+	//アニメーション
+	enum class ANIM_TYPE
+	{
+		GESUTYE = 0,
+		DEATH = 1,
+		HIT_REACT = 3,
+		IDLE = 5,
+		JUMP = 6,
+		RUN = 11,
+		ATTACK = 14,
+		WALK = 16,
+		MAX,
+	};
+
 	//初期サイズ
 	static constexpr VECTOR ROBOT_DEF_SCL = { 0.35f,0.35f,0.35f };
 	//初期相対角度
@@ -70,7 +94,7 @@ private:
 
 	// 衝突判定用カプセル上部球体(ジャンプ時)
 	static constexpr VECTOR COL_CAPSULE_TOP_JUMP_LOCAL_POS =
-	{ 0.0f, 160.0f, 0.0f };
+	{ 0.0f, 240.0f, 0.0f };
 	// 衝突判定用カプセル下部球体(ジャンプ時)
 	static constexpr VECTOR COL_CAPSULE_DOWN_JUMP_LOCAL_POS =
 	{ 0.0f, 80.0f, 0.0f };
@@ -80,11 +104,33 @@ private:
 	// 衝突判定用線分終了(ジャンプ時)
 	static constexpr VECTOR COL_LINE_JUMP_END_LOCAL_POS = { 0.0f, 50.0f, 0.0f };
 	// 衝突判定用カプセル上部球体
-	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 110.0f, 0.0f };
+	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 180.0f, 0.0f };
 	// 衝突判定用カプセル下部球体
 	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
 	// 衝突判定用カプセル球体半径
-	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
+	static constexpr float COL_CAPSULE_RADIUS = 35.0f;
 
+	// 状態
+	STATE state_;
+
+	// 更新ステップ
+	float step_;
+	//状態変更カウント
+	float stepCnt_;
+
+	// 状態遷移
+	void ChangeState(STATE state);
+	void ChangeStateNone(void);
+	void ChangeStateThink(void);
+	void ChangeStateIdle(void);
+	void ChangeStateWander(void);
+	void ChangeStateEnd(void);
+
+	// 更新系
+	void UpdateNone(void);
+	void UpdateThink(void);
+	void UpdateIdle(void);
+	void UpdateWander(void);
+	void UpdateEnd(void);
 };
 

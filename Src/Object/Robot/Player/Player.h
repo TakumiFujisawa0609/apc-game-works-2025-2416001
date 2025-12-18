@@ -47,9 +47,9 @@ public:
 
 
 	// 移動速度(通常)
-	static constexpr float SPEED_MOVE = 10.0f;
+	static constexpr float SPEED_MOVE = 20.0f;
 	// 移動速度(ダッシュ)
-	static constexpr float SPEED_DASH = 10.0f;
+	static constexpr float SPEED_DASH = 30.0f;
 	// ジャンプ力
 	static constexpr float POW_JUMP_INIT = 5500.0f;
 	// 持続ジャンプ力
@@ -127,7 +127,7 @@ private:
 
 	// 衝突判定用カプセル上部球体(ジャンプ時)
 	static constexpr VECTOR COL_CAPSULE_TOP_JUMP_LOCAL_POS =
-	{ 0.0f, 160.0f, 0.0f };
+	{ 0.0f, 210.0f, 0.0f };
 	// 衝突判定用カプセル下部球体(ジャンプ時)
 	static constexpr VECTOR COL_CAPSULE_DOWN_JUMP_LOCAL_POS =
 	{ 0.0f, 80.0f, 0.0f };
@@ -137,11 +137,11 @@ private:
 	// 衝突判定用線分終了(ジャンプ時)
 	static constexpr VECTOR COL_LINE_JUMP_END_LOCAL_POS = { 0.0f, 50.0f, 0.0f };
 	// 衝突判定用カプセル上部球体
-	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 110.0f, 0.0f };
+	static constexpr VECTOR COL_CAPSULE_TOP_LOCAL_POS = { 0.0f, 150.0f, 0.0f };
 	// 衝突判定用カプセル下部球体
 	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
 	// 衝突判定用カプセル球体半径
-	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
+	static constexpr float COL_CAPSULE_RADIUS = 35.0f;
 
 	//状態
 	STATE state_;

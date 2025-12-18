@@ -9,6 +9,7 @@
 #include "../Common/Collider/ColliderLine.h"
 #include "../Common/Collider/ColliderModel.h"
 #include "../Common/Collider/ColliderCapsule.h"
+#include "../Common/Collider/ColliderSphere.h"
 #include "./../Common/Transform.h"
 #include "../Wepon/WeponBase.h"
 #include "../Manager/WeponManager.h"
@@ -229,5 +230,42 @@ void RobotBase::CollisionCapsule(void)
             true,
             false
         );
+    }
+}
+
+void RobotBase::CollisionSphere(void)
+{
+    // カプセルコライダ  
+    int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
+    // カプセルコライダが無ければ処理を抜ける  
+    if (ownColliders_.count(capsuleType) == 0) return;
+    // カプセルコライダ情報  
+    ColliderCapsule* colliderCapsule =
+        dynamic_cast<ColliderCapsule*>(ownColliders_.at(capsuleType));
+
+    if (colliderCapsule == nullptr) return;
+
+    // 登録されている衝突物を全てチェック  
+    for (const auto& hitCol : hitColliders_)
+    {
+        //球体以外は処理を飛ばす
+        if (hitCol->GetShape() != ColliderBase::SHAPE::SPHERE) continue;
+
+        const ColliderSphere* collidersphere =
+            dynamic_cast<const ColliderSphere*>(hitCol);
+
+        if (collidersphere == nullptr) continue;
+
+        bool isHit = AsoUtility::IsHitSphereCapsule(
+            collidersphere->GetPos(),
+            collidersphere->GetRadius(),
+            colliderCapsule->GetPosTop(),
+            colliderCapsule->GetPosDown(),
+            colliderCapsule->GetRadius());
+
+        if (isHit)
+        {
+
+        }
     }
 }

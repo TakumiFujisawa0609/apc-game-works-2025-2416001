@@ -112,6 +112,9 @@ void Player::InitPost(void)
 
 void Player::UpdateProcess(void)
 {
+    //対象ロック処理
+    ProcessTargetLock();
+
     //移動処理
     ProcessMove();
 
@@ -120,9 +123,6 @@ void Player::UpdateProcess(void)
 
     //攻撃処理
     ProcessAttack();
-
-    //対象ロック処理
-    ProcessTargetLock();
 }
 
 void Player::UpdateProcessPost(void)
@@ -135,8 +135,6 @@ void Player::ProcessMove(void)
         return;
     }
 
-    moveSpeed_ = 0.0f;
-    movePow_ = AsoUtility::VECTOR_ZERO;
     VECTOR dir = AsoUtility::VECTOR_ZERO;
 
     auto& ins = InputManager::GetInstance();
@@ -162,24 +160,35 @@ void Player::ProcessMove(void)
             auto& ins = InputManager::GetInstance();
             if (GetJoypadNum() == 0)
             {
-                isD = ins.IsNew(KEY_INPUT_RSHIFT);
+                isD = ins.IsNew(KEY_INPUT_B);
             }
             else {
                 isD = ins.IsPadBtnNew(InputManager::JOYPAD_NO::PAD1,
                     InputManager::JOYPAD_BTN::R_TRIGGER);
             }
 
+            float targetSpeed = 0.0f;
+            float acceleration = 15.0f;
             //ジャンプ中はアニメーションを変えない
             if (!isJump_)
             {
                 if (isD) {
-                    moveSpeed_ = SPEED_DASH;
-                    anim_->Play(static_cast<int>(ANIM_TYPE::WALK));
-                }
-                else {
-                    moveSpeed_ = SPEED_MOVE;
+                    targetSpeed = SPEED_DASH;
                     anim_->Play(static_cast<int>(ANIM_TYPE::RUN));
                 }
+                else {
+                    targetSpeed = SPEED_MOVE;
+                    anim_->Play(static_cast<int>(ANIM_TYPE::WALK));
+                }
+
+                // 加速処理
+                if (moveSpeed_ < targetSpeed) {
+                    moveSpeed_ += acceleration * scnMng_.GetDeltaTime();
+                    if (moveSpeed_ > targetSpeed) {
+                        moveSpeed_ = targetSpeed; // 最高速度を超えないようにする
+                    }
+                }
+
             }
         }
 
@@ -188,6 +197,17 @@ void Player::ProcessMove(void)
         movePow_ = VScale(trans_.moveDir, moveSpeed_);
     }
     else {
+        // 減速処理
+        float deceleration = 17.0f;
+        if (moveSpeed_ > 0.0f) {
+            moveSpeed_ -= deceleration * scnMng_.GetDeltaTime();
+            if (moveSpeed_ < 0.0f) {
+                moveSpeed_ = 0.0f;
+            }
+        }
+
+        movePow_ = VScale(trans_.moveDir, moveSpeed_);
+
         // ジャンプ中はアニメーションを変えない
         if (!isJump_)
         {

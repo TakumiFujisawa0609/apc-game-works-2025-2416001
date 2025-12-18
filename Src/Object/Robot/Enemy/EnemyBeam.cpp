@@ -79,6 +79,24 @@ void EnemyBeam::InitPost(void)
     hpTextOffset_ = { (HPBER_POS.x - hpScl_.x / 2), HPBER_POS.y};
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    //ランダムな出現座標
+    SetSpawnPostiton();
+
+    // 状態遷移初期処理登録
+    stateChanges_.emplace(static_cast<int>(STATE::NONE),
+        std::bind(&EnemyBeam::ChangeStateNone, this));
+    stateChanges_.emplace(static_cast<int>(STATE::THINK),
+        std::bind(&EnemyBeam::ChangeStateThink, this));
+    stateChanges_.emplace(static_cast<int>(STATE::IDLE),
+        std::bind(&EnemyBeam::ChangeStateIdle, this));
+    stateChanges_.emplace(static_cast<int>(STATE::WANDER),
+        std::bind(&EnemyBeam::ChangeStateWander, this));
+    stateChanges_.emplace(static_cast<int>(STATE::END),
+        std::bind(&EnemyBeam::ChangeStateEnd, this));
+
+    // 初期状態設定
+    ChangeState(STATE::THINK);
 }
 
 void EnemyBeam::ProcessAttack(void)
@@ -119,4 +137,72 @@ void EnemyBeam::CollisionReserve(void)
         colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
         colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
     }
+}
+
+void EnemyBeam::ChangeState(STATE state)
+{
+    state_ = state;
+
+    // 各状態遷移の初期処理
+    EnemyBase::ChangeState(static_cast<int>(state_));
+}
+
+void EnemyBeam::ChangeStateNone(void)
+{
+    stateUpdate_ = std::bind(&EnemyBeam::UpdateNone, this);
+}
+
+void EnemyBeam::ChangeStateThink(void)
+{
+    stateUpdate_ = std::bind(&EnemyBeam::UpdateThink, this);
+
+    stepCnt_ = 0.0f;
+
+    // 思考
+    // ランダムに次の行動を決定
+    // 30%で待機、70%で徘徊
+    int rand = GetRand(100);
+    if (rand < 30)
+    {
+        ChangeState(STATE::IDLE);
+    }
+    else
+    {
+        ChangeState(STATE::WANDER);
+    }
+}
+
+void EnemyBeam::ChangeStateIdle(void)
+{
+    stateUpdate_ = std::bind(&EnemyBeam::UpdateIdle, this);
+}
+
+void EnemyBeam::ChangeStateWander(void)
+{
+    stateUpdate_ = std::bind(&EnemyBeam::UpdateWander, this);
+}
+
+void EnemyBeam::ChangeStateEnd(void)
+{
+    stateUpdate_ = std::bind(&EnemyBeam::UpdateEnd, this);
+}
+
+void EnemyBeam::UpdateNone(void)
+{
+}
+
+void EnemyBeam::UpdateThink(void)
+{
+}
+
+void EnemyBeam::UpdateIdle(void)
+{
+}
+
+void EnemyBeam::UpdateWander(void)
+{
+}
+
+void EnemyBeam::UpdateEnd(void)
+{
 }

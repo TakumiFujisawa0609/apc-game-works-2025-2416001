@@ -30,6 +30,7 @@ public:
 
 	// エネミーの取得
 	const std::vector<std::shared_ptr<EnemyBase>>& GetEnemys(void) const;
+	std::shared_ptr<EnemyBase> CreateEnemy(std::shared_ptr<EnemyBase> enemy);
 
 	//クリアに切り替え
 	bool IsClear;

@@ -56,25 +56,47 @@ void GameScene::Init(void)
 
 	camera->ChangeMode(Camera::MODE::FOLLOW);
 
-	// ステージモデルのコライダーをプレイヤーに登録
+	// Stageクラスのコライダーを各クラスに登録
 	const ColliderBase* stageCollider =
 		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
-	const ColliderBase* cameraCollider =
-		camera->GetOwnCollider(static_cast<int>(Camera::COLLIDER_TYPE::SPHERE));
-
 	player_->AddHitCollider(stageCollider);
 	enemys_->AddHitCollider(stageCollider);
 	camera->AddHitCollider(stageCollider);
+
+	// Cameraクラスのコライダーを各クラスに登録
+	const ColliderBase* cameraCollider =
+		camera->GetOwnCollider(static_cast<int>(Camera::COLLIDER_TYPE::SPHERE));
 	stage_->AddHitCollider(cameraCollider);
+
+	// Weponクラスのコライダーを各クラスに登録
+	//プレイヤーの武器情報を取得
+	const auto playerWepons = player_->GetUseWepons()->GetWepons();
+	for(auto& playerWepon: playerWepons)
+	{
+		if (playerWepon == nullptr) continue;
+
+		const ColliderBase* weponCollider =
+			playerWepon->GetOwnCollider(static_cast<int>(WeponBase::COLLIDER_TYPE::SPHERE));
+		enemy_->AddHitCollider(weponCollider);
+	}
+
+	//エネミーの武器情報を取得
+	if (enemy_ != nullptr)
+	{
+		const auto enemyWepons = enemy_->GetUseWepons()->GetWepons();
+		for (auto& enemyWepon : enemyWepons)
+		{
+			if (enemyWepon == nullptr) continue;
+
+			const ColliderBase* weponCollider =
+				enemyWepon->GetOwnCollider(static_cast<int>(WeponBase::COLLIDER_TYPE::SPHERE));
+			player_->AddHitCollider(weponCollider);
+		}
+	}
 }
 
 void GameScene::Update(void)
 {
-	/*if (!player_->GetIsAlive() || enemys_->IsClear == true)
-	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
-	}*/
-
 	stage_->Update();
 	skydome_->Update();
 
@@ -82,8 +104,12 @@ void GameScene::Update(void)
 	player_->Update();
 	enemys_->Update();
 
+	const ColliderBase* stageCollider =
+		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
+	enemys_->AddHitCollider(stageCollider);
+
 	//ロック対象更新
-	//UpdateAutoLockOn();
+	UpdateAutoLockOn();
 }
 
 void GameScene::Draw(void)
@@ -152,93 +178,93 @@ void GameScene::UpdateAutoLockOn(void)
 		camera->ChangeMode(Camera::MODE::FOLLOW);
 	}
 
-	//プレイヤーのオートロックオン処理
-	if (player_->IsTargetLockFlage()) {
-		camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
-	}
-	else {
-		camera->ChangeMode(Camera::MODE::FOLLOW);
-		return;
-	};
+	////プレイヤーのオートロックオン処理
+	//if (player_->IsTargetLockFlage()) {
+	//	camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
+	//}
+	//else {
+	//	camera->ChangeMode(Camera::MODE::FOLLOW);
+	//	return;
+	//};
 
-	bool needNewTarget;
+	//bool needNewTarget;
 
-	// キー入力によるカメラの回転
-	auto& ins = InputManager::GetInstance();
-	if (GetJoypadNum() == 0)
-	{
-		needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
-	}
-	else
-	{
-		auto& ins = InputManager::GetInstance();
-		needNewTarget = ins.IsPadBtnTrgDown(
-			InputManager::JOYPAD_NO::PAD1,
-			InputManager::JOYPAD_BTN::R_BTN
-		);
-	}
+	//// キー入力によるカメラの回転
+	//auto& ins = InputManager::GetInstance();
+	//if (GetJoypadNum() == 0)
+	//{
+	//	needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
+	//}
+	//else
+	//{
+	//	auto& ins = InputManager::GetInstance();
+	//	needNewTarget = ins.IsPadBtnTrgDown(
+	//		InputManager::JOYPAD_NO::PAD1,
+	//		InputManager::JOYPAD_BTN::R_BTN
+	//	);
+	//}
 
 
-	if (needNewTarget) {
-		std::shared_ptr<EnemyBase> newTarget = nullptr;
+	//if (needNewTarget) {
+	//	std::shared_ptr<EnemyBase> newTarget = nullptr;
 
-		// 現在のターゲットが有効かチェック
-		bool currentTargetValid = (enemy_ != nullptr &&
-			enemy_->GetIsAlive() &&
-			enemy_->GetHp() > 0);
+	//	// 現在のターゲットが有効かチェック
+	//	bool currentTargetValid = (enemy_ != nullptr &&
+	//		enemy_->GetIsAlive() &&
+	//		enemy_->GetHp() > 0);
 
-		// 現在のターゲットが有効な場合は、距離チェックのみ行う
-		if (currentTargetValid) {
-			VECTOR Pos = VSub(
-				enemy_->GetTransform().pos,
-				player_->GetTransform().pos);
-			float currentDiff = VSize(Pos);
+	//	// 現在のターゲットが有効な場合は、距離チェックのみ行う
+	//	if (currentTargetValid) {
+	//		VECTOR Pos = VSub(
+	//			enemy_->GetTransform().pos,
+	//			player_->GetTransform().pos);
+	//		float currentDiff = VSize(Pos);
 
-			// 現在のターゲットが範囲外の場合のみ新しいターゲットを探す
-			if (currentDiff >= 5000.0f) {
-				currentTargetValid = false;
-			}
-		}
+	//		// 現在のターゲットが範囲外の場合のみ新しいターゲットを探す
+	//		if (currentDiff >= 5000.0f) {
+	//			currentTargetValid = false;
+	//		}
+	//	}
 
-		// 現在のターゲットが無効な場合のみ、新しいターゲットを探す
-		if (!currentTargetValid) {
-			float min = FLT_MAX;
+	//	// 現在のターゲットが無効な場合のみ、新しいターゲットを探す
+	//	if (!currentTargetValid) {
+	//		float min = FLT_MAX;
 
-			for (auto& enemy : enemys) {
-				// 生存している敵のみを対象にする
-				if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) {
-					continue;
-				}
-				//プレイヤーからエネミーの長さ
-				VECTOR Pos = VSub(
-					enemy->GetTransform().pos,
-					player_->GetTransform().pos);
-				float diff = VSize(Pos);
-				//範囲外はスキップ
-				if (diff >= 5000.0f) {
-					continue;
-				}
-				//一番近い敵を探す
-				if (diff < min) {
-					min = diff;
-					newTarget = enemy;
-				}
-			}
+	//		for (auto& enemy : enemys) {
+	//			// 生存している敵のみを対象にする
+	//			if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) {
+	//				continue;
+	//			}
+	//			//プレイヤーからエネミーの長さ
+	//			VECTOR Pos = VSub(
+	//				enemy->GetTransform().pos,
+	//				player_->GetTransform().pos);
+	//			float diff = VSize(Pos);
+	//			//範囲外はスキップ
+	//			if (diff >= 5000.0f) {
+	//				continue;
+	//			}
+	//			//一番近い敵を探す
+	//			if (diff < min) {
+	//				min = diff;
+	//				newTarget = enemy;
+	//			}
+	//		}
 
-			// 新しいターゲットが見つかった場合のみ更新
-			if (newTarget != nullptr) {
-				enemy_ = newTarget;
-			}
-			else {
-				// 見つからなかった場合はターゲットをクリア
-				enemy_ = nullptr;
-			}
-		}
-	}
+	//		// 新しいターゲットが見つかった場合のみ更新
+	//		if (newTarget != nullptr) {
+	//			enemy_ = newTarget;
+	//		}
+	//		else {
+	//			// 見つからなかった場合はターゲットをクリア
+	//			enemy_ = nullptr;
+	//		}
+	//	}
+	//}
 
-	// ターゲットがある場合のみカメラとプレイヤーに設定
-	if (enemy_ != nullptr) {
-		camera->SetTargetFollow(&enemy_.get()->GetTransform());
-		player_->SetLockOnPos(enemy_->GetTransform().pos);
-	}
+	//// ターゲットがある場合のみカメラとプレイヤーに設定
+	//if (enemy_ != nullptr) {
+	//	camera->SetTargetFollow(&enemy_.get()->GetTransform());
+	//	player_->SetLockOnPos(enemy_->GetTransform().pos);
+	//}
 }

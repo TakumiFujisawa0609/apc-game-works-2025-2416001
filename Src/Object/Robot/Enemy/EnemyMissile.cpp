@@ -79,6 +79,9 @@ void EnemyMissile::InitPost(void)
     hpTextOffset_ = { (HPBER_POS.x - hpScl_.x / 2), HPBER_POS.y };
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
+
+    //ÉâÉìÉ_ÉÄÇ»èoåªç¿ïW
+    SetSpawnPostiton();
 }
 
 void EnemyMissile::ProcessAttack(void)
