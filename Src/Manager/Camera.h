@@ -48,13 +48,6 @@ public:
 		TARGET_ROCKE,
 	};
 
-	// 衝突判定種別
-	enum class COLLIDER_TYPE
-	{
-		SPHERE,
-		MAX,
-	};
-
 	// コンストラクタ
 	Camera(void);
 

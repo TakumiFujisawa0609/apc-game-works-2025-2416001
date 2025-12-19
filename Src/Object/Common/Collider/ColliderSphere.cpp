@@ -3,7 +3,7 @@
 
 ColliderSphere::ColliderSphere(TAG tag, const Transform* follow, const VECTOR& localPos, float radius)
 	:
-	ColliderBase(SHAPE::MODEL, tag, follow),
+	ColliderBase(SHAPE::SPHERE, tag, follow),
 	localPos_(localPos),
 	radius_(radius)
 {

@@ -8,6 +8,7 @@
 #include "../../../Utility/MatrixUtility.h"
 #include "../../Common/AnimationController.h"
 #include "./../../Common/Transform.h"
+#include "../../Common/Collider/ColliderBase.h"
 #include "../../Common/Collider/ColliderLine.h"
 #include "../../Common/Collider/ColliderCapsule.h"
 #include "../../../Common/Quaternion.h"
@@ -57,14 +58,14 @@ void Player::InitCollider(void)
     ColliderLine* colLine = new ColliderLine(
         ColliderBase::TAG::PLAYER, &trans_,
         COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
-    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::LINE), colLine);
+    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::LINE), colLine);
 
     // 主に壁や木などの衝突で仕様するカプセルコライダ
     ColliderCapsule* colCapsule = new ColliderCapsule(
         ColliderBase::TAG::PLAYER, &trans_,
         COL_CAPSULE_TOP_LOCAL_POS, COL_CAPSULE_DOWN_LOCAL_POS,
         COL_CAPSULE_RADIUS);
-    ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::CAPSULE), colCapsule);
+    ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::CAPSULE), colCapsule);
 }
 
 void Player::InitAnimation(void)
@@ -94,7 +95,7 @@ void Player::InitPost(void)
     hp_ = DEFALUT_HP;
 
     // 移動方向
-    trans_.moveDir = AsoUtility::VECTOR_ZERO;
+    trans_.moveDir = AsoUtility::DIR_F;
     // 移動スピード
     moveSpeed_ = 0.0f;
     // 移動量
@@ -291,6 +292,7 @@ void Player::ProcessAttack(void)
     if (IsBeam && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::BEAM,
+            ColliderBase::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir,
             beamCnt_);
@@ -302,6 +304,7 @@ void Player::ProcessAttack(void)
     if (IsMissile && stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::MISSILE,
+            ColliderBase::TAG::PLAYER_WEPON,
             trans_.pos,
             targetDir, 
             missileCnt_,
@@ -382,18 +385,18 @@ void Player::CollisionReserve(void)
     if (anim_->GetPlayType() == static_cast<int>(ANIM_TYPE::JUMP))
     {
         // ジャンプ中は線分を伸ばす
-        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::LINE)) != 0)
+        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
         {
             ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::LINE)));
+                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
             colLine->SetLocalPosStart(COL_LINE_JUMP_START_LOCAL_POS);
             colLine->SetLocalPosEnd(COL_LINE_JUMP_END_LOCAL_POS);
         }
         // ジャンプ中はカプセルを伸ばす
-        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::CAPSULE)) != 0)
+        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
         {
             ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::CAPSULE)));
+                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
             colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_JUMP_LOCAL_POS);
             colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_JUMP_LOCAL_POS);
         }
@@ -401,18 +404,18 @@ void Player::CollisionReserve(void)
     else
     {
         // 通常時の線分に戻す
-        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::LINE)) != 0)
+        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::LINE)) != 0)
         {
             ColliderLine* colLine = dynamic_cast<ColliderLine*>(
-                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::LINE)));
+                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::LINE)));
             colLine->SetLocalPosStart(COL_LINE_START_LOCAL_POS);
             colLine->SetLocalPosEnd(COL_LINE_END_LOCAL_POS);
         }
         // 通常時のカプセルに戻す
-        if (ownColliders_.count(static_cast<int>(COLLIDER_TYPE::CAPSULE)) != 0)
+        if (ownColliders_.count(static_cast<int>(ColliderBase::SHAPE::CAPSULE)) != 0)
         {
             ColliderCapsule* colCapsule = dynamic_cast<ColliderCapsule*>(
-                ownColliders_.at(static_cast<int>(COLLIDER_TYPE::CAPSULE)));
+                ownColliders_.at(static_cast<int>(ColliderBase::SHAPE::CAPSULE)));
             colCapsule->SetLocalPosTop(COL_CAPSULE_TOP_LOCAL_POS);
             colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
         }

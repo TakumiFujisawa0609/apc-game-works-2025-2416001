@@ -1,5 +1,6 @@
 #include "../Wepon/WeponBeam.h"
 #include "../Wepon/WeponMissile.h"
+#include "../Common/Collider/ColliderBase.h"
 #include "WeponManager.h"
 
 WeponManager::WeponManager(void)
@@ -42,7 +43,7 @@ void WeponManager::Release(void)
 }
 
 void WeponManager::ChangeWepon(
-	WeponBase::WEPON_TYPE type, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos) {
+	WeponBase::WEPON_TYPE type, ColliderBase::TAG tag, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos) {
 
 	type_ = type;
 
@@ -57,7 +58,7 @@ void WeponManager::ChangeWepon(
 		case WeponBase::WEPON_TYPE::BEAM:
 		{
 			wepon = GetValidWepon(type_);
-			wepon->Init(pos, dir);
+			wepon->Init(pos, dir, tag);
 		}
 		break;
 		case WeponBase::WEPON_TYPE::MISSILE: {
@@ -70,7 +71,7 @@ void WeponManager::ChangeWepon(
 			float randomAngleZ = dir.z + ((rand() % randAnglePow - randAnglePow / 2) / 100.0f);
 			VECTOR moveDir = VNorm(VGet(randomAngleX, randomAngleY, randomAngleZ));
 
-			wepon->Init(pos, moveDir, targetPos);
+			wepon->Init(pos, moveDir, targetPos, tag);
 		}
 		break;
 		case WeponBase::WEPON_TYPE::SWORD:

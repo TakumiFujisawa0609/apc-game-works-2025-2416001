@@ -7,22 +7,12 @@ class WeponBeam
 {
 public:
 
-	//相対座標
-	static constexpr VECTOR LOCAL_POS = { 0.0f,180.0f,0.0f };
-
 	//ビーム最大長さ
-	static constexpr float MAX_BEAM_LENGTH = 5000.0f;
-
+	static constexpr float MAX_BEAM_LENGTH = 1000.0f;
 	//ビーム生存距離
 	static constexpr float MAX_BEAM_DIFF = 50000.0f;
-
 	//ビームの速度
-	static constexpr float DEFAULT_SPEED = 400.0f;
-
-	//衝突半径
-	static constexpr float DEFALUT_RADIUS = 15.0f;
-
-	static constexpr float DAMAGE = 3.0f;
+	static constexpr float DEFAULT_SPEED = 100.0f;
 
 	// コンストラクタ
 	WeponBeam(WEPON_TYPE type);
@@ -45,7 +35,7 @@ protected:
 private:
 
 	// 衝突判定用球体半径
-	static constexpr float COL_CAPSULE_SPHERE = 50.0f;
+	static constexpr float COL_CAPSULE_SPHERE = 30.0f;
 
 	//ビームの長さ
 	float bemelong_;

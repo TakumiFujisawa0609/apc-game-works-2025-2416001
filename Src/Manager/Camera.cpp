@@ -112,7 +112,7 @@ void Camera::InitCollider(void)
 		COL_CAPSULE_SPHERE
 	);
 	ownColliders_.emplace(
-		static_cast<int>(COLLIDER_TYPE::SPHERE), colliderSphere);
+		static_cast<int>(ColliderBase::SHAPE::SPHERE), colliderSphere);
 
 }
 
@@ -394,7 +394,7 @@ void Camera::Collision(void)
 			VAdd(hitPoly.HitPosition, VScale(dirToTarget, COLLISION_BACK_DIS));
 
 		// カメラ位置の球体コライダ
-		int typeSphere = static_cast<int>(COLLIDER_TYPE::SPHERE);
+		int typeSphere = static_cast<int>(ColliderBase::SHAPE::SPHERE);
 
 		// 球体コライダが無ければ処理を抜ける
 		if (ownColliders_.count(typeSphere) == 0) continue;

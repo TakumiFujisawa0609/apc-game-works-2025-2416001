@@ -23,7 +23,10 @@ public:
 		PLAYER,
 		CAMERA,
 		ENEMY,
+		PLAYER_WEPON,
+		ENEMY_WEPON
 	};
+
 	// コンストラクタ
 	ColliderBase(SHAPE shape, TAG tag, const Transform* follow);
 	// デストラクタ

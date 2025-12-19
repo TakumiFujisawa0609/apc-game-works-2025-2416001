@@ -142,6 +142,7 @@ void RobotBase::Collision(void)
     trans_.pos = VAdd(trans_.pos, movePow_);
 
     // 衝突(カプセル)
+    CollisionSphere();
     CollisionCapsule();
 
     // ジャンプ量を加算
@@ -160,7 +161,7 @@ void RobotBase::CollisionGravity(void)
     }
 
     // 線分コライダ
-    int lineType = static_cast<int>(COLLIDER_TYPE::LINE);
+    int lineType = static_cast<int>(ColliderBase::SHAPE::LINE);
 
     // 線分コライダが無ければ処理を抜ける
     if (ownColliders_.count(lineType) == 0) return;
@@ -203,7 +204,7 @@ void RobotBase::CollisionGravity(void)
 void RobotBase::CollisionCapsule(void)
 {
     // カプセルコライダ  
-    int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
+    int capsuleType = static_cast<int>(ColliderBase::SHAPE::CAPSULE);
     // カプセルコライダが無ければ処理を抜ける  
     if (ownColliders_.count(capsuleType) == 0) return;
     // カプセルコライダ情報  
@@ -236,7 +237,7 @@ void RobotBase::CollisionCapsule(void)
 void RobotBase::CollisionSphere(void)
 {
     // カプセルコライダ  
-    int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
+    int capsuleType = static_cast<int>(ColliderBase::SHAPE::CAPSULE);
     // カプセルコライダが無ければ処理を抜ける  
     if (ownColliders_.count(capsuleType) == 0) return;
     // カプセルコライダ情報  
@@ -249,23 +250,24 @@ void RobotBase::CollisionSphere(void)
     for (const auto& hitCol : hitColliders_)
     {
         //球体以外は処理を飛ばす
-        if (hitCol->GetShape() != ColliderBase::SHAPE::SPHERE) continue;
+        if (hitCol->GetShape() != ColliderBase::SHAPE::SPHERE)continue;
 
         const ColliderSphere* collidersphere =
             dynamic_cast<const ColliderSphere*>(hitCol);
 
         if (collidersphere == nullptr) continue;
 
-        bool isHit = AsoUtility::IsHitSphereCapsule(
-            collidersphere->GetPos(),
-            collidersphere->GetRadius(),
-            colliderCapsule->GetPosTop(),
-            colliderCapsule->GetPosDown(),
-            colliderCapsule->GetRadius());
-
-        if (isHit)
+        if (collidersphere->GetTag() == ColliderBase::TAG::PLAYER_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::ENEMY
+            || collidersphere->GetTag() == ColliderBase::TAG::ENEMY_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::PLAYER)
         {
+            bool isHit = AsoUtility::IsHitSphereCapsule(
+                collidersphere->GetPos(), collidersphere->GetRadius(),
+                colliderCapsule->GetPosTop(), colliderCapsule->GetPosDown(), colliderCapsule->GetRadius());
 
+            if (isHit)
+            {
+
+            }
         }
     }
 }

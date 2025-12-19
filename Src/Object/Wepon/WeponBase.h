@@ -2,19 +2,13 @@
 #include <DxLib.h>
 #include "../ObjectBase.h"
 
-class Collider;
+class ColliderBase;
+
 
 class WeponBase
 	:public ObjectBase
 {
 public:
-
-	// 衝突判定種別
-	enum class COLLIDER_TYPE
-	{
-		SPHERE,
-		MAX,
-	};
 
 	//攻撃種類
 	enum class WEPON_TYPE
@@ -25,32 +19,31 @@ public:
 		SWORD,
 	};
 
+	//相対座標
+	static constexpr VECTOR LOCAL_POS = { 0.0f,180.0f,0.0f };
+
 	// コンストラクタ
 	WeponBase(WEPON_TYPE type);
 
 	// デストラクタ
 	~WeponBase(void);
-	void Init(VECTOR pos, VECTOR dir);
-	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos);
+	void Init(VECTOR pos, VECTOR dir, ColliderBase::TAG tag);
+	void Init(VECTOR pos, VECTOR dir, VECTOR targetPos, ColliderBase::TAG tag);
 	void Update(void)override;
 	virtual void Draw(void) = 0;
-	void Release(void)override{}
-
-	// 生存判定
-	bool isAlive_;
 
 	// 武器種別の取得
 	WEPON_TYPE GetType(void);
-	//ダメージの取得
-	float GetDamage(void) { return damage_; }
-
-	float GetColliderRadius(void) { return trans_.Radius_; }
-
-	VECTOR GetStatePos(void) { return statePos_; }
 
 protected:
+
+	//武器タグ
+	ColliderBase::TAG weponTag_;
+
+	// 移動前の座標
+	VECTOR prevPos_;
 	//カプセル先頭座標
-	VECTOR statePos_;
+	VECTOR endPos_;
 	// 武器種別
 	WEPON_TYPE type_;
 	//標敵の座標
@@ -59,8 +52,6 @@ protected:
 	VECTOR playPos_;
 	// 移動スピード
 	float speed_;
-	//ダメージ
-	float damage_;
 
 	// リソースロード
 	void InitLoad(void)override{}

@@ -11,12 +11,8 @@ public:
 	static constexpr VECTOR LOCAL_POS = { 0.0f,180.0f,0.0f };
 	//ビームの長さ
 	static constexpr float MAX_BEAM_LENGTH = 10.0f;
-	//ビームの長さ増加速度
-	static constexpr float BEAM_LENGTH_SPEED = 1.0f;
 	//移動スピード
-	static constexpr float DEFAULT_SPEED = 100.0f;
-	//衝突半径
-	static constexpr float DEFALUT_RADIUS = 10.0f;
+	static constexpr float DEFAULT_SPEED = 50.0f;
 	//モデルの大きさ
 	static constexpr VECTOR DEFAULT_SIZE = { 0.5f, 0.5f, 0.5f };
 	//使用時の相対座標
@@ -25,8 +21,6 @@ public:
 	static constexpr float JUMP_POW = 30.0f;
 	// 重力
 	static constexpr float GRAVITY = 0.1f;
-	//ダメージ
-	static constexpr float DAMAGE = 5.0f;
 	//追尾開始カウント
 	static constexpr float HOMINGSTATE_CNT = 20.0f;
 
@@ -57,8 +51,7 @@ private:
 	float jumpPow_;
 
 	//ビームの長さ
-	float missileLong_;
-	float missileSpeed_;
+	float long_;
 
 	//追尾カウント
 	float homingCnt_;

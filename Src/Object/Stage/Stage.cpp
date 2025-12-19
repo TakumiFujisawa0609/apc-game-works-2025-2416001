@@ -67,7 +67,7 @@ void Stage::InitCollider(void)
 		colModel->AddTargetFrameIds(name);
 	}
 
-	ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::MODEL), colModel);
+	ownColliders_.emplace(static_cast<int>(ColliderBase::SHAPE::MODEL), colModel);
 }
 
 void Stage::InitAnimation(void)

@@ -17,14 +17,6 @@ class RobotBase
 {
 public:
 
-	// 衝突判定種別
-	enum class COLLIDER_TYPE
-	{
-		LINE,
-		CAPSULE,
-		MAX,
-	};
-
 	// コンストラクタ
 	RobotBase(void);
 	// デストラクタ

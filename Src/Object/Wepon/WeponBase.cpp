@@ -1,6 +1,7 @@
 #include "../../Manager/ResourceManager.h"
 #include "../../Utility/MatrixUtility.h"
 #include "../Common/Transform.h"
+#include "../Common/Collider/ColliderBase.h"
 #include "WeponBase.h"
 
 WeponBase::WeponBase(WEPON_TYPE type)
@@ -12,26 +13,27 @@ WeponBase::~WeponBase(void)
 {
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir)
+void WeponBase::Init(VECTOR pos, VECTOR dir, ColliderBase::TAG tag)
 {
-	ObjectBase::Init();
-
 	playPos_ = pos;
+	trans_.localPos = LOCAL_POS;
 	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
-	isAlive_ = true;
+	weponTag_ = tag;
+
+	ObjectBase::Init();
 }
 
-void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos)
+void WeponBase::Init(VECTOR pos, VECTOR dir, VECTOR targetPos, ColliderBase::TAG tag)
 {
-	ObjectBase::Init();
-
 	playPos_ = pos;
+	trans_.localPos = LOCAL_POS;
 	trans_.pos = VAdd(playPos_, trans_.localPos);
 	trans_.moveDir = VNorm(dir);
 	targetPos_ = targetPos;
-	isAlive_ = true;
+	weponTag_ = tag;
 
+	ObjectBase::Init();
 }
 
 void WeponBase::Update(void)
@@ -40,6 +42,9 @@ void WeponBase::Update(void)
 	{
 		return;
 	}
+
+	// 移動前座標を更新
+	prevPos_ = trans_.pos;
 
 	// 移動処理
 	Move();

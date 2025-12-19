@@ -58,41 +58,15 @@ void GameScene::Init(void)
 
 	// Stageクラスのコライダーを各クラスに登録
 	const ColliderBase* stageCollider =
-		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
+		stage_->GetOwnCollider(static_cast<int>(ColliderBase::SHAPE::MODEL));
 	player_->AddHitCollider(stageCollider);
 	enemys_->AddHitCollider(stageCollider);
 	camera->AddHitCollider(stageCollider);
 
 	// Cameraクラスのコライダーを各クラスに登録
 	const ColliderBase* cameraCollider =
-		camera->GetOwnCollider(static_cast<int>(Camera::COLLIDER_TYPE::SPHERE));
+		camera->GetOwnCollider(static_cast<int>(ColliderBase::SHAPE::SPHERE));
 	stage_->AddHitCollider(cameraCollider);
-
-	// Weponクラスのコライダーを各クラスに登録
-	//プレイヤーの武器情報を取得
-	const auto playerWepons = player_->GetUseWepons()->GetWepons();
-	for(auto& playerWepon: playerWepons)
-	{
-		if (playerWepon == nullptr) continue;
-
-		const ColliderBase* weponCollider =
-			playerWepon->GetOwnCollider(static_cast<int>(WeponBase::COLLIDER_TYPE::SPHERE));
-		enemy_->AddHitCollider(weponCollider);
-	}
-
-	//エネミーの武器情報を取得
-	if (enemy_ != nullptr)
-	{
-		const auto enemyWepons = enemy_->GetUseWepons()->GetWepons();
-		for (auto& enemyWepon : enemyWepons)
-		{
-			if (enemyWepon == nullptr) continue;
-
-			const ColliderBase* weponCollider =
-				enemyWepon->GetOwnCollider(static_cast<int>(WeponBase::COLLIDER_TYPE::SPHERE));
-			player_->AddHitCollider(weponCollider);
-		}
-	}
 }
 
 void GameScene::Update(void)
@@ -105,8 +79,37 @@ void GameScene::Update(void)
 	enemys_->Update();
 
 	const ColliderBase* stageCollider =
-		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
+		stage_->GetOwnCollider(static_cast<int>(ColliderBase::SHAPE::MODEL));
 	enemys_->AddHitCollider(stageCollider);
+
+	// Weponクラスのコライダーを各クラスに登録
+	//プレイヤーの武器情報を取得
+	const auto& playerWepons = player_->GetUseWepons()->GetWepons();
+	const auto& enemys = enemys_->GetEnemys();
+	for(auto& enemy: enemys)
+	{ 
+		if (enemy == nullptr)continue;
+
+		//エネミーの武器情報を取得
+		const auto& enemyWepons = enemy->GetUseWepons()->GetWepons();
+		for (auto& enemyWepon : enemyWepons)
+		{
+			if (enemyWepon == nullptr) continue;
+
+			const ColliderBase* enemyWeponCollider =
+				enemyWepon->GetOwnCollider(static_cast<int>(ColliderBase::SHAPE::SPHERE));
+			player_->AddHitCollider(enemyWeponCollider);
+		}
+
+		for (auto& playerWepon : playerWepons)
+		{
+			if (playerWepon == nullptr)continue;
+
+			const ColliderBase* playerWeponCollider =
+				playerWepon->GetOwnCollider(static_cast<int>(ColliderBase::SHAPE::SPHERE));
+			enemy->AddHitCollider(playerWeponCollider);
+		}
+	}
 
 	//ロック対象更新
 	UpdateAutoLockOn();

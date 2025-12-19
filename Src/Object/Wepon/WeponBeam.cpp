@@ -1,6 +1,7 @@
 #include "../../Utility/MatrixUtility.h"
 #include "../../Utility/AsoUtility.h"
 #include "../Common/Collider/ColliderSphere.h"
+#include "../Common/Collider/ColliderBase.h"
 #include "WeponBeam.h"
 
 WeponBeam::WeponBeam(WEPON_TYPE type):
@@ -19,77 +20,67 @@ void WeponBeam::Draw(void)
 		return;
 	}
 
-	// ビームの終点を方向ベクトルを使って計算
-	statePos_ = VAdd(trans_.pos, VScale(trans_.moveDir, bemelong_));
-
 	DrawCapsule3D(
-		trans_.pos,      // 開始点
-		statePos_,          // 終点（方向を考慮）
+		trans_.pos,
+		endPos_,
 		5.0f,
 		30,
 		GetColor(0, 255, 0),
 		GetColor(255, 255, 255),
-		FALSE);
+		true);
 
 #ifdef _DEBUG
 
-	/*DrawFormatString(
-		0, 60, GetColor(255, 255, 255),
-		"座標：(%.1f,%.1f,%.1f)",
-		trans_.pos.x,
-		trans_.pos.y,
-		trans_.pos.z
-	);*/
+	// 所有しているコライダの描画
+	for (const auto& own : ownColliders_)
+	{
+		own.second->Draw();
+	}
 
 #endif
 }
 
 void WeponBeam::InitTransform(void)
 {
-	trans_.localPos = LOCAL_POS;
-	trans_.Radius_ = DEFALUT_RADIUS;
 }
 
 void WeponBeam::InitCollider(void)
 {
 	// 主に地面との衝突で使用する球体コライダ
 	ColliderSphere* colliderSphere = new ColliderSphere(
-		ColliderBase::TAG::CAMERA,
+		weponTag_,
 		&trans_,
 		AsoUtility::VECTOR_ZERO,
 		COL_CAPSULE_SPHERE
 	);
 	ownColliders_.emplace(
-		static_cast<int>(COLLIDER_TYPE::SPHERE), colliderSphere);
+		static_cast<int>(ColliderBase::SHAPE::SPHERE), colliderSphere);
 }
 
 void WeponBeam::InitPost(void)
 {
 	speed_ = DEFAULT_SPEED;
 	bemelong_ = 0.0f;
-	damage_ = DAMAGE;
+	endPos_ = trans_.pos;
 }
 
 void WeponBeam::Move(void)
-{
-	VECTOR  pos = VSub(statePos_, playPos_);
+{ 
+	VECTOR  pos = VSub(trans_.pos, playPos_);
 	float diff = VSize(pos);
 	if (diff >= MAX_BEAM_DIFF)
 	{
-		bemelong_ -= speed_;
-		if (bemelong_ >= 0) {
-			isAlive_ = false;
-		}
+		isAlive_ = false;
 	}
 
+	trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
 	if (bemelong_ > MAX_BEAM_LENGTH)
 	{
-		bemelong_ = MAX_BEAM_LENGTH;
-
-		trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
+		endPos_ = VAdd(endPos_, VScale(trans_.moveDir, speed_));
 	}
 	else
 	{
-		bemelong_ += speed_;
+		bemelong_+= speed_;
 	}
+
 }
