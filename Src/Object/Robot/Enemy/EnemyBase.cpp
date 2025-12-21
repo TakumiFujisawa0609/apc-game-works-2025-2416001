@@ -1,7 +1,9 @@
 #include <memory>
+#include "../../../Application.h"
 #include "../../../Utility/MatrixUtility.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../Common/AnimationController.h"
+#include "../../Common/EffectController.h"
 #include "../../Manager/WeponManager.h"
 #include "../../Common/HpBer.h"
 #include "EnemyBase.h"
@@ -25,6 +27,10 @@ void EnemyBase::Init(void)
 
     // íeî≠éÀÇÃçdíºéûä‘
     stepShotDelay_ = 0.0f;
+
+    eff_ = std::make_unique<EffectController>();
+    eff_->Add(1, Application::PATH_EFFECT + "ToonHit.efkefc");
+    eff_->Play(1);
 }
 
 void EnemyBase::SetSpawnPostiton(void)
@@ -79,7 +85,7 @@ void EnemyBase::UpdateProcessPost(void)
 void EnemyBase::ProcessMove(void)
 {
     //à⁄ìÆó ÇèÌÇ…å∏è≠
-    moveSpeed_ = 0.0f;
+    moveSpeed_ = 10.0f;
 
     movePow_ = VScale(trans_.targetDir, moveSpeed_);
 }

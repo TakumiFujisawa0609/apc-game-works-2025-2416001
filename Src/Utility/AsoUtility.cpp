@@ -648,3 +648,79 @@ VECTOR AsoUtility::GetResolve(const VECTOR& pos1, const float r1, const VECTOR& 
 
     return newVec;
 }
+
+VECTOR AsoUtility::PushCapsuleSphere(const VECTOR& sphPos, float sphRadius, const VECTOR& sphDir, const VECTOR& capPos1, const VECTOR& capPos2, float capRadius)
+{
+    // カプセル球体の中心を繋ぐベクトル
+    VECTOR cap1to2 = VSub(capPos2, capPos1);
+
+    // ベクトルを正規化
+    VECTOR cap1to2ENor = VNorm(cap1to2);
+
+    // カプセル繋ぎの単位ベクトルと、
+    // そのベクトル元から球体へのベクトルの内積を取る
+    float dot = VDot(cap1to2ENor, VSub(sphPos, capPos1));
+
+    // 内積で求めた射影距離を使って、カプセル繋ぎ上の座標を取る
+    VECTOR capRidePos = VAdd(capPos1, VScale(cap1to2ENor, dot));
+
+    // カプセル繋ぎのベクトルの長さを取る
+    float len = AsoUtility::MagnitudeF(cap1to2);
+
+    // 球体がカプセル繋ぎ上にいるか判別するため、比率を取る
+    float rate = dot / len;
+
+    VECTOR centerPos;
+
+    // 球体の位置が３エリアに分割されたカプセル形状のどこにいるか判別
+    if (rate > 0.0f && rate <= 1.0f)
+    {
+        // ①球体がカプセル繋ぎ上にいる
+        centerPos = VAdd(capPos1, VScale(cap1to2ENor, dot));
+    }
+    else if (rate > 1.0f)
+    {
+        // ②球体がカプセルの終点側にいる
+        centerPos = capPos2;
+    }
+    else if (rate < 0.0f)
+    {
+        // ③球体がカプセルの始点側にいる
+        centerPos = capPos1;
+    }
+
+    // 球体中心からカプセル最近接点への方向
+    VECTOR sphere = VSub(sphPos, centerPos);
+    float diff = VSize(sphere);
+    float collisionRadius = sphRadius + capRadius;
+
+    // 押出距離
+    float pushDiff = collisionRadius - diff;
+    // 球体の移動方向を取得
+    float vec = VSize(sphDir);
+    VECTOR pushPow;
+
+    if (vec > 0.1f)
+    {
+        // 移動方向が有効な場合は、その方向に押し出す
+        pushPow = VNorm(sphDir);
+    }
+    else
+    {
+        // 移動していない場合は、球体からカプセルへの方向に押し出す
+        if (diff > 0.0001f)
+        {
+            pushPow = VNorm(sphere);
+        }
+        else
+        {
+            // 完全に重なっている場合は上方向
+            pushPow = DIR_U;
+        }
+    }
+
+    // 押出ベクトルを返す
+    return VScale(pushPow, pushDiff);
+}
+
+

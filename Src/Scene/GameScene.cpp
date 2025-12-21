@@ -176,98 +176,72 @@ void GameScene::UpdateAutoLockOn(void)
 		enemy->SetLockOnPos(player_->GetTransform().pos);
 	}
 
-	if (enemy_ != nullptr && ( !enemy_->GetIsAlive() || enemy_->GetHp() <= 0)) {
+	if (enemy_ != nullptr && (!enemy_->GetIsAlive() || enemy_->GetHp() <= 0)) {
 		enemy_ = nullptr;
 		camera->ChangeMode(Camera::MODE::FOLLOW);
 	}
 
-	////プレイヤーのオートロックオン処理
-	//if (player_->IsTargetLockFlage()) {
-	//	camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
-	//}
-	//else {
-	//	camera->ChangeMode(Camera::MODE::FOLLOW);
-	//	return;
-	//};
+	// 現在のモードと違う場合のみ変更する
+	if (player_->IsTargetLockFlage()) {
+		if (camera->GetCameraMode() != Camera::MODE::TARGET_ROCKE) {
+			camera->ChangeMode(Camera::MODE::TARGET_ROCKE);
+		}
+	}
+	else {
+		if (camera->GetCameraMode() != Camera::MODE::FOLLOW) {
+			camera->ChangeMode(Camera::MODE::FOLLOW);
+		}
+	}
 
-	//bool needNewTarget;
+	bool needNewTarget;
 
-	//// キー入力によるカメラの回転
-	//auto& ins = InputManager::GetInstance();
-	//if (GetJoypadNum() == 0)
-	//{
-	//	needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
-	//}
-	//else
-	//{
-	//	auto& ins = InputManager::GetInstance();
-	//	needNewTarget = ins.IsPadBtnTrgDown(
-	//		InputManager::JOYPAD_NO::PAD1,
-	//		InputManager::JOYPAD_BTN::R_BTN
-	//	);
-	//}
+	// キー入力によるカメラの回転
+	auto& ins = InputManager::GetInstance();
+	if (GetJoypadNum() == 0)
+	{
+		needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
+	}
+	else
+	{
+		auto& ins = InputManager::GetInstance();
+		needNewTarget = ins.IsPadBtnTrgDown(
+			InputManager::JOYPAD_NO::PAD1,
+			InputManager::JOYPAD_BTN::R_BTN
+		);
+	}
 
+	if (needNewTarget) {
+		std::shared_ptr<EnemyBase> newTarget = nullptr;
+		float min = 5000.0f; // ロックオン可能最大距離
 
-	//if (needNewTarget) {
-	//	std::shared_ptr<EnemyBase> newTarget = nullptr;
+		for (auto& enemy : enemys) {
+			// 1. 生存・HPチェック
+			if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) continue;
 
-	//	// 現在のターゲットが有効かチェック
-	//	bool currentTargetValid = (enemy_ != nullptr &&
-	//		enemy_->GetIsAlive() &&
-	//		enemy_->GetHp() > 0);
+			// 2. 現在ロックオン中の敵を「切り替えボタン」で飛ばしたい場合はここに追加
+			// if (needNewTarget && enemy == enemy_) continue; 
 
-	//	// 現在のターゲットが有効な場合は、距離チェックのみ行う
-	//	if (currentTargetValid) {
-	//		VECTOR Pos = VSub(
-	//			enemy_->GetTransform().pos,
-	//			player_->GetTransform().pos);
-	//		float currentDiff = VSize(Pos);
+			// 3. 距離チェック
+			float diff = VSize(VSub(enemy->GetTransform().pos, player_->GetTransform().pos));
 
-	//		// 現在のターゲットが範囲外の場合のみ新しいターゲットを探す
-	//		if (currentDiff >= 5000.0f) {
-	//			currentTargetValid = false;
-	//		}
-	//	}
+			if (diff < min) {
+				min = diff;
+				newTarget = enemy;
+			}
+		}
 
-	//	// 現在のターゲットが無効な場合のみ、新しいターゲットを探す
-	//	if (!currentTargetValid) {
-	//		float min = FLT_MAX;
+		// ターゲットの更新（見つからなければnullptrになる）
+		enemy_ = newTarget;
 
-	//		for (auto& enemy : enemys) {
-	//			// 生存している敵のみを対象にする
-	//			if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) {
-	//				continue;
-	//			}
-	//			//プレイヤーからエネミーの長さ
-	//			VECTOR Pos = VSub(
-	//				enemy->GetTransform().pos,
-	//				player_->GetTransform().pos);
-	//			float diff = VSize(Pos);
-	//			//範囲外はスキップ
-	//			if (diff >= 5000.0f) {
-	//				continue;
-	//			}
-	//			//一番近い敵を探す
-	//			if (diff < min) {
-	//				min = diff;
-	//				newTarget = enemy;
-	//			}
-	//		}
+		// 敵が全滅、または範囲内にいない場合はカメラを通常に戻す
+		if (enemy_ == nullptr) {
+			camera->ChangeMode(Camera::MODE::FOLLOW);
+		}
+	}
 
-	//		// 新しいターゲットが見つかった場合のみ更新
-	//		if (newTarget != nullptr) {
-	//			enemy_ = newTarget;
-	//		}
-	//		else {
-	//			// 見つからなかった場合はターゲットをクリア
-	//			enemy_ = nullptr;
-	//		}
-	//	}
-	//}
-
-	//// ターゲットがある場合のみカメラとプレイヤーに設定
-	//if (enemy_ != nullptr) {
-	//	camera->SetTargetFollow(&enemy_.get()->GetTransform());
-	//	player_->SetLockOnPos(enemy_->GetTransform().pos);
-	//}
+	// 最終的な設定
+	if (enemy_ != nullptr) {
+		camera->SetTargetFollow(&enemy_->GetTransform());
+		player_->SetLockOnPos(enemy_->GetTransform().pos);
+	}
 }

@@ -5,7 +5,9 @@
 #include "../../Manager/Camera.h"
 #include "../../Manager/InputManager.h"
 #include "../../Utility/MatrixUtility.h"
+#include "../../Utility/AsoUtility.h"
 #include "../Common/AnimationController.h"
+#include "../Common/EffectController.h"
 #include "../Common/Collider/ColliderLine.h"
 #include "../Common/Collider/ColliderModel.h"
 #include "../Common/Collider/ColliderCapsule.h"
@@ -31,6 +33,10 @@ void RobotBase::Init(void)
     useWepon_->Init();
 
     hpBer_ = new HpBer(maxHp_, hpTextOffset_, hpScl_, hpCol_, hpBackCol_, -1);
+
+    eff_ = std::make_unique<EffectController>();
+    eff_->Add(1, Application::PATH_EFFECT + "ToonHit.efkefc");
+    eff_->Play(1);
 }
 
 void RobotBase::Update(void)
@@ -81,6 +87,15 @@ void RobotBase::Draw(void)
     Debug();
 
     useWepon_->Draw();
+
+    // カプセルコライダ  
+    int capsuleType = static_cast<int>(ColliderBase::SHAPE::CAPSULE);
+    // カプセルコライダ情報  
+    ColliderCapsule* colliderCapsule =
+        dynamic_cast<ColliderCapsule*>(ownColliders_.at(capsuleType));
+
+    VECTOR vec = VSub(colliderCapsule->GetPosDown(), colliderCapsule->GetPosTop());
+    eff_->Draw(1,{0.0f, 0.0f, 0.0f});
 }
 
 void RobotBase::Release(void)
@@ -258,7 +273,7 @@ void RobotBase::CollisionSphere(void)
         if (collidersphere == nullptr) continue;
 
         if (collidersphere->GetTag() == ColliderBase::TAG::PLAYER_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::ENEMY
-            || collidersphere->GetTag() == ColliderBase::TAG::ENEMY_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::PLAYER)
+          /*  || collidersphere->GetTag() == ColliderBase::TAG::ENEMY_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::PLAYER*/)
         {
             bool isHit = AsoUtility::IsHitSphereCapsule(
                 collidersphere->GetPos(), collidersphere->GetRadius(),
@@ -266,7 +281,7 @@ void RobotBase::CollisionSphere(void)
 
             if (isHit)
             {
-
+                eff_->Update(1);
             }
         }
     }

@@ -1,7 +1,9 @@
-﻿  RobotBase.cpp
-  WeponBeam.cpp
-  WeponMissile.cpp
-C:\AGS_2025_fuyu\Src\Object\Robot\RobotBase.h(41,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  EnemyBase.cpp
+  RobotBase.cpp
+C:\2025AGSwinter\Src\Object\Robot\RobotBase.h(42,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Object/Robot/Enemy/EnemyBase.cpp' をコンパイルしています)
+  
+C:\2025AGSwinter\Src\Object\Robot\RobotBase.h(42,29): warning C4244: 'return': 'int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Src/Object/Robot/RobotBase.cpp' をコンパイルしています)
   
-  BaseProject.vcxproj -> C:\AGS_2025_fuyu\x64\Debug\BaseProject.exe
+  BaseProject.vcxproj -> C:\2025AGSwinter\x64\Debug\BaseProject.exe

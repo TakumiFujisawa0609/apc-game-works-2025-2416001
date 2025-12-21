@@ -1,3 +1,5 @@
+
+
 #include<memory>
 #include "../../../Application.h"
 #include "../../../Manager/ResourceManager.h"
@@ -324,59 +326,49 @@ void Player::ProcessAttack(void)
 
 void Player::ProcessTargetLock(void)
 {
-    bool  isLock;
-
-    if (GetJoypadNum() == 0)
-    {
+    bool isLock;
+    if (GetJoypadNum() == 0) {
         isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
     }
-    else
-    {
+    else {
         isLock = inpMng_.IsPadBtnTrgDown(
             InputManager::JOYPAD_NO::PAD1,
             InputManager::JOYPAD_BTN::L_BTN);
     }
 
-    //対象ロック処理
-    if (isLock)
-    {
-        lockcnt++;
-    }
+    if (isLock) { lockcnt++; }
 
-    if (camera_->GetCameraMode() == Camera::MODE::FIXED_POINT)
-    {
+    if (camera_->GetCameraMode() == Camera::MODE::FIXED_POINT) {
         return;
     }
 
-    // デバッグ球体へのベクトルを計算
+    // 1. ターゲットへのベクトル計算
     VECTOR toTarget = VSub(lockOnPos_, trans_.pos);
-
-    // ターゲットまでの距離をチェック（ゼロ除算回避）
     float distance = VSize(toTarget);
-    if (distance < 0.01f) {
-        return;
-    }
+    if (distance < 0.01f) return;
 
-    // ターゲット方向の正規化
-    VECTOR targetDir = VNorm(toTarget);
+    // 2. ターゲット方向を向くクォータニオンを作成
+    // LookAt のように、現在の位置からターゲット方向への回転を求める
+    // (注: AsoUtility や Quaternion クラスに LookRotation や LookAt 相当の関数があればそれを使用してください)
+    // ここでは基本的なラジアンからクォータニオンを作成する方法で実装します。
+    float targetAngleY = atan2f(toTarget.x, toTarget.z);
+    float horizontalDist = sqrtf(toTarget.x * toTarget.x + toTarget.z * toTarget.z);
+    float targetAngleX = atan2f(-toTarget.y, horizontalDist);
 
-    // ターゲット方向からY軸回転角度を計算（水平方向）
-    float targetAngleY = atan2f(targetDir.x, targetDir.z);
+    Quaternion targetQua = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y)
+        .Mult(Quaternion::AngleAxis(targetAngleX, AsoUtility::AXIS_X));
 
-    // ターゲット方向のX軸回転角度を計算（上下の角度）
-    float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
-    float targetAngleX = atan2f(-targetDir.y, horizontalDist);
+    // 3. 球面線形補間 (Slerp) で滑らかに回転させる
+    // 0.1f ～ 0.2f 程度にすると「ゆっくり振り向く」感じになります。0.5fはかなり速めです。
+    trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetQua, 0.2f);
 
-    // 滑らかに回転させる
-    trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, targetAngleY, 0.5f);
-    trans_.rot.x = AsoUtility::LerpAngle(trans_.rot.x, targetAngleX, 0.5f);
+    // 4. 移動方向の更新
+    trans_.targetDir = VNorm(toTarget);
 
-    // 移動方向もターゲット方向に更新
-    trans_.targetDir = targetDir;
-
-    // ローカル回転とグローバル回転を合成してモデルに適用
-    MV1SetRotationMatrix(trans_.modelId,
-        MatrixUtility::Multiplication(trans_.localRot, trans_.rot));
+    // 5. モデルへの適用 (クォータニオンをマトリックスに変換)
+    // ローカル回転がある場合は先に適用
+    MATRIX rotMat = trans_.quaRot.ToMatrix();
+    MV1SetRotationMatrix(trans_.modelId, MMult(trans_.matRot, rotMat));
 }
 
 void Player::CollisionReserve(void)

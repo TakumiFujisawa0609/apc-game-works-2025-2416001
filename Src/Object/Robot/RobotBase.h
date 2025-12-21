@@ -11,6 +11,7 @@ class WeponBase;
 class WeponManager;
 class AnimationController;
 class HpBer;
+class EffectController;
 
 class RobotBase
 	:public ObjectBase
@@ -57,6 +58,7 @@ protected:
 
 	//ƒAƒjƒƒVƒ‡ƒ“
 	std::unique_ptr<AnimationController> anim_;
+	std::unique_ptr< EffectController> eff_;
 
 	HpBer* hpBer_;
 

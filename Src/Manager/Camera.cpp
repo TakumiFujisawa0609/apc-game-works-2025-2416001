@@ -478,49 +478,40 @@ void Camera::RotGamePad(bool isLimit)
 
 void Camera::SetBeforeDrawTargetLockeOn(void)
 {
-	// デバッグ球体へのベクトルを計算
+	if (!targetTransform_ || !followTransform_) return;
+
+	// --- 1. 注視点（敵の少し上） ---
+	targetPos_ = VAdd(targetTransform_->pos, VGet(0, 120.0f, 0));
+
+	// --- 2. プレイヤーから敵への回転クォータニオンを作成 ---
 	VECTOR toTarget = VSub(targetTransform_->pos, followTransform_->pos);
-
-	// ターゲットまでの距離をチェック（ゼロ除算回避）
 	float distance = VSize(toTarget);
-	if (distance < 0.01f) {
-		return;
-	}
-	// ターゲット方向の正規化
-	VECTOR targetDir = VNorm(toTarget);
+	if (distance < 0.1f) return;
 
-	// ターゲット方向からY軸回転角度を計算（水平方向）
-	float targetAngleY = atan2f(targetDir.x, targetDir.z);
+	// 方向から角度を計算
+	float angleY = atan2f(toTarget.x, toTarget.z);
+	float horizontalDist = sqrtf(toTarget.x * toTarget.x + toTarget.z * toTarget.z);
+	float angleX = atan2f(-toTarget.y, horizontalDist);
 
-	// ターゲット方向のX軸回転角度を計算（上下の角度）
-	float horizontalDist = sqrtf(targetDir.x * targetDir.x + targetDir.z * targetDir.z);
-	float targetAngleX = atan2f(-targetDir.y, horizontalDist);
+	// 敵の方を向くクォータニオンを作成
+	Quaternion targetRotation = Quaternion::AngleAxis(angleY, AsoUtility::AXIS_Y)
+		.Mult(Quaternion::AngleAxis(angleX, AsoUtility::AXIS_X));
 
-	// 滑らかに回転させる（補間）
-	angles_.y = AsoUtility::LerpAngle(angles_.y, targetAngleY, 0.1f);
-	angles_.x = AsoUtility::LerpAngle(angles_.x, targetAngleX, 0.1f);
+	// --- 3. カメラのオフセット位置を計算 ---
+	// ローカル座標でのカメラ位置：後ろに350、上に180、右に80
+	// (X: 右, Y: 上, Z: 前/後)
+	VECTOR localOffset = VGet(80.0f, 250.0f, -350.0f);
 
-	// ロボットが向いている方向を取得
-	VECTOR robotForward = followTransform_->targetDir;
+	// クォータニオンを使ってローカルオフセットをワールド回転させる
+	VECTOR worldOffset = targetRotation.PosAxis(localOffset);
 
-	// ロボットの向き（Y軸回転角度）を前方ベクトルから計算
-	float robotAngleY = atan2f(robotForward.x, robotForward.z);
+	// プレイヤーの位置に回転させたオフセットを足す
+	trans_.pos = VAdd(followTransform_->pos, worldOffset);
 
-	// ターゲット方向のX軸回転角度を計算（上下の角度）
-	float robotAngleX = atan2f(robotForward.z, robotForward.y);
-
-	// カメラのローカルオフセット（ロボットから見た相対位置）
-	VECTOR localOffset = VGet(100.0f, 250.0f, -300.0f);
-
-	// ロボットの向きに応じてオフセットを回転
-	MATRIX rotMat;
-	rotMat = MGetRotX(robotAngleX);
-	rotMat = MGetRotY(robotAngleY);
-	VECTOR worldOffset = VTransform(localOffset, rotMat);
-
-	// カメラの位置を計算
-	trans_.pos = VAdd(followTransform_->targetDir, worldOffset);
-	targetPos_ = targetTransform_->pos;
+	// --- 4. パラメータの同期 ---
+	trans_.quaRot = targetRotation;
+	angles_.x = angleX;
+	angles_.y = angleY;
 }
 
 

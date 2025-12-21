@@ -12,7 +12,7 @@ public:
 	//ビーム生存距離
 	static constexpr float MAX_BEAM_DIFF = 50000.0f;
 	//ビームの速度
-	static constexpr float DEFAULT_SPEED = 100.0f;
+	static constexpr float DEFAULT_SPEED = 50.0f;
 
 	// コンストラクタ
 	WeponBeam(WEPON_TYPE type);

@@ -157,4 +157,8 @@ public:
 
 	static VECTOR GetResolve(const VECTOR& pos1, const float r1, const VECTOR& pos2, const float r2);
 
+	//球体とカプセルの押出関数
+	static VECTOR PushCapsuleSphere(
+		const VECTOR& sphPos, float sphRadius, const VECTOR& sphDir,
+		const VECTOR& capPos1, const VECTOR& capPos2, float capRadius);
 };
