@@ -326,7 +326,7 @@ void Player::ProcessAttack(void)
 
 void Player::ProcessTargetLock(void)
 {
-    bool isLock;
+    bool isLock = false;
     if (GetJoypadNum() == 0) {
         isLock = inpMng_.IsTrgDown(KEY_INPUT_L);
     }
@@ -336,9 +336,10 @@ void Player::ProcessTargetLock(void)
             InputManager::JOYPAD_BTN::L_BTN);
     }
 
-    if (isLock) { lockcnt++; }
+    if (isLock) { lockcnt++; } 
 
-    if (camera_->GetCameraMode() == Camera::MODE::FIXED_POINT) {
+    if (camera_->GetCameraMode() != Camera::MODE::TARGET_ROCKE
+        && lockcnt % 2 == 0) {
         return;
     }
 
@@ -347,26 +348,23 @@ void Player::ProcessTargetLock(void)
     float distance = VSize(toTarget);
     if (distance < 0.01f) return;
 
-    // 2. ターゲット方向を向くクォータニオンを作成
-    // LookAt のように、現在の位置からターゲット方向への回転を求める
-    // (注: AsoUtility や Quaternion クラスに LookRotation や LookAt 相当の関数があればそれを使用してください)
-    // ここでは基本的なラジアンからクォータニオンを作成する方法で実装します。
+    // 2. 水平方向のベクトルを取得（Y成分を0にする）
+    VECTOR horizontalToTarget = VGet(toTarget.x, 0.0f, toTarget.z);
+    float horizontalDist = VSize(horizontalToTarget);
+
+    if (horizontalDist < 0.01f) return; // 真上・真下の場合はスキップ
+
+    // 3. Y軸回転のみを計算
     float targetAngleY = atan2f(toTarget.x, toTarget.z);
-    float horizontalDist = sqrtf(toTarget.x * toTarget.x + toTarget.z * toTarget.z);
-    float targetAngleX = atan2f(-toTarget.y, horizontalDist);
+    Quaternion targetQua = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y);
 
-    Quaternion targetQua = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y)
-        .Mult(Quaternion::AngleAxis(targetAngleX, AsoUtility::AXIS_X));
-
-    // 3. 球面線形補間 (Slerp) で滑らかに回転させる
-    // 0.1f ～ 0.2f 程度にすると「ゆっくり振り向く」感じになります。0.5fはかなり速めです。
+    // 4. 球面線形補間で滑らかに回転
     trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetQua, 0.2f);
 
-    // 4. 移動方向の更新
-    trans_.targetDir = VNorm(toTarget);
+    // 5. 移動方向の更新（水平方向のみ）
+    trans_.targetDir = VNorm(horizontalToTarget);
 
-    // 5. モデルへの適用 (クォータニオンをマトリックスに変換)
-    // ローカル回転がある場合は先に適用
+    // 6. モデルへの適用
     MATRIX rotMat = trans_.quaRot.ToMatrix();
     MV1SetRotationMatrix(trans_.modelId, MMult(trans_.matRot, rotMat));
 }

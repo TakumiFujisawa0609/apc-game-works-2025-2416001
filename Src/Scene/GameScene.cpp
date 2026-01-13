@@ -199,7 +199,7 @@ void GameScene::UpdateAutoLockOn(void)
 	auto& ins = InputManager::GetInstance();
 	if (GetJoypadNum() == 0)
 	{
-		needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_RETURN);
+		needNewTarget = (enemy_ == nullptr) || inp.IsTrgDown(KEY_INPUT_L);
 	}
 	else
 	{

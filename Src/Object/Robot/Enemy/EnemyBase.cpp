@@ -108,12 +108,12 @@ void EnemyBase::ProcessTargetLock(void)
     float targetAngleY = atan2f(trans_.targetDir.x, trans_.targetDir.z);
 
     // ターゲット方向のX軸回転角度を計算（上下の角度）
-    float horizontalDist = sqrtf(trans_.targetDir.x * trans_.targetDir.x + trans_.targetDir.z * trans_.targetDir.z);
-    float targetAngleX = atan2f(-trans_.targetDir.y, horizontalDist);
+    float horizontalDist = sqrtf(
+        trans_.targetDir.x * trans_.targetDir.x 
+        + trans_.targetDir.z * trans_.targetDir.z);
 
     // 滑らかに回転させる
     trans_.rot.y = AsoUtility::LerpAngle(trans_.rot.y, targetAngleY, 0.5f);
-    trans_.rot.x = AsoUtility::LerpAngle(trans_.rot.x, targetAngleX, 0.5f);
 
     // 移動方向もターゲット方向に更新
     trans_.moveDir = trans_.targetDir;
