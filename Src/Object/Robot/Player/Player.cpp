@@ -115,11 +115,11 @@ void Player::InitPost(void)
 
 void Player::UpdateProcess(void)
 {
-    //対象ロック処理
-    ProcessTargetLock();
-
     //移動処理
     ProcessMove();
+
+    //対象ロック処理
+    ProcessTargetLock();
 
     //上昇処理
     ProcessRise();
@@ -195,8 +195,33 @@ void Player::ProcessMove(void)
             }
         }
 
-        Quaternion cameraRot = scnMng_.GetCamera()->GetQuaRotY();
-        trans_.moveDir = Quaternion::PosAxis(cameraRot, dir);
+        // ターゲットロック状態かどうかで移動方向の計算を変える
+        if (IsTargetLockFlage())
+        {
+            // ターゲットロック時：ターゲット方向を基準に移動
+            // ターゲットへの方向ベクトルを取得
+            VECTOR toTarget = VSub(lockOnPos_, trans_.pos);
+            toTarget.y = 0.0f; // Y軸成分を無視して水平方向のみ
+            toTarget = VNorm(toTarget);
+
+            // ターゲット方向からY軸回転角度を計算
+            float targetAngleY = atan2f(toTarget.x, toTarget.z);
+            Quaternion targetRot = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y);
+
+            // プレイヤーの向きをターゲット方向に補間
+            trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetRot, 0.2f);
+
+            // 入力方向をターゲット基準の回転で変換
+            trans_.moveDir = Quaternion::PosAxis(targetRot, dir);
+
+        }
+        else
+        {
+            // 通常時：カメラ方向を基準に移動
+            Quaternion cameraRot = scnMng_.GetCamera()->GetQuaRotY();
+            trans_.moveDir = Quaternion::PosAxis(cameraRot, dir);
+        }
+
         movePow_ = VScale(trans_.moveDir, moveSpeed_);
     }
     else {
@@ -337,36 +362,6 @@ void Player::ProcessTargetLock(void)
     }
 
     if (isLock) { lockcnt++; } 
-
-    if (camera_->GetCameraMode() != Camera::MODE::TARGET_ROCKE
-        && lockcnt % 2 == 0) {
-        return;
-    }
-
-    // 1. ターゲットへのベクトル計算
-    VECTOR toTarget = VSub(lockOnPos_, trans_.pos);
-    float distance = VSize(toTarget);
-    if (distance < 0.01f) return;
-
-    // 2. 水平方向のベクトルを取得（Y成分を0にする）
-    VECTOR horizontalToTarget = VGet(toTarget.x, 0.0f, toTarget.z);
-    float horizontalDist = VSize(horizontalToTarget);
-
-    if (horizontalDist < 0.01f) return; // 真上・真下の場合はスキップ
-
-    // 3. Y軸回転のみを計算
-    float targetAngleY = atan2f(toTarget.x, toTarget.z);
-    Quaternion targetQua = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y);
-
-    // 4. 球面線形補間で滑らかに回転
-    trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetQua, 0.2f);
-
-    // 5. 移動方向の更新（水平方向のみ）
-    trans_.targetDir = VNorm(horizontalToTarget);
-
-    // 6. モデルへの適用
-    MATRIX rotMat = trans_.quaRot.ToMatrix();
-    MV1SetRotationMatrix(trans_.modelId, MMult(trans_.matRot, rotMat));
 }
 
 void Player::CollisionReserve(void)
