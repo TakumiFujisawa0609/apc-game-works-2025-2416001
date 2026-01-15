@@ -1,11 +1,17 @@
 #pragma once
 #include "SceneBase.h"
-#include<functional>
+
 class ResultScene :
     public SceneBase
 {
 
 public:
+
+	enum class STATE
+	{
+		CLERA,
+		GAMEOVER
+	};
 
 	// コンストラクタ
 	ResultScene(void);
@@ -19,5 +25,10 @@ public:
 	void Release(void) override;
 
 private:
+
+	int img_;
+	int loopCounter;
+
+	STATE state_;
 };
 

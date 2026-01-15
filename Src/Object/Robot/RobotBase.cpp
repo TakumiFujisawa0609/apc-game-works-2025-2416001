@@ -64,6 +64,14 @@ void RobotBase::Update(void)
     // Õ“Ë”»’è
     Collision();
 
+    if ((trans_.pos.x < -6000.0f
+        || trans_.pos.x > 9000.0f)
+        || (trans_.pos.z < -4300.0f
+            || trans_.pos.z > 6700.0f))
+    {
+        trans_.pos = prevPos_;
+    }
+
     // ƒ‚ƒfƒ‹§ŒäXV
     trans_.Update();
 

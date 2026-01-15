@@ -21,5 +21,7 @@ public:
 
 private:
 
+	int img_;
+	int loopCounter;
 };
 

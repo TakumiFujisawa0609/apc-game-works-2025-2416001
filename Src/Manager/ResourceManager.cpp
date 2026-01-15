@@ -59,6 +59,15 @@ void ResourceManager::Init(void)
 
 	res = std::make_unique<Resource>(Resource::TYPE::FONT, PATH_FONT + "Bokutachi.otf");
 	resourcesMap_.emplace(SRC::FONT_BOKUTACHI, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::IMG, PATH_IMG + "Title.png");
+	resourcesMap_.emplace(SRC::TITLE_IMG, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::IMG, PATH_IMG + "Result_Clear.png");
+	resourcesMap_.emplace(SRC::RESULT_CLEAR, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::IMG, PATH_IMG + "Result_GameOver.png");
+	resourcesMap_.emplace(SRC::RESULT_GAMEOVER, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

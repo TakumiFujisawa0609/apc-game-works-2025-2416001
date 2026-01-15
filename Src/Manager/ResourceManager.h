@@ -32,6 +32,10 @@ public:
 
 		FONT_BOKUTACHI,
 
+		TITLE_IMG,
+		RESULT_CLEAR,
+		RESULT_GAMEOVER,
+
 		//•Šíƒ‚ƒfƒ‹
 	    WEPON
 	};
