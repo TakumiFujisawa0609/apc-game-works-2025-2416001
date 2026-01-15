@@ -22,7 +22,7 @@ public:
 	// 重力
 	static constexpr float GRAVITY = 0.1f;
 	//追尾開始カウント
-	static constexpr float HOMINGSTATE_CNT = 20.0f;
+	static constexpr float HOMINGSTATE_CNT = 40.0f;
 
 	// コンストラクタ
 	WeponMissile(WEPON_TYPE type);

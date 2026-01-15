@@ -8,6 +8,7 @@
 #include "../Common/Fader.h"
 
 #include "./ResourceManager.h"
+#include "./FontManager.h"
 
 #include "../Scene/SceneBase.h"
 #include "../Scene/TitleScene.h"
@@ -74,6 +75,9 @@ void SceneManager::Init(void)
 
 	//データバンクの作成
 	DataBank::CreateInstance();
+
+	// フォント管理クラス生成
+	FontManager::CreateInstance();
 
 	// 3D用の設定
 	Init3D();
@@ -174,6 +178,7 @@ void SceneManager::Destroy(void)
 {
 	DeleteGraph(mainScreen_);
 	DataBank::GetInstance().Destroy();
+	FontManager::GetInstance().Destroy();
 	if (capturedScreenGraph_ != -1)
 	{
 		DeleteGraph(capturedScreenGraph_);

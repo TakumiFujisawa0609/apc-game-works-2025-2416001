@@ -1,4 +1,8 @@
 #pragma once
+
+class FontManager;
+class ResourceManager;
+
 class SceneBase
 {
 
@@ -21,6 +25,12 @@ public:
 
 	// ‰ğ•úˆ—
 	virtual void Release(void) = 0;
+
+protected:
+
+	// ƒŠƒ\[ƒXŠÇ—
+	ResourceManager& resMng_;
+	FontManager& fontMng_;
 
 };
 

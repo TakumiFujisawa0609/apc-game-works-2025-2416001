@@ -1,5 +1,3 @@
-
-
 #include<memory>
 #include "../../../Application.h"
 #include "../../../Manager/ResourceManager.h"
@@ -204,16 +202,17 @@ void Player::ProcessMove(void)
             toTarget.y = 0.0f; // Y軸成分を無視して水平方向のみ
             toTarget = VNorm(toTarget);
 
-            // ターゲット方向からY軸回転角度を計算
-            float targetAngleY = atan2f(toTarget.x, toTarget.z);
+            // ターゲット方向の正規化
+            VECTOR targetDir = VNorm(toTarget);
+            // ターゲット方向からY軸回転角度を計算（水平方向）
+            float targetAngleY = atan2f(targetDir.x, targetDir.z);
             Quaternion targetRot = Quaternion::AngleAxis(targetAngleY, AsoUtility::AXIS_Y);
-
             // プレイヤーの向きをターゲット方向に補間
-            trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetRot, 0.2f);
-
+            trans_.quaRot = Quaternion::Slerp(trans_.quaRot, targetRot, 0.8f);
             // 入力方向をターゲット基準の回転で変換
             trans_.moveDir = Quaternion::PosAxis(targetRot, dir);
-
+            // 移動方向もターゲット方向に更新
+            trans_.targetDir = targetDir;
         }
         else
         {
@@ -299,6 +298,8 @@ void Player::ProcessAttack(void)
     {
         targetDir = trans_.targetDir;
     }
+
+    useWepon_->SetTargetPos(lockOnPos_);
 
     bool IsBeam;
     bool IsMissile;

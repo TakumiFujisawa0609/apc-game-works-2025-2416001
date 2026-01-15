@@ -27,6 +27,9 @@ public:
 	//•Ší‚ÌØ‚è‘Ö‚¦ˆ—
 	void ChangeWepon(WeponBase::WEPON_TYPE type, ColliderBase::TAG tag, VECTOR pos, VECTOR dir, int weponCnt, VECTOR targetPos = AsoUtility::VECTOR_ZERO);
 
+	//UŒ‚‘ÎÛ‚Ì“o˜^
+	void SetTargetPos(const VECTOR& targetPos);
+
 private:
 
 	//•Šíî•ñ

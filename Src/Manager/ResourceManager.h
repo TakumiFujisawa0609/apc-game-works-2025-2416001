@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 #include <map>
 #include <string>
 #include "Resource.h"
@@ -27,6 +28,9 @@ public:
 		ENEMY_STAN, 
 		SKY_DOME,
 		MAIN_STAGE,
+
+
+		FONT_BOKUTACHI,
 
 		//武器モデル
 	    WEPON
@@ -63,6 +67,13 @@ public:
 	/// <param name="src">複製したいリソース</param>
 	/// <returns>複製したリソース</returns>
 	int LoadModelDuplicate(SRC src);
+
+	/// <summary>
+	/// 指定したキーのフォントの名前を返す
+	/// </summary>
+	/// <param name="key">リソースキー</param>
+	/// <returns>フォントの名前</returns>
+	/*const std::wstring GetFontName(const std::string& key)const;*/
 
 private:
 	//ナンバー画像分割数X

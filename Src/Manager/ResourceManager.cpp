@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <cassert>
 #include "../Application.h"
 #include "Resource.h"
 #include "ResourceManager.h"
@@ -26,6 +27,7 @@ void ResourceManager::Init(void)
 	static std::string PATH_OBJ = Application::PATH_OBJECT;
 	static std::string PATH_MDL = Application::PATH_MODEL;
 	static std::string PATH_EFF = Application::PATH_EFFECT;
+	static std::string PATH_FONT = Application::PATH_FONT;
 
 	std::unique_ptr<Resource> res;
 
@@ -54,6 +56,9 @@ void ResourceManager::Init(void)
 
 	res = std::make_unique<Resource>(Resource::TYPE::MODEL, PATH_MDL + "SkyDome/Skydome.mv1");
 	resourcesMap_.emplace(SRC::SKY_DOME, std::move(res));
+
+	res = std::make_unique<Resource>(Resource::TYPE::FONT, PATH_FONT + "Bokutachi.otf");
+	resourcesMap_.emplace(SRC::FONT_BOKUTACHI, std::move(res));
 }
 
 void ResourceManager::SceneChangeRelease(void)

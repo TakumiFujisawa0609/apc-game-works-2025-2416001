@@ -2,6 +2,7 @@
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/ResourceManager.h"
+#include "../Manager/FontManager.h"
 #include "../Manager/SoundManager.h"
 
 #include "../Application.h"

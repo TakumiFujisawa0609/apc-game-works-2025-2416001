@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <tchar.h> 
 #include <EffekseerForDXLib.h>
 
 #include "Manager/SceneManager.h"
@@ -14,7 +15,8 @@ Application* Application::instance_ = nullptr;
 const std::string Application::PATH_IMAGE = "Data/Image/";
 const std::string Application::PATH_MODEL = "Data/Model/";
 const std::string Application::PATH_EFFECT = "Data/Effect/";
-const std::string Application::PATH_SOUND = "Data/Sound/";
+const std::string Application::PATH_FONT = "Data/Image/Object/";
+const std::string Application::PATH_SOUND = "Data/Font/";
 const std::string Application::PATH_OBJECT = "Data/Image/Object/";
 
 void Application::CreateInstance(void)

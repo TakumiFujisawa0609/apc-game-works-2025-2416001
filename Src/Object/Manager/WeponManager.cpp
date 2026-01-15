@@ -82,6 +82,14 @@ void WeponManager::ChangeWepon(
 	}
 }
 
+void WeponManager::SetTargetPos(const VECTOR& targetPos)
+{
+	for (std::shared_ptr<WeponBase> wepons : wepons_)
+	{
+		wepons->SetTarget(targetPos);
+	}
+}
+
 std::shared_ptr<WeponBase> WeponManager::GetValidWepon(WeponBase::WEPON_TYPE type)
 {
 	//size_t size = wepons_.size();

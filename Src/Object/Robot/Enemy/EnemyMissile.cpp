@@ -87,6 +87,8 @@ void EnemyMissile::InitPost(void)
 
 void EnemyMissile::ProcessAttack(void)
 {
+    useWepon_->SetTargetPos(lockOnPos_);
+
     if (stepShotDelay_ <= 0.0f) {
         useWepon_->ChangeWepon(
             WeponBase::WEPON_TYPE::MISSILE,

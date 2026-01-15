@@ -66,38 +66,36 @@ void WeponMissile::InitPost(void)
 
 void WeponMissile::Move(void)
 {
-	trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
-	if (long_ > MAX_BEAM_LENGTH)
-	{
-		endPos_ = VAdd(endPos_, VScale(trans_.moveDir, speed_));
-	}
-	else
-	{
-		homingCnt_++;
-		long_ += speed_;
-	}
+    if (homingCnt_ < HOMINGSTATE_CNT)
+    {
+        homingCnt_++;
+    }
+    else
+    {
+        VECTOR toTarget = VSub(targetPos_, trans_.pos);
+        float distance = VSize(toTarget);
 
-	// d—Í(‰Á‘¬“x‚ð‘¬“x‚É‰ÁŽZ‚µ‚Ä‚¢‚­)
-	jumpPow_ -= GRAVITY;
-	trans_.pos.y += jumpPow_;
-	if (trans_.pos.y < 0)
-	{
-		isAlive_ = false;
-	}
+        if (distance >= 0.01f)
+        {
+            VECTOR targetDir = VNorm(toTarget);
+            float power = 0.3f;
+            trans_.moveDir = VNorm(
+				VAdd(VScale(trans_.moveDir, 1.0f - power),VScale(targetDir, power)));
+        }
+    }
 
-	if (homingCnt_ <= HOMINGSTATE_CNT)
-	{
-		return;
-	}
+    trans_.pos = VAdd(trans_.pos, VScale(trans_.moveDir, speed_));
+    if (long_ > MAX_BEAM_LENGTH)
+    {
+        endPos_ = VAdd(endPos_, VScale(trans_.moveDir, speed_));
+    }
+    else
+    {
+        long_ += speed_;
+    }
 
-	homingCnt_ = HOMINGSTATE_CNT;
-
-	VECTOR toTarget = VSub(targetPos_, trans_.pos);
-	float distance = VSize(toTarget);
-
-	if (distance >= 0.01f)
-	{
-		VECTOR targetDir = VNorm(toTarget);
-		trans_.moveDir = VNorm(VAdd(trans_.moveDir,targetDir));
-	}
+    if (trans_.pos.y < 0)
+    {
+        isAlive_ = false;
+    }
 }

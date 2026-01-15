@@ -35,6 +35,8 @@ public:
 	// •Šíí•Ê‚Ìæ“¾
 	WEPON_TYPE GetType(void);
 
+	void SetTarget(const VECTOR& targetPos) { targetPos_ = targetPos; }
+
 protected:
 
 	//•Šíƒ^ƒO
