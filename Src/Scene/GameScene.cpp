@@ -212,16 +212,12 @@ void GameScene::UpdateAutoLockOn(void)
 
 	if (needNewTarget) {
 		std::shared_ptr<EnemyBase> newTarget = nullptr;
-		float min = 5000.0f; // ロックオン可能最大距離
+		float min = 5000.0f;
 
 		for (auto& enemy : enemys) {
-			// 1. 生存・HPチェック
+
 			if (!enemy->GetIsAlive() || enemy->GetHp() <= 0) continue;
-
-			// 2. 現在ロックオン中の敵を「切り替えボタン」で飛ばしたい場合はここに追加
-			// if (needNewTarget && enemy == enemy_) continue; 
-
-			// 3. 距離チェック
+			if (needNewTarget && enemy == enemy_) continue; 
 			float diff = VSize(VSub(enemy->GetTransform().pos, player_->GetTransform().pos));
 
 			if (diff < min) {
@@ -229,17 +225,13 @@ void GameScene::UpdateAutoLockOn(void)
 				newTarget = enemy;
 			}
 		}
-
-		// ターゲットの更新（見つからなければnullptrになる）
 		enemy_ = newTarget;
-
-		// 敵が全滅、または範囲内にいない場合はカメラを通常に戻す
 		if (enemy_ == nullptr) {
 			camera->ChangeMode(Camera::MODE::FOLLOW);
 		}
 	}
 
-	// 最終的な設定
+	//対象の情報を格納
 	if (enemy_ != nullptr) {
 		camera->SetTargetFollow(&enemy_->GetTransform());
 		player_->SetLockOnPos(enemy_->GetTransform().pos);

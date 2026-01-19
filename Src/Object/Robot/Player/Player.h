@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <vector>
 #include <memory>
 #include <DxLib.h>
@@ -28,11 +29,14 @@ public:
 
 	enum class STATE
 	{
+		NONE,
 		IDLE,
 		RUN,
 		FAST_RUN,
 		DEAD,
 		DAMAGE,
+		INVINCIBLE,
+		END
 	};
 
 	//初期サイズ
@@ -151,6 +155,35 @@ private:
 
 	//状態
 	STATE state_;
+
+	// 状態管理(状態遷移時初期処理)
+	std::map<int, std::function<void(void)>> stateChanges_;
+
+	// 状態管理(更新ステップ)
+	std::function<void(void)> stateUpdate_;
+
+	// 更新ステップ
+	float step_;
+
+	// 状態遷移
+	void ChangeState(STATE state);
+	void ChangeNone(void);
+	void ChangeIdle(void);
+	void ChangeRun(void);
+	void ChangeFastRun(void);
+	void ChangeDamage(void);
+	void ChangeInvincible(void);
+	void ChangeEnd(void);
+
+	// 更新系
+	void UpdateNone(void);
+	void UpdateIdle(void);
+	void UpdateRun(void);
+	void UpdateFastRun(void);
+	void UpdateDamage(void);
+	void UpdateInvincible(void);
+	void UpdateEnd(void);
+
 
 	//カメラの角度
 	Camera* camera_;

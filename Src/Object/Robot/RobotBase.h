@@ -41,7 +41,7 @@ public:
 
 	float GetHp(void) { return hp_; }
 
-	void SetDamager(int damager) { hp_ -= damager; }
+	void SetDamager(int damager) { damager_ = damager; }
 
 	const std::shared_ptr<WeponManager>& GetUseWepons(void) const { return useWepon_; }
 
@@ -92,6 +92,8 @@ protected:
 	int cntHitReact_;
 	//撃破用一定間隔カウンタ
 	int cntDeadReact_;
+
+	float damager_;
 
 	int maxHp_;
 	Vector2 hpTextOffset_;

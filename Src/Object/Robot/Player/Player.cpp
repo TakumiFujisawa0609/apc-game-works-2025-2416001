@@ -116,17 +116,34 @@ void Player::InitPost(void)
     hpCol_ = HPBER_COLOR;
     hpBackCol_ = HPBER_COLOR_BACK;
 
-    //状態
-    state_ = STATE::IDLE;
-
     // 無敵時間初期化（追加）
     isInvincible_ = false;
     invincibleTime_ = 0.0f;
 
-    // ノックバック初期化（追加）
+    // ノックバック初期化
     knockbackVec_ = AsoUtility::VECTOR_ZERO;
     knockbackPower_ = 0.0f;
     knockbackTime_ = 0.0f;
+
+
+    // 状態遷移初期処理登録
+    stateChanges_.emplace(static_cast<int>(STATE::NONE),
+        std::bind(&Player::ChangeNone, this));
+    stateChanges_.emplace(static_cast<int>(STATE::IDLE),
+        std::bind(&Player::ChangeIdle, this));
+    stateChanges_.emplace(static_cast<int>(STATE::RUN),
+        std::bind(&Player::ChangeRun, this));
+    stateChanges_.emplace(static_cast<int>(STATE::FAST_RUN),
+        std::bind(&Player::ChangeFastRun, this));
+    stateChanges_.emplace(static_cast<int>(STATE::DAMAGE),
+        std::bind(&Player::ChangeDamage, this));
+    stateChanges_.emplace(static_cast<int>(STATE::INVINCIBLE),
+        std::bind(&Player::ChangeInvincible, this));
+    stateChanges_.emplace(static_cast<int>(STATE::END),
+        std::bind(&Player::ChangeEnd, this));
+
+    // 初期状態設定
+    ChangeState(STATE::IDLE);
 }
 
 void Player::UpdateProcess(void)
@@ -187,6 +204,9 @@ void Player::UpdateProcess(void)
 
         return;  // ノックバック中は他の処理をスキップ
     }
+
+    // 状態別更新
+    stateUpdate_();
 
     //移動処理
     ProcessMove();
@@ -540,4 +560,75 @@ void Player::TakeDamage(int damage, VECTOR attackerPos)
 bool Player::IsInvincible(void) const
 {
     return isInvincible_;
+}
+
+void Player::ChangeState(STATE state)
+{
+    state_ = state;
+
+    // 各状態遷移の初期処理
+    stateChanges_[static_cast<int>(state_)]();
+}
+
+void Player::ChangeNone(void)
+{
+    stateUpdate_ = std::bind(&Player::UpdateNone, this);
+}
+
+void Player::ChangeIdle(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeIdle, this);
+}
+
+void Player::ChangeRun(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeRun, this);
+}
+
+void Player::ChangeFastRun(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeFastRun, this);
+}
+
+void Player::ChangeDamage(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeDamage, this);
+}
+
+void Player::ChangeInvincible(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeInvincible, this);
+}
+
+void Player::ChangeEnd(void)
+{
+    stateUpdate_ = std::bind(&Player::ChangeEnd, this);
+}
+
+void Player::UpdateNone(void)
+{
+}
+
+void Player::UpdateIdle(void)
+{
+}
+
+void Player::UpdateRun(void)
+{
+}
+
+void Player::UpdateFastRun(void)
+{
+}
+
+void Player::UpdateDamage(void)
+{
+}
+
+void Player::UpdateInvincible(void)
+{
+}
+
+void Player::UpdateEnd(void)
+{
 }
