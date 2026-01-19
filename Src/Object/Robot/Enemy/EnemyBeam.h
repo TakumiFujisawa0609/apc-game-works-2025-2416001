@@ -16,6 +16,7 @@ public:
 		THINK,
 		IDLE,
 		WANDER,
+		DEAD,
 		END
 	};
 
@@ -54,7 +55,7 @@ public:
 	//ビーム出現数
 	static constexpr int BEAM_CNT = 1;
 	//HP
-	static constexpr int DEFALUT_HP = 15;
+	static constexpr int DEFALUT_HP = 150;
 
 	// テキスト調整値
 	Vector2 HP_TEXT_OFFSET = { -200, -40 };
@@ -86,9 +87,11 @@ protected:
 
 	//攻撃処理
 	void ProcessAttack(void)override;
-
 	// 衝突判定
 	void CollisionReserve(void) override;
+	// 更新系
+	void UpdateProcess(void) override;
+	void UpdateProcessPost(void) override;
 
 private:
 

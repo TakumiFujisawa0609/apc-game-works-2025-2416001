@@ -63,25 +63,6 @@ void EnemyBase::SetSpawnPostiton(void)
     trans_.pos = pos;
 }
 
-void EnemyBase::UpdateProcess(void)
-{
-    //‘ÎÛƒƒbƒNˆ—
-    ProcessTargetLock();
-
-    //ˆÚ“®ˆ—
-    ProcessMove();
-
-    //ã¸ˆ—
-    ProcessRise();
-
-    //UŒ‚ˆ—
-    ProcessAttack();
-}
-
-void EnemyBase::UpdateProcessPost(void)
-{
-}
-
 void EnemyBase::ProcessMove(void)
 {
     //ˆÚ“®—Ê‚ğí‚ÉŒ¸­

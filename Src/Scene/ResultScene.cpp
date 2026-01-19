@@ -19,6 +19,7 @@ ResultScene::~ResultScene(void)
 void ResultScene::Init(void)
 {
 	state_ = STATE::GAMEOVER;
+	mode_ = MODE::TRYAGAIN;
 	if(state_ == STATE::CLERA)
 	{
 		img_ = resMng_.Load(ResourceManager::SRC::RESULT_CLEAR).handleId_;
@@ -46,9 +47,13 @@ void ResultScene::Update(void)
 		);
 	}
 
-	if (isKey)
+	if (isKey && mode_ == MODE::TITLEBACK)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
+	}
+	else if (isKey && mode_ == MODE::TRYAGAIN)
+	{
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
 }
 
@@ -70,11 +75,10 @@ void ResultScene::Draw(void)
 
 	VECTOR dir = AsoUtility::VECTOR_ZERO;
 	auto& ins = InputManager::GetInstance();
-	int index = 0;
 
 	if (GetJoypadNum() == 0) {
-		if (ins.IsTrgDown(KEY_INPUT_W)) {index = 1;}
-		if (ins.IsTrgDown(KEY_INPUT_S)) {index = 0;}
+		if (ins.IsTrgDown(KEY_INPUT_W)) { mode_ = MODE::TRYAGAIN;}
+		if (ins.IsTrgDown(KEY_INPUT_S)) { mode_ = MODE::TITLEBACK;}
 	}
 	else {
 		// 接続されているゲームパッド１の情報を取得
@@ -85,16 +89,16 @@ void ResultScene::Draw(void)
 
 		// 上方向入力で TRY AGAIN を選択
 		if (dir.z < -0.5f) {
-			index = 1;
+			mode_ = MODE::TRYAGAIN;
 		}
 		// 下方向入力で TITLE BACK を選択
 		else if (dir.z > 0.5f) {
-			index = 0;
+			mode_ = MODE::TITLEBACK;
 		}
 	}
 
-	bool shouldBlink = (loopCounter / 20) % 3 == 0;
-	if (index != 0 || !shouldBlink)
+	bool shouldBlink = (loopCounter / 20) % 2 == 0;
+	if (mode_ != MODE::TRYAGAIN || !shouldBlink)
 	{
 		DrawString((Application::SCREEN_SIZE_X - GetDrawStringWidth("TRY AGAIN", 16)) / 2
 			, Application::SCREEN_SIZE_Y - 150
@@ -102,7 +106,7 @@ void ResultScene::Draw(void)
 			, 0xFFFFFF);
 	}
 
-	if (index != 1 || !shouldBlink)
+	if (mode_ != MODE::TITLEBACK|| !shouldBlink)
 	{
 		DrawString((Application::SCREEN_SIZE_X - GetDrawStringWidth("TITLE BACK", 16)) / 2
 			, Application::SCREEN_SIZE_Y - 100

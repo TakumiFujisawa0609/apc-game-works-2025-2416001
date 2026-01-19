@@ -46,6 +46,7 @@ public:
 
 	//¶‘¶ƒtƒ‰ƒOæ“¾
 	const bool GetIsAlive(void)const { return isAlive_; }
+	void SetAlive(bool alive) { isAlive_ = alive; }
 
 protected:
 

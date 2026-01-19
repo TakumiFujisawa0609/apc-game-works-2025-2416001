@@ -280,8 +280,7 @@ void RobotBase::CollisionSphere(void)
 
         if (collidersphere == nullptr) continue;
 
-        if (collidersphere->GetTag() == ColliderBase::TAG::PLAYER_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::ENEMY
-          /*  || collidersphere->GetTag() == ColliderBase::TAG::ENEMY_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::PLAYER*/)
+        if (collidersphere->GetTag() == ColliderBase::TAG::ENEMY_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::PLAYER)
         {
             bool isHit = AsoUtility::IsHitSphereCapsule(
                 collidersphere->GetPos(), collidersphere->GetRadius(),
@@ -289,7 +288,19 @@ void RobotBase::CollisionSphere(void)
 
             if (isHit)
             {
-                eff_->Update(1);
+                SetDamager(1);
+            }
+        }
+
+        if (collidersphere->GetTag() == ColliderBase::TAG::PLAYER_WEPON && colliderCapsule->GetTag() == ColliderBase::TAG::ENEMY)
+        {
+            bool isHit = AsoUtility::IsHitSphereCapsule(
+                collidersphere->GetPos(), collidersphere->GetRadius(),
+                colliderCapsule->GetPosTop(), colliderCapsule->GetPosDown(), colliderCapsule->GetRadius());
+
+            if (isHit)
+            {
+                SetDamager(10);
             }
         }
     }

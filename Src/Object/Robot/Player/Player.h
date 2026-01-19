@@ -30,7 +30,9 @@ public:
 	{
 		IDLE,
 		RUN,
-		FAST_RUN
+		FAST_RUN,
+		DEAD,
+		DAMAGE,
 	};
 
 	//初期サイズ
@@ -62,7 +64,7 @@ public:
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 1.0f;
 	//HP
-	static constexpr int DEFALUT_HP = 50;
+	static constexpr int DEFALUT_HP = 1000;
 
 
 	// テキスト調整値
@@ -123,6 +125,10 @@ protected:
 	// 衝突判定
 	void CollisionReserve(void) override;
 
+	// ダメージ処理用
+	void TakeDamage(int damage, VECTOR attackerPos);
+	bool IsInvincible(void) const;
+
 private:
 
 	// 衝突判定用カプセル上部球体(ジャンプ時)
@@ -150,6 +156,19 @@ private:
 	Camera* camera_;
 
 	bool debug_;
+
+	// 無敵時間関連
+	bool isInvincible_;          // 無敵状態フラグ
+	float invincibleTime_;       // 無敵時間カウンタ
+	static constexpr float INVINCIBLE_DURATION = 1.0f;  // 無敵時間（秒）
+
+	// ノックバック関連
+	VECTOR knockbackVec_;        // ノックバック方向ベクトル
+	float knockbackPower_;       // ノックバックの強さ
+	float knockbackTime_;        // ノックバック時間カウンタ
+	static constexpr float KNOCKBACK_DURATION = 0.3f;   // ノックバック時間（秒）
+	static constexpr float KNOCKBACK_STRENGTH = 500.0f; // ノックバック初速
+
 
 };
 

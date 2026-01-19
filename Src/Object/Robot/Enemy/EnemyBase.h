@@ -44,10 +44,6 @@ protected:
 	//移動可能範囲
 	float moveRadius_;
 
-	// 更新系
-	void UpdateProcess(void)override;
-	void UpdateProcessPost(void)override;
-
 	//移動処理
 	void ProcessMove(void)override;
 	//上昇処理
@@ -60,10 +56,10 @@ protected:
 	// 状態遷移
 	void ChangeState(int state);
 
+	// 更新系
+	virtual void UpdateProcessPost(void) override {}
+
 	// 移動可能範囲判定
 	/*bool InMovableRange(void) const;*/
-
-private:
-
 };
 

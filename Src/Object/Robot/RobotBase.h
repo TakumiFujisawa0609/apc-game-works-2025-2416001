@@ -41,6 +41,8 @@ public:
 
 	float GetHp(void) { return hp_; }
 
+	void SetDamager(int damager) { hp_ -= damager; }
+
 	const std::shared_ptr<WeponManager>& GetUseWepons(void) const { return useWepon_; }
 
 protected:

@@ -9,6 +9,17 @@ class EnemyMissile :
 {
 public:
 
+	// 状態
+	enum class STATE
+	{
+		NONE,
+		THINK,
+		IDLE,
+		WANDER,
+		DEAD,
+		END
+	};
+
 	//アニメーション
 	enum class ANIM_TYPE
 	{
@@ -50,7 +61,7 @@ public:
 	static constexpr unsigned int HPBER_COLOR_BACK = 0xAAAAAA;
 
 	//HP
-	static constexpr int DEFALUT_HP = 10;
+	static constexpr int DEFALUT_HP = 90;
 	// 弾発射後の硬直時間
 	static constexpr float SHOT_DELAY = 14.0f;
 	//ミサイル出現数
@@ -75,9 +86,12 @@ protected:
 
 	//攻撃処理
 	void ProcessAttack(void)override;
-
 	// 衝突判定
 	void CollisionReserve(void) override;
+
+	// 更新系
+	void UpdateProcess(void) override;
+	void UpdateProcessPost(void) override;
 
 private:
 
@@ -98,6 +112,29 @@ private:
 	static constexpr VECTOR COL_CAPSULE_DOWN_LOCAL_POS = { 0.0f, 30.0f, 0.0f };
 	// 衝突判定用カプセル球体半径
 	static constexpr float COL_CAPSULE_RADIUS = 35.0f;
+
+	// 状態
+	STATE state_;
+
+	// 更新ステップ
+	float step_;
+	//状態変更カウント
+	float stepCnt_;
+
+	// 状態遷移
+	void ChangeState(STATE state);
+	void ChangeStateNone(void);
+	void ChangeStateThink(void);
+	void ChangeStateIdle(void);
+	void ChangeStateWander(void);
+	void ChangeStateEnd(void);
+
+	// 更新系
+	void UpdateNone(void);
+	void UpdateThink(void);
+	void UpdateIdle(void);
+	void UpdateWander(void);
+	void UpdateEnd(void);
 
 };
 

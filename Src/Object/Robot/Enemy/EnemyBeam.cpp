@@ -141,6 +141,46 @@ void EnemyBeam::CollisionReserve(void)
     }
 }
 
+void EnemyBeam::UpdateProcess(void)
+{
+    if (hp_ <= 0 && state_ != STATE::DEAD)
+    {
+        // 死亡状態に遷移
+        state_ = STATE::DEAD;
+        moveSpeed_ = 0.0f;
+        movePow_ = AsoUtility::VECTOR_ZERO;
+        anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
+    }
+
+    if (state_ == STATE::DEAD)
+    {
+        if (anim_->IsEnd())
+        {
+            isAlive_ = false;
+        }
+        return;
+    }
+
+    // 状態別更新
+    stateUpdate_();
+
+    //対象ロック処理
+    ProcessTargetLock();
+
+    //移動処理
+    ProcessMove();
+
+    //上昇処理
+    ProcessRise();
+
+    //攻撃処理
+    ProcessAttack();
+}
+
+void EnemyBeam::UpdateProcessPost(void)
+{
+}
+
 void EnemyBeam::ChangeState(STATE state)
 {
     state_ = state;
@@ -160,18 +200,18 @@ void EnemyBeam::ChangeStateThink(void)
 
     stepCnt_ = 0.0f;
 
-    // 思考
-    // ランダムに次の行動を決定
-    // 30%で待機、70%で徘徊
-    int rand = GetRand(100);
-    if (rand < 30)
-    {
-        ChangeState(STATE::IDLE);
-    }
-    else
-    {
-        ChangeState(STATE::WANDER);
-    }
+    //// 思考
+    //// ランダムに次の行動を決定
+    //// 30%で待機、70%で徘徊
+    //int rand = GetRand(100);
+    //if (rand < 30)
+    //{
+    //    ChangeState(STATE::IDLE);
+    //}
+    //else
+    //{
+    //    ChangeState(STATE::WANDER);
+    //}
 }
 
 void EnemyBeam::ChangeStateIdle(void)
@@ -203,6 +243,10 @@ void EnemyBeam::UpdateIdle(void)
 
 void EnemyBeam::UpdateWander(void)
 {
+    if (anim_->IsEnd())
+    {
+        isAlive_ = false;
+    }
 }
 
 void EnemyBeam::UpdateEnd(void)

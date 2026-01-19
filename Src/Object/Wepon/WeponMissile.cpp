@@ -66,15 +66,15 @@ void WeponMissile::InitPost(void)
 
 void WeponMissile::Move(void)
 {
+	VECTOR toTarget = VSub(targetPos_, trans_.pos);
+	float distance = VSize(toTarget);
+
     if (homingCnt_ < HOMINGSTATE_CNT)
     {
         homingCnt_++;
     }
     else
     {
-        VECTOR toTarget = VSub(targetPos_, trans_.pos);
-        float distance = VSize(toTarget);
-
         if (distance >= 0.01f)
         {
             VECTOR targetDir = VNorm(toTarget);
@@ -94,7 +94,8 @@ void WeponMissile::Move(void)
         long_ += speed_;
     }
 
-    if (trans_.pos.y < 0)
+    if (trans_.pos.y < 0
+		|| distance <= 5.0f)
     {
         isAlive_ = false;
     }

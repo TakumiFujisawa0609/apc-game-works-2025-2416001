@@ -27,6 +27,15 @@ Player::~Player(void)
 
 void Player::Debug(void)
 {
+    // 無敵時間中は点滅させる
+    if (isInvincible_)
+    {
+        // 0.1秒ごとに表示/非表示を切り替え
+        if (fmod(invincibleTime_, 0.2f) < 0.1f)
+        {
+            return;  // 描画しない
+        }
+    }
 }
 
 void Player::SetCamera(Camera* camera)
@@ -109,10 +118,76 @@ void Player::InitPost(void)
 
     //状態
     state_ = STATE::IDLE;
+
+    // 無敵時間初期化（追加）
+    isInvincible_ = false;
+    invincibleTime_ = 0.0f;
+
+    // ノックバック初期化（追加）
+    knockbackVec_ = AsoUtility::VECTOR_ZERO;
+    knockbackPower_ = 0.0f;
+    knockbackTime_ = 0.0f;
 }
 
 void Player::UpdateProcess(void)
 {
+    // 無敵時間の更新
+    if (isInvincible_)
+    {
+        invincibleTime_ -= scnMng_.GetDeltaTime();
+        if (invincibleTime_ <= 0.0f)
+        {
+            isInvincible_ = false;
+            invincibleTime_ = 0.0f;
+        }
+    }
+
+    if (hp_ <= 0 && state_ != STATE::DEAD)
+    {
+        // 死亡状態に遷移
+        state_ = STATE::DEAD;
+        moveSpeed_ = 0.0f;
+        movePow_ = AsoUtility::VECTOR_ZERO;
+        anim_->Play(static_cast<int>(ANIM_TYPE::DEATH), false);
+    }
+
+    if (state_ == STATE::DEAD)
+    {
+        if (anim_->IsEnd())
+        {
+            isAlive_ = false;
+        }
+        return;
+    }
+
+    // ノックバック処理
+    if (knockbackTime_ > 0.0f)
+    {
+        knockbackTime_ -= scnMng_.GetDeltaTime();
+
+        // ノックバック減衰
+        knockbackPower_ *= 0.9f;
+
+        // ノックバック移動量を計算
+        movePow_ = VScale(knockbackVec_, knockbackPower_ * scnMng_.GetDeltaTime());
+
+        if (knockbackTime_ <= 0.0f)
+        {
+            knockbackTime_ = 0.0f;
+            knockbackPower_ = 0.0f;
+            movePow_ = AsoUtility::VECTOR_ZERO;
+
+            // ノックバック終了後、DAMAGE状態ならIDLEに戻す
+            if (state_ == STATE::DAMAGE)
+            {
+                state_ = STATE::IDLE;
+                anim_->Play(static_cast<int>(ANIM_TYPE::IDLE));
+            }
+        }
+
+        return;  // ノックバック中は他の処理をスキップ
+    }
+
     //移動処理
     ProcessMove();
 
@@ -406,4 +481,63 @@ void Player::CollisionReserve(void)
             colCapsule->SetLocalPosDown(COL_CAPSULE_DOWN_LOCAL_POS);
         }
     }
+}
+
+void Player::TakeDamage(int damage, VECTOR attackerPos)
+{
+    // 無敵時間中または死亡状態ならダメージを受けない
+    if (isInvincible_ || state_ == STATE::DEAD)
+    {
+        return;
+    }
+
+    // HPを減らす
+    hp_ -= damage;
+    if (hp_ < 0)
+    {
+        hp_ = 0;
+    }
+
+    // 死亡判定（UpdateProcessで処理されるので、ここでは状態変更のみ）
+    if (hp_ <= 0)
+    {
+        return;
+    }
+
+    // ダメージ状態に遷移
+    state_ = STATE::DAMAGE;
+
+    // 無敵時間開始
+    isInvincible_ = true;
+    invincibleTime_ = INVINCIBLE_DURATION;
+
+    // ノックバック方向を計算（攻撃者から離れる方向）
+    VECTOR knockbackDir = VSub(trans_.pos, attackerPos);
+    knockbackDir.y = 0.0f;  // Y軸は無視
+
+    // ゼロベクトルチェック
+    if (VSquareSize(knockbackDir) > 0.0f)
+    {
+        knockbackVec_ = VNorm(knockbackDir);
+    }
+    else
+    {
+        // 攻撃者と位置が重なっている場合は、現在の向きの逆方向
+        knockbackVec_ = VScale(trans_.moveDir, -1.0f);
+    }
+
+    // ノックバック開始
+    knockbackPower_ = KNOCKBACK_STRENGTH;
+    knockbackTime_ = KNOCKBACK_DURATION;
+
+    // 移動速度リセット
+    moveSpeed_ = 0.0f;
+
+    // ダメージアニメーション（あれば）
+     anim_->Play(static_cast<int>(ANIM_TYPE::HIT_REACT), false);
+}
+
+bool Player::IsInvincible(void) const
+{
+    return isInvincible_;
 }

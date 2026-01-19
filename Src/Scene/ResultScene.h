@@ -13,6 +13,12 @@ public:
 		GAMEOVER
 	};
 
+	enum class MODE
+	{
+		TRYAGAIN,
+		TITLEBACK
+	};
+
 	// コンストラクタ
 	ResultScene(void);
 
@@ -30,5 +36,7 @@ private:
 	int loopCounter;
 
 	STATE state_;
+
+	MODE mode_;
 };
 
