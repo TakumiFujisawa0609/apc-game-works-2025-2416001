@@ -224,6 +224,10 @@ void EnemyBeam::ChangeStateWander(void)
     stateUpdate_ = std::bind(&EnemyBeam::UpdateWander, this);
 }
 
+void EnemyBeam::ChangeStateDead(void)
+{
+}
+
 void EnemyBeam::ChangeStateEnd(void)
 {
     stateUpdate_ = std::bind(&EnemyBeam::UpdateEnd, this);
@@ -247,6 +251,10 @@ void EnemyBeam::UpdateWander(void)
     {
         isAlive_ = false;
     }
+}
+
+void EnemyBeam::UpdateDead(void)
+{
 }
 
 void EnemyBeam::UpdateEnd(void)

@@ -92,6 +92,16 @@ void RobotBase::Draw(void)
 
     ObjectBase::Draw();
 
+    //// ñ≥ìGéûä‘íÜÇÕì_ñ≈Ç≥ÇπÇÈ
+    //if (!isInvincible_)
+    //{
+    //    // 0.1ïbÇ≤Ç∆Ç…ï\é¶/îÒï\é¶ÇêÿÇËë÷Ç¶
+    //    if (fmod(invincibleTime_, 0.2f) < 0.1f)
+    //    {
+    //        ObjectBase::Draw();
+    //    }
+    //}
+
     Debug();
 
     useWepon_->Draw();
@@ -104,6 +114,7 @@ void RobotBase::Draw(void)
 
     VECTOR vec = VSub(colliderCapsule->GetPosDown(), colliderCapsule->GetPosTop());
     eff_->Draw(1,{0.0f, 0.0f, 0.0f});
+
 }
 
 void RobotBase::Release(void)
@@ -288,7 +299,7 @@ void RobotBase::CollisionSphere(void)
 
             if (isHit)
             {
-                SetDamager(1);
+                TakeDamage(1.0f);
             }
         }
 
@@ -300,7 +311,7 @@ void RobotBase::CollisionSphere(void)
 
             if (isHit)
             {
-                SetDamager(10);
+                TakeDamage(10.0f);
             }
         }
     }

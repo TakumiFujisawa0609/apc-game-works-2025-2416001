@@ -31,11 +31,8 @@ public:
 	{
 		NONE,
 		IDLE,
-		RUN,
-		FAST_RUN,
-		DEAD,
 		DAMAGE,
-		INVINCIBLE,
+		DEAD,
 		END
 	};
 
@@ -130,7 +127,7 @@ protected:
 	void CollisionReserve(void) override;
 
 	// ダメージ処理用
-	void TakeDamage(int damage, VECTOR attackerPos);
+	void TakeDamage(float damage)override;
 	bool IsInvincible(void) const;
 
 private:
@@ -169,19 +166,15 @@ private:
 	void ChangeState(STATE state);
 	void ChangeNone(void);
 	void ChangeIdle(void);
-	void ChangeRun(void);
-	void ChangeFastRun(void);
 	void ChangeDamage(void);
-	void ChangeInvincible(void);
+	void ChangeDead(void);
 	void ChangeEnd(void);
 
 	// 更新系
 	void UpdateNone(void);
 	void UpdateIdle(void);
-	void UpdateRun(void);
-	void UpdateFastRun(void);
 	void UpdateDamage(void);
-	void UpdateInvincible(void);
+	void UpdateDead(void);
 	void UpdateEnd(void);
 
 
@@ -190,15 +183,7 @@ private:
 
 	bool debug_;
 
-	// 無敵時間関連
-	bool isInvincible_;          // 無敵状態フラグ
-	float invincibleTime_;       // 無敵時間カウンタ
 	static constexpr float INVINCIBLE_DURATION = 1.0f;  // 無敵時間（秒）
-
-	// ノックバック関連
-	VECTOR knockbackVec_;        // ノックバック方向ベクトル
-	float knockbackPower_;       // ノックバックの強さ
-	float knockbackTime_;        // ノックバック時間カウンタ
 	static constexpr float KNOCKBACK_DURATION = 0.3f;   // ノックバック時間（秒）
 	static constexpr float KNOCKBACK_STRENGTH = 500.0f; // ノックバック初速
 

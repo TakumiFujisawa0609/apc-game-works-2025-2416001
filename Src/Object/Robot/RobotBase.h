@@ -41,7 +41,7 @@ public:
 
 	float GetHp(void) { return hp_; }
 
-	void SetDamager(int damager) { damager_ = damager; }
+	virtual void TakeDamage(float damage){}
 
 	const std::shared_ptr<WeponManager>& GetUseWepons(void) const { return useWepon_; }
 
@@ -103,6 +103,14 @@ protected:
 
 	// 弾発射後の硬直時間計算用
 	float stepShotDelay_;
+
+	// 無敵時間関連
+	bool isInvincible_;          // 無敵状態フラグ
+	float invincibleTime_;       // 無敵時間カウンタ
+	// ノックバック関連
+	VECTOR knockbackVec_;        // ノックバック方向ベクトル
+	float knockbackPower_;       // ノックバックの強さ
+	float knockbackTime_;        // ノックバック時間カウンタ
 
 	// 更新系
 	virtual void UpdateProcess(void) = 0;

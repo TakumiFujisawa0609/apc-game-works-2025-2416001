@@ -16,6 +16,7 @@ public:
 		THINK,
 		IDLE,
 		WANDER,
+		DAMAGE,
 		DEAD,
 		END
 	};
@@ -127,6 +128,7 @@ private:
 	void ChangeStateThink(void);
 	void ChangeStateIdle(void);
 	void ChangeStateWander(void);
+	void ChangeStateDead(void);
 	void ChangeStateEnd(void);
 
 	// çXêVån
@@ -134,6 +136,7 @@ private:
 	void UpdateThink(void);
 	void UpdateIdle(void);
 	void UpdateWander(void);
+	void UpdateDead(void);
 	void UpdateEnd(void);
 };
 

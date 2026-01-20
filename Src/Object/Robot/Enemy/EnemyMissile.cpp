@@ -228,6 +228,10 @@ void EnemyMissile::ChangeStateWander(void)
     stateUpdate_ = std::bind(&EnemyMissile::UpdateWander, this);
 }
 
+void EnemyMissile::ChangeStateDead(void)
+{
+}
+
 void EnemyMissile::ChangeStateEnd(void)
 {
     stateUpdate_ = std::bind(&EnemyMissile::UpdateEnd, this);
@@ -246,6 +250,10 @@ void EnemyMissile::UpdateIdle(void)
 }
 
 void EnemyMissile::UpdateWander(void)
+{
+}
+
+void EnemyMissile::UpdateDead(void)
 {
 }
 
